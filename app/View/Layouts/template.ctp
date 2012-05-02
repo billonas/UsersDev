@@ -49,6 +49,8 @@
 											if(!strcmp($this->Session->read('UserType'),'simple')) {//simple
 												echo $this->Html->link('Προσωπικό προφίλ', array('controller' => 'users', 'action'=>'edit'));
 												echo '</br></br>';
+												echo $this->Html->link('Ρυθμίσεις λογαριασμού', array('controller' => 'users', 'action'=>'account'));
+												echo '</br></br>';
 												echo $this->Html->link('Ιστορικό αναφορών', array('controller' => 'users', 'action'=>'myreports'));
 												echo '</br></br>';
 												echo $this->Html->link('Αποσύνδεση', array('controller' => 'users', 'action'=>'logout'));
