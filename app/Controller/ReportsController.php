@@ -93,6 +93,15 @@ class ReportsController extends AppController{
             } 
             else {
                 if ($this->Report->save($this->data)) {
+                    $this->data = $this->Report->findById($id);
+                    if(empty($this->data)){
+                        $this->Session->setFlash('Invalid ID');
+                        $this->redirect('table');
+                    }
+                    $categories = ClassRegistry::init('Category')->find('all');
+                    $report = $this->data;
+                    $this->set('report',$report);
+                    $this->set('categories',$categories);
                     $this->Session->setFlash('Η αναφορά αναλύθηκε επιτυχώς','flash_good');
                     $this->redirect('table');
                 } 
