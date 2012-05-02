@@ -1,0 +1,15 @@
+/*.upper_row ul li{
+	filter:progid:DXImageTransform.Microsoft.DropShadow(color='#000000',offX='-1',offY='0');
+}*/
+
+.upper_row ul li a{
+	font: bold 95%/1em  Helvetica, Verdana, Arial, sans-serif;
+}
+
+.upper_row ul li a small {
+	font: bold 80%/1.3em Helvetica, Verdana, Arial, sans-serif;
+}
+
+[data-icon]:after {
+	top: 2.5em;
+}
