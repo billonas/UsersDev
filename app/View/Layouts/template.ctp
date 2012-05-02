@@ -46,9 +46,25 @@
 										if($this->Session->check('UserUsername')) {
 											echo '<h1>Καλώς ήλθατε</h1>';
 											
-											echo $this->Html->link('Προβολή προσωπικού προφίλ', array('controller' => 'users', 'action'=>'edit'));
-											echo '</br></br>';
-											echo $this->Html->link('Αποσύνδεση', array('controller' => 'users', 'action'=>'logout'));
+											if(!strcmp($this->Session->read('UserType'),'simple')) {//simple
+												echo $this->Html->link('Προσωπικό προφίλ', array('controller' => 'users', 'action'=>'edit'));
+												echo '</br></br>';
+												echo $this->Html->link('Ιστορικό αναφορών', array('controller' => 'users', 'action'=>'myreports'));
+												echo '</br></br>';
+												echo $this->Html->link('Αποσύνδεση', array('controller' => 'users', 'action'=>'logout'));
+											}
+											else if(!strcmp($this->Session->read('UserType'),'analyst')) {//analyst
+												echo $this->Html->link('Πίνακας αναφορών', array('controller' => 'reports', 'action'=>'table'));
+												echo '</br></br>';
+												echo $this->Html->link('Αποσύνδεση', array('controller' => 'users', 'action'=>'logout'));
+											}
+											else if(!strcmp($this->Session->read('UserType'),'yperanalyst')) {//superanalyst
+												echo $this->Html->link('Πίνακας υπεραναλυτή', array('controller' => 'users', 'action'=>false));
+												echo '</br></br>';
+												echo $this->Html->link('Πίνακας αναφορών', array('controller' => 'reports', 'action'=>'table'));
+												echo '</br></br>';
+												echo $this->Html->link('Αποσύνδεση', array('controller' => 'users', 'action'=>'logout'));
+											}
                            
 									    }
 										else{
