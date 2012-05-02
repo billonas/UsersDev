@@ -47,8 +47,8 @@ class ImageComponent extends Component {
 	}
 	//dinw sthn eikona gia onoma to id ths eggrafhs(me thn katallhlh katalhksh) kai th metaferw tautoxrona ston fakelo
         //webroot/img/reports
-	$newName = "../webroot/img/$dir/$newNameId$ext.$tok";  
-	rename("../webroot$name", $newName);
+	$newName = "$dir/$newNameId$ext.$tok";  
+	rename("../webroot$name", "../webroot/img/$newName");
         if(!$report->saveField("main_photo", $newName)) return 0;
         return 1;
     }
