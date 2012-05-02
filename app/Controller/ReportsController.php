@@ -7,44 +7,35 @@
  */
 class ReportsController extends AppController{
     var $name = 'Reports';
-    public $helpers = array('Html', 'Form', 'Cropimage', 'Js','Session', 'Xls','GoogleMapV3');
-    public $components = array('JqImgcrop');
+    public $helpers = array('Html', 'Form', 'Cropimage','GoogleMapV3', 'Js','Session', 'Xls');
+    public $components = array('JqImgcrop', 'Image');
 
    function export() { //http://eureka.ykyuen.info/2009/10/04/cakephp-export-data-to-a-xls-file/       
    	$data = $this->Report->find('all');
    	$this->set('reports', $data);
    }
 
-   function checkImage($path){
-         $result = 1;
-         ini_set("display_errors", 0);  //xreiazetai gia na mhn bgainei warning an den einai foto
-   	 if(!exif_imagetype($path)){
-            $result = 0;
-	 }
-         ini_set("display_errors", 1);
-         return $result;
-   }
 
     function create() {
-        if (!empty($this->data)){
+        if($this->Session->check('UserUsername')){
+            $email = $this->Session->read('UserUsername');
+            $userId = ClassRegistry::init('User')->getUserId($email);
+            $this->set('userId',$userId);
+        }
+        if (!empty($this->data)) {
             if(isset($this->data['Report']['image'])){
-            	// CHECK IF INPUT FILE IS IMAGE FORMAT
-//            	if(!$this->checkImage($this->data['Report']['image']['tmp_name'])){
-//  			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία');
-//                        $this->redirect('create');
-//                }
-                // FIND FILE EXTENSION
-    	        $tok = strtok (  $this->request->data['Report']['image']['name'], "." );
-                while(($tok1 = strtok(".")) !== false){
-                        $tok = $tok1;      		
+            	//CHECK  IF INPUT FILE IS IMAGE FILE
+                $res = $this->Image->checkImage($this->data['Report']['image']);
+            	if($res < 0){
+                    $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
+                    $this->redirect('create');
                 }
-                // FIND A RANDOM NUMBER,WHICH DOESNT EXIST ON TEMPORARY DIR FILES IN ORDER TO NAME THE FILE
-                do{ 
-                    $rand = rand();
-                        $name = "$rand.$tok";		
-                }while(file_exists("../webroot/img/temporary/$name"));
-                // RENAME THE FILE
-                $this->request->data['Report']['image']['name'] = $name;
+                else if(!$res){
+  			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
+                        $this->redirect('create');
+                }
+                //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
+    	        $this->Image->tmpRename($this->request->data['Report']['image']);
                 $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', ''); 
                 $this->set('uploaded',$uploaded); 
                 if(!$this->data['Report']['edit']){
@@ -64,30 +55,17 @@ class ReportsController extends AppController{
                 else{
                     $this->Report->create();
                     if ($this->Report->save($this->data['Report'])) {
-                        $name = $this->data['Report']['main_photo'];
-                        $newNameId = $this->Report->id;
-                                $tok = strtok (  $name, "." );
-                        while(($tok1 = strtok(".")) !== false){
-                                $tok = $tok1;      		
+                        //RENAME IMAGE FILE TO RECORD NAME AND SAVE IT TO DIR
+                        $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['main_photo'], "reports");
+                        if(!$ret){
+                            $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                            $this->redirect('create');
                         }
-			// RENAME THE FILE ACCORDING TO RECORD ID AND MOVE IT TO REPORTS DIR
-                        $newName = "../webroot/img/reports/$newNameId.$tok";  
-                        rename("../webroot$name", $newName);
-                        $this->Report->saveField("main_photo", "reports/$newNameId.$tok");
-                        $this->Session->setFlash('The Report has been saved');
-                        // UPLOAD ADDITIONAL PHOTOS
-//                        if(isset($this->data['Report']['image2'])){
-//                            $uploaded2 = $this->JqImgcrop->uploadImage($this->data['Report']['image2'], '/img/temporary/', '');
-//                            $this->Report->saveField("additional_photo1",$uploaded2['imagePath']);
-//                        }
-//                        if(isset($this->data['Report']['image3'])){
-//                            $uploaded3 = $this->JqImgcrop->uploadImage($this->data['Report']['image3'], '/img/temporary/', '');
-//                            $this->Report->saveField("additional_photo2",$uploaded3['imagePath']);
-//                        }
+                        $this->Session->setFlash('Η αναφορά κατατέθηκε επιτυχώς','flash_good');
                         $this->redirect('table');
                     } 
                     else {
-                        $this->Session->setFlash('Report not saved. Try again.');
+                        $this->Session->setFlash('Η αναφορά δεν κατατέθηκε επιτυχώς','flash_bad');
                         $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
                     }
                 }
@@ -97,59 +75,61 @@ class ReportsController extends AppController{
 
     
     function edit($id = null) {
-//        if($this->Session->check('User')&&(($this->Session->read('User.user_type') == 'analyst')||($this->Session->read('User.user_type') == 'yperanalyst'))){
+//        if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
             if ($id==null) {
                 $this->Session->setFlash('Invalid ID');
                 $this->redirect('table');
             }
             if(empty($this->data)) {
                 $this->data = $this->Report->findById($id);
-                $categories = ClassRegistry::init('Category')->find('all');
                 if(empty($this->data)){
                     $this->Session->setFlash('Invalid ID');
                     $this->redirect('table');
                 }
+                $categories = ClassRegistry::init('Category')->find('all');
                 $report = $this->data;
                 $this->set('report',$report);
                 $this->set('categories',$categories);
             } 
             else {
                 if ($this->Report->save($this->data)) {
-                    $this->Session->setFlash('The Report has been saved');
+                    $this->Session->setFlash('Η αναφορά αναλύθηκε επιτυχώς','flash_good');
+                    $this->redirect('table');
                 } 
                 else {
-                    $this->Session->setFlash('The Report could not be saved.Please, try again.');
+                    $this->Session->setFlash('Η αναφορά δεν αναλύθηκε επιτυχώς','flash_bad');
                 }    
             }
 //        }
 //        else{
 //            $this->Session->setFlash('Access denied');
-//            $this->redirect('/'); 
+//            $this->redirect('table'); 
 //        }
     }
     
     function delete($id = null) {
-//        if($this->Session->check('User')&&($this->Session->read('User.user_type') == 'yperanalyst')){
-          if (!$id) {
-             //$this->Session->setFlash('Invalid id for Task');
-             $this->redirect('table');
-          }
-          $report = $this->Report->findById($id); //pernw ta stoixeia gia na brw pithana media(eikones)
-          if ($this->Report->delete($id)) {
-             if(file_exists($report['Report']['main_photo']))  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
-         	    unlink($report['Report']['main_photo']);
-             $this->Session->setFlash('Task #'.$id.' deleted');
-             $this->redirect('table');
-          }
+//        if($this->Session->check('UserUserName')&&($this->Session->read('UserType') == 'hyperanalyst')){
+            if (!$id) {
+                //$this->Session->setFlash('Invalid id for Task');
+                $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
+            }
+            // $report = $this->Report->findById($id); //pernw ta stoixeia gia na brw pithana media(eikones)
+            $this->Image->dlImg($this->Report, $id);
+            if ($this->Report->delete($id)) {
+            //  if($report['Report']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
+                    //    unlink($report['Report']['main_photo']);
+                $this->Session->setFlash('Η αναφορά '.$id.' διαγράφηκε επιτυχώς','flash_good');
+                $this->redirect(array('action'=>'table'), null, true);
+            }
 //        }
 //        else{
 //            $this->Session->setFlash('Access denied');
-//            $this->redirect('/');  
+//            $this->redirect('table');  
 //        }
     }
     
     function view($id = null) {
-//        if($this->Session->check('User')) {  
+//        if($this->Session->check('UserUserName')) {  
             if($id==null){
                 $this->Session->setFlash('Invalid ID');
                 $this->redirect();
@@ -160,24 +140,27 @@ class ReportsController extends AppController{
 //        }
 //        else{
 //            $this->Session->setFlash('Access denied');
-//            $this->redirect('/');  
+//            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
 //        }
     }
     
     function table(){
-//        if($this->Session->check('User')&&(($this->Session->read('User.user_type') == 'analyst')||($this->Session->read('User.user_type') == 'yperanalyst'))){
+//      if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
             if (!empty($this->data)) {
-                // Return reports after filtering
+                  // Return reports after filtering
 
             }
             else{
-                $this->set('reports', $this->Report->find('all', array('order' => array('created' => 'desc'))));
+                //$this->set('reports',$this->Report->find('all'));
+                $this->set('reports',$this->Report->find('all', array('order'=>'created DESC')));
+                
+
             }
-//        }
-//        else{
+//       }
+//       else{
 //            $this->Session->setFlash('Access denied');
-//            $this->redirect('/');
-//        }
+//            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
+//       }
     }
 }
 
