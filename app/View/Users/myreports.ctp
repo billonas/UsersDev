@@ -22,7 +22,7 @@
 				<div class="register_box login_box" align="center">
 			 		<br><h1>Οι αναφορές μου</h1></br>
                     <?php if (empty($reports)): ?>
-                			<h2><center>There are no reports</center></h2>
+                			<h2><center>Δεν εχετε υποβάλει αναφορές</center></h2>
             <?php else: ?>
 
                 <?php //Print_r($reports[0]); ?>
@@ -42,9 +42,9 @@
                         <?php
                             // Determine the status of the report
                             $reportStatus = "pending"; // classes are {"pending", "rejected", "verified"}
-                            if ( isset($report['Report']['state']) )
+                            if ( isset($report['state']) )
                             {
-                                switch ($report['Report']['state'])
+                                switch ($report['state'])
                                 {
                                     case "confirmed":
                                         $reportStatus = "verified";

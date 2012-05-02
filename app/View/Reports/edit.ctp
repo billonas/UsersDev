@@ -4,8 +4,8 @@
 		<meta http-equiv="content-language" content="en-gb" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<title>Επεξεργασία Αναφοράς</title>
-		<?php echo $this->Html->css(array('main','jquery-ui','imgareaselect-default','forms'));	
-                ?>
+		<?php echo $this->Html->css(array('main','jquery-ui','imgareaselect-default','forms'));	?>
+                
                 <?php echo $this->Html->script(array('jquery.min','jquery-ui.min','jquery.imgareaselect.pack.js'));?>
 
 <script>

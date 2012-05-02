@@ -201,6 +201,7 @@ body{
 	color: #000;
 	z-index:1;
 	position: relative;
+	padding-top: 1em;
 }
 
 .middle_wrapper{
@@ -272,7 +273,7 @@ label.std_form{
 
 input.std_form[type="text"],
 input.std_form[type="password"],
-input.std_form[type="file"]{
+textarea.std_form{
     border: 1px solid rgb(178, 178, 178);
     box-sizing : content-box;
     border-radius: 3px;
@@ -284,7 +285,7 @@ input.std_form[type="file"]{
 
 input.blue_shadow[type="text"],
 input.blue_shadow[type="password"],
-input.blue_shadow[type="file"]{
+textarea.blue_shadow{
 	transition: all .2s linear;
 }
 
@@ -292,8 +293,8 @@ input.std_form[type="password"]:active,
 input.std_form[type="password"]:focus,
 input.std_form[type="text"]:active,
 input.std_form[type="text"]:focus,
-input.std_form[type="file"]:active,
-input.std_form[type="file"]:focus{
+textarea.std_form:active,
+textarea.std_form:focus{
     border: 1px solid rgba(91, 90, 90, 0.7);
     background: rgba(256, 256, 256, 0.95);
     -webkit-box-shadow: 0px 1px 4px 0px rgba(158, 158, 158, 1) inset;
@@ -303,9 +304,9 @@ input.std_form[type="file"]:focus{
 input.blue_shadow[type="password"]:active,
 input.blue_shadow[type="password"]:focus,
 input.blue_shadow[type="text"]:active,
-input.blue_shadow[type="text"]:focus
-input.blue_shadow[type="file"]:active,
-input.blue_shadow[type="file"]:focus{
+input.blue_shadow[type="text"]:focus,
+textarea.blue_shadow:active,
+textarea.blue_shadow:focus{
     border: 1px solid rgba(91, 90, 90, 0.7);
     background: rgba(256, 256, 256, 0.95);
     -webkit-box-shadow: 0px 1px 4px 0px rgba(158, 158, 158, 1) inset,
@@ -511,7 +512,6 @@ kodikas gia megalitero middle section
 .big_row{
 	margin-top: 0;
 	height: auto;
-	padding-top: 1em;
 }
 
 .big_row .middle_wrapper{
@@ -690,6 +690,133 @@ telos kodika selida register
 kodikas selidas report
 ***************************************************************************************/
 
+div.no_padding div.middle_wrapper{
+	padding: 0;
+	box-shadow: none;
+	border-radius: 0;
+}
+
+.middle_wrapper #tabs{
+	width: 100%;
+	height: 100%;
+	min-height: 35em;
+	height: auto;
+	position: relative;
+	border:0;
+	padding: 0;
+	border-radius: 0;
+	border-top-right-radius: 5px;
+}
+
+.middle_wrapper #tabs > ul{
+	width: 100%;
+	height: 4em;
+	border: 0;
+	background-color: rgb(221, 221, 221);
+	padding:0;
+	margin: 0;
+}
+
+.middle_wrapper #tabs > ul li{
+	cursor: pointer;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+    height: 4em;
+    line-height: 4em;
+    padding: 0;
+	margin:0;
+    width: 12em;
+	box-shadow: 2px -2px 2px rgba(0,0,0,0.1),
+				 -2px 0 2px rgba(0,0,0,0.1);
+	background: -moz-linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%);
+	background: -webkit-linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%);
+	background: linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%);
+	position: relative;
+	bottom: 1px;
+	top: 0px;
+	border:0;
+}
+
+.middle_wrapper #tabs > ul li.long-tab{
+	width: 25em;
+}
+
+.middle_wrapper #tabs > ul li.long-text{
+	line-height: 2em;
+}
+
+.middle_wrapper #tabs > ul li:hover{
+	background: #5ba4a4;
+}
+
+.middle_wrapper #tabs > ul li.selected-tab:hover{
+	background: rgb(255, 255, 255);
+	color: #000;
+}
+
+
+.middle_wrapper #tabs > ul li.selected-tab,
+.middle_wrapper #tabs > ul li[class*="ui-tabs-selected"],
+.middle_wrapper #tabs > ul li.ui-tabs-selected]{
+	background: #fff;
+	color: #000;
+}
+
+.middle_wrapper #tabs > ul li a{
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	color: #385c5b;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
+	font-size: 1em;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.middle_wrapper #tabs div[id*="fragment"]{
+	padding-top: 2em;
+	padding-left: 2em;
+	border-radius:0;
+	border-top-right-radius: 5px;
+	box-shadow: 2px -2px 1px rgb(100,100,100,0.1),
+				-2px -2px 1px rgb(100,100,100,0.1);
+	min-height: 30em;
+}
+
+.middle_wrapper #tabs input.std_form[type="submit"],
+.middle_wrapper #tabs input.std_form[type="text"]{
+	width: 15em;
+	font-size: 1.1em;
+}
+
+.middle_wrapper #tabs input.std_form[type="text"]{
+	height: 2em;
+	width: 22em;
+	padding-left: 1em;
+}
+
+.middle_wrapper #tabs label{
+	font-size: 1.1em;
+}
+
+.middle_wrapper #tabs #fragment-1 div{
+	margin-bottom: 2em;
+}
+
+.frag-2{
+	margin-left: 1em;
+	float: left;
+}
+
+#fragment-3 img{
+	width: 100px;
+	height: 100px;
+	margin-right: 1em;
+}
+/*
 .middle_wrapper .tabs {
     position: relative;
     margin: 0 0;
@@ -784,6 +911,8 @@ kodikas selidas report
 	clear:both;
 	border-top: 1px solid #555;
 	margin:0;
+	height:auto;
+	min-height: 30em;
 }
 
 .middle_wrapper .tabs .content .content-1,
@@ -791,14 +920,28 @@ kodikas selidas report
 .middle_wrapper .tabs .content .content-3,
 .middle_wrapper .tabs .content .content-4,
 .middle_wrapper .tabs .content .content-5 {
-    opacity: 0;
-	position: absolute;
-	z-index: 1;
-    -moz-transition: opacity .5s linear;
-	-o-transition: opacity .5s linear;
-	-webkit-transition: opacity .5s linear;
-	-ms-transition: opacity .5s linear;
-	transition: opacity .5s linear;
+    /*opacity: 0;
+	display:none;
+	position: relative;
+	height: 0;
+	width:0;
+	/*z-index: 1;
+    -moz-transition: all .5s linear;
+	-o-transition: all .5s linear;
+	-webkit-transition: all .5s linear;
+	-ms-transition: all .5s linear;
+	transition: all .5s linear;
+}
+
+.middle_wrapper .tabs .content .content-2 #mapCanvas{
+	height: 0px;
+	width: 0px;
+	float: left;
+}
+
+.middle_wrapper .tabs input.tab-selector-2:checked ~ .content .content-2 #mapCanvas{
+	height: 500px;
+	width: 500px;
 }
 
 .middle_wrapper .tabs input.tab-selector-1:checked ~ .content .content-1,
@@ -806,14 +949,17 @@ kodikas selidas report
 .middle_wrapper .tabs input.tab-selector-3:checked ~ .content .content-3,
 .middle_wrapper .tabs input.tab-selector-4:checked ~ .content .content-4,
 .middle_wrapper .tabs input.tab-selector-5:checked ~ .content .content-5 {
-    opacity: 1;
-	position: static;
-	z-index: 10;
-    -moz-transition: opacity .25s linear;
-	-o-transition: opacity .25s linear;
-	-webkit-transition: opacity .25s linear;
-	-ms-transition: opacity .25s linear;
-	transition: opacity .25s linear;
+    /*opacity: 1;
+/*	z-index: 100;
+	display:block;
+	height: 30em;
+	width: 50em;
+	position: relative;
+    -moz-transition: all .25s linear;
+	-o-transition: all .25s linear;
+	-webkit-transition: all .25s linear;
+	-ms-transition: all .25s linear;
+	transition: all .25s linear;
 }
 
 .middle_wrapper .tabs .content .content-1 input[type="submit"],
@@ -824,10 +970,96 @@ kodikas selidas report
 	margin-left: 2em;
 }
 
+.middle_wrapper .tabs .content .content-2 *{
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
 .middle_wrapper .tabs .content .content-1 img{
 	max-width: 60%;
 	max-height: 20em;
+	margin-left: 3em;
+	margin-top: 3em;
 }
+
+.middle_wrapper .tabs .content label{
+	font-size: 1.2em;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.middle_wrapper .tabs .content input[type="submit"]{
+	font-size: 1.2em;
+	width: 15em;
+}
+
+.middle_wrapper .tabs .content .content-1 input[type="submit"]{
+	margin-top: 3em;
+	margin-left: 3em;
+}
+
+.middle_wrapper .tabs .content .content-2 input{
+	margin-top: 2em;
+	width: 25em;
+	height: 3em;
+	padding-left: 1em;
+}
+
+.middle_wrapper .tabs .content .content-2 label{
+	margin-right: 1em;
+}
+
+.middle_wrapper .tabs .content .content-2 select{
+	font-size: 1.1em;
+}
+
+.middle_wrapper .tabs .content .content-2 .fix,
+.middle_wrapper .tabs .content .content-2 .fix,
+.middle_wrapper .tabs .content .content-2 .fix{
+	float: left;
+	margin-left: 2em;
+}
+
+.middle_wrapper .tabs .content .content-3,
+.middle_wrapper .tabs .content .content-5{
+	padding-top: 2em;
+	padding-left: 3em;
+}
+
+.middle_wrapper .tabs .content .content-3 input[type="file"]{
+	font-size: 1.1em;
+}
+
+.middle_wrapper .tabs .content .content-3 label{
+	margin-right: 2em;
+}
+
+.middle_wrapper .tabs .content .content-3 img{
+	width: 100px;
+	height: 100px;
+}
+
+.middle_wrapper .tabs .content .content-3 input[type="text"],
+.middle_wrapper .tabs .content .content-5 input[type="text"]{
+	font-size: 1.1em;
+	width: 25em;
+	height: 3em;
+	padding-left: 1em;
+}
+
+.middle_wrapper .tabs .content .content-5 input[type="text"]{
+	margin-left: 2em;
+}
+
+.middle_wrapper .tabs .content .content-5 input[type="text"],
+.middle_wrapper .tabs .content .content-5 label{
+	margin-top: 1em;
+}
+
+.middle_wrapper .tabs .content .content-4 select{
+	font-size: 1.1em;
+	margin-left: 2em;
+}*/
+
 /***************************************************************************************
 telos kodika selidas report
 ***************************************************************************************/
