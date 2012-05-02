@@ -17,7 +17,7 @@
     
     function report_onclick(id)
     {
-        window.location.href = '/reports/edit/' + id;
+        window.location.href = 'edit/' + id;
     }
 </script>
 <div class="middle_row">
