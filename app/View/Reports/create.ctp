@@ -178,7 +178,7 @@ document.getElementById('info').innerHTML = "";
                                 }
                             ?>
                         </div>
-                        <div id="fragment-2">
+                        <div id="fragment-2"> 
                             <br/>
                            <?php  
                            if(isset($cropped)){                                 
