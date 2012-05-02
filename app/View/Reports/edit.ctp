@@ -10,15 +10,6 @@
 		<!--[if lt IE 10 ]>
 			<link rel="stylesheet" href="hacks.css" type="text/css" media="screen" />
 		 <![endif]-->
-	
-                <style>
-                    #mapCanvas {
-                        width: 500px;
-                        height: 400px;
-                        float: left;
-                        clear: both;
-                    }
-                </style>
 		<div class="middle_row big_row no_padding">
         	<div class="middle_wrapper">   
                 <div id="tabs">
@@ -106,18 +97,19 @@
                                 echo '<br/>';
                                 $options = array();
 //                                // Add categories dynamically
-//                                foreach ($categories as $category)
-//                                {
-//                                    $options[$category['Category']['id']]= $category['Category']['category_name'];
-//                                }
+                                foreach ($categories as $category)
+                                {
+                                    $options[$category['Category']['id']]= $category['Category']['category_name'];
+                                }
                                 // Add categories manually
-                                $options = array(
-                                    '4' => 'Ασκίδια',
-                                    '3' => 'Εχινόδερμα',
-                                    '1' => 'Μαλάκια',
-                                    '5' => 'Φύκια',
-                                    '2' => 'Ψάρια',
-                                );
+//                                $options = array(
+//                                    null => '-',
+//                                    '4' => 'Ασκίδια',
+//                                    '3' => 'Εχινόδερμα',
+//                                    '1' => 'Μαλάκια',
+//                                    '5' => 'Φύκια',
+//                                    '2' => 'Ψάρια',
+//                                );
                                 echo $this->Form->input('category_id', array('options' => $options,'label'=>'Κατηγορία Είδους'));
                                 echo '<br/>';
                                 
