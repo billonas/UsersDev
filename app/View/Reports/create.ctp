@@ -143,12 +143,13 @@ document.getElementById('info').innerHTML = "";
                         ?>
                 
                     </ul>
-                        <div id="fragment-1">
                             <?php 
-                                echo $this->Session->flash(); 
-                                echo '<br/>';
                                 if(!isset($cropped)){
                                     if(!isset($uploaded)){
+                                        echo '<div id="fragment-1" class="">';
+                                        echo '<div class="flash_box gradient">';
+                                        echo $this->Session->flash().'</br>';
+                                        echo '</div>';
                                         echo $this->Form->create('Report', array('action' => 'create', "enctype" => "multipart/form-data"));
                                         echo $this->Form->input('image',array("type" => "file",'label'=>'Φωτογραφία'));  
                                         echo $this->Form->input('edit',array("label"=>"Θέλετε να επεξεργαστείτε την φωτογραφία;",'type'=>'checkbox'));
@@ -158,6 +159,8 @@ document.getElementById('info').innerHTML = "";
                                                                             'class' => 'std_form')); 
                                     }
                                     else{
+                                        echo '<div id="fragment-1">';
+                                        echo $this->Session->flash(); 
                                         echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));     
                                         echo $this->Cropimage->createJavaScript($uploaded['imageWidth'],$uploaded['imageHeight'],151,151);  
                                         echo $this->Cropimage->createForm($uploaded["imagePath"], 151, 151); 
@@ -169,20 +172,19 @@ document.getElementById('info').innerHTML = "";
                                     } 
                                 }
                                 else{
+                                    echo '<div id="fragment-1" class="small_pic">';
+                                    echo $this->Session->flash(); 
                                     echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));     
                                     echo $this->Html->image($imagePath); 
                                     echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$imagePath));
                                     echo '<br/>';
-                                    echo '<br/>';
                                     echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; "));
-                                    echo '<br/>';
                                 }
                             ?>
                         </div>
-                        <div id="fragment-2"> 
-                            
-                           <?php  
-                           if(isset($cropped)){                                 
+                    <?php 
+                       if(isset($cropped)){
+                           echo '<div id="fragment-2">';
                                 echo '<div id="mapCanvas"></div>';
                                 //echo '<div class="frag-2">';
                                 echo $this->Form->input('date',array('label'=>'Ημερομηνία Παρατήρησης','div'=>false));
@@ -190,13 +192,13 @@ document.getElementById('info').innerHTML = "";
                                 echo $this->Form->input('lat',array('div'=>false,'id'=>'info',"label" => "Γεωγραφικός Πλάτος",'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
                                 echo '<br/>';
                                 echo $this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => "Γεωγραφικό Μήκος",'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
-                                //echo '</div>';
-                           }
-                           ?>
-                        </div>
-                        <div id="fragment-3">
-                            <?php
-                            if(isset($cropped)){ 
+                                //echo '</div>';                           
+                            echo '</div>';
+                       }
+                    ?>
+                    <?php
+                        if(isset($cropped)){ 
+                            echo '<div id="fragment-3">';
                                 echo $this->Form->input('image2',array("type" => "file",'label'=>'Επιπλέον Φωτογραφία 1'));
                                 echo $this->Form->input('image3',array("type" => "file",'label'=>'Επιπλέον Φωτογραφία 2'));
                                 //echo $this->Form->input('additional_photo1',array('type'=>'hidden'));
@@ -217,15 +219,13 @@ document.getElementById('info').innerHTML = "";
                                 $options = array('-'=>'-','few' => '1-5', 'some' => '6-10','many' => '10-30');  
                                 echo $this->Form->input('crowd', array('options' => $options, 'default' => '  -  ','label'=>'Πλήθος Ατόμων Είδους '));
                                 echo '<br/>';
-                                echo $this->Form->input('comments', array('type' => 'textarea',"label" => "Επιπλέον Σχόλια ",'placeholder' =>'Περιγράψτε ότι σας έκανε εντύπωση','class'=>'std_form blue_shadow'));
-                                echo '<br/>';
-                                echo '<br/>';
-                            }?>
-                        </div>  
-                        <div id="fragment-4">
-                            <?php  
-                            if(isset($cropped)){ 
-                                echo '<br/>';
+                                echo $this->Form->input('comments', array('type' => 'textarea',"label" => "Επιπλέον Σχόλια ",'placeholder' =>'Περιγράψτε ότι σας έκανε εντύπωση','class'=>'std_form blue_shadow'));                              
+                        echo '</div>';
+                    }
+                    ?>
+                    <?php  
+                        if(isset($cropped)){ 
+                            echo '<div id="fragment-4">';
                                 if($this->Session->check('UserUsername')){
                                     echo $this->Form->input('age',array('label'=>'Ημερομηνία Γέννησης ','default'=>$this->Session->read('UserBirthDate'),'disabled'=>'true'));
                                     echo '<br/>';
@@ -245,15 +245,13 @@ document.getElementById('info').innerHTML = "";
                                     echo '<br/>';
                                     $options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο');  
                                     echo $this->Form->input('occupation', array('options' => $options, 'default' => '   -   ','label'=>'Ιδιότητα '));
-                                    echo '<br/>';
-                                    echo '<br/>';
                                 }
-                            }?>
-                        </div>
-                        <div id="fragment-5">
-                            <?php 
-                            if(isset($cropped)){ 
-                                echo '<br/>';
+                            echo '</div>';
+                        }
+                        ?>
+                    <?php 
+                        if(isset($cropped)){ 
+                            echo'<div id="fragment-5">';
                                 if($this->Session->check('UserUsername')){
                                     echo $this->Form->input('name',array("label" => "Όνομα ",'value'=>$this->Session->read('UserName'),'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','disabled'=>'true'));
                                     echo '<br/>';
@@ -282,11 +280,11 @@ document.getElementById('info').innerHTML = "";
                                                             'label' => 'Κατάθεση Αναφοράς',
                                                             'div' => false,
                                                             'class' => 'std_form'));
-                            }?>
-                        </div>
-    			</div>
-            </div>
-
+                            echo '</div>';
+                        }
+                    ?>
+                    </div>
+                </div>
 	    </div>
         <div class="comments">
             <div><br />Powered by <a href="http://cakephp.org/">Cake.php</a>, <a href="http://jquery.com/">jQuery</a> and <a href="http://modernizr.com/">Modernizr</a>.</div>
