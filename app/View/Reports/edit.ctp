@@ -37,11 +37,11 @@
                     </ul>
                         <div id="fragment-1">
                             <?php 
-                                echo $this->Session->flash(); 
-                                echo '<br/>';
+                                echo '<div class="flash_box gradient">';
+                                echo $this->Session->flash().'</br>';
+                                echo '</div>';
                                 echo $this->Form->create('Report', array('action' => 'edit',"enctype" => "multipart/form-data"));     
-                                echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$imagePath));
-                                echo '<br/>';
+                                echo $this->Html->image($report['Report']['main_photo']);
                                 echo '<br/>';
                                 echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ",'disabled'=>'true'));
                                 echo '<br/>';
@@ -77,7 +77,6 @@
                                 echo $this->Form->input('crowd', array('options' => $options, 'default' => '  -  ','label'=>'Πλήθος Ατόμων Είδους ','disabled'=>'true'));
                                 echo '<br/>';
                                 echo $this->Form->input('comments', array('type' => 'textarea',"label" => "Επιπλέον Σχόλια ",'placeholder' =>'Περιγράψτε ότι σας έκανε εντύπωση','class'=>'std_form blue_shadow','disabled'=>'true'));
-                                echo '<br/>';
                             ?>
                         </div>  
                         <div id="fragment-4">
@@ -89,8 +88,6 @@
                                     echo '<br/>';
                                     $options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο');  
                                     echo $this->Form->input('occupation', array('options' => $options, 'default' => '   -   ','label'=>'Ιδιότητα ','disabled'=>'true'));
-                                    echo '<br/>';
-                                    echo '<br/>';
                             ?>
                         </div>
                         <div id="fragment-5">
@@ -102,7 +99,6 @@
                                     echo $this->Form->input('phone_number',array("label" => "Τηλέφωνο Επικοινωνίας ",'placeholder' => 'Σταθερό ή Κινητό','class'=>'std_form blue_shadow','disabled'=>'true'));
                                     echo '<br/>';
                                     echo $this->Form->input('email',array("label"=>"E-mail ",'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow','disabled'=>'true'));
-                                    echo '<br/>';
                             ?>
                         </div>
                         <div id="fragment-6">
@@ -131,7 +127,6 @@
                                 echo '<br/>';
                                 $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');  
                                 echo $this->Form->input('state', array('options' => $options,'label'=>'Κατάσταση Αναφοράς'));
-                                echo '<br/>';
                                 echo '<br/>';
                                 echo $this->Form->end(array(
                                                             'label' => 'Επεξεργασία Αναφοράς',
