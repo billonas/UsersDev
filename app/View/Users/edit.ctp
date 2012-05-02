@@ -20,12 +20,7 @@
 					
 					echo '<tr><td><label for="UserEmail" class="mail std_form">e-mail:  </label></td><td><p>'.$this->Form->input('User.email', 
 									      array('default'=>$user['User']['email'],'after'=>$this->Form->error('email_unique', 'H συγκεκριμένη διεύθυνση ηλεκτρονικού ταχυδρομείου χρησιμοποιείται ήδη. Παρακαλώ δοκιμάστε άλλη.'),'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserEmail', 'placeholder' => 'π.χ. mymail@mail.com','class' => ' std_form blue_shadow')).'</p></td></tr>';
-										  
-				    echo '<tr><td><label for="UserPassword" class="youpasswd std_form">Νέος Κωδικός:  </label></td><td><p>'.$this->Form->input('User.password', 
-									      array('label' => false, 'div' => false, 'type' => 'password', 'id'=> 'UserPassword','placeholder' => 'example111','class' => 'std_form blue_shadow')).'</p></td></tr>';	
-										  
-				    echo '<tr><td><label for="UserPasswordCfm" class="youpasswdcfm std_form">Επαναλάβετε τον Νέο Κωδικό:  </label></td><td><p>'.$this->Form->input('User.passwordConfirm', 
-									      array('label' => false, 'div' => false, 'type' => 'password', 'id'=> 'UserPasswordCfm','placeholder' => 'example111','class' => ' std_form blue_shadow')).'</p></td></tr>';			  
+						  
 					echo '<tr><td><label for="UserAddress" class="address std_form">Διεύθυνση:  </label></td><td><p>'.$this->Form->input('User.address', 
 									      array('default'=>$user['User']['address'],'label' => false, 'div' => false, 'type' => 'text', 'id'=>	'UserAddress','placeholder' => 'π.χ Κολοπετινίτσας 100','class' => ' std_form blue_shadow')).'</p></td></tr>';
 					echo '<tr><td><label for="UserCity" class="city std_form">Πόλη:  </label></td><td><p>'.$this->Form->input('User.city', 
