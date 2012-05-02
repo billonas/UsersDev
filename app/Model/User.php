@@ -16,7 +16,7 @@ class User extends AppModel
           )
       ); 
       public $hasMany = array(
-          'MyReport' => array(
+          'Report' => array(
              'className' => 'Report',
              'foreignKey' => 'observer',
              'order' => 'Report.created DESC',   //επιστρέφει 

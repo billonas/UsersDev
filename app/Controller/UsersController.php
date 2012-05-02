@@ -7,7 +7,7 @@
  */
 class UsersController extends AppController{
     var $name = 'Users';
-    var $components = array('Email');
+    var $components = array('Email');//, 'Captcha');
     public $helpers = array('Html', 'Form','Session');
 	
     //put your code here
@@ -352,17 +352,24 @@ class UsersController extends AppController{
          $this->Captcha->create();
     }
 
-    function show_reports()
+    function myreports()
     {
-      if($this->Session->check('UserUsername'))
+      if(!$this->Session->check('UserUsername'))
       {
          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
       }
+      //βρίσκω όλα τα στοιχεία του χρήστη με βάση το email του      
+      $email = $this->Session->read('UserUsername');
+      $results = $this->User->findUserByEmail($email);
       
-      
-      
-      
-      
+      if($results !== false)
+      {
+        //αν ο χρήστης βρέθηκε επιτυχώς
+//        $id = $results['Report']['0']['id'];
+        $this->set('reports', $results['Report']);
+        
+        
+      }
     }
 
     
