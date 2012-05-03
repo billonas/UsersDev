@@ -1,1 +1,14 @@
-What works:
+What works fully:
+-Login/Registration/profile view/Logout 
+-Reports
+-Personal reports for each user
+-Analyst table
+-Report editing by analysts
+
+What works partially
+-Hot species showcase/add/editing/deleting
+
+
+What hasn't been added:
+-Password settings editing
+-Admin panel for user management
