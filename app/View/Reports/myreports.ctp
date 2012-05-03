@@ -22,7 +22,7 @@
 				<div class="register_box login_box" align="center">
 			 		<br><h1>Οι αναφορές μου</h1></br>
                     <?php if (empty($reports)): ?>
-                			<h2><center>Δεν εχετε υποβάλει αναφορές</center></h2>
+                			<h2><center>There are no reports</center></h2>
             <?php else: ?>
 
                 <?php //Print_r($reports[0]); ?>
@@ -42,9 +42,9 @@
                         <?php
                             // Determine the status of the report
                             $reportStatus = "pending"; // classes are {"pending", "rejected", "verified"}
-                            if ( isset($report['state']) )
+                            if ( isset($report['Report']['state']) )
                             {
-                                switch ($report['state'])
+                                switch ($report['Report']['state'])
                                 {
                                     case "confirmed":
                                         $reportStatus = "verified";
@@ -57,25 +57,25 @@
                                 }
                             }
                         ?>
-                            <tr class="report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $report['id'] ?>)">
+                            <tr class="report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $report['Report']['id'] ?>)">
                                 <td>
-                                    <?php echo $report['created'] ?>
+                                    <?php echo $report['Report']['created'] ?>
                                 </td>
                                 <td>
                                     <center>
-                                        <?php echo $this->Html->image($report['main_photo'], array('alt' => 'main photo', 'class' => 'tableImage')) ?>
+                                        <?php echo $this->Html->image($report['Report']['main_photo'], array('alt' => 'main photo', 'class' => 'tableImage')) ?>
                                     </center>
                                 </td>
                                 
                                 
 <!--                                <td>
                                     <?php
-                                        echo $report['state'];
+                                        echo $report['Report']['state'];
                                     ?>
                                 </td>-->
                                 
                                 <td>
-                                    <?php echo $this->Html->link('Προβολή', array('action'=>'view_report',$report['id'])); 
+                                    <?php echo $this->Html->link('Προβολή', array('action'=>'view_report',$report['Report']['id'])); 
                                          
                                     ?>
                                     

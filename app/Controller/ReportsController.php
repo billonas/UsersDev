@@ -171,6 +171,26 @@ class ReportsController extends AppController{
 //            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
 //       }
     }
+    
+    function myreports()
+    {
+      if(!$this->Session->check('UserUsername'))
+      {
+         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+      }
+      //βρίσκω όλα τα στοιχεία του χρήστη με βάση το email του      
+      $email = $this->Session->read('UserUsername');
+      $userId = ClassRegistry::init('User')->getUserId($email);
+      
+      if($userId !== false)
+      {
+
+        $reports = $this->Report->findUserReports($userId);
+        $this->set('reports', $reports);
+        
+        
+      }
+    }
 }
 
 ?>

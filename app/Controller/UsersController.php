@@ -209,7 +209,6 @@ class UsersController extends AppController{
                {
                   $this->Session->setFlash('Tο προφίλ σας ενημερώθηκε επιτυχώς!','flash_good');  
                   //αλλάζω τις τιμές που υπάρχουν στο session 
-                  $this->Session->write('UserUsername',$this->data['User']['email']);  
 
                   $name = $this->data['User']['name'];
                   //το πλήρες όνομα του χρήστη υπό την μορφή:V.Kazhs
@@ -220,7 +219,14 @@ class UsersController extends AppController{
 
                   $fullname = $arr[0] .".". $surname;
                   
+                  $this->Session->write('UserUsername',$this->data['User']['email']);  
+                  $this->Session->write('UserEducation',$this->data['User']['education']);  
+                  $this->Session->write('UserMembership',$this->data['User']['membership']);  
+                  $this->Session->write('UserBirthDate',$this->data['User']['birth_date']);  
+                  $this->Session->write('UserPhoneNumber',$this->data['User']['phone_number']);  
                   $this->Session->write('UserFullName',$fullname);  
+                  $this->Session->write('UserName',$name);  
+                  $this->Session->write('UserSurname',$surname);  
                }
                else
                {
@@ -351,27 +357,6 @@ class UsersController extends AppController{
          //$this->Captcha->create($width, $height, $characters); //options, default are 120, 40, 6.
          $this->Captcha->create();
     }
-
-    function myreports()
-    {
-      if(!$this->Session->check('UserUsername'))
-      {
-         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
-      }
-      //βρίσκω όλα τα στοιχεία του χρήστη με βάση το email του      
-      $email = $this->Session->read('UserUsername');
-      $results = $this->User->findUserByEmail($email);
-      
-      if($results !== false)
-      {
-        //αν ο χρήστης βρέθηκε επιτυχώς
-//        $id = $results['Report']['0']['id'];
-        $this->set('reports', $results['Report']);
-        
-        
-      }
-    }
-
     
 }
 
