@@ -129,6 +129,8 @@
                     </tbody>
                 </table>
             <?php endif; ?>
+            <br/>    
+            <?php  echo $this->Html->link('Export', array('action'=>'export'));?>    
         </div>
     </div>
 </div>

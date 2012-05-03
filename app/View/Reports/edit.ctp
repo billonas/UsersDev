@@ -20,7 +20,7 @@
                                         <li class="long-text"><a href="#fragment-3"><span>3. Επιπλέον<br/>Πληροφορίες</span></a></li>
                                         <li class="long-text"><a href="#fragment-4"><span>4. Στοιχεία<br/>Παρατηρητή</span></a></li>  
                                         <li class="long-text"><a href="#fragment-5"><span>5. Στοιχεία<br/>Επικοινωνίας</span></a></li> 
-                                        <li class="long-text"><a href="#fragment-6"><span>5. Στοιχεία<br/>Ανάλυσης</span></a></li>
+                                        <li class="long-text"><a href="#fragment-6"><span>6. Στοιχεία<br/>Ανάλυσης</span></a></li>
                                         ';
 
                         ?>
@@ -32,6 +32,7 @@
                                 echo $this->Session->flash().'</br>';
                                 echo '</div>';
                                 echo $this->Form->create('Report', array('action' => 'edit',"enctype" => "multipart/form-data"));     
+                                echo $this->Form->input('id',array("type"=>'hidden'));
                                 echo $this->Html->image($report['Report']['main_photo']);
                                 echo '<br/>';
                                 echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ",'disabled'=>'true'));
@@ -95,7 +96,7 @@
                         <div id="fragment-6">
                             <?php  
                                 echo '<br/>';
-                                $options = array();
+                                $options = array(null => '-');
 //                                // Add categories dynamically
                                 foreach ($categories as $category)
                                 {
