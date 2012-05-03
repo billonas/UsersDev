@@ -4,7 +4,7 @@
 			<div class="middle_wrapper">
             		<div align='center'>
                     	</br><h1>Βοήθεια χρήστη</h1></br>
-                        RTFM
+                        
             		</div>
             </div>
 		</div>
