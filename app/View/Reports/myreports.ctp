@@ -22,7 +22,7 @@
 				<div class="register_box login_box" align="center">
 			 		<br><h1>Οι αναφορές μου</h1></br>
                     <?php if (empty($reports)): ?>
-                			<h2><center>There are no reports</center></h2>
+                			<h2><center>Δεν έχετε κάνει καμία αναφορά!</center></h2>
             <?php else: ?>
 
                 <?php //Print_r($reports[0]); ?>
