@@ -9,6 +9,6 @@ What works partially
 -Hot species showcase/add/editing/deleting
 
 
-What hasn't been added:
+What hasn't been added yet:
 -Password settings editing
 -Admin panel for user management
