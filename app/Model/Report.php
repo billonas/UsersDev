@@ -58,6 +58,24 @@ class Report extends AppModel{
             'allowEmpty' => false
         )
     );
+    
+     function findUserReports($userId)
+     {
+         $return = false;
+         
+         $conditions = array(
+             'Report.observer'=>$userId,
+          );
+         //βρες αν υπάρχει ο χρήστης με το συγκεκριμένο username
+         $reports = $this->find('all', array('conditions'=>$conditions));
+         if(!empty($reports))
+         {
+            $return=$reports;
+         }
+         
+         return $return;
+
+    }
 }
 
 ?>

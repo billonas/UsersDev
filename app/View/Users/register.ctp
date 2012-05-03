@@ -6,7 +6,7 @@
 			 		<br><h1>Εγγραφή χρήστη</h1></br>
                     
 					<?php echo $this->Form->create('User', array('action' => 'register'));?>
-               <div class="flash_box"<?php echo $this->Session->flash().'</br>'; ?> </div>
+               <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
                                         <table>
 					<?php 
 					echo '<tr><td><label for="UserName" class="name std_form">Όνομα:  </label></td><td><p>'.$this->Form->input('User.name', 

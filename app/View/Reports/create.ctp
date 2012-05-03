@@ -274,6 +274,7 @@ document.getElementById('info').innerHTML = "";
                                     echo '<br/>';
                                 }
                                 $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');  
+                                echo $this->Form->input('category_id', array('value'=>null,'label'=>'Κατηγορία Είδους','type'=>'hidden'));
                                 echo $this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>'Κατάσταση Αναφοράς ','type'=>'hidden'));
                                 echo '<br/>';
                                 echo $this->Form->end(array(

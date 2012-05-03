@@ -23,6 +23,7 @@
 <div class="middle_row">
     <div class="middle_wrapper">
         <div>
+            <br/>
             <div class="flash_box gradient">
                                         <?php echo $this->Session->flash().'</br>';?>
              </div>
@@ -34,11 +35,12 @@
                 'defaultLng' => 21, # only last fallback, use Configure::write('Google.lng', ...); to define own one
                 'defaultZoom' => 5,
                 ),'div'=>array('id'=>'my_map', 'height'=>'400', 'width'=>'700')));
-                $options = array(
-                'lat'=>39,
-                'lng'=>21,
-                );
-                $this->GoogleMapV3->addMarker($options);
+//                SET MARKERS FOR ALL REPORTS                
+//                $options = array(
+//                'lat'=>39,
+//                'lng'=>21,
+//                );
+//                $this->GoogleMapV3->addMarker($options);
                 echo $this->GoogleMapV3->script();
             ?>
             <br/>
