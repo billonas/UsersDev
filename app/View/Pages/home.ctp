@@ -26,7 +26,7 @@
 		</div>
 		<div class="lower_row">
         	<?php echo $this->Html->link('<h2>Είδη Υψηλής Προτεραιότητας</h2>  <p>Ενημερωθείτε για τα είδη που έχουν μεγαλύτερη προτεραιότητα αυτή την εποχή για τους αναλυτές μας</p>', 
-											array('controller' => 'hotspecies', 'action'=>'show'),array('escape' => false));?>
+											array('controller' => 'hotSpecies', 'action'=>'show'),array('escape' => false));?>
             
             <?php echo $this->Html->link('<h2>Υποβάλλετε Αναφορά</h2>  <p>Υποβάλλετε μία αναφορά για ένα παράξενο είδος που συναντήσατε</p>', 
 											array('controller' => 'reports', 'action'=>'create'),array('escape' => false));?>

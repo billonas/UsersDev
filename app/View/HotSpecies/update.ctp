@@ -1,16 +1,15 @@
-<h2>HotSpecies - Update</h2>
+<h2>Επεξεργασία Είδους</h2>
 <?php echo $this->Form->create('HotSpecie', array('action' => 'update', "enctype" => "multipart/form-data")); ?>
        <fieldset>
-          <legend>Update HotSpecies</legend>
+          <legend>Επεξεργασία Είδους</legend>
+          <?php echo $this->Session->flash(); ?>
           <?php
-             echo $this->Form->hidden('id');
-             echo $this->Form->error('main_photo');
-             echo $this->Form->input('image',array("type" => "file"));
-             echo $this->Form->hidden('main_photo');
+             echo $this->Form->input('id', array('type' => 'hidden'));
+             echo $this->Html->image($hotspecie['HotSpecie']['main_photo']);
              echo $this->Form->error('scientific_name');
-             echo $this->Form->input('scientific_name');
+             echo $this->Form->input('scientific_name',array('label'=>'Επιστημονική ονομασία'));
              echo $this->Form->error('description');
-             echo $this->Form->input('description',array("type" => "textarea"));
+             echo $this->Form->input('description',array("type" => "textarea",'label'=>'Περιγραφή είδους'));
           ?>
        </fieldset>
-<?php echo $this->Form->end('Update Hot Species');?>
+<?php echo $this->Form->end('Αποθήκευση');?>
