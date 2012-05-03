@@ -62,7 +62,7 @@ class ReportsController extends AppController{
                             $this->redirect('create');
                         }
                         $this->Session->setFlash('Η αναφορά κατατέθηκε επιτυχώς','flash_good');
-                        $this->redirect('table');
+                        $this->redirect(array('controller'=>'pages', 'action'=>'display'));
                     } 
                     else {
                         $this->Session->setFlash('Η αναφορά δεν κατατέθηκε επιτυχώς','flash_bad');
