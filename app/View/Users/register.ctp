@@ -42,17 +42,21 @@
 					echo '<tr><td><label for="UserMembership" default="-" class="membership std_form">Ιδιότητα:  </label></td><td><p>'.$this->Form->input('User.membership', 
 									      array('options'=> $options, 'label' => false, 'div' => false, 'id'=>'UserMembership','class' => ' std_form blue_shadow')).'</p></td></tr></br>';	
 					echo '<tr><td></td><td>';					  
-					echo $this->Html->Image($this->Html->url(array('controller'=>'users', 'action'=>'captcha'), true),array('style'=>'','vspace'=>2)); 
+					echo $this->Recaptcha->show(array(
+						'theme' => 'white',
+						'lang' => 'en'			
+					));
+
+   					echo $this->Recaptcha->error();
 					echo '</td></tr>';
-					echo '<tr><td><label for="UserCaptcha" class="captcha std_form">Γράψτε αυτά που βλέπετε στην εικόνα<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.captcha', 
-									  array('label' => false, 'autocomplete'=>'off', 'div' => false, 'type' => 'text', 'id'=> 'UserCaptcha', 'error'=>__('Failed validating code',true),'class' => ' std_form blue_shadow')).'</p></td></tr>';		  	
-                                        
+					
+				                                       
 					?></table><?php					  
                                         echo '</br><p>'.$this->Form->end(array(
 														'name' => 'data[User][register]',
 														'label' => 'Εγγραφή',
-														'div' => false
-                                                                                                                ,'class' => ' std_form')).'</p>';									  
+														'div' => false,
+														'class' => ' std_form')).'</p>';									  
 								    ?>
 			    </div>
 			</div>
