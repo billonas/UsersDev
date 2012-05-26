@@ -678,7 +678,8 @@ telos kodika selida login
 kodikas selida register
 ***************************************************************************************/
 
-.register_box td{
+
+.register_box td{      /* Change this to fix reCaptcha distortion */
 	width: 25%;
 }
 
