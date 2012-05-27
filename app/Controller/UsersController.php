@@ -128,7 +128,7 @@ class UsersController extends AppController{
          return false;
        }
         $this->set('activate_url', 'http://' . env('SERVER_NAME') . 
-                '/users/activate/' . $user['User']['id'] . '/' . $this->User->getActivationHash());
+                '/users/activate/' . $user['User']['id'] . '/');
                 
         $this->set('username', $this->data['User']['email']);
         //echo "to email einai " . $user['User']['email'];
@@ -136,13 +136,14 @@ class UsersController extends AppController{
         $this->Email->subject = env('SERVER_NAME') . ' – Please confirm your email address';
         $this->Email->from = 'stgeorgiou89@gmail.com';
         $this->Email->template = 'default';
+		$this->Email->layout = 'default';
         $this->Email->sendAs = 'both';   // you probably want to use both :)    
 	    $this->Email->smtpOptions = array(
 			'port'=>'465',
 			'timeout'=>'30',
 			'host' => 'ssl://smtp.gmail.com',
 			'username'=>'stgeorgiou89@gmail.com',
-			'password'=>'xxxxx',
+			'password'=>'mypass',
 		);
 		$this->Email->delivery = 'smtp';
 		if ($this->Email->send()) {
