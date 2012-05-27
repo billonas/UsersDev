@@ -62,7 +62,7 @@ class ReportsController extends AppController{
                             $this->redirect('create');
                         }
                         $this->Session->setFlash('Η αναφορά κατατέθηκε επιτυχώς','flash_good');
-                        $this->redirect('table');
+                        $this->redirect(array('controller'=>'pages', 'action'=>'display'));
                     } 
                     else {
                         $this->Session->setFlash('Η αναφορά δεν κατατέθηκε επιτυχώς','flash_bad');
@@ -123,7 +123,7 @@ class ReportsController extends AppController{
                 $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
             }
             // $report = $this->Report->findById($id); //pernw ta stoixeia gia na brw pithana media(eikones)
-            $this->Image->dlImg($this->Report, $id);
+            //$this->Image->dlImg($this->Report, $id);
             if ($this->Report->delete($id)) {
             //  if($report['Report']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
                     //    unlink($report['Report']['main_photo']);

@@ -17,7 +17,10 @@
 		</script>
   
       	<div class="middle_row">
-			<div class="middle_wrapper">
+      		<div class="flash_box gradient">
+                                        <?php echo $this->Session->flash().'</br>';?>
+             	</div>
+		<div class="middle_wrapper">
             	<div id="slideshow">
                 
                 

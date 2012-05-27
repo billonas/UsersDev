@@ -85,6 +85,7 @@
  */
 Cache::config('default', array('engine' => 'File'));
 CakePlugin::load('Upload');
+CakePlugin::load('Recaptcha');
 
 /**
  * The settings below can be used to set additional paths to models, views and controllers.

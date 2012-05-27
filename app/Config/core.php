@@ -173,7 +173,14 @@
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'php'
+		'defaults' => 'cake',
+                'cookie' => 'HCMR',
+                'timeout' => '60',
+            //REVIEW (RodGer): Να ελέγξουμε τι γίνεται αν ο χρήστης έχει 
+            //..απενεργοποιημένα τα cookies και αν εξακουλουθεί να ισχύει
+            //..το timeout (όταν είναι ενεργοποιημένα ισχύει το cookieTimeout)
+                'cookieTimeout' => '60',
+                'autoRegenerate' => true
 	));
 
 /**

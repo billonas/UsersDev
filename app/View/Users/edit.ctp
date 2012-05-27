@@ -4,22 +4,24 @@
 			<div class="middle_wrapper">
 				<div class="register_box login_box" align="center">
 			 		<br><h1>Προφίλ χρήστη</h1></br>
+
+					<div class="required" style="color:red">(υποχρεωτικά πεδία *)</div>
                     
 					<?php echo $this->Form->create('User', array('action' => 'edit'));?>
                <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
                                         <table>
 					<?php 
-					echo '<tr><td><label for="UserName" class="name std_form">Όνομα:  </label></td><td><p>'.$this->Form->input('User.name', 
+					echo '<tr><td><label for="UserName" class="name std_form">Όνομα<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.name', 
 									      array('default'=>$user['User']['name'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
-				    echo '<tr><td><label for="UserSurname" class="surname std_form">Επώνυμο:  </label></td><td><p>'.$this->Form->input('User.surname', 
+				    echo '<tr><td><label for="UserSurname" class="surname std_form">Επώνυμο<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.surname', 
 									      array('default'=>$user['User']['surname'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserSurame','placeholder' => 'π.χ. Κακομοίρογλου','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
+					
+					echo '<tr><td><label for="UserEmail" class="mail std_form">e-mail<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.email', 
+									      array('default'=>$user['User']['email'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserEmail', 'placeholder' => 'π.χ. mymail@mail.com','class' => ' std_form blue_shadow')).'</p></td></tr>';
 				    echo '<tr><td><label for="UserPhone" class="phone std_form">Τηλέφωνο:  </label></td><td><p>'.$this->Form->input('User.phone_number', 
 									      array('default'=>$user['User']['phone_number'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserPhone','placeholder' => 'π.χ. 234385497','class' => ' std_form blue_shadow')).'</p></td></tr>';
-					
-					echo '<tr><td><label for="UserEmail" class="mail std_form">e-mail:  </label></td><td><p>'.$this->Form->input('User.email', 
-									      array('default'=>$user['User']['email'],'after'=>$this->Form->error('email_unique', 'H συγκεκριμένη διεύθυνση ηλεκτρονικού ταχυδρομείου χρησιμοποιείται ήδη. Παρακαλώ δοκιμάστε άλλη.'),'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserEmail', 'placeholder' => 'π.χ. mymail@mail.com','class' => ' std_form blue_shadow')).'</p></td></tr>';
 						  
 					echo '<tr><td><label for="UserAddress" class="address std_form">Διεύθυνση:  </label></td><td><p>'.$this->Form->input('User.address', 
 									      array('default'=>$user['User']['address'],'label' => false, 'div' => false, 'type' => 'text', 'id'=>	'UserAddress','placeholder' => 'π.χ Κολοπετινίτσας 100','class' => ' std_form blue_shadow')).'</p></td></tr>';

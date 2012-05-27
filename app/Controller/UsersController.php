@@ -7,8 +7,10 @@
  */
 class UsersController extends AppController{
     var $name = 'Users';
-    var $components = array('Email');//, 'Captcha');
-    public $helpers = array('Html', 'Form','Session');
+    var $components = array('Email', 'Recaptcha.Recaptcha');//, 'Captcha');
+    public $helpers = array('Html', 'Form', 'Session', 'Recaptcha.Recaptcha');
+	
+
 	
     //put your code here
 
@@ -22,7 +24,9 @@ class UsersController extends AppController{
 
     function register() 
     {
-      
+		 
+      	 Configure::load('Recaptcha.key');
+		 
          //ελέγχει εάν ο χρήστης είναι ήδη συνδεδεμένος. Εάν έιναι ήδη συνδεδεμένος
          //τότε τον κάνει redirect στην αρχική σελίδα
          if($this->Session->check('UserUsername')) 
@@ -48,7 +52,7 @@ class UsersController extends AppController{
                    'address'=>$this->data['User']['address'],
                    'country'=>$this->data['User']['country'],
                    'city'=>$this->data['User']['city'],
-                   'captcha'=>$this->data['User']['captcha'],
+                   
              ));
 
             if($this->User->validates())

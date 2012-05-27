@@ -35,11 +35,15 @@ class User extends AppModel
       public $validate = array(  
       'email'=>array(  
                'rule1'=>array(
+                  'rule'=>array('UnigueEmail'),
+                  'message'=>'H συγκεκριμένη διεύθυνση ηλεκτρονικού ταχυδρομείου χρησιμοποιείται ήδη. Παρακαλούμε δοκιμάστε άλλη.'  
+             ),
+               'rule2'=>array(
                   'rule'=>'notEmpty',
                   'allowempty'=>false,  
                   'message'=>'Παρακαλούμε πληκτρολογήστε τη διεύθυνση ηλεκτρονικού ταχυδρομείου'  
              ),
-               'rule2'=>array(
+               'rule3'=>array(
                    'rule'=>array('email', true),
                    'message'=>'Παρακαλούμε δώστε έγκυρή τιμή ηλεκτρονικού ταχυδρομείου'
                ) 
@@ -108,12 +112,13 @@ class User extends AppModel
              )
 
       ),
-      'phone_number'=>array(  
-               'rule1'=>array(
-                   'rule'=>array('onlyNumbers'),
-                   'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
-             )
-      ),
+   //   'phone_number'=>array(  
+   //            'rule1'=>array(
+   //                'rule'=>array('onlyNumbers'),
+   //                'alloEmpty'=>true,
+   //                'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
+   //          )
+   //   ),
      // 'captcha'=>array(  
      //          'rule1'=>array(
      //              'rule'=>array('matchCaptcha'),
@@ -251,7 +256,8 @@ class User extends AppModel
 
       //customized validation actions
 
-      function beforeValidate()
+      //function beforeValidate()
+      function UnigueEmail($check)
       {
          //μέσω αυτής της συνάρτησης ελέγχεται εάν χρησιμοποιείται ήδη το email
          //που έδωσε ο χρήστης και τον ενημερώνει αντίστοιχα μέσω του error που 
@@ -262,16 +268,19 @@ class User extends AppModel
         //α)Κατά την εγγραφή του χρήστη
         //β)Κατά την επεξεργασία προφίλ του χρήστη σε περίπτωση που επεξεργαστεί
         //  το email του.
+        $email = array_shift($check);
+
         if(!$this->getLoggedIn() || (strcmp($this->editEmail, 'yes')==0))
         {
           $conditions = array(
-              'User.email'=>$this->data['User']['email']
+//              'User.email'=>$this->data['User']['email']
+              'User.email'=>$email
            );
           if(!$this->id)
           {
             if($this->find('count', array('conditions'=>$conditions))>0) 
             {
-                $this->invalidate('email_unique');
+//                $this->invalidate('email_unique');
                 return false; 
             }
           }

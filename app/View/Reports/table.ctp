@@ -4,9 +4,9 @@
  */
 ?>
 <?php echo $this->Html->css(array('main', 'jquery-ui', 'tablesorter', 'reportsTable')); ?>
-<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min')); ?>
+<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min','googlemaps.js')); ?>
 <?php
-    echo '<script type="text/javascript" src="'.$this->GoogleMapV3->apiUrl().'"></script>';
+    //echo '<script type="text/javascript" src="'.$this->GoogleMapV3->apiUrl().'"></script>';
 ?>
 <script>
     $(document).ready(function() 
@@ -129,6 +129,8 @@
                     </tbody>
                 </table>
             <?php endif; ?>
+            <br/>    
+            <?php  echo $this->Html->link('Export', array('action'=>'export'));?>    
         </div>
     </div>
 </div>

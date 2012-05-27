@@ -5,27 +5,28 @@
 				<div class="register_box login_box" align="center">
 			 		<br><h1>Εγγραφή χρήστη</h1></br>
                     
+					<div class="required" style="color:red">(υποχρεωτικά πεδία *)</div>
 					<?php echo $this->Form->create('User', array('action' => 'register'));?>
                <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
                                         <table>
 					<?php 
-					echo '<tr><td><label for="UserName" class="name std_form">Όνομα:  </label></td><td><p>'.$this->Form->input('User.name', 
+					echo '<tr><td><label for="UserName" class="name std_form">Όνομα<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.name', 
 									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
-				    echo '<tr><td><label for="UserSurname" class="surname std_form">Επώνυμο:  </label></td><td><p>'.$this->Form->input('User.surname', 
+				    echo '<tr><td><label for="UserSurname" class="surname std_form">Επώνυμο<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.surname', 
 									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserSurame','placeholder' => 'π.χ. Κακομοίρογλου','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
-				    echo '<tr><td><label for="UserPhone" class="phone std_form">Τηλέφωνο:  </label></td><td><p>'.$this->Form->input('User.phone_number', 
-									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserPhone','placeholder' => 'π.χ. 234385497','class' => ' std_form blue_shadow')).'</p></td></tr>';
 					
-					echo '<tr><td><label for="UserEmail" class="mail std_form">e-mail:  </label></td><td><p>'.$this->Form->input('User.email', 
-									      array('after'=>$this->Form->error('email_unique', 'H συγκεκριμένη διεύθυνση ηλεκτρονικού ταχυδρομείου χρησιμοποιείται ήδη. Παρακαλώ δοκιμάστε άλλη.'),'label' => false, 'div' => false, 'type' => 'text', 'required' => 'required', 'id'=> 'UserEmail', 'placeholder' => 'π.χ. mymail@mail.com','class' => ' std_form blue_shadow')).'</p></td></tr>';
+					echo '<tr><td><label for="UserEmail" class="mail std_form">e-mail<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.email', 
+									      array('label' => false, 'div' => false, 'type' => 'text', 'required' => 'required', 'id'=> 'UserEmail', 'placeholder' => 'π.χ. mymail@mail.com','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
-				    echo '<tr><td><label for="UserPassword" class="youpasswd std_form">Κωδικός:  </label></td><td><p>'.$this->Form->input('User.password', 
+				    echo '<tr><td><label for="UserPassword" class="youpasswd std_form">Κωδικός<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.password', 
 									      array('label' => false, 'div' => false, 'type' => 'password', 'required' => 'required', 'id'=> 'UserPassword','placeholder' => 'example111','class' => 'std_form blue_shadow')).'</p></td></tr>';	
 										  
-				    echo '<tr><td><label for="UserPasswordCfm" class="youpasswdcfm std_form">Επαναλάβετε τον Κωδικό:  </label></td><td><p>'.$this->Form->input('User.passwordConfirm', 
+				    echo '<tr><td><label for="UserPasswordCfm" class="youpasswdcfm std_form">Επαναλάβετε τον Κωδικό<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.passwordConfirm', 
 									      array('label' => false, 'div' => false, 'type' => 'password', 'required' => 'required', 'id'=> 'UserPasswordCfm','placeholder' => 'example111','class' => ' std_form blue_shadow')).'</p></td></tr>';			  
+				    echo '<tr><td><label for="UserPhone" class="phone std_form">Τηλέφωνο:  </label></td><td><p>'.$this->Form->input('User.phone_number', 
+									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserPhone','placeholder' => 'π.χ. 234385497','class' => ' std_form blue_shadow')).'</p></td></tr>';
 					echo '<tr><td><label for="UserAddress" class="address std_form">Διεύθυνση:  </label></td><td><p>'.$this->Form->input('User.address', 
 									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=>	'UserAddress','placeholder' => 'π.χ Κολοπετινίτσας 100','class' => ' std_form blue_shadow')).'</p></td></tr>';
 					echo '<tr><td><label for="UserCity" class="city std_form">Πόλη:  </label></td><td><p>'.$this->Form->input('User.city', 
@@ -41,17 +42,21 @@
 					echo '<tr><td><label for="UserMembership" default="-" class="membership std_form">Ιδιότητα:  </label></td><td><p>'.$this->Form->input('User.membership', 
 									      array('options'=> $options, 'label' => false, 'div' => false, 'id'=>'UserMembership','class' => ' std_form blue_shadow')).'</p></td></tr></br>';	
 					echo '<tr><td></td><td>';					  
-					echo $this->Html->Image($this->Html->url(array('controller'=>'users', 'action'=>'captcha'), true),array('style'=>'','vspace'=>2)); 
+					echo $this->Recaptcha->show(array(
+						'theme' => 'white',
+						'lang' => 'en'			
+					));
+
+   					echo $this->Recaptcha->error();
 					echo '</td></tr>';
-					echo '<tr><td><label for="UserCaptcha" class="captcha std_form">Γράψτε αυτά που βλέπετε στην εικόνα:  </label></td><td><p>'.$this->Form->input('User.captcha', 
-									  array('label' => false, 'autocomplete'=>'off', 'div' => false, 'type' => 'text', 'id'=> 'UserCaptcha', 'error'=>__('Failed validating code',true),'class' => ' std_form blue_shadow')).'</p></td></tr>';		  	
-                                        
+					
+				                                       
 					?></table><?php					  
                                         echo '</br><p>'.$this->Form->end(array(
 														'name' => 'data[User][register]',
 														'label' => 'Εγγραφή',
-														'div' => false
-                                                                                                                ,'class' => ' std_form')).'</p>';									  
+														'div' => false,
+														'class' => ' std_form')).'</p>';									  
 								    ?>
 			    </div>
 			</div>
