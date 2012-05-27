@@ -25,7 +25,7 @@ class UsersController extends AppController{
     function register() 
     {
 		 
-      	 Configure::load('Recaptcha.key');
+      	 //Configure::load('Recaptcha.key');
 		 
          //ελέγχει εάν ο χρήστης είναι ήδη συνδεδεμένος. Εάν έιναι ήδη συνδεδεμένος
          //τότε τον κάνει redirect στην αρχική σελίδα
@@ -78,16 +78,16 @@ class UsersController extends AppController{
                    );
                if($this->User->save($data, false))
                {
-               //   if($this->__sendActivationEmail($this->User->getLastInsertID())) //παίζει να υπάρχει κάποιο bug εδώ..
-               //   {
-               //      $this->Session->setFlash("Message Sent");
-               //      $this->redirect(array('controller'=>'users', 'action'=>'notifyuser'));
-               //   }
-               //   else
-               //   {
-               //     $this->Session->setFlash("Message not sent"); 
-               //     $this->redirect(array('controller'=>'users', 'action'=>'notifyuser'));
-               //   }
+                  if($this->__sendActivationEmail($this->User->getLastInsertID())) //παίζει να υπάρχει κάποιο bug εδώ..
+                  {
+                     $this->Session->setFlash("Message Sent");
+                     
+                  }
+                  else
+                  {
+                    $this->Session->setFlash("Message not sent"); 
+                    
+                  }
                //    // pr($this->Session->read('Message.email')); /*Uncomment this code to view the content of email FOR DEBUG */
                //   
                   //TODO:Ακόμα δεν έχω βρει τον τρόπο να στέλνω το email επιβεβαίωσης.
@@ -131,14 +131,30 @@ class UsersController extends AppController{
                 '/users/activate/' . $user['User']['id'] . '/' . $this->User->getActivationHash());
                 
         $this->set('username', $this->data['User']['email']);
-        echo "to email e;ina " . $user['User']['email'];
+        //echo "to email einai " . $user['User']['email'];
         $this->Email->to = $user['User']['email'];
         $this->Email->subject = env('SERVER_NAME') . ' – Please confirm your email address';
-        $this->Email->from = 'vas1l1skaz1s@gmail.com';
-        $this->Email->template = 'user_confirm';
-        $this->Email->sendAs = 'text';   // you probably want to use both :)    
+        $this->Email->from = 'stgeorgiou89@gmail.com';
+        $this->Email->template = 'default';
+        $this->Email->sendAs = 'both';   // you probably want to use both :)    
+	    $this->Email->smtpOptions = array(
+			'port'=>'465',
+			'timeout'=>'30',
+			'host' => 'ssl://smtp.gmail.com',
+			'username'=>'stgeorgiou89@gmail.com',
+			'password'=>'xxxxx',
+		);
+		$this->Email->delivery = 'smtp';
+		if ($this->Email->send()) {
+			return true;
+		} else {
+			return false;
+		}
 
-        return $this->Email->send();
+
+
+
+        
     }
     
 
