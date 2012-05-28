@@ -78,6 +78,8 @@ h2 {
 .tableImage {
     max-width: 200px;
     max-height: 100px;
+    min-height: 50px;
+    min-width: 50px;
     border: 1px solid silver;
     border-radius: 6px;
 }
@@ -101,7 +103,7 @@ tr.report {
 }
 
 .report td {
-    height: 128px;
+    height: 110px;
 }
 
 .report td:first-child {

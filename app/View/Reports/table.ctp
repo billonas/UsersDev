@@ -138,7 +138,7 @@
                             <img src="/img/tablesorter-next.png" class="next"/>
                             <img src="/img/tablesorter-last.png" class="last"/>
                             <select class="pagesize">
-                                    <option selected="selected" value="10">10</option>
+                                    <option selected="selected" value="2">2</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
                                     <option value="40">40</option>
