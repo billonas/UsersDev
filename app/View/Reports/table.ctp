@@ -3,15 +3,16 @@
  * @author darkmatter
  */
 ?>
-<?php echo $this->Html->css(array('main', 'jquery-ui', 'tablesorter', 'reportsTable')); ?>
-<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min','googlemaps.js')); ?>
+<?php echo $this->Html->css(array('main', 'jquery-ui', 'tablesorter', 'reportsTable', 'jquery.tablesorter.pager.css')); ?>
+<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js')); ?>
 <?php
     //echo '<script type="text/javascript" src="'.$this->GoogleMapV3->apiUrl().'"></script>';
 ?>
 <script>
     $(document).ready(function() 
     { 
-        $("#reportsTable").tablesorter({sortList: [[0,0]]}); //sort the first column in ascending order
+        $("#reportsTable").tablesorter({sortList: [[0,0]]})  //sort the first column in ascending order
+            .tablesorterPager({container: $("#pager")});
     } 
 );
     
@@ -46,6 +47,7 @@
             <br/>
             <h2><center>Πίνακας Αναφορών</center></h2>
             <br/>
+            <?php  echo $this->Html->link('Export', array('action'=>'export'), array('id'=>'exportLink'));?>
             <?php if (empty($reports)): ?>
                 <h2><center>There are no reports</center></h2>
             <?php else: ?>
@@ -84,7 +86,7 @@
                             }
                         ?>
                             <tr class="report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $report['Report']['id'] ?>)">
-                                <td>
+                                <td class="leftmost">
                                     <?php echo $report['Report']['created'] ?>
                                 </td>
                                 <td>
@@ -117,7 +119,7 @@
                                             echo $report['Last_edited_by']['surname'];
                                     ?>
                                 </td>
-                                <td>
+                                <td class="rightmost">
                                     <?php echo $this->Html->link('Edit', array('action'=>'edit',$report['Report']['id'])); 
                                           echo ' ';
                                           echo $this->Html->link('Delete', array('action'=>'delete',$report['Report']['id']));
@@ -128,9 +130,23 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <div id="pager" class="pager">
+                    <form>
+                            <img src="/img/tablesorter-first.png" class="first"/>
+                            <img src="/img/tablesorter-prev.png" class="prev"/>
+                            <input type="text" class="pagedisplay"/>
+                            <img src="/img/tablesorter-next.png" class="next"/>
+                            <img src="/img/tablesorter-last.png" class="last"/>
+                            <select class="pagesize">
+                                    <option selected="selected" value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                            </select>
+                    </form>
+                </div>
             <?php endif; ?>
-            <br/>    
-            <?php  echo $this->Html->link('Export', array('action'=>'export'));?>    
+            <br/>   
         </div>
     </div>
 </div>
