@@ -202,7 +202,7 @@ document.getElementById('info').innerHTML = "";
                                     } 
                                 }
                                 else{
-                                    echo '<div id="fragment-1" class="small_pic">';
+                                    echo '<div id="fragment-1" class="">';
                                     echo $this->Session->flash(); 
                                     echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));     
                                     echo $this->Html->image($imagePath); 
