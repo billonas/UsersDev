@@ -41,44 +41,6 @@
 ////                $this->GoogleMapV3->addMarker($options);
 //                echo $this->GoogleMapV3->script();
             ?>
-            <div id="filterContainer">
-                <?php echo $this->Form->create('Report', array('action' => 'table', "enctype" => "multipart/form-data")); ?>
-                <table>
-                    <tr>
-                        <td>
-                            <label class="std_form" for="category">Κατηγορία</label>
-                        </td>
-                        <td>
-                            <?php
-                            $options = array('noValue'=>'-','xtapodia' => 'Χταπόδια');  
-                            echo $this->Form->input('category', array('options' => $options, 'default' => '    -    ', 'label'=>false, 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
-                            ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label class="std_form" for="species" >Είδος</label>
-                        </td>
-                        <td>
-                            <?php
-                            $options = array('noValue'=>'-','Psarus Psarus' => 'Psarus Psarus');  
-                            echo $this->Form->input('species', array('options' => $options, 'default' => '    -    ', 'label'=>false, 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
-                            ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <?php
-                            echo $this->Form->submit('Φιλτράρισμα', array('label' => 'Φιλτράρισμα', 'div' => false));
-                            ?>
-                        </td>
-                    </tr>
-                </table>
-                <?php                     
-                    echo $this->Form->end(); 
-                ?>
-            </div>
             <h2><center>Πίνακας Αναφορών</center></h2>
             <div class="flash_box gradient">
                 <?php echo $this->Session->flash().'</br>';?>
@@ -88,8 +50,27 @@
                 <h2><center>There are no reports</center></h2>
             <?php else: ?>
 
-                <?php //Print_r($reports[0]); ?>
                 <div id="tableOuterWrapper">
+                    <div id="filterContainer">
+                        <form>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <select>
+                                            <option value="category" selected="selected">Κατηγορία</option>
+                                            <option value="species">Είδος</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" class=""/>
+                                    </td>
+                                    <td>
+                                        <input type="submit" class="" value="Φιλτράρισμα"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
                     <table id="reportsTable" class="tablesorter reportsTable">
                         <thead>
                             <tr>
