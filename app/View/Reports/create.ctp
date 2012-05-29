@@ -215,6 +215,7 @@ document.getElementById('info').innerHTML = "";
 									echo '<table>';
                                     echo '<tr><td><label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label></td>';
 									echo '<td>'.$this->Form->input('date',array('label'=>false,'div'=>false, 'class'=>'std_form')).'</td>';
+									echo '<tr><td><label class="std_form"><br/>Τοποθεσία παρατήρησης: </label></td> </tr>';
 									echo '<br/>';
 									echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
 									echo '<td>'.$this->Form->input('lat',array('id'=>'info','label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));
