@@ -45,15 +45,20 @@
 									      array('options'=> $options, 'label' => false, 'div' => false, 'id'=>'UserMembership','class' => ' std_form blue_shadow')).'</p></td></tr></br>';	
 					
 				                                       
-					?></table><?php				
+					?></table>				
 					
-					                    
-                                        echo '</br><p>'.$this->Form->end(array(
-														'name' => 'data[User][register]',
-														'label' => 'Εγγραφή',
-														'div' => false,
-														'class' => ' std_form')).'</p>';									  
-								    ?>
+					<?php echo $this->Recaptcha->show(array(
+						'theme' => 'white',
+						'custom_translations' => array('instructions_visual' => 'Γράψτε τις λέξεις')	
+					));
+   					echo $this->Recaptcha->error();	  
+					
+					echo '</br><p>'.$this->Form->end(array(
+									'name' => 'data[User][register]',
+									'label' => 'Εγγραφή',
+									'div' => false,
+									'class' => ' std_form')).'</p>';									  
+					 ?>
 			    </div>
 			</div>
     </div>
