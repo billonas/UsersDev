@@ -33,20 +33,19 @@
             <br/>
             
             <?php
-                echo $this->GoogleMapV3->map(array('map'=>array(
-                'defaultLat' => 39, # only last fallback, use Configure::write('Google.lat', ...); to define own one
-                'defaultLng' => 21, # only last fallback, use Configure::write('Google.lng', ...); to define own one
-                'defaultZoom' => 5,
-                ),'div'=>array('id'=>'my_map', 'height'=>'400', 'width'=>'700')));
-//                SET MARKERS FOR ALL REPORTS                
-//                $options = array(
-//                'lat'=>39,
-//                'lng'=>21,
-//                );
-//                $this->GoogleMapV3->addMarker($options);
-                echo $this->GoogleMapV3->script();
+//                echo $this->GoogleMapV3->map(array('map'=>array(
+//                'defaultLat' => 39, # only last fallback, use Configure::write('Google.lat', ...); to define own one
+//                'defaultLng' => 21, # only last fallback, use Configure::write('Google.lng', ...); to define own one
+//                'defaultZoom' => 5,
+//                ),'div'=>array('id'=>'my_map', 'height'=>'400', 'width'=>'700')));
+////                SET MARKERS FOR ALL REPORTS                
+////                $options = array(
+////                'lat'=>39,
+////                'lng'=>21,
+////                );
+////                $this->GoogleMapV3->addMarker($options);
+//                echo $this->GoogleMapV3->script();
             ?>
-            <br/>
             <h2><center>Πίνακας Αναφορών</center></h2>
             <br/>
             <?php  echo $this->Html->link('Export', array('action'=>'export'), array('id'=>'exportLink'));?>
@@ -55,7 +54,7 @@
             <?php else: ?>
 
                 <?php //Print_r($reports[0]); ?>
-                <div id="tableWrapper">
+                <div id="tableOuterWrapper">
                     <table id="reportsTable" class="tablesorter reportsTable">
                         <thead>
                             <tr>
@@ -133,25 +132,25 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                </div>
-                <div id="pager" class="pager">
-                    <form>
-<!--                        <img src="/img/tablesorter-first.png" class="first"/>-->
-<!--                        <img src="/img/tablesorter-prev.png" class="prev"/>-->
-                        <button class="first">First</button>
-                        <button class="prev">Previous</button>
-                        <input type="text" class="pagedisplay"/>
-<!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
-<!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
-                        <select class="pagesize">
-                                <option selected="selected" value="2">2</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                                <option value="40">40</option>
-                        </select>
-                        <button class="next">Next</button>
-                        <button class="last">Last</button>
-                    </form>
+                    <div id="pager" class="pager">
+                        <form>
+    <!--                        <img src="/img/tablesorter-first.png" class="first"/>-->
+    <!--                        <img src="/img/tablesorter-prev.png" class="prev"/>-->
+                            <button class="first">First</button>
+                            <button class="prev">Previous</button>
+                            <input type="text" class="pagedisplay"/>
+    <!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
+    <!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
+                            <select class="pagesize">
+                                    <option selected="selected" value="2">2</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                            </select>
+                            <button class="next">Next</button>
+                            <button class="last">Last</button>
+                        </form>
+                    </div>
                 </div>
             <?php endif; ?>
             <br/>   

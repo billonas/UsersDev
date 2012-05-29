@@ -67,14 +67,20 @@ div.tablesorterPager input {
 }
 
 
-#tableWrapper {
-    background: white;
+#tableOuterWrapper {
+    background: silver;
     padding: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
 }
+/*#tableOuterWrapper table tbody {
+    background: white;
+}*/
+
 
 #pager {
     margin-left: 10%;
     margin-right: 10%;
+    margin-bottom: 40px;
 }
 
 .pagerButton {
@@ -95,6 +101,7 @@ h2 {
 
 #exportLink {
     float: right;
+    margin-right: 5px;
 }
 
 .tableImage {
@@ -119,6 +126,7 @@ tr.report {
     background-color: #ddffdd;
 }
 .report.pending td {
+    background-color: white;
 }
 
 .report td {
