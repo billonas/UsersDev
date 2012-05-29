@@ -14,12 +14,12 @@
 	  
 			  if (i != 0) {
 			      prev = i;
-		   		  $(this).append("<a href='#' class='prev-tab mover' rel='" + prev + "'>&#171; Prev Page</a>");
+		   		  $(this).append("<a href='#' class='prev-tab mover' rel='" + prev + "'>&#171; Προηγούμενο βήμα</a>");
 			  }
 			  
 			  if (i != totalSize) {
 			      next = i + 2;
-		   		  $(this).append("<a href='#' class='next-tab mover' rel='" + next + "'>Next Page &#187;</a>");
+		   		  $(this).append("<a href='#' class='next-tab mover' rel='" + next + "'>Επόμενο βήμα &#187;</a>");
 			  }
    		
 			});
@@ -209,14 +209,14 @@ document.getElementById('info').innerHTML = "";
                                     echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$imagePath, 'class'=>'std_form'));
                                     echo '<br/>';
                                     echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'class'=>'std_form'));
-									
-									
-									echo '<div id="mapCanvas"></div>';
-									echo '<table>';
-                                    echo '<tr><td><label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label></td>';
-									echo '<td>'.$this->Form->input('date',array('label'=>false,'div'=>false, 'class'=>'std_form')).'</td>';
-									echo '<tr><td><label class="std_form"><br/>Τοποθεσία παρατήρησης: </label></td> </tr>';
+									echo '</br><label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';
+									echo $this->Form->input('date',array('label'=>false,'div'=>false, 'class'=>'std_form blue shadow'));
+									echo '</br></br><div id="mapCanvas"></div>';
+									echo '<table>';				
+                                    
+									echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
 									echo '<br/>';
+									
 									echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
 									echo '<td>'.$this->Form->input('lat',array('id'=>'info','label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));
 									echo '</td></tr>';
