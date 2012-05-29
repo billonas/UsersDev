@@ -14,7 +14,7 @@
         $("#reportsTable").tablesorter({sortList: [[0,0]]})  //sort the first column in ascending order
             .tablesorterPager({container: $("#pager")});
         
-        $("#pager button, .deleteButton, .editButton").button();
+        $("#pager button, .deleteButton, .editButton, #filterContainer form input[type='submit']").button();
     } 
 );
     
@@ -26,11 +26,6 @@
 <div class="middle_row">
     <div class="middle_wrapper">
         <div>
-            <br/>
-            <div class="flash_box gradient">
-                                        <?php echo $this->Session->flash().'</br>';?>
-             </div>
-            <br/>
             
             <?php
 //                echo $this->GoogleMapV3->map(array('map'=>array(
@@ -46,8 +41,48 @@
 ////                $this->GoogleMapV3->addMarker($options);
 //                echo $this->GoogleMapV3->script();
             ?>
+            <div id="filterContainer">
+                <?php echo $this->Form->create('Report', array('action' => 'table', "enctype" => "multipart/form-data")); ?>
+                <table>
+                    <tr>
+                        <td>
+                            <label class="std_form" for="category">Κατηγορία</label>
+                        </td>
+                        <td>
+                            <?php
+                            $options = array('noValue'=>'-','xtapodia' => 'Χταπόδια');  
+                            echo $this->Form->input('category', array('options' => $options, 'default' => '    -    ', 'label'=>false, 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                            ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="std_form" for="species" >Είδος</label>
+                        </td>
+                        <td>
+                            <?php
+                            $options = array('noValue'=>'-','Psarus Psarus' => 'Psarus Psarus');  
+                            echo $this->Form->input('species', array('options' => $options, 'default' => '    -    ', 'label'=>false, 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                            ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <?php
+                            echo $this->Form->submit('Φιλτράρισμα', array('label' => 'Φιλτράρισμα', 'div' => false));
+                            ?>
+                        </td>
+                    </tr>
+                </table>
+                <?php                     
+                    echo $this->Form->end(); 
+                ?>
+            </div>
             <h2><center>Πίνακας Αναφορών</center></h2>
-            <br/>
+            <div class="flash_box gradient">
+                <?php echo $this->Session->flash().'</br>';?>
+            </div>
             <?php  echo $this->Html->link('Export', array('action'=>'export'), array('id'=>'exportLink'));?>
             <?php if (empty($reports)): ?>
                 <h2><center>There are no reports</center></h2>
