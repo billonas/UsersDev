@@ -13,6 +13,8 @@
     { 
         $("#reportsTable").tablesorter({sortList: [[0,0]]})  //sort the first column in ascending order
             .tablesorterPager({container: $("#pager")});
+        
+        $("#pager button").button();
     } 
 );
     
@@ -132,17 +134,21 @@
                 </table>
                 <div id="pager" class="pager">
                     <form>
-                            <img src="/img/tablesorter-first.png" class="first"/>
-                            <img src="/img/tablesorter-prev.png" class="prev"/>
-                            <input type="text" class="pagedisplay"/>
-                            <img src="/img/tablesorter-next.png" class="next"/>
-                            <img src="/img/tablesorter-last.png" class="last"/>
-                            <select class="pagesize">
-                                    <option selected="selected" value="2">2</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                            </select>
+<!--                        <img src="/img/tablesorter-first.png" class="first"/>-->
+<!--                        <img src="/img/tablesorter-prev.png" class="prev"/>-->
+                        <button class="first">First</button>
+                        <button class="prev">Previous</button>
+                        <input type="text" class="pagedisplay"/>
+<!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
+<!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
+                        <select class="pagesize">
+                                <option selected="selected" value="2">2</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                        </select>
+                        <button class="next">Next</button>
+                        <button class="last">Last</button>
                     </form>
                 </div>
             <?php endif; ?>

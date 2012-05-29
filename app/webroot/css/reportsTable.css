@@ -63,6 +63,19 @@ div.tablesorterPager input {
 	text-align: center;
 }
 
+#pager {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.pagerButton {
+    border: 2px solid rgb(56, 59, 63);
+    margin: 1px 1px 1px 1px;
+    padding: 2px 2px 2px 2px;
+    width: 40px;
+    height: 30px;
+}
+
 
 
 h2 {
@@ -93,13 +106,10 @@ tr.report {
 .report.rejected td {
     background-color: #ffdddd;
 }
-
 .report.verified td {
     background-color: #ddffdd;
 }
-
 .report.pending td {
-/*    background-color: silver;*/
 }
 
 .report td {
@@ -127,3 +137,24 @@ tr.report {
     margin-left: auto;
     margin-right: auto;
 }
+
+
+
+/* Shapes */
+.triangle-left 
+{ 
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-right: 10px solid red;
+    border-bottom: 5px solid transparent;
+}
+
+.triangle-right
+{
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 10px solid red;
+    border-bottom: 5px solid transparent;
+} 
