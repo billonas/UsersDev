@@ -72,9 +72,6 @@ div.tablesorterPager input {
     padding: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
 }
-/*#tableOuterWrapper table tbody {
-    background: white;
-}*/
 
 
 #pager {
@@ -140,8 +137,13 @@ tr.report {
     border-radius: 0px 5px 5px 0px;
 }
 
+.report .deleteButton {
+    background: #ff7766;
+}
+.report .deleteButton:hover {
+    background: tomato;
+}
 
-/* Rules for interactive visualisation */
 .report:hover td {
     background-color: lightblue;
     cursor: pointer;

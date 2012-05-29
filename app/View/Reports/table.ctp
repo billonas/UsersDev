@@ -14,7 +14,7 @@
         $("#reportsTable").tablesorter({sortList: [[0,0]]})  //sort the first column in ascending order
             .tablesorterPager({container: $("#pager")});
         
-        $("#pager button").button();
+        $("#pager button, .deleteButton, .editButton").button();
     } 
 );
     
@@ -122,9 +122,9 @@
                                         ?>
                                     </td>
                                     <td class="rightmost">
-                                        <?php echo $this->Html->link('Edit', array('action'=>'edit',$report['Report']['id'])); 
+                                        <?php echo $this->Html->link('Edit', array('action'=>'edit',$report['Report']['id']), array('class'=>'editButton')); 
                                                 echo ' ';
-                                                echo $this->Html->link('Delete', array('action'=>'delete',$report['Report']['id']));
+                                                echo $this->Html->link('Delete', array('action'=>'delete',$report['Report']['id']), array('class'=>'deleteButton')); 
                                         ?>
 
                                     </td>
