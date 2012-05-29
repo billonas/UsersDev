@@ -55,83 +55,85 @@
             <?php else: ?>
 
                 <?php //Print_r($reports[0]); ?>
-                <table id="reportsTable" class="tablesorter reportsTable">
-                    <thead>
-                        <tr>
-                            <th>Ημερομηνία Υποβολής</th>
-                            <th>Φωτογραφία Παρατήρησης</th>
-                            <th>Κατηγορία</th>
-                            <th>Δημοφιλές Eίδος</th>
-<!--                            <th>Κατάσταση</th>-->
-                            <th>Τελευταία Επεξεργασία</th>
-                            <th>Ενέργειες</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($reports as $report): ?>
-                        <?php
-                            // Determine the status of the report
-                            $reportStatus = "pending"; // classes are {"pending", "rejected", "verified"}
-                            if ( isset($report['Report']['state']) )
-                            {
-                                switch ($report['Report']['state'])
-                                {
-                                    case "confirmed":
-                                        $reportStatus = "verified";
-                                        break;
-                                    case "unreliable":
-                                        $reportStatus = "rejected";
-                                        break;
-                                    case "unknown":
-                                        break;
-                                }
-                            }
-                        ?>
-                            <tr class="report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $report['Report']['id'] ?>)">
-                                <td class="leftmost">
-                                    <?php echo $report['Report']['created'] ?>
-                                </td>
-                                <td>
-                                    <center>
-                                        <?php echo $this->Html->image($report['Report']['main_photo'], array('alt' => 'main photo', 'class' => 'tableImage')) ?>
-                                    </center>
-                                </td>
-                                <td>
-                                    <?php
-                                        if ( isset($report['Category']) )
-                                            echo $report['Category']['category_name'];
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                        if ( isset($report['HotSpecie']) )
-                                            echo $report['HotSpecie']['scientific_name'];
-                                    ?>
-                                </td>
-<!--                                <td>
-                                    <?php
-                                        echo $report['Report']['state'];
-                                    ?>
-                                </td>-->
-                                <td>
-                                    <?php
-                                        if ( isset($report['Last_edited_by']) )
-                                            echo $report['Last_edited_by']['name'];
-                                            echo ' ';
-                                            echo $report['Last_edited_by']['surname'];
-                                    ?>
-                                </td>
-                                <td class="rightmost">
-                                    <?php echo $this->Html->link('Edit', array('action'=>'edit',$report['Report']['id'])); 
-                                          echo ' ';
-                                          echo $this->Html->link('Delete', array('action'=>'delete',$report['Report']['id']));
-                                    ?>
-                                    
-                                </td>
+                <div id="tableWrapper">
+                    <table id="reportsTable" class="tablesorter reportsTable">
+                        <thead>
+                            <tr>
+                                <th>Ημερομηνία Υποβολής</th>
+                                <th>Φωτογραφία Παρατήρησης</th>
+                                <th>Κατηγορία</th>
+                                <th>Δημοφιλές Eίδος</th>
+        <!--                            <th>Κατάσταση</th>-->
+                                <th>Τελευταία Επεξεργασία</th>
+                                <th>Ενέργειες</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($reports as $report): ?>
+                            <?php
+                                // Determine the status of the report
+                                $reportStatus = "pending"; // classes are {"pending", "rejected", "verified"}
+                                if ( isset($report['Report']['state']) )
+                                {
+                                    switch ($report['Report']['state'])
+                                    {
+                                        case "confirmed":
+                                            $reportStatus = "verified";
+                                            break;
+                                        case "unreliable":
+                                            $reportStatus = "rejected";
+                                            break;
+                                        case "unknown":
+                                            break;
+                                    }
+                                }
+                            ?>
+                                <tr class="report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $report['Report']['id'] ?>)">
+                                    <td class="leftmost">
+                                        <?php echo $report['Report']['created'] ?>
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <?php echo $this->Html->image($report['Report']['main_photo'], array('alt' => 'main photo', 'class' => 'tableImage')) ?>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            if ( isset($report['Category']) )
+                                                echo $report['Category']['category_name'];
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            if ( isset($report['HotSpecie']) )
+                                                echo $report['HotSpecie']['scientific_name'];
+                                        ?>
+                                    </td>
+        <!--                                <td>
+                                        <?php
+                                            echo $report['Report']['state'];
+                                        ?>
+                                    </td>-->
+                                    <td>
+                                        <?php
+                                            if ( isset($report['Last_edited_by']) )
+                                                echo $report['Last_edited_by']['name'];
+                                                echo ' ';
+                                                echo $report['Last_edited_by']['surname'];
+                                        ?>
+                                    </td>
+                                    <td class="rightmost">
+                                        <?php echo $this->Html->link('Edit', array('action'=>'edit',$report['Report']['id'])); 
+                                                echo ' ';
+                                                echo $this->Html->link('Delete', array('action'=>'delete',$report['Report']['id']));
+                                        ?>
+
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
                 <div id="pager" class="pager">
                     <form>
 <!--                        <img src="/img/tablesorter-first.png" class="first"/>-->
