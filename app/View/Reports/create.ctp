@@ -222,18 +222,19 @@ $(document).ready(function(){
                     echo '<td>'.$this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
                     echo '</td></tr></table>';
 					echo "<a href='#2' class='next-tab mover'>Επόμενο βήμα &#187;</a>";
+					echo '<big><span style="color:red"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
                     echo '</div>';
                 }
                 ?>
                 <?php
                     if(isset($cropped)){
                         echo '<div id="f2">';
-                        echo '</br><table>';
+                        echo '</br><big> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
 								echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
                                 echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
 								echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
                                 echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-								echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχοι; </label></td></tr>';
+								echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
 						echo '</table>';    
                         echo '<br/>';
                         $options = array();
@@ -262,6 +263,7 @@ $(document).ready(function(){
                 <?php
                     if(isset($cropped)){
                         echo '<div id="f3">';
+						echo '</br><big> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br>';
                         echo '<table>';
                         if($this->Session->check('UserUsername')){
 							echo '<tr><td><label for="ReportAge" class="std_form">Επιπλέον Σχόλια </label></td>';
