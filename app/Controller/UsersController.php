@@ -25,7 +25,7 @@ class UsersController extends AppController{
     function register() 
     {
 		 
-      	 //Configure::load('Recaptcha.key');
+      	 Configure::load('Recaptcha.key');
 		 
          //ελέγχει εάν ο χρήστης είναι ήδη συνδεδεμένος. Εάν έιναι ήδη συνδεδεμένος
          //τότε τον κάνει redirect στην αρχική σελίδα
