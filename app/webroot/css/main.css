@@ -6,7 +6,7 @@
 	   -moz-box-sizing: border-box;
 	        box-sizing: border-box;
 }
-
+ 
 @font-face {
     font-family: 'FontomasCustomRegular';
     src: url('fonts/fontomas-webfont.eot');
@@ -19,255 +19,237 @@
 }
 
 body{
-	background-color: rgb(240, 240, 240);
-}
-
-#slideshow {
-  	overflow: hidden;
-	width: 100%;
-	height: 100%;
-	float: left;
-}
-
-#slideshow img {
-	float:left;
-	display:block;
-	border:none;
-	width:100%;
-	height:100%;
-	overflow:hidden;
+    background-color: rgb(240, 240, 240);
 }
 
 .wrapper{
-	width: 100%;
-	background-color: transparent;
+    width: 100%;
+    background-color: transparent;
 }
 
 .upper_row{
-	width: 100%;
-	background-color: rgb(34, 34, 34);
-	position: relative;
-	z-index: 5000;
-	border-bottom: 1px solid #333;
+    width: 100%;
+    background-color: rgb(34, 34, 34);
+    position: relative;
+    z-index: 5000;
+    border-bottom: 1px solid #333;
     box-shadow: 0 1px 2px #000, 0 2px 1px rgba(0, 0, 0, .4);
-	overflow: visible;
-	height: 4.5em;
+    overflow: visible;
+    height: 4.5em;
 }
 
 .upper_row a{
-	margin-left: 10%;
-	margin-right: 10em;
-	float: left;
+    margin-left: 10%;
+    margin-right: 10em;
+    float: left;
 }
 
 .upper_row img{
-	width: 4.5em;
+    width: 4.5em;
 }
 
 .upper_row ul{
-	width: auto;
-	list-style: none;
-	background-color: transparent;
-	float: right;
-	margin-right: 10%;
-	overflow: visible;
-	height: 4.5em;
+    width: auto;
+    list-style: none;
+    background-color: transparent;
+    float: right;
+    margin-right: 10%;
+    overflow: visible;
+    height: 4.5em;
 }
 
 .upper_row ul li{
-	float: right;
-	width: 10em;
-	text-align: center;
-	vertical-align: middle;
-	padding-top: 1.6em;
-	border-right: 1px solid #666;
-	box-shadow: 1px 0px 0px 0px #000;
-	height: 4.5em;
+    float: right;
+    width: 10em;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 1.6em;
+    border-right: 1px solid #666;
+    box-shadow: 1px 0px 0px 0px #000;
+    height: 4.5em;
 }
 
 .upper_row ul li:first-child{
-	margin-right: 0px;
+    margin-right: 0px;
 }
 
 .upper_row ul li:last-child{
-	border-left: 1px solid #000;
-	box-shadow: -1px 0px 0px 0px #666,
-				1px 0px 0px 0px #000;
-	margin-left: 1px;
+    border-left: 1px solid #000;
+    box-shadow: -1px 0px 0px 0px #666,
+                            1px 0px 0px 0px #000;
+    margin-left: 1px;
 }
 
 .upper_row ul li a{
-	margin: 0;
-	text-decoration: none;
-	background-color: transparent;
-	border: 0;
-	color: rgb(162, 162, 162);
-	font: bold 95%/1em  Helvetica, Verdana, Arial, sans-serif;
-	padding: 0;
-	text-align: center;
-	width: 9.5em;
-	height: auto;
-	-moz-transition: all linear .3s;
-	-o-transition: all linear .3s;
-	-webkit-transition: all linear .3s;
-	transition: all linear .3s;
-	word-wrap: break-word;
-	margin-left: .4em;
+    margin: 0;
+    text-decoration: none;
+    background-color: transparent;
+    border: 0;
+    color: rgb(162, 162, 162);
+    font: bold 95%/1em  Helvetica, Verdana, Arial, sans-serif;
+    padding: 0;
+    text-align: center;
+    width: 9.5em;
+    height: auto;
+    -moz-transition: all linear .3s;
+    -o-transition: all linear .3s;
+    -webkit-transition: all linear .3s;
+    transition: all linear .3s;
+    word-wrap: break-word;
+    margin-left: .4em;
 }
 
 .upper_row ul li a span.pointer{
-	width: 0px;
-	height: 0px;
-	border-top: .8em solid rgb(102,102,102);
-	border-bottom: .1em solid transparent;
-	border-left: .5em solid transparent;
-	border-right: .5em solid transparent;
-	display: inline-block;
-	position: relative;
-	top: .2em;
-	margin-left: .4em;
-	-moz-transition: all .3s linear;
-	-ms-transition: all .3s linear;
-	-o-transition: all .3s linear;
-	-webkit-transition: all .3s linear;
-	transition: all .3s linear;
+    width: 0px;
+    height: 0px;
+    border-top: .8em solid rgb(102,102,102);
+    border-bottom: .1em solid transparent;
+    border-left: .5em solid transparent;
+    border-right: .5em solid transparent;
+    display: inline-block;
+    position: relative;
+    top: .2em;
+    margin-left: .4em;
+    -moz-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -webkit-transition: all .3s linear;
+    transition: all .3s linear;
 }
 
 .upper_row ul li:hover a{	
-	color: #fff;
+    color: #fff;
 }
 
 .upper_row ul li:hover a span.pointer{
-	border-top: .8em solid #fff;
-	border-bottom: .1em solid transparent;
-	border-left: .5em solid transparent;
-	border-right: .5em solid transparent;
+    border-top: .8em solid #fff;
+    border-bottom: .1em solid transparent;
+    border-left: .5em solid transparent;
+    border-right: .5em solid transparent;
 }
 
 .upper_row ul li:hover div{
-	display: block;
+    display: block;
 }
 
 .upper_row ul li a small {
-	color: inherit;	
-	font: bold 70%/1em Helvetica, Verdana, Arial, sans-serif;
-	text-transform: none;
-	margin: 0;
+    color: inherit;	
+    font: bold 70%/1em Helvetica, Verdana, Arial, sans-serif;
+    text-transform: none;
+    margin: 0;
 }
 
 .upper_row ul li.active{
-	background-color: #000;
-	color: #fff;
+    background-color: #000;
+    color: #fff;
 }
 
 .upper_row ul li.active a{
-	color: #fff;
+    color: #fff;
 }
 
 .upper_row ul li.active a span.pointer{
-	color: #fff;
-	border-top-color: #fff;
+    color: #fff;
+    border-top-color: #fff;
 }
 
 .upper_row ul li div{
-	display: none;
-	position: absolute;
-	z-index: 1000;
-	text-align: left;
-	height: auto;
-	width: 3.5em;
-	overflow: visible;
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    text-align: left;
+    height: auto;
+    width: 3.5em;
+    overflow: visible;
 }
 
 .upper_row ul li div div{
-	position: relative;
-	top: 2.4em;
-	right: 8.5em;
-	background-color:  rgb(34, 34, 34);
+    position: relative;
+    top: 2.4em;
+    right: 8.5em;
+    background-color:  rgb(34, 34, 34);
     padding: 1em 2em 4em 2em;
     margin: 0;
     -webkit-box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7);
-	box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7);
+    box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7);
     border-radius: 5px;
-	color: #fff;
-	height: auto;
-	width: 27em;
+    color: #fff;
+    height: auto;
+    width: 27em;
 }
 
 .middle_row{
-	width: 100%;
-	height: auto;
-	background-color: rgb(240, 240, 240);
-	color: #000;
-	z-index:1;
-	position: relative;
-	padding-top: 0;
-        padding-bottom: 3em;
+    width: 100%;
+    height: auto;
+    background-color: rgb(240, 240, 240);
+    color: #000;
+    z-index:1;
+    position: relative;
+    padding-top: 0;
+    padding-bottom: 3em;
 }
 
 .middle_wrapper{
-	margin-left: 10%;
-	margin-right: 10%;
-	margin-top: 2%;
-	margin-bottom: 0%;
-	height: 25em;
-	box-sizing:content-box;
-	width: 80%;
-	z-index: 1;
-	float: none;
-	background-color: #fff;
-	border: 0;
-	box-shadow: none;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%;
+    margin-bottom: 0%;
+    height: 25em;
+    box-sizing:content-box;
+    width: 80%;
+    z-index: 1;
+    float: none;
+    background-color: #fff;
+    border: 0;
+    box-shadow: none;
 }
 
 .lower_row{
-	width: 100%;
-	background-color: rgb(250,250,250);
-        border-top: 2px solid rgb(180,180,180);
+    width: 100%;
+    background-color: rgb(250,250,250);
+    border-top: 2px solid rgb(180,180,180);
 }
 
 .comments{
-	font-size: 1em;
-	color: #000;
-	font-family: helvetica,sans-serif;
-	width: 100%;
-	text-align: center;
-	margin: 0;
-	background-color: rgb(240,240,240);
-	padding-top: 4em;
-	clear: both;
-        padding-bottom: 3em;
+    font-size: 1em;
+    color: #000;
+    font-family: helvetica,sans-serif;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    background-color: rgb(240,240,240);
+    padding-top: 4em;
+    clear: both;
+    padding-bottom: 3em;
 }
 
 .comments div{
-	width: 80%;
-	border-top: 1px dotted rgb(191,191,191);
-	padding-top: 1em;
-	margin-left: 10%;
+    width: 80%;
+    border-top: 1px dotted rgb(191,191,191);
+    padding-top: 1em;
+    margin-left: 10%;
 }
 
 .comments div a{
-	float: none;
-	width: auto;
-	margin: 0;
-	padding: 0;
+    float: none;
+    width: auto;
+    margin: 0;
+    padding: 0;
 }
-
-
 
 /***************************************************************************************
 Forms
 ***************************************************************************************/
 
 form{
-	margin: 0;
-	padding:0;
-	border:0;
-	position: static;
+    margin: 0;
+    padding:0;
+    border:0;
+    position: static;
 }
 
 label.std_form{
-	font:100 .9em/.9em Arial, sans-serif;;
+    font:100 .9em/.9em Arial, sans-serif;;
 }
 
 input.std_form[type="text"],
@@ -276,16 +258,16 @@ textarea.std_form{
     border: 1px solid rgb(178, 178, 178);
     box-sizing : content-box;
     border-radius: 3px;
-	font:italic 100 1em/1em Arial, sans-serif;
+    font:italic 100 1em/1em Arial, sans-serif;
     -webkit-box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
-	box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+    box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
     transition: all .2s linear;
 }
 
 input.blue_shadow[type="text"],
 input.blue_shadow[type="password"],
 textarea.blue_shadow{
-	transition: all .2s linear;
+    transition: all .2s linear;
 }
 
 input.std_form[type="password"]:active,
@@ -297,7 +279,7 @@ textarea.std_form:focus{
     border: 1px solid rgba(91, 90, 90, 0.7);
     background: rgba(256, 256, 256, 0.95);
     -webkit-box-shadow: 0px 1px 4px 0px rgba(158, 158, 158, 1) inset;
-	box-shadow: 0px 1px 4px 0px rgba(158, 158, 158, 1) inset;
+    box-shadow: 0px 1px 4px 0px rgba(158, 158, 158, 1) inset;
 }
 
 input.blue_shadow[type="password"]:active,
@@ -309,9 +291,9 @@ textarea.blue_shadow:focus{
     border: 1px solid rgba(91, 90, 90, 0.7);
     background: rgba(256, 256, 256, 0.95);
     -webkit-box-shadow: 0px 1px 4px 0px rgba(158, 158, 158, 1) inset,
-						0px 0px 2px 0px #3399ff;
-	box-shadow: 0px 1px 4px 0px rgba(158, 158, 158, 1) inset,
-				0px 0px 2px 0px #3399ff;
+                        0px 0px 2px 0px #3399ff;
+    box-shadow: 0px 1px 4px 0px rgba(158, 158, 158, 1) inset,
+                0px 0px 2px 0px #3399ff;
 }
 
 input.std_form[type="submit"]{
@@ -379,15 +361,6 @@ input.std_form[type="checkbox"]{
 End Forms
 ***************************************************************************************/
 
-/* next/previous buttons start */
-a.mover 							{ background: #999; padding: 6px 12px; position: absolute;
-								      color: white; font-weight: bold; text-decoration: none; }
-.next-tab 							{ bottom: 0; right: 0; -moz-border-radius-topleft: 10px; -webkit-border-top-left-radius: 10px; }
-.prev-tab 							{ bottom: 0; left: 0; -moz-border-radius-topright: 10px; -webkit-border-top-right-radius: 10px; }
-/* next/previous buttons end */
-
-
-
 /***************************************************************************************
 kodikas gia ta h1 kai h2
 ***************************************************************************************/
@@ -454,7 +427,7 @@ telos kodika gia ta h1 kai h2
 kodikas gia links san koumpia
 ***************************************************************************************/
 
-.index_tile:nth-child(3) a{
+a.button_like_anchor{
     background: #03a4cf; /* Old browsers */
     background: -moz-linear-gradient(top, #03a4cf 0%, #008bb5 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#03a4cf), color-stop(100%,#008bb5)); /* Chrome,Safari4+ */
@@ -463,9 +436,9 @@ kodikas gia links san koumpia
     background: -ms-linear-gradient(top, #03a4cf 0%,#008bb5 100%); /* IE10+ */
     background: linear-gradient(top, #03a4cf 0%,#008bb5 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03a4cf', endColorstr='#008bb5',GradientType=0 ); /* IE6-9 */
-                    box-shadow:0px 0px 0px 1px rgb(59, 133, 153),
-                                inset 0px 2px 0px rgb(64, 190, 223),
-                                inset 0px -2px 0px rgb(0, 98, 128);
+    box-shadow:0px 0px 0px 1px rgb(59, 133, 153),
+                inset 0px 2px 0px rgb(64, 190, 223),
+                inset 0px -2px 0px rgb(0, 98, 128);
     color: #fff;
     text-shadow: 1px 1px 1px #000;
     border:0;
@@ -479,7 +452,7 @@ kodikas gia links san koumpia
     text-align: center;
 }
 
-.index_tile:nth-child(3) a:hover{
+a.button_like_anchor:hover{
     background: #008bb5; /* Old browsers */
     background: -moz-linear-gradient(top,  #008bb5 0%, #03a4cf 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#008bb5), color-stop(100%,#03a4cf)); /* Chrome,Safari4+ */
@@ -490,7 +463,7 @@ kodikas gia links san koumpia
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#008bb5', endColorstr='#03a4cf',GradientType=0 ); /* IE6-9 */
 }
 
-.index_tile:nth-child(3) a:active{
+a.button_like_anchor:active{
     background: #0f9ac4; /* Old browsers */
     background: -moz-linear-gradient(top, #0f9ac4 0%, #12b3de 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0f9ac4), color-stop(100%,#12b3de)); /* Chrome,Safari4+ */
@@ -500,9 +473,11 @@ kodikas gia links san koumpia
     background: linear-gradient(top, #0f9ac4 0%,#12b3de 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f9ac4', endColorstr='#12b3de',GradientType=0 ); /* IE6-9 */
 }
+
 /***************************************************************************************
 telos kodika gia links san koumpia
 ***************************************************************************************/
+
 /***************************************************************************************
 kodikas eidika gia to pop up tou login
 ***************************************************************************************/
@@ -559,6 +534,10 @@ noindex:-o-prefocus,
     color: #fff;
     width: auto;
     font: 200 1em/1em Arial,sans-serif;
+}
+
+.upper_row ul li div div label{
+    color: #fff;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
@@ -669,11 +648,19 @@ kodikas mono gia tin arxiki selida
 .index_tile:nth-child(5){margin-top: -9em;}
 
 .index_tile .tile_header{
-    -o-transition: all ease-in .5s;
-    -ms-transition: all ease-in .5s;
-    -webkit-transition: all ease-in .5s;
-    -moz-transition: all ease-in .5s;
-    transition: all ease-in .5s;
+    -o-transition: all linear .5s;
+    -ms-transition: all linear .5s;
+    -webkit-transition: all linear .5s;
+    -moz-transition: all linear .5s;
+    transition: all linear .5s;
+}
+
+.index_tile .specie_header{
+    -o-transition: all linear .5s;
+    -ms-transition: all linear .5s;
+    -webkit-transition: all linear .5s;
+    -moz-transition: all linear .5s;
+    transition: all linear .1s;
 }
 
 .tile_header{
@@ -690,18 +677,40 @@ kodikas mono gia tin arxiki selida
     z-index: 2;
 }
 
+.specie_header{
+    text-align: center;
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    left:0px;
+    min-height: 1.2em;
+    color: #fff;
+    font-family: Helvetica,sans-serif;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.6);
+}
+
 .tile_header span{
     color: rgb(3,179,222);
     font-size: 2em;
 }
 
 .index_tile:hover .tile_header{
-    top: -100%;
-    -o-transition: all ease-out 1s;
-    -ms-transition: all ease-out 1s;
-    -webkit-transition: all ease-out 1s;
-    -moz-transition: all ease-out 1s;
-    transition: all ease-out 1s;
+    top: -20%;
+    -o-transition: all linear .2s;
+    -ms-transition: all linear .2s;
+    -webkit-transition: all linear .2s;
+    -moz-transition: all linear .2s;
+    transition: all linear .2s;
+}
+
+.index_tile:hover .specie_header{
+    top: 0px;
+    -o-transition: all linear .2s;
+    -ms-transition: all linear .2s;
+    -webkit-transition: all linear .2s;
+    -moz-transition: all linear .2s;
+    transition: all linear .2s;
 }
 
 .button{
@@ -814,12 +823,6 @@ kodikas gia megalitero middle section
     padding-bottom: 1em;
 }
 
-.small_pic img{
-    max-width: 80%;
-    max-height: 27em;
-    margin: 0 auto;
-}
-
 /***************************************************************************************
 telos kodika megaliterou section
 ***************************************************************************************/
@@ -897,72 +900,72 @@ kodikas selidas login
 ***************************************************************************************/
 
 .login_box{
-	width: 100%;
-	height: 100%;
-	margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
 }
 
 .login_box *{
-	margin: 0 auto;
-	text-align: center;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .login_box .flash_box{
-	position: relative;
-	bottom: .4em;
+    position: relative;
+    bottom: .4em;
 }
 
 .login_box h1{
-	width: auto;
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: auto;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 .login_box h1:after{
-	content: ' ';
-	display: block;
-	width: 100%;
-	height: 3px;
-	background:-moz-linear-gradient(left,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.8) 45%,rgba(0,0,0,1) 50%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
-	background:-webkit-linear-gradient(left,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.8) 45%,rgba(0,0,0,1) 50%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
-	background:-ms-linear-gradient(left,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.8) 45%,rgba(0,0,0,1) 50%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
-	background:-o-linear-gradient(left,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.8) 45%,rgba(0,0,0,1) 50%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
-	background:linear-gradient(left,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.8) 45%,rgba(0,0,0,1) 50%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
+    content: ' ';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background:-moz-linear-gradient(left,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.8) 45%,rgba(0,0,0,1) 50%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
+    background:-webkit-linear-gradient(left,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.8) 45%,rgba(0,0,0,1) 50%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
+    background:-ms-linear-gradient(left,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.8) 45%,rgba(0,0,0,1) 50%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
+    background:-o-linear-gradient(left,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.8) 45%,rgba(0,0,0,1) 50%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
+    background:linear-gradient(left,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.8) 45%,rgba(0,0,0,1) 50%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
 }
 
 .login_box label{
-	font-size: 1.2em;
+    font-size: 1.2em;
 }
 
 .login_box input[type="text"],
 .login_box input[type="password"]{
-	width: 20em;
-	padding: 1em 1em .5em .5em;
-	margin-top: 1em;
+    width: 20em;
+    padding: 1em 1em .5em .5em;
+    margin-top: 1em;
 }
 
 .login_box input[type=submit]{
-	width: 10em;
-	margin-top: .5em;
+    width: 10em;
+    margin-top: .5em;
 }
 
 .login_box .link_holder{
-	width: 100%;
-	background-color: transparent;
-	text-align: center;
-	padding: 0;
-	margin-top: 1.5em;
+    width: 100%;
+    background-color: transparent;
+    text-align: center;
+    padding: 0;
+    margin-top: 1.5em;
 }
 
 .login_box .link_holder a{
-	color: #00AED7;
-	text-decoration: underline;
-	font-size: 1.1em;
-	cursor: pointer;
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #00AED7;
+    text-decoration: underline;
+    font-size: 1.1em;
+    cursor: pointer;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
 .login_box .link_holder a:hover{
-	text-decoration: none;
+    text-decoration: none;
 }
 
 /***************************************************************************************
@@ -974,17 +977,17 @@ kodikas selida register
 ***************************************************************************************/
 
 .register_box td{
-	width: 25%;
+    width: 25%;
 }
 
 .register_box td p:first-child > input[type="text"],
 .register_box td p:first-child > input[type="password"]{
-	margin-bottom: 1.1em;
+    margin-bottom: 1.1em;
 }
 
 .register_box p:first-child > input[type="text"].form-error,
 .register_box p:first-child > input[type="password"].form-error{
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 /***************************************************************************************
@@ -1133,6 +1136,50 @@ kodikas selidas report
     max-height: 15em;
 }
 
+#tabs div input.big_button{
+    width: 22em;
+    height: 3.5em;
+}
+
+#tabs input[type="radio"]{
+    margin-left: .5em;
+    margin-right: .5em;
+}
+
+#tabs .button_like_anchor{
+    height: 2.5em;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+    margin-left: .5em;
+    margin-right: .5em;
+    position: relative;
+    bottom: 1px;
+}
+
+#tabs .right_arrow{
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+}
+
+#tabs .left_arrow{
+    padding-right: 2.5em;
+    padding-left: 2.5em;
+}
+
+#tabs .white_arrow img{
+    height: 2.2em;
+    width: 2.8em;
+    margin: -.8em;
+    padding:0;
+}
+
+#tabs .left_arrow img{
+    margin-right: 1em; 
+}
+
+#tabs .right_arrow img{
+    margin-left: 1em; 
+}
 /***************************************************************************************
 telos kodika selidas report
 ***************************************************************************************/

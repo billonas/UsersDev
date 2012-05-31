@@ -1,6 +1,6 @@
 <?php
 /**
- * @author darkmatter
+ * @author darkmatter 
  */
 ?>
 <?php echo $this->Html->css(array('main', 'jquery-ui', 'tablesorter', 'reportsTable', 'jquery.tablesorter.pager.css')); ?>
@@ -41,7 +41,8 @@
 ////                $this->GoogleMapV3->addMarker($options);
 //                echo $this->GoogleMapV3->script();
             ?>
-            <h2><center>Πίνακας Αναφορών</center></h2>
+            <div class="login_box">  
+            <h1>Πίνακας Αναφορών</h1>
             <div class="flash_box gradient">
                 <?php echo $this->Session->flash().'</br>';?>
             </div>
@@ -65,7 +66,7 @@
                                         <input type="text" class=""/>
                                     </td>
                                     <td>
-                                        <input type="submit" class="" value="Φιλτράρισμα"/>
+                                        <input type="submit" class="" value="Αναζήτηση"/>
                                     </td>
                                 </tr>
                             </table>

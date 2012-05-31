@@ -1,10 +1,10 @@
-	<?php echo $this->Html->script(array('jquery-1.7.2.min'),array('inline' => false, 'rel' => 'javascript')); ?>
+ 	<?php echo $this->Html->script(array('jquery-1.7.2.min'),array('inline' => false, 'rel' => 'javascript')); ?>
         <?php $this->set('title_for_layout', 'Αρχική σελίδα - ΕΛΚΕΘΕ');?>        
       	<div class="middle_row">
             <div class="index_tile">
                 <span class="welcome_msg">Καλωσήρθατε στην ιστοσελίδα του Ελληνικού Κέντρου Θαλάσσιων Ερευνών</span>
                 <br />
-                <span class="about_header">Σχετικά με εμάς</span>                
+                                
                 <br />
                 <span class="about_text">
                     Η ιστοσελίδα που βρίσκεστε αυτή τη στιγμή είναι η επίσημη ιστοσελίδα του ΕΛΚΕΘΕ. Σκοπός μας είναι η μελέτη
@@ -19,27 +19,28 @@
                 <a href="#" class="button display_on_hover" id="play"><img src ='<?php echo $this->webroot; ?>img/arrows/play_white.png'/></a>
                 <a href="#" class="button display_on_hover" id="pause"><img src ='<?php echo $this->webroot; ?>img/arrows/pause_fat_white.png'/></a>
                 <div class="tile_header">                    
-                    <span>Σημαντικά Είδη</span><br />
+                    <span>Είδη-στόχοι</span><br />
                     Πατήστε πάνω σε μία φωτογραφία για να μάθετε<br /> περισσότερες πληροφορίες για το είδος
                 </div>
+                <div class="specie_header">Δελφίνι Δελφίνους</div>
                 <div id="fish_slideshow" class="fish_slideshow">
                     <a href="#">
                         <img src='<?php echo $this->webroot; ?>img/Dolphins-HQ-Photos-Wallpapers.jpg' alt="images/1.jpg"/>
                     </a>
                     <a href="#">
-                        <img class="out_of_sight" src='<?php echo $this->webroot; ?>img/1_Dolphin_Wallpaper_04.jpg' alt="images/2.jpg"/>
+                        <img class="out_of_sight" data-specie_name="Δελφίνι Δελφίνους" src='<?php echo $this->webroot; ?>img/1_Dolphin_Wallpaper_04.jpg' alt="images/2.jpg"/>
                     </a>
                     <a href="#">
-                        <img class="out_of_sight" src='<?php echo $this->webroot; ?>img/2-Dolphins-Loving-Wallpapers.jpg' alt="images/3.jpg"/>
+                        <img class="out_of_sight" data-specie_name="Δελφίνι Δελφίνους" src='<?php echo $this->webroot; ?>img/2-Dolphins-Loving-Wallpapers.jpg' alt="images/3.jpg"/>
                     </a>
                     <a href="#">
-                        <img class="out_of_sight" src='<?php echo $this->webroot; ?>img/3D-Dolphin-Wallpapers.jpg' alt="images/4.jpg"/>
+                        <img class="out_of_sight" data-specie_name="Δελφίνι Δελφίνους" src='<?php echo $this->webroot; ?>img/3D-Dolphin-Wallpapers.jpg' alt="images/4.jpg"/>
                     </a>
                     <a href="#">
-                        <img class="out_of_sight" src='<?php echo $this->webroot; ?>img/humpback_whale-wallpaper-1920x1200.jpg' alt="images/5.jpg"/>
+                        <img class="out_of_sight" data-specie_name="Φάλαινα Φάλαινους" src='<?php echo $this->webroot; ?>img/humpback_whale-wallpaper-1920x1200.jpg' alt="images/5.jpg"/>
                     </a>
                     <a href="#">
-                        <img class="out_of_sight" src='<?php echo $this->webroot; ?>img/whale-shark-belize.jpg' alt="images/6.jpg"/>
+                        <img class="out_of_sight" data-specie_name="Φάλαινα Φάλαινους" src='<?php echo $this->webroot; ?>img/whale-shark-belize.jpg' alt="images/6.jpg"/>
                     </a>
                 </div>
             </div>
@@ -48,7 +49,7 @@
                 <span class="report_text">Συναντήσατε κάποιο παράξενο είδος που δεν μπορούσατε να αναγνωρίσετε. Κάντε μία αναφορά και οι ερευνητές μας θα αναλάβουν
                 να το αναγνωρίσουν.
                 </span>
-                <a href="#" class="button_like">Κάντε Αναφορά</a>
+                <a href="#" class="button_like_anchor">Κάντε Αναφορά</a>
             </div>
             <div class="index_tile">
                 <span class="news_header">Τα Νέα μας</span>
@@ -93,6 +94,7 @@
                     $this.css({'display':'none'});
                     $('#play').css({'display':'block'});
                     pause();
+                    return false;
                 });      
 
                 $('#play').bind('click',function(e){
@@ -100,6 +102,7 @@
                     $this.css({'display':'none'});
                     $('#pause').css({'display':'block'});
                     play();
+                    return false;
                 });
 
                 $('#left_arrow').bind('click',function(e){
@@ -107,6 +110,7 @@
                     $('#play').css({'display':'block'});
                     pause();
                     previous();
+                    return false;
                 });
 
                 $('#right_arrow').bind('click',function(e){
@@ -114,6 +118,7 @@
                     $('#play').css({'display':'block'});
                     pause();
                     next();
+                    return false;
                 });
 
                 function resetTimer(){
@@ -169,6 +174,9 @@
                                             );
                                     }
                                 );
+                                var specie = $cur_thumb.attr('data-specie_name');
+                                //specie = "Είδος: " + specie;
+                                $('.specie_header').text(specie);
                                 prev = current - 1;
                                 if(prev == 0)
                                     prev = nmb_thumbs;
@@ -193,6 +201,8 @@
                                             );
                                     }
                                 );
+                                var specie = $cur_thumb.attr('data-specie_name');
+                                $('.specie_header').text(specie);
                         }
                     }
                     else{

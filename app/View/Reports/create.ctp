@@ -5,48 +5,9 @@
     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC0azkJD2QB5m24LzhdEUenVmgCJPNaiDI&sensor=false">
 </script>
 
-
-<script type="text/javascript">
-/*		$(function() {
-
-			var $tabs = $('#tabs').tabs();
-	
-			$(".ui-tabs-panel").each(function(i){
-	
-			  var totalSize = $(".ui-tabs-panel").size() - 1;
-	
-			  
-	  
-			  if (i != 0) {
-			      prev = i;
-		   		  $(this).append("<a href='#'" + prev + " class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>");
-			  }
-			  
-			  if (i != totalSize) {
-			      next = i + 2;
-		   		  $(this).append("<a href='#'"+ next + " class='next-tab mover'>Επόμενο βήμα &#187;</a>");
-			  }
-   		
-			});
-	
-			
-       
-
-		});
-		*/
-</script>
-
-
-
-
-
-
-
-
-
 <script type="text/javascript">
 
-var map;
+var map; 
 var marker;
 var once=true;
 
@@ -132,6 +93,7 @@ $(document).ready(function(){
             var temp = $this.attr('href');
             var addr = temp.substr(1,temp.length);
             $('#f' + addr).css('display','block');
+            return false;
         }
         else if($this.is('li') && !$this.hasClass('selected_tab')){
             var prev_temp = $('.selected_tab').find('a').attr('href');
@@ -142,6 +104,7 @@ $(document).ready(function(){
             var temp = $this.find('a').attr('href');            
             var addr = temp.substr(1,temp.length);
             $('#f' + addr).css('display','block');            
+            return false;
         }
     });
     handleApiReady();
@@ -180,13 +143,17 @@ $(document).ready(function(){
                         echo '<div class="flash_box gradient">';
                         echo $this->Session->flash().'</br>';
                         echo '</div>';
-                        echo $this->Form->create('Report', array('action' => 'create', "enctype" => "multipart/form-data"));
-                        echo $this->Form->input('image',array("type" => "file",'label'=>'Φωτογραφία/Video: ', 'class'=>'std_form'));
-                        echo $this->Form->input('edit',array("label"=>"Θέλετε να επεξεργαστείτε την φωτογραφία;",'type'=>'checkbox', 'class'=>'std_form'));
+                        echo $this->Form->create('Report', array('action' => 'create','div'=>false, "enctype" => "multipart/form-data"));
+                        echo '<label for="ReportImage" class="std_form">Δώστε μία Φωτογραφία ή ένα Βίντεο: </label>';
+                        echo $this->Form->input('image',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
+                        echo '<br />';
+                        echo $this->Form->input('edit',array("label"=>false,'div'=>false,'type'=>'checkbox', 'class'=>'std_form'));
+                        echo '<label for="ReportEdit" class="std_form">Θέλετε να επεξεργαστείτε την φωτογραφία;</label>';
+                        echo '<br />';
                         echo $this->Form->end(array(
                         'label' => 'Ανέβασμα Φωτογραφίας ή Video',
                         'div' => false,
-                        'class' => 'std_form'));
+                        'class' => 'std_form big_button'));
                     }
                     else{
                         echo '<div id="f1">';
@@ -221,15 +188,15 @@ $(document).ready(function(){
                     echo '<tr><td><label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label></td>';
                     echo '<td>'.$this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
                     echo '</td></tr></table>';
-					echo "<a href='#2' class='next-tab mover'>Επόμενο βήμα &#187;</a>";
-					echo '<big><span style="color:red"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
+                    //echo "<a href='#2' class='button_like_anchor'>Επόμενο βήμα &#187;</a>";
+                    echo '<big><span style="color:red;font-family:Arial,sans-serif;"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
                     echo '</div>';
                 }
                 ?>
                 <?php
                     if(isset($cropped)){
                         echo '<div id="f2">';
-                        echo '</br><big> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
+                        echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
 								echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
                                 echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
 								echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
@@ -255,15 +222,15 @@ $(document).ready(function(){
                         echo '<tr><td><label for="ReportComments" class="std_form">Επιπλέον Σχόλια </label></td>';
                         echo '<td>'.$this->Form->input('comments', array('type' => 'textarea','label' => false,'placeholder' =>'Περιγράψτε ότι σας έκανε εντύπωση','class'=>'std_form blue_shadow', 'div'=>false)).'</td></tr>';
                         echo '</table>';
-						echo "<a href='#1' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
-						echo "<a href='#3' class='next-tab mover'>Επόμενο βήμα &#187;</a>";
+						//echo "<a href='#1' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
+						//echo "<a href='#3' class='next-tab mover'>Επόμενο βήμα &#187;</a>";
                         echo '</div>';
                     }
                 ?>
                 <?php
                     if(isset($cropped)){
                         echo '<div id="f3">';
-						echo '</br><big> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br>';
+						echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br>';
                         echo '<table>';
                         if($this->Session->check('UserUsername')){
 							echo '<tr><td><label for="ReportAge" class="std_form">Επιπλέον Σχόλια </label></td>';
@@ -302,18 +269,23 @@ $(document).ready(function(){
 								echo '<tr><td><label for="ReportPhone_number" class="std_form">Τηλέφωνο Επικοινωνίας </label></td>';
 								echo '<td>'.$this->Form->input('phone_number',array("label" => false, 'placeholder' => 'Σταθερό ή Κινητό','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
 								echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
-								echo '<td>'.$this->Form->input('email',array("label"=>false, 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'div'=>false)).'</td></tr>';
-							    echo "<a href='#2' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
+								echo '<td>'.$this->Form->input('email',array("label"=>false, 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'div'=>false)).'</td></tr>';							    
 							}
                     $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');
                     echo $this->Form->input('category_id', array('value'=>null,'label'=>'Κατηγορία Είδους','type'=>'hidden', 'class'=>'std_form'));
                     echo $this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>'Κατάσταση Αναφοράς ','type'=>'hidden', 'class'=>'std_form'));
                     echo '<br/>';
                     echo '</table></div>';
+                    echo '<a href="#" class="fragment button_like_anchor left_arrow white_arrow"><img src="';
+                    echo $this->webroot;
+                    echo '/img/arrows/white_arrow_left_small3.png"/>Προηγούμενο Βήμα</a>';
                     echo $this->Form->end(array(
                     'label' => 'Κατάθεση Αναφοράς',
                     'div' => false,
                     'class' => 'std_form'));
+                    echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Προηγούμενο Βήμα<img src="';
+                    echo $this->webroot;
+                    echo '/img/arrows/white_arrow_right_small3.png"/></a>';
                 }
                 ?>
                 </div>
