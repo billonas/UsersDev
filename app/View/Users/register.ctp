@@ -1,7 +1,9 @@
 <?php $this->set('title_for_layout', 'Εγγραφή Χρήστη - ΕΛΚΕΘΕ');?> 
- 
+
     <div class="middle_row  big_row">
+            
 			<div class="middle_wrapper">
+            
 				<div class="register_box login_box" align="center">
 			 		<br><h1>Εγγραφή χρήστη</h1></br>
                     
@@ -41,23 +43,22 @@
 					$options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο'); 					  
 					echo '<tr><td><label for="UserMembership" default="-" class="membership std_form">Ιδιότητα:  </label></td><td><p>'.$this->Form->input('User.membership', 
 									      array('options'=> $options, 'label' => false, 'div' => false, 'id'=>'UserMembership','class' => ' std_form blue_shadow')).'</p></td></tr></br>';	
-					echo '<tr><td></td><td>';					  
-					echo $this->Recaptcha->show(array(
-						'theme' => 'white',
-						'lang' => 'en'			
-					));
-
-   					echo $this->Recaptcha->error();
-					echo '</td></tr>';
 					
 				                                       
-					?></table><?php					  
-                                        echo '</br><p>'.$this->Form->end(array(
-														'name' => 'data[User][register]',
-														'label' => 'Εγγραφή',
-														'div' => false,
-														'class' => ' std_form')).'</p>';									  
-								    ?>
+					?></table>				
+					
+					<?php echo $this->Recaptcha->show(array(
+						'theme' => 'white',
+						'custom_translations' => array('instructions_visual' => 'Γράψτε τις λέξεις')	
+					));
+   					echo $this->Recaptcha->error();	  
+					
+					echo '</br><p>'.$this->Form->end(array(
+									'name' => 'data[User][register]',
+									'label' => 'Εγγραφή',
+									'div' => false,
+									'class' => ' std_form')).'</p>';									  
+					 ?>
 			    </div>
 			</div>
     </div>

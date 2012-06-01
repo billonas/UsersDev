@@ -101,10 +101,10 @@
 						
 						
 					</li>
-					<li><?php echo $this->Html->link('Επικοινωνία', array('controller' => 'pages', 'action'=>'communication'));?></li>
-                                        <li><?php echo $this->Html->link('Βοήθεια', array('controller' => 'pages', 'action'=>'help'));?></li>
-					<li><?php echo $this->Html->link('Οι σκοποί μας', array('controller' => 'pages', 'action'=>'about'));?></li>
-					<li><?php echo $this->Html->link('Αρχική', array('controller' => 'pages', 'action'=>'display'));?></li>
+					<li><?php echo'<a href="#">Πληροφορίες<span class="pointer"></span></a>';?></li>	
+                    <li><?php echo $this->Html->link('Είδη-στόχοι', array('controller' => 'pages', 'action'=>'help'));?></li>
+					<li><?php echo $this->Html->link('Αναγνωρισμένα Είδη', array('controller' => 'pages', 'action'=>'about'));?></li>
+					<li><?php echo $this->Html->link('Υποβολή Αναφοράς', array('controller' => 'pages', 'action'=>'display'));?></li>
                     
 					    
 						

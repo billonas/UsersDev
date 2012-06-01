@@ -1,20 +1,53 @@
-/* tables */
+/* Filters */
+#filterContainer {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#filterContainer form table {
+    margin-left: 10px;
+    min-width: 50%;
+}
+
+#filterContainer form input,
+#filterContainer form select {
+    width: 90%;
+    height: 90%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+ 
+#filterContainer form table td {
+    padding: 2px 5px 2px 5px;
+}
+
+#filterContainer form input[type="submit"]{
+    background: #008FF9;
+    color: white;
+}
+#filterContainer form input[type="submit"]:hover{
+    background: #007FE9;
+}
+
+
+/* Tables */
 table.tablesorter {
 	font-family:arial;
-	background-color: #CDCDCD;
+/*	background-color: #CDCDCD;*/
 	margin:10px 0pt 15px;
 	font-size: 8pt;
 	width: 100%;
 	text-align: left;
+        border-collapse: collapse;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: #e6EEEE;
-	border: 1px solid #FFF;
+/*	background-color: #e6EEEE;*/
+/*	border: 1px solid #FFF;*/
 	font-size: 8pt;
 	padding: 4px;
 }
 table.tablesorter thead tr .header {
-	background-image: url(/img/tablesorter-bg.gif);
+        background-image: url(../img/tablesorter-bg.gif);
 	background-repeat: no-repeat;
 	background-position: center right;
 	cursor: pointer;
@@ -26,17 +59,64 @@ table.tablesorter tbody td {
 	vertical-align: top;
 }
 table.tablesorter tbody tr.odd td {
-	background-color:#F0F0F6;
+/*	background-color:#F0F0F6;*/
 }
 table.tablesorter thead tr .headerSortUp {
-	background-image: url(/img/tablesorter-asc.gif);
+        background-image: url(../img/tablesorter-asc.gif);
 }
 table.tablesorter thead tr .headerSortDown {
-	background-image: url(/img/tablesorter-desc.gif);
+        background-image: url(../img/tablesorter-desc.gif);
 }
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
-background-color: #8dbdd8;
+/*background-color: #8dbdd8;*/
 }
+
+/* Pagination */
+div.tablesorterPager {
+	padding: 10px 0 10px 0;
+	background-color: #D6D2C2;
+	text-align: center;
+}
+div.tablesorterPager span {
+	padding: 0 5px 0 5px;
+}
+div.tablesorterPager input.prev {
+	width: auto;
+	margin-right: 10px;
+}
+div.tablesorterPager input.next {
+	width: auto;
+	margin-left: 10px;
+}
+div.tablesorterPager input {
+	font-size: 8px;
+	width: 50px;
+	border: 1px solid #330000;
+	text-align: center;
+}
+
+
+#tableOuterWrapper {
+    background: #dcdcdc;
+    padding: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+
+#pager {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 40px;
+}
+
+.pagerButton {
+    border: 2px solid rgb(56, 59, 63);
+    margin: 1px 1px 1px 1px;
+    padding: 2px 2px 2px 2px;
+    width: 40px;
+    height: 30px;
+}
+
 
 
 h2 {
@@ -45,30 +125,56 @@ h2 {
     font-family: Helvetica,sans-serif;
 }
 
+#exportLink {
+    float: right;
+    margin-right: 5px;
+}
+
 .tableImage {
-    max-width: 100px;
-    max-height: 64px;
+    max-width: 200px;
+    max-height: 100px;
+    min-height: 50px;
+    min-width: 50px;
+    border: 1px solid silver;
+    border-radius: 6px;
+}
+
+tr.report {
 }
 
 
 
 /* Rules for highlighting based on report status */
-.rejected {
-    background-color: crimson;
+.report.rejected td {
+    background-color: #ffdddd;
+}
+.report.verified td {
+    background-color: #ddffdd;
+}
+.report.pending td {
+    background-color: white;
 }
 
-.verified {
-    background-color: lime;
+.report td {
+    height: 110px;
 }
 
-.pending {
-    background-color: silver;
+.report td:first-child {
+    border-radius: 5px 0px 0px 5px;
+}
+.report td:last-child {
+    border-radius: 0px 5px 5px 0px;
 }
 
+.report .deleteButton {
+    background: #ff7766;
+    color: white;
+}
+.report .deleteButton:hover {
+    background: tomato;
+}
 
-
-/* Rules for interactive visualisation */
-.report:hover {
+.report:hover td {
     background-color: lightblue;
     cursor: pointer;
 }
