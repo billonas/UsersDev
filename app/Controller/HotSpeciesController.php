@@ -30,6 +30,7 @@ class HotSpeciesController extends AppController{
     	        $this->Image->tmpRename($this->request->data['HotSpecie']['image']);
                 $uploaded = $this->JqImgcrop->uploadImage($this->data['HotSpecie']['image'], '/img/temporary/', ''); 
                 $this->request->data['HotSpecie']['main_photo'] = $uploaded['imagePath'];
+                //$this->request->data['HotSpecie']['main_photo'] = $this->HotSpecie->getSize()+1;
                 $this->HotSpecie->create();
                 if ($this->HotSpecie->save($this->data['HotSpecie'])) {
                     //allazw to onoma ths eikonas katallhla
@@ -90,5 +91,50 @@ class HotSpeciesController extends AppController{
     function show() {
         $this->set('hotspecies', $this->HotSpecie->find('all'));
     }
+    
+    function setMainPhoto($id = null , $num = null){
+        if (($id == null) || ($num == null) || ($num > 3) || ($num < 1)) { //num{1-3}
+            $this->Session->setFlash('Invalid id for HotSpecie or Photo');
+            $this->redirect(array('action'=>'show'), null, true);
+        }
+        else{
+            $hotspecies = $this->HotSpecie->findById($id);
+            //$main = $hotspecies['HotSpecie']['main_photo'];
+            $photo = 'additional_photo'.$num;
+            $additional = $hotspecies['HotSpecie'][$photo];
+            if($additional == ''){//an den yparxei h antistoixi foto(periptosi pou dosame to num xeirokinita h lathos sto view)
+                $this->Session->setFlash('This photo does not exist');
+                $this->redirect(array('action'=>'update',$id), null, true);
+            }
+            $this->Image->changePriority($additional, $hotspecies, 'a',$num,$this->HotSpecie);
+            //clearCache();
+            //sleep(10);
+            //$hotspecies['HotSpecie'][$photo] = $main;
+            //$hotspecies['HotSpecie']['main_photo'] = $additional;
+            //if ($this->HotSpecie->save($hotspecies)) {
+                //$this->Image->changePriority($additional, $hotspecies, 'a');
+                $this->Session->setFlash('The photo has been set as main');
+                $this->redirect(array('action'=>'update',$id));
+            //} else {
+            //    $this->Session->setFlash('The photo could not be set as main photo. Please, try again.');
+            //    $this->redirect(array('action'=>'update',$id), null, true);
+           // }
+        }
+    }
+    
+    /*function changePriority($id = null,$action = null) {
+        if (($id == null) || ($action == null)) {
+            $this->Session->setFlash('Invalid HotSpecie Id');
+            $this->redirect(array('action'=>'show'), null, true);
+        }
+        else{
+            if($action == 1)
+                $this->HotSpecie->upPriority($id);//TODO
+            else if($action == 2)
+                $this->HotSpecie->downPriority($id);//TODO+elegxo gia return 0
+            $this->Session->setFlash('The priority has been changed');
+            $this->redirect(array('action'=>'show'), null, true);
+        }
+    }*/
 }
 ?>

@@ -58,6 +58,26 @@ class ImageComponent extends Component {
             if($report['Report']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
          	    unlink($report['Report']['main_photo']);
     }
+    
+    public function changePriority($photo_name, $hot, $photoId, $pId, $obj){
+        $id = $hot['HotSpecie']['id'];
+        $tok = strtok (  $photo_name, "." ); //briskw thn katalhksh ths eikonas
+        while(($tok1 = strtok(".")) !== false){
+		$tok = $tok1;      		
+	}
+	$tok2 = strtok (  $hot['HotSpecie']['main_photo'], "." ); //briskw thn katalhksh ths eikonas
+        while(($tok1 = strtok(".")) !== false){
+		$tok2 = $tok1;      		
+	}
+        rename("../webroot/img/{$hot['HotSpecie']['main_photo']}", "../webroot/img/hotspecies/tmp.$tok2");
+        rename("../webroot/img/$photo_name", "../webroot/img/hotspecies/$id.$tok");
+	rename("../webroot/img/hotspecies/tmp.$tok2", "../webroot/img/hotspecies/{$id}{$photoId}.$tok2");
+        $obj->id = $id;
+        if(!$obj->saveField("main_photo","hotspecies/$id.$tok" ))
+                 return 0;
+        if(!$obj->saveField("additional_photo".$pId,"hotspecies/{$id}{$photoId}.$tok2" )) return 0;
+               return 1;
+    }
 }    
 
 
