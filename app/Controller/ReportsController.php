@@ -8,7 +8,7 @@
 class ReportsController extends AppController{
     var $name = 'Reports';
     public $helpers = array('Html', 'Form', 'Cropimage','GoogleMapV3', 'Js','Session', 'Xls');
-    public $components = array('JqImgcrop', 'Image');
+    public $components = array('JqImgcrop', 'Image','Video');
 
    function export() { //http://eureka.ykyuen.info/2009/10/04/cakephp-export-data-to-a-xls-file/       
    	$data = $this->Report->find('all');

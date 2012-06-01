@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of ReportsController
+ * Description of ImageComponent
  *
  * @author P.Loverdos
  */
