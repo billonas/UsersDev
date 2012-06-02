@@ -31,7 +31,7 @@ class ImageComponent extends Component {
         do{ 
             $rand = rand();
             $name = "$rand.$tok";		
-	}while(file_exists("../webroot/img/temporary/$name"));
+	}while(file_exists("img/temporary/$name"));
 	//allazw to onoma tou arxeiou kai to kanw ton arithmo pou brhka (me thn katallhlh katalhksh)
 	//(auto den ephreazei tpt, dld den xanetai to arxeio)
         $img['name'] = $name;
@@ -48,7 +48,7 @@ class ImageComponent extends Component {
 	//dinw sthn eikona gia onoma to id ths eggrafhs(me thn katallhlh katalhksh) kai th metaferw tautoxrona ston fakelo
         //webroot/img/reports
 	$newName = "$dir/$newNameId$ext.$tok";  
-	rename("../webroot$name", "../webroot/img/$newName");
+	rename("$name", "img/$newName");
         if(!$report->saveField("main_photo", $newName)) return 0;
         return 1;
     }
@@ -69,9 +69,9 @@ class ImageComponent extends Component {
         while(($tok1 = strtok(".")) !== false){
 		$tok2 = $tok1;      		
 	}
-        rename("../webroot/img/{$hot['HotSpecie']['main_photo']}", "../webroot/img/hotspecies/tmp.$tok2");
-        rename("../webroot/img/$photo_name", "../webroot/img/hotspecies/$id.$tok");
-	rename("../webroot/img/hotspecies/tmp.$tok2", "../webroot/img/hotspecies/{$id}{$photoId}.$tok2");
+        rename("img/{$hot['HotSpecie']['main_photo']}", "img/hotspecies/tmp.$tok2");
+        rename("img/$photo_name", "img/hotspecies/$id.$tok");
+	rename("img/hotspecies/tmp.$tok2", "img/hotspecies/{$id}{$photoId}.$tok2");
         $obj->id = $id;
         if(!$obj->saveField("main_photo","hotspecies/$id.$tok" ))
                  return 0;
