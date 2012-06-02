@@ -17,6 +17,13 @@ class Analyst extends AppModel{
             'foreignKey' => 'category2'
          )
     );
+    public $hasOne = array(
+	'User' => array(
+	    'className' => 'User',
+	    'foreignKey' => 'id',
+	    'dependent' => true
+        )
+    );
     //put your code here
 }
 

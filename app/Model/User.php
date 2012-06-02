@@ -12,7 +12,8 @@ class User extends AppModel
       public $hasOne = array(
           'Analyst' => array(
              'className' => 'Analyst',
-             'foreignKey' => 'id'
+             'foreignKey' => 'id',
+             'dependent' => true
           )
       ); 
       public $hasMany = array(
@@ -20,8 +21,6 @@ class User extends AppModel
              'className' => 'Report',
              'foreignKey' => 'observer',
              'order' => 'Report.created DESC',   //επιστρέφει 
-             'dependent'=> true //όταν διαγραφεί ο χρήστης θα διαγραφούν αυτόματα και τα Reports του..(
-                                 //αυτό παίζει και να μην το θέλουμε.....
           )
       ); 
       
