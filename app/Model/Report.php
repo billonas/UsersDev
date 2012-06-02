@@ -79,6 +79,7 @@ class Report extends AppModel{
 
     function findReportsSpecies() {
          $species = $this->Specie->find('all');
+	if(empty($species)) $s = array();
           $j = 0;
 	 foreach ($species as $specie){
 		$sId = $specie['Specie']['id'];
@@ -88,14 +89,14 @@ class Report extends AppModel{
 		$reports = $this->find('all', array(
 			'conditions'=>	$conditions));
 		$i = 0;
+		if(empty($reports)) $r = array();
 		foreach ($reports as $report){
 			$r["$i"] = $report['Report'];
 			$i++;
 		}
 		$perioxes = $this->query("SELECT perioxh FROM reports WHERE species_id = $sId "); 
-		//$perioxes = $this->findPerioxh('all');/*, array(
-		//	'conditions'=>	$conditions));*/
 		$i = 0;
+		if(empty($perioxes)) $p = array();
 		foreach ($perioxes as $perioxh){
 		 $p["$i"] = $perioxh['reports']['perioxh'];
                   $i++;
@@ -106,7 +107,32 @@ class Report extends AppModel{
 	 }
          return $s;
     }
-	 
+	
+    function findPerioxesSpecies() {
+          $perioxes = $this->query("SELECT perioxh FROM reports");
+	  $i = 0;
+	  if(empty($perioxes)) $pe = array();
+	  foreach ($perioxes as $p){
+		$per = $p['reports']['perioxh'];
+		$pe["$i"][0] = $per;		
+		$species = $this->query("SELECT scientific_name FROM species, reports WHERE species_id = species.id AND perioxh = '$per'");
+		$j = 0;
+		if(empty($species)) $pe["$i"][1] = array();
+		foreach($species as $sp){
+	          $pe["$i"][1]["$j"] = $sp['species']['scientific_name']; 
+		    $j++;
+		}
+		$reports = $this->query("SELECT * FROM reports WHERE perioxh = '$per'");
+		$j = 0;
+		foreach($reports as $report){
+		   $pe["$i"][2]["$j"] = $report['reports'];
+		   $j++;
+		}
+		$i++;
+	  }
+	  return $pe;
+    }
+ 
 }
 
 ?>
