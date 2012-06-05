@@ -48,7 +48,7 @@
 	     */
 	    function setWorkSheetName($workSheetName) {
 	    	echo "\t<Worksheet ss:Name=\"".$workSheetName."\">\n";
-	        echo "\t\t<Table><Column ss:Span=\"25\" ss:Width=\"130
+	        echo "\t\t<Table><Column ss:Span=\"40\" ss:Width=\"130
 \"/>\n";
 	        return;
 	    }
