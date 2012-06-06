@@ -137,43 +137,35 @@ $(document).ready(function(){
                 </ul>
                 <div>
                 <?php
-                if(!isset($cropped)){
-                    if(!isset($uploaded)){
+                if(!isset($uploaded)){
                         echo '<div id="f1">';
                         echo '<div class="flash_box gradient">';
                         echo $this->Session->flash().'</br>';
                         echo '</div>';
                         echo $this->Form->create('Report', array('action' => 'create','div'=>false, "enctype" => "multipart/form-data"));
-                        echo '<label for="ReportImage" class="std_form">Δώστε μία Φωτογραφία ή ένα Βίντεο: </label>';
+                        echo '<label for="ReportImage" class="std_form">Δώστε μία Φωτογραφία: </label>';
                         echo $this->Form->input('image',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
+                        echo '<label for="ReportImage" class="std_form">Δώστε ένα Βίντεο: </label>';
+                        echo $this->Form->input('video',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
                         echo '<br />';
-                        echo $this->Form->input('edit',array("label"=>false,'div'=>false,'type'=>'checkbox', 'class'=>'std_form'));
-                        echo '<label for="ReportEdit" class="std_form">Θέλετε να επεξεργαστείτε την φωτογραφία;</label>';
                         echo '<br />';
                         echo $this->Form->end(array(
                         'label' => 'Ανέβασμα Φωτογραφίας ή Video',
                         'div' => false,
                         'class' => 'std_form big_button'));
-                    }
-                    else{
-                        echo '<div id="f1">';
-                        echo $this->Session->flash();
-                        echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));
-                        echo $this->Cropimage->createJavaScript($uploaded['imageWidth'],$uploaded['imageHeight'],151,151);
-                        echo $this->Cropimage->createForm($uploaded["imagePath"], 151, 151);
-                        echo '<br/>-Eνδείκνυται στη φωτογραφία να φαίνεται το περιβάλλον που εντοπίστηκε το είδος<br/><br/>';
-                        echo $this->Form->end(array(
-                        'label' => 'Επεξεργασία Φωτογραφίας',
-                        'div' => false,
-                        'class' => 'std_form'));
-                    }
                 }
                 else{
                     echo '<div id="f1">';
                     echo $this->Session->flash();
-                    echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));
-                    echo $this->Html->image($imagePath);
-                    echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$imagePath, 'class'=>'std_form'));
+                    if(isset($photo)){
+                        echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));
+                        echo $this->Cropimage->createJavaScript($uploaded['imageWidth'],$uploaded['imageHeight'],151,151);
+                        echo $this->Cropimage->createForm($uploaded["imagePath"], 151, 151);
+                        echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded["imagePath"], 'class'=>'std_form'));
+                    }
+                    if(isset($video)){
+                        echo 'VIDEO';
+                    }
                     echo '<br/>';
                     echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'class'=>'std_form'));
                     echo '</br><label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';
@@ -194,7 +186,6 @@ $(document).ready(function(){
                 }
                 ?>
                 <?php
-                    if(isset($cropped)){
                         echo '<div id="f2">';
                         echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
 								echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
@@ -225,10 +216,8 @@ $(document).ready(function(){
 						//echo "<a href='#1' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
 						//echo "<a href='#3' class='next-tab mover'>Επόμενο βήμα &#187;</a>";
                         echo '</div>';
-                    }
                 ?>
                 <?php
-                    if(isset($cropped)){
                         echo '<div id="f3">';
 						echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br>';
                         echo '<table>';
@@ -286,8 +275,7 @@ $(document).ready(function(){
                     echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Προηγούμενο Βήμα<img src="';
                     echo $this->webroot;
                     echo '/img/arrows/white_arrow_right_small3.png"/></a>';
-                }
-                ?>
+                    ?>
                 </div>
             </div>
         </div>

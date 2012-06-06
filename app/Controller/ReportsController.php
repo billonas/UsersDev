@@ -5,6 +5,7 @@
  *
  * @author Kiddo
  */
+
 class ReportsController extends AppController{
     var $name = 'Reports';
     public $helpers = array('Html', 'Form', 'Cropimage','GoogleMapV3', 'Js','Session', 'Xls');
@@ -15,44 +16,71 @@ class ReportsController extends AppController{
    	$this->set('reports', $data);
    }
 
-
-    function create() {
+   /*
+    * Create method handle data of a new report in order to save the report properly. 
+    */
+   function create() {
+        /* Check if user is registerd */
         if($this->Session->check('UserUsername')){
             $email = $this->Session->read('UserUsername');
             $userId = ClassRegistry::init('User')->getUserId($email);
             $this->set('userId',$userId);
         }
         if (!empty($this->data)) {
+            /* Upload Step */
             if(isset($this->data['Report']['image'])){
-            	//CHECK  IF INPUT FILE IS IMAGE FILE
-                $res = $this->Image->checkImage($this->data['Report']['image']);
-            	if($res < 0){
-                    $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
+                /* Image Upload */
+                if(!empty($this->data['Report']['image']['tmp_name'])){
+                    //CHECK  IF INPUT FILE IS IMAGE FILE
+                    $res = $this->Image->checkImage($this->data['Report']['image']);
+                    if($res < 0){
+                        $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
+                        $this->redirect('create');
+                    }
+                    else if(!$res){
+                            $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
+                            $this->redirect('create');
+                    }
+                    //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
+                    $this->Image->tmpRename($this->request->data['Report']['image']);
+                    $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', ''); 
+                    $this->set('uploaded',$uploaded); 
+                    $photo = 1;
+                    $this->set('photo',$photo); 
+                }
+                /* Video Upload */
+                else if(!empty($this->data['Report']['video']['name'])){
+                    $uploaded = $this->Video->uploadVideo($this->data['Report']['video'], "video/temporary/");
+                    if($uploaded['error']){
+                        switch($uploaded['error']){
+                        case 1:$this->Session->setFlash('Παρακαλώ εισάγετε ένα βίντεο ή αν έχετε εισάγει, εισάγετε ένα μικρότερου μεγέθους','flash_bad');
+                                break;
+                        case 2: $this->Session->setFlash('Παρακαλώ εισάγετε ένα αρχείο που είναι βίντεο','flash_bad');
+                                break;
+                        case 3: $this->Session->setFlash('Παρακαλώ εισάγετε ένα πιο μικρό αρχείο','flash_bad');
+                                break;
+                        case 4: $this->Session->setFlash('Πρόβλημα στη μεταφορά','flash_bad');
+                                break;
+                        }
+                    }
+                    $this->set('uploaded',$uploaded); 
+                    $video =1;
+                    $this->set('video',$video);
+                }
+                /* Nothing Upload */
+                else{
+                    $this->Session->setFlash('Παρακαλώ εισάγετε μια φωτογραφία ή ένα βίντεο','flash_good');
                     $this->redirect('create');
                 }
-                else if(!$res){
-  			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
-                        $this->redirect('create');
-                }
-                //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
-    	        $this->Image->tmpRename($this->request->data['Report']['image']);
-                $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', ''); 
-                $this->set('uploaded',$uploaded); 
-                if(!$this->data['Report']['edit']){
-                     $cropped = true;
-                     $this->set('cropped',$cropped);
-                     $this->set('imagePath',$uploaded['imagePath']);
-                }
             }
+            /* Submission step */
             else{
-                if(isset($this->data['Report']['x1'])){
-                    $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
-                    $imagePath = $this->data['Report']['imagePath'];
-                    $cropped = true;
-                    $this->set('cropped',$cropped);
-                    $this->set('imagePath',$imagePath);
-                }
-                else{
+                /* Image */ 
+                if(isset($this->photo)){
+                    /* Crop needed */
+                    if(!empty($this->data['Report']['x1'])){
+                        $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
+                    }
                     $this->Report->create();
                     if ($this->Report->save($this->data['Report'])) {
                         //RENAME IMAGE FILE TO RECORD NAME AND SAVE IT TO DIR
@@ -68,12 +96,29 @@ class ReportsController extends AppController{
                         $this->Session->setFlash('Η αναφορά δεν κατατέθηκε επιτυχώς','flash_bad');
                         $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
                     }
+                    
+                }
+                /* Video */
+                else if(isset($this->video)){
+                    $this->Report->create();
+                    if ($this->Report->save($this->data['Report'])){
+                        $ret = $this->Video->mvSubVideo($this->Report, $this->data['Report']['video'], "reports");
+                        if(!$ret){
+                            $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                            $this->redirect('create');
+                        }
+                        $this->Session->setFlash('Η αναφορά κατατέθηκε επιτυχώς','flash_good');
+                        $this->redirect(array('controller'=>'pages', 'action'=>'display'));
+                    } 
+                    else {
+                        $this->Session->setFlash('Η αναφορά δεν κατατέθηκε επιτυχώς','flash_bad');
+                        $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
+                    }
                 }
             }
-       }
-    }
+        }
+   }
 
-    
     function edit($id = null) {
 //        if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
             if ($id==null) {
@@ -87,9 +132,11 @@ class ReportsController extends AppController{
                     $this->redirect('table');
                 }
                 $categories = ClassRegistry::init('Category')->find('all');
+                $species = ClassRegistry::init('Specie')->find('all');
                 $report = $this->data;
                 $this->set('report',$report);
                 $this->set('categories',$categories);
+                $this->set('species',$species);
             } 
             else {
                 if ($this->Report->save($this->data)) {
@@ -98,6 +145,8 @@ class ReportsController extends AppController{
                         $this->Session->setFlash('Invalid ID');
                         $this->redirect('table');
                     }
+                    //SAVE SPECIES
+                    //ClassRegistry::init('Specie')->save($this->data['Report']['scientific_name']);
                     $categories = ClassRegistry::init('Category')->find('all');
                     $report = $this->data;
                     $this->set('report',$report);
@@ -172,25 +221,25 @@ class ReportsController extends AppController{
 //       }
     }
     
-    function myreports()
-    {
-      if(!$this->Session->check('UserUsername'))
-      {
+    function myreports(){
+      if(!$this->Session->check('UserUsername')){
          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
       }
-      //βρίσκω όλα τα στοιχεία του χρήστη με βάση το email του      
       $email = $this->Session->read('UserUsername');
       $userId = ClassRegistry::init('User')->getUserId($email);
       
-      if($userId !== false)
-      {
-
+      if($userId !== false){
         $reports = $this->Report->findUserReports($userId);
         $this->set('reports', $reports);
-        
-        
       }
     }
+    
+    function showspecies(){
+        $species = ClassRegistry::init('Specie')->find('all');
+        $this->set('species',$species);
+    }
+    
+    
 }
 
 ?>
