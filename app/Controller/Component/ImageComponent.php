@@ -35,7 +35,6 @@ class ImageComponent extends Component {
 	//allazw to onoma tou arxeiou kai to kanw ton arithmo pou brhka (me thn katallhlh katalhksh)
 	//(auto den ephreazei tpt, dld den xanetai to arxeio)
         $img['name'] = $name;
-	return $name;
     }
     
     public function mvSubImg($report, $name, $dir, $ext = ""){
@@ -51,6 +50,22 @@ class ImageComponent extends Component {
 	$newName = "$dir/$newNameId$ext.$tok";  
 	rename("$name", "img/$newName");
         if(!$report->saveField("main_photo", $newName)) return 0;
+        return 1;
+    }
+    
+    public function mvSubImg2($report, $name, $dir, $ext = ""){
+        if(empty($name))
+                return 1;
+         $newNameId = $report->id;  //to id ths eggrafhs pou molis prostethhke
+	 $tok = strtok (  $name, "." ); //briskw thn katalhksh ths eikonas
+         while(($tok1 = strtok(".")) !== false){
+		$tok = $tok1;      		
+	}
+	//dinw sthn eikona gia onoma to id ths eggrafhs(me thn katallhlh katalhksh) kai th metaferw tautoxrona ston fakelo
+        //webroot/img/reports
+	$newName = "$dir/$newNameId$ext.$tok";  
+	rename("$name", "img/$newName");
+        if(!$report->saveField("additional_photo1", $newName)) return 0;
         return 1;
     }
     

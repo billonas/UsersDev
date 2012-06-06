@@ -38,6 +38,34 @@ class HotSpecie extends AppModel{
             //)
         )
     );
+    
+    function upPriority($id){
+        
+         $hot1 = $this->findById($id);
+         if(!$hot2 = $this->findByPriority($hot1['HotSpecie']['priority']-1))
+             return false;
+         //or $neighbors = $this->find('neighbors', array('field' => 'priority', 'value' => $hot1['HotSpecie']['priority']);
+         //$hot2 = $neighbors['prev']['HotSpecie'];
+         $hot1['HotSpecie']['priority']--;
+         $hot2['HotSpecie']['priority']++;
+         if( $this->save($hot1['HotSpecie']) && $this->save($hot2['HotSpecie']))
+             return true;
+         return false;
+      }
+      
+      function downPriority($id){
+        
+         $hot1 = $this->findById($id);
+         if(!$hot2 = $this->findByPriority($hot1['HotSpecie']['priority']+1))
+             return false;
+         //or $neighbors = $this->find('neighbors', array('field' => 'priority', 'value' => $hot1['HotSpecie']['priority']);
+         //$hot2 = $neighbors['prev']['HotSpecie'];
+         $hot1['HotSpecie']['priority']++;
+         $hot2['HotSpecie']['priority']--;
+         if( $this->save($hot1['HotSpecie']) && $this->save($hot2['HotSpecie']))
+             return true;
+         return false;
+      }
 }
 
 ?>
