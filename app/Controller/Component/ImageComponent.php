@@ -35,6 +35,7 @@ class ImageComponent extends Component {
 	//allazw to onoma tou arxeiou kai to kanw ton arithmo pou brhka (me thn katallhlh katalhksh)
 	//(auto den ephreazei tpt, dld den xanetai to arxeio)
         $img['name'] = $name;
+	return $name;
     }
     
     public function mvSubImg($report, $name, $dir, $ext = ""){

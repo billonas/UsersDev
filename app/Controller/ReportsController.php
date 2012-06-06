@@ -42,7 +42,7 @@ class ReportsController extends AppController{
                             $this->redirect('create');
                     }
                     //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
-                    $this->Image->tmpRename($this->request->data['Report']['image']);
+                    $this->request->data['Report']['image']['name'] = $this->Image->tmpRename($this->request->data['Report']['image']);
                     $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', ''); 
                     $this->set('uploaded',$uploaded); 
                     $photo = 1;
