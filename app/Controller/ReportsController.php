@@ -137,6 +137,13 @@ class ReportsController extends AppController{
                 $this->set('report',$report);
                 $this->set('categories',$categories);
                 $this->set('species',$species);
+				
+				$i=0;
+				foreach($species as $item){
+					$response[$i]=$item['Specie']['scientific_name'];
+					$i++;
+				}
+				$this->set('response',$response);
             } 
             else {
                 if ($this->Report->save($this->data)) {

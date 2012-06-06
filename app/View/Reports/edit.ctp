@@ -7,6 +7,46 @@
     $("#tabs").tabs();
   });
   </script>
+  
+  
+   <script>
+ 
+	$(function() {
+		var availableTags = <?php echo json_encode($response); ?>;
+		
+		$( "#autoComplete" ).autocomplete({
+			source: availableTags
+		});
+	});
+	
+
+/*$(function() {
+    $('#autoComplete').autocomplete({
+        //source: "/groceries/items/autoComplete", ///This works but response isn't formatted correctly'
+        //dataType: "json"
+        minLength: 2,
+        source: function( request, response ) {
+            $.ajax({
+                url: "http://localhost/UsersDev/Reports/autoComplete",
+                dataType: "jsonp",
+                data: {
+                    featureClass: "P",
+                    style: "full",
+                    maxRows: 12,
+                    term: request.term
+                },
+                success: function( data ) {
+                    response( $.map( data, function( el ) {
+                        return { label: el.label, value: el.value }
+                    }));
+                }
+            });
+        }
+    });
+	});*/
+	</script>
+  
+  
 		<!--[if lt IE 10 ]>
 			<link rel="stylesheet" href="hacks.css" type="text/css" media="screen" />
 		 <![endif]-->
@@ -34,6 +74,7 @@
                                 echo $this->Form->create('Report', array('action' => 'edit',"enctype" => "multipart/form-data"));     
                                 echo $this->Form->input('id',array("type"=>'hidden', 'class'=>'std_form'));
                                 echo $this->Html->image($report['Report']['main_photo']);
+																
                                 echo '<br/>';
                                 echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ",'disabled'=>'true', 'class'=>'std_form'));
                                 echo '<br/>';
@@ -114,7 +155,9 @@
                                 echo $this->Form->input('category_id', array('options' => $options,'label'=>'Κατηγορία Είδους', 'class'=>'std_form'));
                                 echo '<br/>';
                                 
-                                echo $this->Form->input('scientific_name',array("label" => "Επιστημονική Ονομασία",'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form'));
+								
+								
+                                echo $this->Form->input('scientific_name',array("label" => "Επιστημονική Ονομασία",'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form','id'=>'autoComplete'));
                                 echo '<br/>';
                                 echo $this->Form->input('analyst_comments',array("label" => "Σχόλια-Παρατηρήσεις",'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form'));
                                 echo '<br/>';
