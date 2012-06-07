@@ -3,7 +3,7 @@
 /**
  * Report Model
  *
- * @author Kiddo
+ * @author Kiddo, P.Loverdos
  */
 class Report extends AppModel{
     var $name= 'Report';
@@ -28,39 +28,105 @@ class Report extends AppModel{
      );
     
     public $validate = array(
-//        'habitat' => array(
-//                'rule' => 'alphaNumeric',
-//                'rule' => array('minLength', 4),
-//                'allowEmpty' => true,
-//                'message'  => 'Παρακαλώ περιγράψτε τον βιότοπο της παρατήρησης'
-//        ),
-        'email' => array(
-            'email' => array(
-                'rule'     => 'email',
+        'date'=>array(  
+               'rule1'=>array(
+                   'rule'=>array('date'),
+                   'alloEmpty'=>false,
+                   'message'=>'Παρακαλούμε δώστε έγκυρη ημερομηνία παρακολούθησης'
+             )
+        ),
+        'email'=>array(
+            'rule1'=>array(
+                   'rule'=>array('email', true),
+                   'allowEmpty'=> true,
+                   'message'=>'Παρακαλούμε δώστε έγκυρή διεύθυνση ηλεκτρονικού ταχυδρομείου'
+             ) 
+        ),
+        'lat'=>array(  
+               'rule1'=>array(
+                   'rule'=>array('onlyNumbers'),
+                   'message'=>'Το γεωγραφικό πλάτος δεν έχει κανονική μορφή'
+               ),
+               'rule2'=>array(
+                  'rule'=>array('minLength', 2),
+                  'message'=>'Το γεωγραφικό πλάτος δεν μπορεί να έχει λιγότερα από 2 ψηφία'  
+               ),
+               'rule3'=>array(
+                   'rule'=>array('maxLength', 17),
+                   'message'=>'Το γεωγραφικό πλάτος δεν μπορεί να έχει παραπάνω από 16 αριθμητικά ψηφία'  
+               ),
+               'rule4'=>array(
+                   'allowEmpty'=> false,
+                   'message'=>'Το γεωγραφικό πλάτος είναι υποχρεωτικό πεδίο'  
+               )
+            
+         ),
+        'lng'=>array(  
+               'rule1'=>array(
+                   'rule'=>array('onlyNumbers'),
+                   'message'=>'Το γεωγραφικό μήκος δεν έχει κανονική μορφή'
+               ),
+               'rule2'=>array(
+                  'rule'=>array('minLength', 2),
+                  'message'=>'Το γεωγραφικό μήκος δεν μπορεί να έχει λιγότερα από 2 ψηφία'  
+               ),
+               'rule3'=>array(
+                   'rule'=>array('maxLength', 17),
+                   'message'=>'Το γεωγραφικό μήκος δεν μπορεί να έχει παραπάνω από 16 αριθμητικά ψηφία'  
+               ),
+               'rule4'=>array(
+                   'allowEmpty'=> false,
+                   'message'=>'Το γεωγραφικό μήκος είναι υποχρεωτικό πεδίο'  
+               )
+            
+         ),
+        'depth' => array(
+            'rule1'=>array(
+                'rule'  =>array('onlyNumbers'),
                 'allowEmpty' => true,
-                'message'  => 'Το Email δεν έχει κανονική μορφή'
+                'message'  => 'Παρακαλώ δώστε μια προσέγγιση του βάθους σε μέτρα(m)'
+            ),
+            'rule2'=>array(
+                'rule'    => array('between', 0, 4),
+                'allowEmpty' => true,
+                'message' => 'Παρακαλώ δώστε ένα έγκυρο μέγεθος για το βάθος'
             )
         ),
-//        'depth' => array(
-//            'AlphaNumeric' => array(
-//                'rule'  => 'alphaNumeric',
-//                'allowEmpty' => true,
-//                'message'  => 'Παρακαλώ συμπληρώστε το βάθος σε μέτρα'
-//            )/*,
-//            'between' => array(
-//                'rule'    => array('between', 0, 4),
-//                'message' => 'Παρακαλώ δώστε ένα έγκυρο βάθος (< 9999)'
-//            )*/
-//        ),
-        'date' => array(
-            'rule'       => 'date',
-            'message'    => 'Παρακαλώ συμπληρώστε μια κανονική ημερομηνία(Π.Χ. 12/03/2012)',
-            'allowEmpty' => false
+        'name'=>array(  
+               'rule1'=>array(
+                  'rule'=>array('maxLength', 25),
+                   'alloEmpty'=>true,
+                  'message'=>'Το όνομα σας δεν μπορεί να περιέχει πάνω από 25 χαρακτήρες'  
+               ),
+               'rule2'=>array(
+                  'rule'=>'alphaNumeric',
+                   'alloEmpty'=>true,
+                  'message'=>'Το όνομα σας μπορεί να περιέχει μόνο γράμματα'  
+               )
+
+        ),
+        'surname'=>array(  
+               'rule1'=>array(
+                  'rule'=>array('maxLength', 25),
+                  'alloEmpty'=>true,
+                  'message'=>'Το επώνυμο σας δεν μπορεί να περιέχει πάνω από 25 χαρακτήρες'  
+             ),
+               'rule2'=>array(
+                  'rule'=>'alphaNumeric',
+                  'alloEmpty'=>true,
+                  'message'=>'Το επώνυμο σας μπορεί να περιέχει μόνο γράμματα'  
+             )
+        ),
+        'phone_number'=>array(  
+               'rule1'=>array(
+                   'rule'=>array('onlyNumbers'),
+                   'alloEmpty'=>true,
+                   'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
+             )
         )
     );
     
-     function findUserReports($userId)
-     {
+     function findUserReports($userId){
          $return = false;
          
          $conditions = array(

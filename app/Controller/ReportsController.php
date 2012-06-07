@@ -244,6 +244,10 @@ class ReportsController extends AppController{
     function showspecies(){
         $species = ClassRegistry::init('Specie')->find('all');
         $this->set('species',$species);
+        $perioxes = $this->Report->findPerioxesSpecies();
+        $species2 = $this->Report->findReportsSpecies();
+        $this->set('perioxes',$perioxes);
+        $this->set('species2',$species2);
     }
     
     
