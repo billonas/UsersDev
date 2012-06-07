@@ -167,7 +167,7 @@ class HotSpeciesController extends AppController{
                 $this->redirect(array('action'=>'update',$id), null, true);
             }
              $this->HotSpecie->deleteImg($id , $num);       
-             $this->Session->setFlash('The photo has been set as main');
+             $this->Session->setFlash('The photo has been deleted');
              $this->redirect(array('action'=>'update',$id));
         }
     }
