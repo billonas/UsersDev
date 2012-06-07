@@ -217,7 +217,7 @@ class ReportsController extends AppController{
             }
             else{
                 //$this->set('reports',$this->Report->find('all'));
-                $this->set('reports',$this->Report->find('all', array('order'=>'created DESC')));
+                $this->set('reports',$this->Report->find('all', array('order'=>'Report.created DESC')));
                 
 
             }
