@@ -45,7 +45,7 @@ class HotSpeciesController extends AppController{
                         $this->redirect(array('action'=>'create'), null, true);
                 }
                 //briskw thn katalhksh tou arxeiou gia na dwsw thn idia katalhksh sto kainourgio onoma
-    	        $this->Image->tmpRename($this->request->data['HotSpecie']['image1']);
+    	        $this->request->data['HotSpecie']['image1']['name'] = $this->Image->tmpRename($this->request->data['HotSpecie']['image1']);
                 $uploaded = $this->JqImgcrop->uploadImage($this->data['HotSpecie']['image1'], 'img/temporary/', ''); 
                 $this->request->data['HotSpecie']['additional_photo1'] = $uploaded['imagePath'];
                 $add1 = 1;
