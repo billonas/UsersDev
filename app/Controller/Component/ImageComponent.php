@@ -72,8 +72,9 @@ class ImageComponent extends Component {
     
     public function dlImg($rep, $id){
             $report = $rep->findById($id);
-            if($report['Report']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
-         	    unlink($report['Report']['main_photo']);
+	    $main_photo = $report['Report']['main_photo'];
+            if($main_photo)  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
+         	    unlink("img/$main_photo");
     }
     
     public function changePriority($photo_name, $hot, $photoId, $pId, $obj){

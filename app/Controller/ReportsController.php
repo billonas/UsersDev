@@ -178,8 +178,8 @@ class ReportsController extends AppController{
                 //$this->Session->setFlash('Invalid id for Task');
                 $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
             }
-            // $report = $this->Report->findById($id); //pernw ta stoixeia gia na brw pithana media(eikones)
-            //$this->Image->dlImg($this->Report, $id);
+            $report = $this->Report->findById($id); //pernw ta stoixeia gia na brw pithana media(eikones)
+            $this->Image->dlImg($this->Report, $id);
             if ($this->Report->delete($id)) {
             //  if($report['Report']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
                     //    unlink($report['Report']['main_photo']);
