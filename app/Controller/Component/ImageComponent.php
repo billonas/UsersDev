@@ -93,7 +93,7 @@ class ImageComponent extends Component {
 	    	if($additional_photo5)  
          	    unlink("img/$additional_photo5");
 		if($video)  
-         	    unlink("img/$video");
+         	    unlink("video/$video");
 	    }
     }
     
