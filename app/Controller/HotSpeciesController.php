@@ -33,6 +33,7 @@ class HotSpeciesController extends AppController{
     	        $this->Image->tmpRename($this->request->data['HotSpecie']['image']);
                 $uploaded = $this->JqImgcrop->uploadImage($this->data['HotSpecie']['image'], 'img/temporary/', ''); 
                 $this->request->data['HotSpecie']['main_photo'] = $uploaded['imagePath'];
+                $this->request->data['HotSpecie']['priority'] = $this->HotSpecie->find('count')+1;
                 //additional_photo1
                 if(isset($this->data['HotSpecie']['image1'])){
                 $res = $this->Image->checkImage($this->data['HotSpecie']['image1']);
@@ -111,16 +112,18 @@ class HotSpeciesController extends AppController{
         $dir = 'img/';
         if($hot['HotSpecie']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
          	unlink($dir.$hot['HotSpecie']['main_photo']);
-        if($hot['HotSpecie']['additional_photo1'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
-         	unlink($dir.$hot['HotSpecie']['additional_photo1']);
-        if ($this->HotSpecie->delete($id)) {
+        for($i=1;$i<4;$i++){
+        if($hot['HotSpecie']['additional_photo'.$i])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
+         	unlink($dir.$hot['HotSpecie']['additional_photo'.$i]);
+        }
+        if ($this->HotSpecie->deleteHot($id)) {
             $this->Session->setFlash('HotSpecie #'.$id.' deleted');
             $this->redirect(array('action'=>'show'), null, true);
         }
     }
     
     function show() {
-        $this->set('hotspecies', $this->HotSpecie->find('all'));
+        $this->set('hotspecies', $this->HotSpecie->find('all', array('order'=>'HotSpecie.priority')));
     }
     
     function setMainPhoto($id = null , $num = null){
@@ -172,7 +175,7 @@ class HotSpeciesController extends AppController{
         }
     }
     
-    /*function changePriority($id = null,$action = null) {//TODO stin crete na theto priority++ kai
+    function changePriority($id = null,$action = null) {//TODO stin create na theto priority++ kai
     // *  stin delete na meiono ta priority ton epomenon kata1
         if (($id == null) || ($action == null)) {
             $this->Session->setFlash('Invalid HotSpecie Id');
@@ -186,6 +189,6 @@ class HotSpeciesController extends AppController{
             $this->Session->setFlash('The priority has been changed');
             $this->redirect(array('action'=>'show'), null, true);
         }
-    }*/
+    }
 }
 ?>

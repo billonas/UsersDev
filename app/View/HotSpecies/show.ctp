@@ -35,7 +35,9 @@
                          <td>
                             <?php echo $this->Html->link('Επεξεργασία', array('action'=>'update',$hotspecie['HotSpecie']['id'])); 
                                   echo ' ';
-                                  echo $this->Html->link('Διαγραφή', array('action'=>'delete',$hotspecie['HotSpecie']['id'])); ?>
+                                  echo $this->Html->link('Διαγραφή', array('action'=>'delete',$hotspecie['HotSpecie']['id']));
+                                  echo $this->Html->link('Up Priority', array('action'=>'changePriority',$hotspecie['HotSpecie']['id'],1));
+                                  echo $this->Html->link('Down Priority', array('action'=>'changePriority',$hotspecie['HotSpecie']['id'],2));?>
                          </td>
                          </tr>
                             <?php endforeach; ?>

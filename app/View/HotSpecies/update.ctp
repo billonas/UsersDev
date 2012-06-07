@@ -17,6 +17,7 @@
              echo $this->Form->input('scientific_name',array('label'=>'Επιστημονική ονομασία','div'=>'input[type=text]','id'=>'info'));
              echo $this->Form->error('description');
              echo $this->Form->input('description',array("type" => "textarea",'label'=>'Περιγραφή είδους'));
+             echo $this->Form->input('priority', array('type' => 'hidden'));
           ?>
 <?php echo $this->Form->end('Αποθήκευση');?>
 <?php echo $this->Session->flash(); ?>
