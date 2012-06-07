@@ -30,7 +30,7 @@ class HotSpeciesController extends AppController{
                         $this->redirect(array('action'=>'create'), null, true);
                 }
                 //briskw thn katalhksh tou arxeiou gia na dwsw thn idia katalhksh sto kainourgio onoma
-    	        $this->Image->tmpRename($this->request->data['HotSpecie']['image']);
+    	        $this->request->data['HotSpecie']['image']['name'] = $this->Image->tmpRename($this->request->data['HotSpecie']['image']);
                 $uploaded = $this->JqImgcrop->uploadImage($this->data['HotSpecie']['image'], 'img/temporary/', ''); 
                 $this->request->data['HotSpecie']['main_photo'] = $uploaded['imagePath'];
                 //additional_photo1
@@ -54,14 +54,14 @@ class HotSpeciesController extends AppController{
                 if ($this->HotSpecie->save($this->data['HotSpecie'])) {
                     //allazw to onoma ths eikonas katallhla
                     //main_photo
-                    $ret = $this->Image->mvSubImg($this->HotSpecie, $this->data['HotSpecie']['main_photo'], "hotspecies");
+                    $ret = $this->Image->mvSubImg($this->HotSpecie, $this->data['HotSpecie']['main_photo'], "hotspecies", "main_photo");
                     if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
                             $this->redirect(array('action'=>'create'), null, true);
                             }
                     //additional_photo1
                     if($add1==1){
-                        $ret = $this->Image->mvSubImg2($this->HotSpecie, $this->data['HotSpecie']['additional_photo1'], "hotspecies","a");
+                        $ret = $this->Image->mvSubImg($this->HotSpecie, $this->data['HotSpecie']['additional_photo1'], "hotspecies","additional_photo1","a");
                         if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας για την επιπλέον φώτο1");
                             $this->redirect(array('action'=>'create'), null, true);

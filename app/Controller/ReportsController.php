@@ -84,7 +84,7 @@ class ReportsController extends AppController{
                     $this->Report->create();
                     if ($this->Report->save($this->data['Report'])) {
                         //RENAME IMAGE FILE TO RECORD NAME AND SAVE IT TO DIR
-                        $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['main_photo'], "reports");
+                        $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['main_photo'], "reports", "main_photo");
                         if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
                             $this->redirect('create');

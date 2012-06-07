@@ -38,7 +38,7 @@ class ImageComponent extends Component {
         return $name;
     }
     
-    public function mvSubImg($report, $name, $dir, $ext = ""){
+    public function mvSubImg($report, $name, $dir, $photo, $ext = ""){
         if(empty($name))
                 return 1;
          $newNameId = $report->id;  //to id ths eggrafhs pou molis prostethhke
@@ -50,7 +50,7 @@ class ImageComponent extends Component {
         //webroot/img/reports
 	$newName = "$dir/$newNameId$ext.$tok";  
 	rename("$name", "img/$newName");
-        if(!$report->saveField("main_photo", $newName)) return 0;
+        if(!$report->saveField($photo, $newName)) return 0;
         return 1;
     }
     
