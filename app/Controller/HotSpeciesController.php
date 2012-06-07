@@ -106,11 +106,11 @@ class HotSpeciesController extends AppController{
             $this->Session->setFlash('Invalid id for HotSpecie');
             $this->redirect(array('action'=>'show'), null, true);
         }
-        //$this->Image->dlImg($this->HotSpecie, $id);
+        $this->Image->dlImg($this->HotSpecie, $id, 'HotSpecie');
         $hot = $this->HotSpecie->findById($id);
         $dir = 'img/';
-        if($hot['HotSpecie']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
-         	unlink($dir.$hot['HotSpecie']['main_photo']);
+       // if($hot['HotSpecie']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
+         //	unlink($dir.$hot['HotSpecie']['main_photo']);
         if($hot['HotSpecie']['additional_photo1'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
          	unlink($dir.$hot['HotSpecie']['additional_photo1']);
         if ($this->HotSpecie->delete($id)) {
