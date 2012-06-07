@@ -73,8 +73,28 @@ class ImageComponent extends Component {
     public function dlImg($rep, $id, $Model){
             $report = $rep->findById($id);
 	    $main_photo = $report[$Model]['main_photo'];
+	    $additional_photo1 = $report[$Model]['additional_photo1'];
+	    $additional_photo2 = $report[$Model]['additional_photo2'];
+	    $additional_photo3 = $report[$Model]['additional_photo3'];
             if($main_photo)  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
          	    unlink("img/$main_photo");
+	    if($additional_photo1)  
+         	    unlink("img/$additional_photo1");
+	    if($additional_photo2)  
+         	    unlink("img/$additional_photo2");
+	    if($additional_photo3)  
+         	    unlink("img/$additional_photo3");
+	    if(!strcmp($Model, 'Report')){
+		$additional_photo4 = $report[$Model]['additional_photo4'];
+	    	$additional_photo5 = $report[$Model]['additional_photo5'];
+		$video = $report[$Model]['video'];
+		if($additional_photo4)  
+         	    unlink("img/$additional_photo4");
+	    	if($additional_photo5)  
+         	    unlink("img/$additional_photo5");
+		if($video)  
+         	    unlink("img/$video");
+	    }
     }
     
     public function changePriority($photo_name, $hot, $photoId, $pId, $obj){
