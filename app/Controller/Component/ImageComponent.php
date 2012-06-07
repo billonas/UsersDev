@@ -70,9 +70,9 @@ class ImageComponent extends Component {
         return 1;
     }
     
-    public function dlImg($rep, $id){
+    public function dlImg($rep, $id, $Model){
             $report = $rep->findById($id);
-	    $main_photo = $report['Report']['main_photo'];
+	    $main_photo = $report[$Model]['main_photo'];
             if($main_photo)  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
          	    unlink("img/$main_photo");
     }
