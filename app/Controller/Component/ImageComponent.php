@@ -38,7 +38,7 @@ class ImageComponent extends Component {
         return $name;
     }
     
-    public function mvSubImg($report, $name, $dir, $ext = ""){
+    public function mvSubImg($report, $name, $dir, $photo, $ext = ""){
         if(empty($name))
                 return 1;
          $newNameId = $report->id;  //to id ths eggrafhs pou molis prostethhke
@@ -50,7 +50,7 @@ class ImageComponent extends Component {
         //webroot/img/reports
 	$newName = "$dir/$newNameId$ext.$tok";  
 	rename("$name", "img/$newName");
-        if(!$report->saveField("main_photo", $newName)) return 0;
+        if(!$report->saveField($photo, $newName)) return 0;
         return 1;
     }
     
@@ -70,10 +70,31 @@ class ImageComponent extends Component {
         return 1;
     }
     
-    public function dlImg($rep, $id){
+    public function dlImg($rep, $id, $Model){
             $report = $rep->findById($id);
-            if($report['Report']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
-         	    unlink($report['Report']['main_photo']);
+	    $main_photo = $report[$Model]['main_photo'];
+	    $additional_photo1 = $report[$Model]['additional_photo1'];
+	    $additional_photo2 = $report[$Model]['additional_photo2'];
+	    $additional_photo3 = $report[$Model]['additional_photo3'];
+            if($main_photo)  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
+         	    unlink("img/$main_photo");
+	    if($additional_photo1)  
+         	    unlink("img/$additional_photo1");
+	    if($additional_photo2)  
+         	    unlink("img/$additional_photo2");
+	    if($additional_photo3)  
+         	    unlink("img/$additional_photo3");
+	    if(!strcmp($Model, 'Report')){
+		$additional_photo4 = $report[$Model]['additional_photo4'];
+	    	$additional_photo5 = $report[$Model]['additional_photo5'];
+		$video = $report[$Model]['video'];
+		if($additional_photo4)  
+         	    unlink("img/$additional_photo4");
+	    	if($additional_photo5)  
+         	    unlink("img/$additional_photo5");
+		if($video)  
+         	    unlink("video/$video");
+	    }
     }
     
     public function changePriority($photo_name, $hot, $photoId, $pId, $obj){

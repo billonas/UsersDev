@@ -84,7 +84,7 @@ class ReportsController extends AppController{
                     $this->Report->create();
                     if ($this->Report->save($this->data['Report'])) {
                         //RENAME IMAGE FILE TO RECORD NAME AND SAVE IT TO DIR
-                        $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['main_photo'], "reports");
+                        $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['main_photo'], "reports", "main_photo");
                         if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
                             $this->redirect('create');
@@ -178,8 +178,8 @@ class ReportsController extends AppController{
                 //$this->Session->setFlash('Invalid id for Task');
                 $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
             }
-            // $report = $this->Report->findById($id); //pernw ta stoixeia gia na brw pithana media(eikones)
-            //$this->Image->dlImg($this->Report, $id);
+            $report = $this->Report->findById($id); //pernw ta stoixeia gia na brw pithana media(eikones)
+            $this->Image->dlImg($this->Report, $id, 'Report');
             if ($this->Report->delete($id)) {
             //  if($report['Report']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
                     //    unlink($report['Report']['main_photo']);

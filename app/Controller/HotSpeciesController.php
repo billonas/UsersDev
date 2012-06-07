@@ -30,7 +30,7 @@ class HotSpeciesController extends AppController{
                         $this->redirect(array('action'=>'create'), null, true);
                 }
                 //briskw thn katalhksh tou arxeiou gia na dwsw thn idia katalhksh sto kainourgio onoma
-    	        $this->Image->tmpRename($this->request->data['HotSpecie']['image']);
+    	        $this->request->data['HotSpecie']['image']['name'] = $this->Image->tmpRename($this->request->data['HotSpecie']['image']);
                 $uploaded = $this->JqImgcrop->uploadImage($this->data['HotSpecie']['image'], 'img/temporary/', ''); 
                 $this->request->data['HotSpecie']['main_photo'] = $uploaded['imagePath'];
                 $this->request->data['HotSpecie']['priority'] = $this->HotSpecie->find('count')+1;
@@ -46,7 +46,7 @@ class HotSpeciesController extends AppController{
                         $this->redirect(array('action'=>'create'), null, true);
                 }
                 //briskw thn katalhksh tou arxeiou gia na dwsw thn idia katalhksh sto kainourgio onoma
-    	        $this->Image->tmpRename($this->request->data['HotSpecie']['image1']);
+    	        $this->request->data['HotSpecie']['image1']['name'] = $this->Image->tmpRename($this->request->data['HotSpecie']['image1']);
                 $uploaded = $this->JqImgcrop->uploadImage($this->data['HotSpecie']['image1'], 'img/temporary/', ''); 
                 $this->request->data['HotSpecie']['additional_photo1'] = $uploaded['imagePath'];
                 $add1 = 1;
@@ -55,14 +55,14 @@ class HotSpeciesController extends AppController{
                 if ($this->HotSpecie->save($this->data['HotSpecie'])) {
                     //allazw to onoma ths eikonas katallhla
                     //main_photo
-                    $ret = $this->Image->mvSubImg($this->HotSpecie, $this->data['HotSpecie']['main_photo'], "hotspecies");
+                    $ret = $this->Image->mvSubImg($this->HotSpecie, $this->data['HotSpecie']['main_photo'], "hotspecies", "main_photo");
                     if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
                             $this->redirect(array('action'=>'create'), null, true);
                             }
                     //additional_photo1
                     if($add1==1){
-                        $ret = $this->Image->mvSubImg2($this->HotSpecie, $this->data['HotSpecie']['additional_photo1'], "hotspecies","a");
+                        $ret = $this->Image->mvSubImg($this->HotSpecie, $this->data['HotSpecie']['additional_photo1'], "hotspecies","additional_photo1","a");
                         if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας για την επιπλέον φώτο1");
                             $this->redirect(array('action'=>'create'), null, true);
@@ -107,16 +107,8 @@ class HotSpeciesController extends AppController{
             $this->Session->setFlash('Invalid id for HotSpecie');
             $this->redirect(array('action'=>'show'), null, true);
         }
-        //$this->Image->dlImg($this->HotSpecie, $id);
-        $hot = $this->HotSpecie->findById($id);
-        $dir = 'img/';
-        if($hot['HotSpecie']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
-         	unlink($dir.$hot['HotSpecie']['main_photo']);
-        for($i=1;$i<4;$i++){
-        if($hot['HotSpecie']['additional_photo'.$i])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
-         	unlink($dir.$hot['HotSpecie']['additional_photo'.$i]);
-        }
-        if ($this->HotSpecie->deleteHot($id)) {
+        $this->Image->dlImg($this->HotSpecie, $id, 'HotSpecie');
+        if ($this->HotSpecie->delete($id)) {
             $this->Session->setFlash('HotSpecie #'.$id.' deleted');
             $this->redirect(array('action'=>'show'), null, true);
         }
