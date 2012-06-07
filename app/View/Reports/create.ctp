@@ -160,7 +160,7 @@ $(document).ready(function(){
                     if(isset($photo)){
                         echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));
                         echo $this->Cropimage->createJavaScript($uploaded['imageWidth'],$uploaded['imageHeight'],151,151);
-                        echo $this->Cropimage->createForm($uploaded["imagePath"], 151, 151);
+                        echo $this->Cropimage->createForm($uploaded['imagePath'], 151, 151);
                         echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded["imagePath"], 'class'=>'std_form'));
                     }
                     if(isset($video)){

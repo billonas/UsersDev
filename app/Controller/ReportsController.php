@@ -44,7 +44,7 @@ class ReportsController extends AppController{
                     //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
                     $this->request->data['Report']['image']['name'] = $this->Image->tmpRename($this->request->data['Report']['image']);
                     $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', ''); 
-                    $this->set('uploaded',$uploaded); 
+                    $this->set('uploaded',$uploaded);
                     $photo = 1;
                     $this->set('photo',$photo); 
                 }
@@ -76,7 +76,7 @@ class ReportsController extends AppController{
             /* Submission step */
             else{
                 /* Image */ 
-                if(isset($this->photo)){
+                if(!empty($this->data['Report']['main_photo'])){
                     /* Crop needed */
                     if(!empty($this->data['Report']['x1'])){
                         $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
@@ -99,7 +99,7 @@ class ReportsController extends AppController{
                     
                 }
                 /* Video */
-                else if(isset($this->video)){
+                else if(isset($this->data['Report']['video'])){
                     $this->Report->create();
                     if ($this->Report->save($this->data['Report'])){
                         $ret = $this->Video->mvSubVideo($this->Report, $this->data['Report']['video'], "reports");
