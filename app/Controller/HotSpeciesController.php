@@ -153,6 +153,25 @@ class HotSpeciesController extends AppController{
         }
     }
     
+    function deleteImg($id = null , $num = null){
+        if (($id == null) || ($num == null) || ($num > 3) || ($num < 1)) { //num{1-3}
+            $this->Session->setFlash('Invalid id for HotSpecie or Photo');
+            $this->redirect(array('action'=>'show'), null, true);
+        }
+        else{
+            $hotspecies = $this->HotSpecie->findById($id);
+            $photo = 'additional_photo'.$num;
+            $additional = $hotspecies['HotSpecie'][$photo];
+            if($additional == ''){//an den yparxei h antistoixi foto(periptosi pou dosame to num xeirokinita h lathos sto view)
+                $this->Session->setFlash('This photo does not exist');
+                $this->redirect(array('action'=>'update',$id), null, true);
+            }
+             $this->HotSpecie->deleteImg($id , $num);       
+             $this->Session->setFlash('The photo has been set as main');
+             $this->redirect(array('action'=>'update',$id));
+        }
+    }
+    
     /*function changePriority($id = null,$action = null) {//TODO stin crete na theto priority++ kai
     // *  stin delete na meiono ta priority ton epomenon kata1
         if (($id == null) || ($action == null)) {

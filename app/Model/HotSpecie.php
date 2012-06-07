@@ -39,6 +39,17 @@ class HotSpecie extends AppModel{
         )
     );
     
+     function deleteImg($id , $num){
+         $dir = 'img/';
+         $hot = $this->findById($id);
+         if($hot['HotSpecie']['additional_photo'.$num]){  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
+         	unlink($dir.$hot['HotSpecie']['additional_photo'.$num]);
+                $hot->saveField('additional_photo'.$num, 'NULL');
+                return true;
+         }
+         return false;
+    }
+    
     function upPriority($id){
         
          $hot1 = $this->findById($id);

@@ -10,7 +10,9 @@
              echo $this->Html->image($hotspecie['HotSpecie']['main_photo']."?".time());
              echo '</br>';
              echo $this->Html->image($hotspecie['HotSpecie']['additional_photo1']."?".time());
-             echo $this->Html->link('Set as main photo', array('action'=>'setMainPhoto',$hotspecie['HotSpecie']['id'],1));
+             if($hotspecie['HotSpecie']['additional_photo1']){echo $this->Html->link('Set as main photo', array('action'=>'setMainPhoto',$hotspecie['HotSpecie']['id'],1));}
+             //echo $hotspecie['HotSpecie']['additional_photo1'];
+             if($hotspecie['HotSpecie']['additional_photo1']){echo $this->Html->link('Delete photo', array('action'=>'deleteImg',$hotspecie['HotSpecie']['id'],1));}
              echo $this->Form->error('scientific_name');
              echo $this->Form->input('scientific_name',array('label'=>'Επιστημονική ονομασία','div'=>'input[type=text]','id'=>'info'));
              echo $this->Form->error('description');
