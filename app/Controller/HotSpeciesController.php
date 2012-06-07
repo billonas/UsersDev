@@ -108,7 +108,7 @@ class HotSpeciesController extends AppController{
             $this->redirect(array('action'=>'show'), null, true);
         }
         $this->Image->dlImg($this->HotSpecie, $id, 'HotSpecie');
-        if ($this->HotSpecie->delete($id)) {
+        if ($this->HotSpecie->deleteHot($id)) {
             $this->Session->setFlash('HotSpecie #'.$id.' deleted');
             $this->redirect(array('action'=>'show'), null, true);
         }
