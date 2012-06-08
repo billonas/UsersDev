@@ -133,6 +133,8 @@
                                     <td>
                                         <?php
                                             if ( isset($report['Last_edited_by']) )
+                                                echo $report['modified'];
+                                                echo ', ';
                                                 echo $report['Last_edited_by']['name'];
                                                 echo ' ';
                                                 echo $report['Last_edited_by']['surname'];

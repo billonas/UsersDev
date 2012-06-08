@@ -89,6 +89,21 @@ class ReportsController extends AppController{
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
                             $this->redirect('create');
                         }
+                        //UPLOAD EXTRA IMAGES
+                        if(!empty($this->data['Report']['image2']['tmp_name'])){
+                            $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['image2']['tmp_name'], "reports", "a");
+                            if(!$ret){
+                                $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                                $this->redirect('create');
+                            }
+                        }
+                        if(!empty($this->data['Report']['image3']['tmp_name'])){
+                            $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['image3']['tmp_name'], "reports", "b");
+                            if(!$ret){
+                                $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                                $this->redirect('create');
+                            }
+                        }
                         $this->Session->setFlash('Η αναφορά κατατέθηκε επιτυχώς','flash_good');
                         $this->redirect(array('controller'=>'pages', 'action'=>'display'));
                     } 
@@ -126,6 +141,11 @@ class ReportsController extends AppController{
                 $this->redirect('table');
             }
             if(empty($this->data)) {
+                if($this->Session->check('UserUsername')){
+                    $email = $this->Session->read('UserUsername');
+                    $userId = ClassRegistry::init('User')->getUserId($email);
+                    $this->set('userId',$userId);
+                }
                 $this->data = $this->Report->findById($id);
                 if(empty($this->data)){
                     $this->Session->setFlash('Invalid ID');
@@ -181,8 +201,6 @@ class ReportsController extends AppController{
             $report = $this->Report->findById($id); //pernw ta stoixeia gia na brw pithana media(eikones)
             $this->Image->dlImg($this->Report, $id, 'Report');
             if ($this->Report->delete($id)) {
-            //  if($report['Report']['main_photo'])  //diagrafw thn eikona pou antistoixouse sthn eggrafh, ama uparxei
-                    //    unlink($report['Report']['main_photo']);
                 $this->Session->setFlash('Η αναφορά '.$id.' διαγράφηκε επιτυχώς','flash_good');
                 $this->redirect(array('action'=>'table'), null, true);
             }
