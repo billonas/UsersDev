@@ -91,14 +91,14 @@ class ReportsController extends AppController{
                         }
                         //UPLOAD EXTRA IMAGES
                         if(!empty($this->data['Report']['image2']['tmp_name'])){
-                            $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['image2']['tmp_name'], "reports", "a");
+                            $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['image2']['tmp_name'], "reports", "additional_photo1", "a");
                             if(!$ret){
                                 $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
                                 $this->redirect('create');
                             }
                         }
                         if(!empty($this->data['Report']['image3']['tmp_name'])){
-                            $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['image3']['tmp_name'], "reports", "b");
+                            $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['image3']['tmp_name'], "reports", "additional_photo2", "b");
                             if(!$ret){
                                 $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
                                 $this->redirect('create');
