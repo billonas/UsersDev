@@ -4,15 +4,26 @@
 			<div class="middle_wrapper">
 					<div align="center">
 <h2>Επεξεργασία Είδους</h2>
+             <?php if($hotspecie['HotSpecie']['additional_photo1'] != null)
+                 {
+                    echo $this->Html->image($hotspecie['HotSpecie']['additional_photo1']."?".time());
+                    echo $this->Html->link('Set as main photo', array('action'=>'setMainPhoto',$hotspecie['HotSpecie']['id'],1));
+                    echo $this->Html->link('Delete photo', array('action'=>'deleteImg',$hotspecie['HotSpecie']['id'],1));
+                 }
+             //echo $hotspecie['HotSpecie']['additional_photo1'];
+             else{
+             echo $this->Form->create('HotSpecie', array('action' => 'addImg', "enctype" => "multipart/form-data"));
+             echo $this->Form->error('image');
+             echo $this->Form->input('image',array("type" => "file",'label'=>'Φωτογραφία'));
+             echo $this->Form->input('id',array('type'=>'hidden','value'=>$hotspecie['HotSpecie']['id']));
+             echo $this->Form->input('num',array('type'=>'hidden','value'=>1));
+             echo $this->Form->end('Προσθήκη Φωτογραφίας');
+             }?>
 <?php echo $this->Form->create('HotSpecie', array('action' => 'update', "enctype" => "multipart/form-data")); ?>
           <?php
              echo $this->Form->input('id', array('type' => 'hidden'));
              echo $this->Html->image($hotspecie['HotSpecie']['main_photo']."?".time());
              echo '</br>';
-             echo $this->Html->image($hotspecie['HotSpecie']['additional_photo1']."?".time());
-             if($hotspecie['HotSpecie']['additional_photo1']){echo $this->Html->link('Set as main photo', array('action'=>'setMainPhoto',$hotspecie['HotSpecie']['id'],1));}
-             //echo $hotspecie['HotSpecie']['additional_photo1'];
-             if($hotspecie['HotSpecie']['additional_photo1']){echo $this->Html->link('Delete photo', array('action'=>'deleteImg',$hotspecie['HotSpecie']['id'],1));}
              echo $this->Form->error('scientific_name');
              echo $this->Form->input('scientific_name',array('label'=>'Επιστημονική ονομασία','div'=>'input[type=text]','id'=>'info'));
              echo $this->Form->error('description');

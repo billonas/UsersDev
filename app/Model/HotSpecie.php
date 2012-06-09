@@ -93,7 +93,8 @@ class HotSpecie extends AppModel{
          }
          return false;
       }
-      function deleteHot($id){
+      function deleteHot($id){//afou svisoume to hot_specie meionoume thn priority twn epomenwn(vasei priority) hot epeidi h priority kathe neou
+          //hot dinetai sthn create vasei megethous tou pinaka hot.
           
           $hot = $this->findById($id);
           $neighbors = $this->find('neighbors', array('field' => 'priority', 'value' => $hot['HotSpecie']['priority']));
