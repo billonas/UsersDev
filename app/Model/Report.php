@@ -127,6 +127,7 @@ class Report extends AppModel{
     );*/
     
      function saveReport($report){
+	if(!empty($report['Specie']['scientific_name'])){
            $species = $this->Specie->findByScientific_name($report['Specie']['scientific_name']);
 	   if(empty($species)) 
 	   {
@@ -135,8 +136,9 @@ class Report extends AppModel{
 		$species = $this->Specie->findByScientific_name($report['Specie']['scientific_name']);
 	   }
 	   $report['Report']['species_id'] = $species['Specie']['id'];
-	   $this->save($report);
 	}
+	$this->save($report);
+     }
 
      function findUserReports($userId){
          $return = false;
