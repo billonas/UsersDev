@@ -27,8 +27,8 @@ class Report extends AppModel{
             )
      );
     
-    public $validate = array(
-        'date'=>array(  
+    /*public $validate = array(
+      /*  'date'=>array(  
                'rule1'=>array(
                    'rule'=>array('date'),
                    'alloEmpty'=>false,
@@ -42,9 +42,9 @@ class Report extends AppModel{
                    'message'=>'Παρακαλούμε δώστε έγκυρή διεύθυνση ηλεκτρονικού ταχυδρομείου'
              ) 
         ),
-        'lat'=>array(  
+       /* 'lat'=>array(  
                'rule1'=>array(
-                   'rule'=>array('onlyNumbers'),
+                   'rule'=>array('numeric'),
                    'message'=>'Το γεωγραφικό πλάτος δεν έχει κανονική μορφή'
                ),
                'rule2'=>array(
@@ -63,7 +63,7 @@ class Report extends AppModel{
          ),
         'lng'=>array(  
                'rule1'=>array(
-                   'rule'=>array('onlyNumbers'),
+                   'rule'=>array('numeric'),
                    'message'=>'Το γεωγραφικό μήκος δεν έχει κανονική μορφή'
                ),
                'rule2'=>array(
@@ -79,10 +79,10 @@ class Report extends AppModel{
                    'message'=>'Το γεωγραφικό μήκος είναι υποχρεωτικό πεδίο'  
                )
             
-         ),
-        'depth' => array(
+         ),*/
+   /*     'depth' => array(
             'rule1'=>array(
-                'rule'  =>array('onlyNumbers'),
+                'rule'  =>array('numeric'),
                 'allowEmpty' => true,
                 'message'  => 'Παρακαλώ δώστε μια προσέγγιση του βάθους σε μέτρα(m)'
             ),
@@ -116,15 +116,15 @@ class Report extends AppModel{
                   'alloEmpty'=>true,
                   'message'=>'Το επώνυμο σας μπορεί να περιέχει μόνο γράμματα'  
              )
-        ),
-        'phone_number'=>array(  
+        )/*,
+        /*'phone_number'=>array(  
                'rule1'=>array(
-                   'rule'=>array('onlyNumbers'),
+                   'rule'=>array('numeric'),
                    'alloEmpty'=>true,
                    'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
              )
         )
-    );
+    );*/
     
      function findUserReports($userId){
          $return = false;

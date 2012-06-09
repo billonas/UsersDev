@@ -28,7 +28,7 @@ class ReportsController extends AppController{
         }
         if (!empty($this->data)) {
             /* Upload Step */
-            if(isset($this->data['Report']['image'])){
+            if(isset($this->data['Report']['image']) || isset($this->data['Report']['video_file'])){
                 /* Image Upload */
                 if(!empty($this->data['Report']['image']['tmp_name'])){
                     //CHECK  IF INPUT FILE IS IMAGE FILE
@@ -44,13 +44,13 @@ class ReportsController extends AppController{
                     //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
                     $this->request->data['Report']['image']['name'] = $this->Image->tmpRename($this->request->data['Report']['image']);
                     $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', ''); 
-                    $this->set('uploaded',$uploaded);
+                    $this->set('uploaded1',$uploaded);
                     $photo = 1;
                     $this->set('photo',$photo); 
                 }
                 /* Video Upload */
-                else if(!empty($this->data['Report']['video']['name'])){
-                    $uploaded = $this->Video->uploadVideo($this->data['Report']['video'], "video/temporary/");
+                if(!empty($this->data['Report']['video_file']['name'])){
+                    $uploaded = $this->Video->uploadVideo($this->data['Report']['video_file'], "video/temporary/");
                     if($uploaded['error']){
                         switch($uploaded['error']){
                         case 1:$this->Session->setFlash('Παρακαλώ εισάγετε ένα βίντεο ή αν έχετε εισάγει, εισάγετε ένα μικρότερου μεγέθους','flash_bad');
@@ -62,13 +62,14 @@ class ReportsController extends AppController{
                         case 4: $this->Session->setFlash('Πρόβλημα στη μεταφορά','flash_bad');
                                 break;
                         }
+                        $this->redirect('create');
                     }
-                    $this->set('uploaded',$uploaded); 
+                    $this->set('uploaded2',$uploaded); 
                     $video =1;
                     $this->set('video',$video);
                 }
                 /* Nothing Upload */
-                else{
+                if(!isset($photo) && !isset($video)){
                     $this->Session->setFlash('Παρακαλώ εισάγετε μια φωτογραφία ή ένα βίντεο','flash_good');
                     $this->redirect('create');
                 }
@@ -76,51 +77,65 @@ class ReportsController extends AppController{
             /* Submission step */
             else{
                 /* Image */ 
-                if(!empty($this->data['Report']['main_photo'])){
                     /* Crop needed */
                     if(!empty($this->data['Report']['x1'])){
                         $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
+			$imagePath = $this->data['Report']['main_photo'];
                     }
                     $this->Report->create();
-                    if ($this->Report->save($this->data['Report'])) {
+                    if ($this->Report->save($this->data)) {
                         //RENAME IMAGE FILE TO RECORD NAME AND SAVE IT TO DIR
-                        $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['main_photo'], "reports", "main_photo");
-                        if(!$ret){
+			if(!empty($this->data['Report']['main_photo'])){$main_photo = $this->data['Report']['main_photo'];
+			  $this->request->data['Report']['main_photo'] = "../webroot$main_photo";
+                          $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['main_photo'], "reports", "main_photo");
+                          if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
                             $this->redirect('create');
-                        }
+                          }
+			}
                         //UPLOAD EXTRA IMAGES
                         if(!empty($this->data['Report']['image2']['tmp_name'])){
-                            $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['image2']['tmp_name'], "reports", "additional_photo1", "a");
-                            if(!$ret){
-                                $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
-                                $this->redirect('create');
+			    $res = $this->Image->checkImage($this->data['Report']['image2']);
+                    	    if($res < 0){
+                        	//$this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
+                        	//$this->redirect('create');
+                    	    }
+                            else if(!$res){
+                               //$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
+                               //$this->redirect('create');
                             }
+			    else{
+                            	$ret = $this->Image->uploadSubImg($this->Report, $this->data['Report']['image2']['tmp_name'], $this->data['Report']['image2']['name'], "reports", "additional_photo1", "a");
+                            	if(!$ret){
+                                	$this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                                	$this->redirect('create');
+                            	}
+			    }
                         }
                         if(!empty($this->data['Report']['image3']['tmp_name'])){
-                            $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['image3']['tmp_name'], "reports", "additional_photo2", "b");
-                            if(!$ret){
-                                $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
-                                $this->redirect('create');
+			    $res = $this->Image->checkImage($this->data['Report']['image3']);
+                    	    if($res < 0){
+                        	//$this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
+                        	//$this->redirect('create');
+                    	    }
+                            else if(!$res){
+                               //$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
+                               //$this->redirect('create');
                             }
+			    else{
+                            	$ret = $this->Image->uploadSubImg($this->Report, $this->data['Report']['image3']['tmp_name'], $this->data['Report']['image3']['name'], "reports", "additional_photo2","b");
+                           	 if(!$ret){
+                            	    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                                	$this->redirect('create');
+                            	 }
+			    }
                         }
-                        $this->Session->setFlash('Η αναφορά κατατέθηκε επιτυχώς','flash_good');
-                        $this->redirect(array('controller'=>'pages', 'action'=>'display'));
-                    } 
-                    else {
-                        $this->Session->setFlash('Η αναφορά δεν κατατέθηκε επιτυχώς','flash_bad');
-                        $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
-                    }
-                    
-                }
-                /* Video */
-                else if(isset($this->data['Report']['video'])){
-                    $this->Report->create();
-                    if ($this->Report->save($this->data['Report'])){
-                        $ret = $this->Video->mvSubVideo($this->Report, $this->data['Report']['video'], "reports");
-                        if(!$ret){
+			if(!empty($this->data['Report']['video'])){
+			 $ret = $this->Video->mvSubVideo($this->Report, $this->data['Report']['video'], "reports");
+                         if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
                             $this->redirect('create');
+                         }
                         }
                         $this->Session->setFlash('Η αναφορά κατατέθηκε επιτυχώς','flash_good');
                         $this->redirect(array('controller'=>'pages', 'action'=>'display'));
@@ -129,7 +144,6 @@ class ReportsController extends AppController{
                         $this->Session->setFlash('Η αναφορά δεν κατατέθηκε επιτυχώς','flash_bad');
                         $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
                     }
-                }
             }
         }
    }

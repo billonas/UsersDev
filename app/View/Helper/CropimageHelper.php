@@ -7,6 +7,7 @@ class CropimageHelper extends Helper {
 
     function createJavaScript($imgW, $imgH, $thumbW, $thumbH) { 
             return $this->output("<script type=\"text/javascript\"> 
+
                 function preview(img, selection) { 
                     var scaleX = $thumbW / selection.width; 
                     var scaleY = $thumbH / selection.height; 
@@ -41,10 +42,10 @@ class CropimageHelper extends Helper {
                     } 
                 }); 
             }); 
-
+	    
             $(window).load(function () { 
-                $('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview }); 
-            }); 
+                 $('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview, parent: '#f1'}); 
+            });
             </script>"); 
     } 
 
@@ -64,5 +65,6 @@ class CropimageHelper extends Helper {
             </div> 
             <br style=\"clear:both;\"/>$x1 $y1 $x2 $y2 $w $h $imgP"); 
     }  
+
 } 
 ?>
