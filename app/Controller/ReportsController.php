@@ -28,7 +28,7 @@ class ReportsController extends AppController{
         }
         if (!empty($this->data)) {
             /* Upload Step */
-            if(isset($this->data['Report']['image']) || isset($this->data['Report']['video_file'])){
+            if(isset($this->data['Report']['image'])){
                 /* Image Upload */
                 if(!empty($this->data['Report']['image']['tmp_name'])){
                     //CHECK  IF INPUT FILE IS IMAGE FILE
@@ -49,7 +49,7 @@ class ReportsController extends AppController{
                     $this->set('photo',$photo); 
                 }
                 /* Video Upload */
-                if(!empty($this->data['Report']['video_file']['name'])){
+                else if(!empty($this->data['Report']['video_file']['name'])){
                     $uploaded = $this->Video->uploadVideo($this->data['Report']['video_file'], "video/temporary/");
                     if($uploaded['error']){
                         switch($uploaded['error']){
@@ -69,7 +69,7 @@ class ReportsController extends AppController{
                     $this->set('video',$video);
                 }
                 /* Nothing Upload */
-                if(!isset($photo) && !isset($video)){
+                else{
                     $this->Session->setFlash('Παρακαλώ εισάγετε μια φωτογραφία ή ένα βίντεο','flash_good');
                     $this->redirect('create');
                 }
