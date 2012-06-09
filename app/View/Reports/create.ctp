@@ -4,7 +4,6 @@
 <script type="text/javascript"
     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC0azkJD2QB5m24LzhdEUenVmgCJPNaiDI&sensor=false">
 </script>
-
 <script type="text/javascript">
 
 var map; 
@@ -126,7 +125,7 @@ $(document).ready(function(){
         <div class="middle_wrapper">
             <div id="tabs">
                 <ul>
-                    <?php if(isset($cropped)){
+                    <?php if(isset($uploaded1) || isset($uploaded2)){
                         echo '<li class="long_tab fragment"><a href="#1" class="fragment"><span>1. Βασικές Πληροφορίες</span></a></li>
                         <li class="long_tab fragment"><a href="#2" class="fragment"><span>2. Επιπλέον Πληροφορίες</span></a></li>
                         <li class="long_tab fragment"><a href="#3" class="fragment"><span>3. Στοιχεία Παρατηρητή</span></a></li>';
@@ -137,7 +136,7 @@ $(document).ready(function(){
                 </ul>
                 <div>
                 <?php
-                if(!isset($uploaded)){
+                if(!isset($uploaded1) && !isset($uploaded2)){
                         echo '<div id="f1">';
                         echo '<div class="flash_box gradient">';
                         echo $this->Session->flash().'</br>';
@@ -146,7 +145,7 @@ $(document).ready(function(){
                         echo '<label for="ReportImage" class="std_form">Δώστε μία Φωτογραφία: </label>';
                         echo $this->Form->input('image',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
                         echo '<label for="ReportImage" class="std_form">Δώστε ένα Βίντεο: </label>';
-                        echo $this->Form->input('video',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
+                        echo $this->Form->input('video_file',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
                         echo '<br />';
                         echo '<br />';
                         echo $this->Form->end(array(
@@ -157,14 +156,15 @@ $(document).ready(function(){
                 else{
                     echo '<div id="f1">';
                     echo $this->Session->flash();
+		    echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));
                     if(isset($photo)){
-                        echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));
-                        echo $this->Cropimage->createJavaScript($uploaded['imageWidth'],$uploaded['imageHeight'],151,151);
-                        echo $this->Cropimage->createForm($uploaded['imagePath'], 151, 151);
-                        echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded["imagePath"], 'class'=>'std_form'));
+                        echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
+                        echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
+                        echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
                     }
                     if(isset($video)){
                         echo 'VIDEO';
+			echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                     }
                     echo '<br/>';
                     echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'class'=>'std_form'));
@@ -183,11 +183,9 @@ $(document).ready(function(){
                     //echo "<a href='#2' class='button_like_anchor'>Επόμενο βήμα &#187;</a>";
                     echo '<big><span style="color:red;font-family:Arial,sans-serif;"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
                     echo '</div>';
-                }
-                ?>
-                <?php
-                        echo '<div id="f2">';
-                        echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
+                
+                    echo '<div id="f2">';
+                    echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
 								echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
                                 echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
 								echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
@@ -216,8 +214,7 @@ $(document).ready(function(){
 						//echo "<a href='#1' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
 						//echo "<a href='#3' class='next-tab mover'>Επόμενο βήμα &#187;</a>";
                         echo '</div>';
-                ?>
-                <?php
+               
                         echo '<div id="f3">';
 						echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br>';
                         echo '<table>';
@@ -272,9 +269,10 @@ $(document).ready(function(){
                     'label' => 'Κατάθεση Αναφοράς',
                     'div' => false,
                     'class' => 'std_form'));
-                    echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Προηγούμενο Βήμα<img src="';
+                    echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Επόμενο Βήμα<img src="';
                     echo $this->webroot;
                     echo '/img/arrows/white_arrow_right_small3.png"/></a>';
+		   }
                     ?>
                 </div>
             </div>

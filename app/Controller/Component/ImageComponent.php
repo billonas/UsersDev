@@ -54,6 +54,22 @@ class ImageComponent extends Component {
         return 1;
     }
     
+    public function uploadSubImg($model, $tmp, $name, $dir, $photo, $ext = ""){
+	if(empty($name))
+                return 1;
+         $newNameId = $model->id;  //to id ths eggrafhs pou molis prostethhke
+	 $tok = strtok (  $name, "." ); //briskw thn katalhksh ths eikonas
+         while(($tok1 = strtok(".")) !== false){
+		$tok = $tok1;      		
+	}
+	//dinw sthn eikona gia onoma to id ths eggrafhs(me thn katallhlh katalhksh) kai th metaferw tautoxrona ston fakelo
+        //webroot/img/reports
+	$newName = "$dir/$newNameId$ext.$tok";  
+	move_uploaded_file($tmp, "img/$newName");
+        if(!$model->saveField($photo, $newName)) return 0;
+        return 1;
+    }
+
     public function mvSubImg2($report, $name, $dir, $ext = ""){
         if(empty($name))
                 return 1;
