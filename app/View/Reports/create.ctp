@@ -142,6 +142,9 @@ $(document).ready(function(){
                         echo $this->Session->flash().'</br>';
                         echo '</div>';
                         echo $this->Form->create('Report', array('action' => 'create','div'=>false, "enctype" => "multipart/form-data"));
+						echo $this->Html->image('photo.png', array('alt' => 'Photo'));
+						echo $this->Html->image('video.png', array('alt' => 'Video'));
+						echo '</br>';
                         echo '<label for="ReportImage" class="std_form">Δώστε μία Φωτογραφία: </label>';
                         echo $this->Form->input('image',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
                         echo '<label for="ReportImage" class="std_form">Δώστε ένα Βίντεο: </label>';
