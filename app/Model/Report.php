@@ -126,6 +126,18 @@ class Report extends AppModel{
         )
     );*/
     
+     function saveReport($report){
+           $species = $this->Specie->findByScientific_name($report['Specie']['scientific_name']);
+	   if(empty($species)) 
+	   {
+		$species['Specie']['scientific_name'] = $report['Specie']['scientific_name'];
+		$this->Specie->save($species);
+		$species = $this->Specie->findByScientific_name($report['Specie']['scientific_name']);
+	   }
+	   $report['Report']['species_id'] = $species['Specie']['id'];
+	   $this->save($report);
+	}
+
      function findUserReports($userId){
          $return = false;
          
