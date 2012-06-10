@@ -9,9 +9,9 @@
           <?php
              
              echo $this->Form->error('title');
-             echo $this->Form->input('title',array('label'=>'Τίτλος νέου','div'=>'input[type=text]','id'=>'info'));
+             echo $this->Form->input('title',array('label'=>'Τίτλος νέου','div'=>'input[type=text]','class'=>'std_form','id'=>'info'));
              echo $this->Form->error('body');
-             echo $this->Form->input('body',array("type" => "textarea",'label'=>'Περιεχόμενο'));
+             echo $this->Form->input('body',array("type" => "textarea",'label'=>'Περιεχόμενο','class'=>'std_form'));
              echo $this->Form->input('date_added',array('type'=>'hidden'));
            ?>
 <?php echo $this->Form->end('Προσθήκη Νέου');?>

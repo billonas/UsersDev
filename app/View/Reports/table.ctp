@@ -12,8 +12,8 @@
     // autocomplete hints for category and species
     var hints =
     {
-        'category': ['cat_nana','cat_nini','cat_aqua'],
-        'species': ['spe_nana','spe_nini','spe_aqua']
+        'category': <?php echo json_encode($categories)?>,
+        'species': <?php echo json_encode($species)?>
     }
     
     $(document).ready(function() 

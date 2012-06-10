@@ -243,6 +243,20 @@ class ReportsController extends AppController{
     
     function table(){
 //      if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
+			
+			
+	
+			//probably awkward way to get only the names of categories - only for temp testing
+			$table = ClassRegistry::init('Category')->find('all');
+            $this->set('table',$table);
+				
+				$i=0;
+				foreach($table as $item){
+					$categories[$i]=$item['Category']['category_name'];
+					$i++;
+				}
+			$this->set('categories',$categories);
+			
             if (!empty($this->data)) {
                   // Return reports after filtering
 
