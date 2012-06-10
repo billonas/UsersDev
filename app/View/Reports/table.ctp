@@ -9,18 +9,39 @@
     //echo '<script type="text/javascript" src="'.$this->GoogleMapV3->apiUrl().'"></script>';
 ?>
 <script>
+    // autocomplete hints for category and species
+    var hints =
+    {
+        'category': ['cat_nana','cat_nini','cat_aqua'],
+        'species': ['spe_nana','spe_nini','spe_aqua']
+    }
+    
     $(document).ready(function() 
     { 
         $("#reportsTable").tablesorter({sortList: [[0,0]]})  //sort the first column in ascending order
             .tablesorterPager({container: $("#pager")});
         
         $("#pager button, .deleteButton, .editButton, #filterContainer form input[type='submit']").button();
+        
+        // Set autocomplete support
+        var selection = $("#filterCategory").val();
+        $("#filterTerm").autocomplete(
+            {
+                source: hints[selection]
+            }
+        );
     } 
 );
     
     function report_onclick(id)
     {
         window.location.href = 'edit/' + id;
+    }
+    
+    function filterCategory_changed()
+    {
+        var selection = $("#filterCategory").val();
+        $("#filterTerm").autocomplete("option", "source", hints[selection]);     
     }
 </script>
 <div class="middle_row">
@@ -57,13 +78,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <select>
+                                        <select id="filterCategory" onchange="filterCategory_changed(this)">
                                             <option value="category" selected="selected">Κατηγορία</option>
                                             <option value="species">Είδος</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" class=""/>
+                                        <input type="text" class="" id="filterTerm"/>
                                     </td>
                                     <td>
                                         <input type="submit" class="" value="Αναζήτηση"/>
