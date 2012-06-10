@@ -12,8 +12,8 @@
     // autocomplete hints for category and species
     var hints =
     {
-        'category': <?php echo json_encode($categories)?>,
-        'species': <?php echo json_encode($species)?>
+        'category': <?php if (isset($categories))echo json_encode($categories); else echo "[]"?>,
+        'species': <?php if (isset($species)) echo json_encode($species); else echo "[]"?>
     }
     
     $(document).ready(function() 
