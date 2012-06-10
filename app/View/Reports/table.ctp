@@ -63,6 +63,7 @@
 //                echo $this->GoogleMapV3->script();
             ?>
             <div class="login_box">  
+                <p><?php //echo print_r($reports)?></p>
             <h1>Πίνακας Αναφορών</h1>
             <div class="flash_box gradient">
                 <?php echo $this->Session->flash().'</br>';?>
