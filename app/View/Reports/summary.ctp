@@ -1,4 +1,3 @@
-
 		<?php echo $this->Html->css(array('main','jquery-ui','imgareaselect-default'),null, array('inline'=>false));	?>
         <?php echo $this->Html->script(array('jquery.min','jquery-ui.min','jquery.imgareaselect.pack.js'), array('inline'=>false));?>
 
@@ -10,7 +9,7 @@
 		 <![endif]-->
 		<div class="middle_row big_row no_padding">
         	<div class="middle_wrapper">   
-                <div id="tabs">
+                
                     <?php
                                 echo '<div class="flash_box gradient">';
                                 echo $this->Session->flash().'</br>';
@@ -70,8 +69,8 @@
                                                             'div' => false,
                                                             'class' => 'std_form'));
                            ?>
-                        </div>
-    			</div>
+                       
+    		
             </div>
 
 	    </div>
