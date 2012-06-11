@@ -29,13 +29,18 @@
             }
         );
         
-        $("#reportsTable").tablesorter({sortList: [[0,0]]})  //sort the first column in ascending order
+        $("#reportsTable").tablesorter({sortList: [[0,1]]})  //sort the first column in descending order
             .tablesorterPager({container: $("#pager")});
         
-        // Correct tablesorterPager's tyrranic styling
-        $('#pager').attr('style', '');
+        positionPagerButtons();
     } 
 );
+    
+    function positionPagerButtons()
+    {
+        // Correct tablesorterPager's tyrranic styling
+        $('#pager').attr('style', '');
+    }
     
     function report_onclick(id)
     {
@@ -72,136 +77,150 @@
             <div class="flash_box gradient">
                 <?php echo $this->Session->flash().'</br>';?>
             </div>
-            <?php  echo $this->Html->link('Export', array('action'=>'export'), array('id'=>'exportLink'));?>
-            <?php if (empty($reports)): ?>
-                <h2><center>There are no reports</center></h2>
-            <?php else: ?>
-
-                <div id="tableOuterWrapper">
-                    <div id="filterContainer">
-                            <table>
-                                <?php echo $this->Form->create('Report', array('action' => 'table'));     
-                                ?>
-                                <tr>
-                                    <td>
-                                        <select name="data[Report][select]" id="filterCategory" onchange="filterCategory_changed(this)">
-                                            <option value="category" selected="selected">Κατηγορία</option>
-                                            <option value="species">Είδος</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input name="data[Report][text]" type="text" class="" id="filterTerm"/>
-                                    </td>
-                                    <td>
-                                       <?php echo $this->Form->end(array(
-                                                            'label' => 'Αναζήτηση',
-                                                            'div' => false,
-                                                            'class' => 'std_form'));
-                                       ?>
-                                    </td>
-                                </tr>
-                            </table>
-                    </div>
-                    <table id="reportsTable" class="tablesorter reportsTable">
-                        <thead>
-                            <tr>
-                                <th>Ημερομηνία Υποβολής</th>
-                                <th>Φωτογραφία Παρατήρησης</th>
-                                <th>Κατηγορία</th>
-                                <th>Eίδος</th>
-        <!--                            <th>Κατάσταση</th>-->
-                                <th>Τελευταία Επεξεργασία</th>
-                                <th>Ενέργειες</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($reports as $report): ?>
-                            <?php
-                                // Determine the status of the report
-                                $reportStatus = "pending"; // classes are {"pending", "rejected", "verified"}
-                                if ( isset($report['Report']['state']) )
-                                {
-                                    switch ($report['Report']['state'])
-                                    {
-                                        case "confirmed":
-                                            $reportStatus = "verified";
-                                            break;
-                                        case "unreliable":
-                                            $reportStatus = "rejected";
-                                            break;
-                                        case "unknown":
-                                            break;
-                                    }
-                                }
-                            ?>
-                                <tr class="report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $report['Report']['id'] ?>)">
-                                    <td class="leftmost">
-                                        <?php echo $report['Report']['created'] ?>
-                                    </td>
-                                    <td>
-                                        <center>
-                                            <?php echo $this->Html->image($report['Report']['main_photo'], array('alt' => 'main photo', 'class' => 'tableImage')) ?>
-                                        </center>
-                                    </td>
-                                    <td>
-                                        <?php
-                                            if ( isset($report['Category']) )
-                                                echo $report['Category']['category_name'];
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <?php
-                                            if ( isset($report['HotSpecie']) )
-                                                echo $report['HotSpecie']['scientific_name'];
-                                        ?>
-                                    </td>
-        <!--                                <td>
-                                        <?php
-                                            echo $report['Report']['state'];
-                                        ?>
-                                    </td>-->
-                                    <td>
-                                        <?php
-                                            if ( isset($report['Last_edited_by']) )
-                                                echo $report['Report']['modified'];
-                                                echo ', ';
-                                                echo $report['Last_edited_by']['name'];
-                                                echo ' ';
-                                                echo $report['Last_edited_by']['surname'];
-                                        ?>
-                                    </td>
-                                    <td class="rightmost">
-                                        <?php echo $this->Html->link('Edit', array('action'=>'edit',$report['Report']['id']), array('class'=>'editButton')); 
-                                                echo ' ';
-                                                echo $this->Html->link('Delete', array('action'=>'delete',$report['Report']['id']), array('class'=>'deleteButton')); 
-                                        ?>
-
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                    <div id="pager" class="pager">
-                        <form>
-    <!--                        <img src="/img/tablesorter-first.png" class="first"/>-->
-    <!--                        <img src="/img/tablesorter-prev.png" class="prev"/>-->
-                            <button class="first">First</button>
-                            <button class="prev">Previous</button>
-                            <input type="text" class="pagedisplay"/>
-    <!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
-    <!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
-                            <select class="pagesize">
-                                    <option selected="selected" value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                            </select>
-                            <button class="next">Next</button>
-                            <button class="last">Last</button>
-                        </form>
-                    </div>
+            
+            <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'export')) ?>">
+                <div class="inner">
+                    <span>Εξαγωγή</span>
+                    <div class="icon"></div>
                 </div>
-            <?php endif; ?>
+            </a>
+            
+<!--            <div id="exportLink">
+                <span>Εξαγωγή</span>
+                <?php  echo $this->Html->link('', array('action'=>'export'));?>
+                <div class="icon"></div>
+            </div>-->
+            
+            <div id="tableOuterWrapper">
+                <div id="filterContainer">
+                    <table>
+                        <?php echo $this->Form->create('Report', array('action' => 'table'));     
+                        ?>
+                        <tr>
+                            <td>
+                                <select name="data[Report][select]" id="filterCategory" onchange="filterCategory_changed(this)">
+                                    <option value="category" selected="selected">Κατηγορία</option>
+                                    <option value="species">Είδος</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input name="data[Report][text]" type="text" class="" id="filterTerm"/>
+                            </td>
+                            <td>
+                                <?php echo $this->Form->end(array(
+                                                    'label' => 'Αναζήτηση',
+                                                    'div' => false,
+                                                    'class' => 'std_form'));
+                                ?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <?php if (empty($reports)): ?>
+                <div class="report noReportFiller">
+                    <h2><center>There are no reports</center></h2>
+                </div>
+                <?php else: ?>
+                <table id="reportsTable" class="tablesorter reportsTable">
+                    <thead>
+                        <tr>
+                            <th>Ημερομηνία Υποβολής</th>
+                            <th>Φωτογραφία Παρατήρησης</th>
+                            <th>Κατηγορία</th>
+                            <th>Eίδος</th>
+    <!--                            <th>Κατάσταση</th>-->
+                            <th>Τελευταία Επεξεργασία</th>
+                            <th>Ενέργειες</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($reports as $report): ?>
+                        <?php
+                            // Determine the status of the report
+                            $reportStatus = "pending"; // classes are {"pending", "rejected", "verified"}
+                            if ( isset($report['Report']['state']) )
+                            {
+                                switch ($report['Report']['state'])
+                                {
+                                    case "confirmed":
+                                        $reportStatus = "verified";
+                                        break;
+                                    case "unreliable":
+                                        $reportStatus = "rejected";
+                                        break;
+                                    case "unknown":
+                                        break;
+                                }
+                            }
+                        ?>
+                            <tr class="report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $report['Report']['id'] ?>)">
+                                <td class="leftmost">
+                                    <?php echo $report['Report']['created'] ?>
+                                </td>
+                                <td>
+                                    <center>
+                                        <?php echo $this->Html->image($report['Report']['main_photo'], array('alt' => 'main photo', 'class' => 'tableImage')) ?>
+                                    </center>
+                                </td>
+                                <td>
+                                    <?php
+                                        if ( isset($report['Category']) )
+                                            echo $report['Category']['category_name'];
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                        if ( isset($report['HotSpecie']) )
+                                            echo $report['HotSpecie']['scientific_name'];
+                                    ?>
+                                </td>
+    <!--                                <td>
+                                    <?php
+                                        echo $report['Report']['state'];
+                                    ?>
+                                </td>-->
+                                <td>
+                                    <?php
+                                        if ( isset($report['Last_edited_by']) )
+                                            echo $report['Report']['modified'];
+                                            echo ', ';
+                                            echo $report['Last_edited_by']['name'];
+                                            echo ' ';
+                                            echo $report['Last_edited_by']['surname'];
+                                    ?>
+                                </td>
+                                <td class="rightmost">
+                                    <?php echo $this->Html->link('Επεξεργασία', array('action'=>'edit',$report['Report']['id']), array('class'=>'editButton')); 
+                                            echo ' ';
+                                            echo $this->Html->link('Διαγραφή', array('action'=>'delete',$report['Report']['id']), array('class'=>'deleteButton')); 
+                                    ?>
+
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <div id="pager" class="pager">
+                    <form>
+<!--                        <img src="/img/tablesorter-first.png" class="first"/>-->
+<!--                        <img src="/img/tablesorter-prev.png" class="prev"/>-->
+                        <button class="first">Αρχή</button>
+                        <button class="prev">Προηγούμενο</button>
+                        <input type="text" class="pagedisplay"/>
+<!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
+<!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
+                        <select class="pagesize" onchange="positionPagerButtons">
+                                <option selected="selected" value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                        </select>
+                        <button class="next">Επόμενο</button>
+                        <button class="last">Τέλος</button>
+                    </form>
+                </div>
+                <?php endif; ?>
+            </div>
             <br/>   
         </div>
     </div>
