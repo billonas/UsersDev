@@ -149,7 +149,7 @@ class User extends AppModel
       
 
 
-      //Actions referring to User
+/////////////////////Core User Actions(begin)///////////////////////////////////
       
       function validate_user($data)
       {
@@ -173,6 +173,7 @@ class User extends AppModel
          return $return;
       }
 
+
       function findUserByEmail($email)
       {
          $return = false;
@@ -190,6 +191,7 @@ class User extends AppModel
          }
          return $return;
       }
+
 
       function getUserId($email)
       {
@@ -210,24 +212,22 @@ class User extends AppModel
       }
 
 
+      function getActivationHash()
+      {
+        if (!isset($this->id)) 
+        {
+                return false;
+        }
+        return substr(Security::hash(Configure::read('Security.salt') . 
+                      $this->field('email') . date('Ymd')), 0, 8);
+      }
+
       
 
+/////////////////////Core User Actions(end)/////////////////////////////////////
 
 
-      //setters and getters
-
-	   function setCaptcha($value)	
-      {
-	   	$this->captcha = $value; //θέτω την τιμή του captcha
-	   }
-
-	   function getCaptcha()	
-      {
-	   	return $this->captcha; //παίρνω την τιμή του captcha
-	   }
-
-      //actions που αφορούν στο captcha
-
+////////////////////////////setters and getters(begin)//////////////////////////
 
 	   function setLoggedIn($value)	
       {
@@ -251,11 +251,11 @@ class User extends AppModel
 
 
 
+////////////////////////////setters and getters(end)////////////////////////////
       
 
-      //customized validation actions
+//////////////////////////Customized Validation Actions(begin)//////////////////
 
-      //function beforeValidate()
       function UnigueEmail($check)
       {
          //μέσω αυτής της συνάρτησης ελέγχεται εάν χρησιμοποιείται ήδη το email
@@ -272,14 +272,12 @@ class User extends AppModel
         if(!$this->getLoggedIn() || (strcmp($this->editEmail, 'yes')==0))
         {
           $conditions = array(
-//              'User.email'=>$this->data['User']['email']
               'User.email'=>$email
            );
           if(!$this->id)
           {
             if($this->find('count', array('conditions'=>$conditions))>0) 
             {
-//                $this->invalidate('email_unique');
                 return false; 
             }
           }
@@ -288,6 +286,7 @@ class User extends AppModel
         else
           return true;
       }
+
 
       function confirmPassword($check)
       {
@@ -317,19 +316,8 @@ class User extends AppModel
          }
       }
 
-      function matchCaptcha($check)	
-      {
-         $captcha = array_shift($check);
-	   	return $captcha==$this->getCaptcha();  
-	   }
+//////////////////////////Customized Validation Actions(end)////////////////////
 
-//      function getActivationHash()
-//      {
-//              if (!isset($this->id)) {
-//                      return false;
-//              }
-//              return substr(Security::hash(Configure::read('Security.salt') . $this->field('email') . date('Ymd')), 0, 8);
-//      }
 
       
 }

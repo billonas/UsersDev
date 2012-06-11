@@ -5,160 +5,104 @@
  *
  * @author Billonas
  */
-class UsersController extends AppController{
+class UsersController extends AppController
+{
     var $name = 'Users';
     var $components = array('Email', 'Recaptcha.Recaptcha');//, 'Captcha');
     public $helpers = array('Html', 'Form', 'Session', 'Recaptcha.Recaptcha');
 	
 
-	
-    //put your code here
-
-   //H μέθοδος beforeFilter() εκτελείται πριν από κάθε κλήση ενός action του 
-   //συγκεκριμένου controller.
+/////////////////////////Parent Methods(begin)/////////////////////////////////////////
    function beforeFilter() 
    {
+   //H μέθοδος beforeFilter() εκτελείται πριν από κάθε κλήση ενός action του 
+   //συγκεκριμένου controller.
       parent::beforeFilter();
       $this->Email->delivery = 'debug'; /* used to debug email message */
    }
 
-    function register() 
-    {
-		 
-      	 Configure::load('Recaptcha.key');
-		 
-         //ελέγχει εάν ο χρήστης είναι ήδη συνδεδεμένος. Εάν έιναι ήδη συνδεδεμένος
-         //τότε τον κάνει redirect στην αρχική σελίδα
-         if($this->Session->check('UserUsername')) 
-         {  
-            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
-         }
-         if(!empty($this->data['User']))
-         {
-            //$this->User->setCaptcha($this->Captcha->getVerCode());
-            $this->User->setLoggedIn(false);
-            $this->User->setEditEmail("no");
-            //θέσε στο μοντέλο User τα δεδομένα της φόρμας για να τα κάνει validate
-            $this->User->set(array(
-                   'name'=> $this->data['User']['name'],
-                   'surname'=> $this->data['User']['surname'],
-                   'phone_number'=>$this->data['User']['phone_number'],
-                   'email'=>$this->data['User']['email'],
-                   'password'=>$this->data['User']['password'],
-                   'passwordConfirm'=>$this->data['User']['passwordConfirm'],
-                   'education'=>$this->data['User']['education'],
-                   'membership'=>$this->data['User']['membership'],
-                   'birth_date'=>$this->data['User']['birth_date'],
-                   'address'=>$this->data['User']['address'],
-                   'country'=>$this->data['User']['country'],
-                   'city'=>$this->data['User']['city'],
-                   
-             ));
+/////////////////////////Parent Methods(end)////////////////////////////////////
 
-            if($this->User->validates())
-            {
-               //TODO:
-               //1:hash password χρησιμοποιώντας customize συνάρτηση
-               //2:sanitize την είσοδο που δίνει ο χρήστης
-               $this->User->create(); 
+/////////////////////////Core UsersController Methods(begin)////////////////////
 
-               $data = array(
-                   'name'=> $this->data['User']['name'],
-                   'surname'=> $this->data['User']['surname'],
-                   'phone_number'=>$this->data['User']['phone_number'],
-                   'email'=>$this->data['User']['email'],
-                   'password'=>$this->data['User']['password'],
-                   'education'=>$this->data['User']['education'],
-                   'membership'=>$this->data['User']['membership'],
-                   'birth_date'=>$this->data['User']['birth_date'],
-                   'address'=>$this->data['User']['address'],
-                   'country'=>$this->data['User']['country'],
-                   'city'=>$this->data['User']['city'],
+   function register() 
+   {
+	   
+     	 Configure::load('Recaptcha.key');
+	   
+        //ελέγχει εάν ο χρήστης είναι ήδη συνδεδεμένος. Εάν έιναι ήδη συνδεδεμένος
+        //τότε τον κάνει redirect στην αρχική σελίδα
+        if($this->Session->check('UserUsername')) 
+        {  
+           $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
+        if(!empty($this->data['User']))
+        {
+           $this->User->setLoggedIn(false);
+           $this->User->setEditEmail("no");
+           //θέσε στο μοντέλο User τα δεδομένα της φόρμας για να τα κάνει validate
+           $this->User->set(array(
+                  'name'=> $this->data['User']['name'],
+                  'surname'=> $this->data['User']['surname'],
+                  'phone_number'=>$this->data['User']['phone_number'],
+                  'email'=>$this->data['User']['email'],
+                  'password'=>$this->data['User']['password'],
+                  'passwordConfirm'=>$this->data['User']['passwordConfirm'],
+                  'education'=>$this->data['User']['education'],
+                  'membership'=>$this->data['User']['membership'],
+                  'birth_date'=>$this->data['User']['birth_date'],
+                  'address'=>$this->data['User']['address'],
+                  'country'=>$this->data['User']['country'],
+                  'city'=>$this->data['User']['city'],
+                  
+            ));
 
-                   );
-               if($this->User->save($data, false))
-               {
-                  if($this->__sendActivationEmail($this->User->getLastInsertID())) //παίζει να υπάρχει κάποιο bug εδώ..
-                  {
-                     $this->Session->setFlash("Message Sent");
-                     
-                  }
-                  else
-                  {
-                    $this->Session->setFlash("Message not sent"); 
-                    
-                  }
-               //    // pr($this->Session->read('Message.email')); /*Uncomment this code to view the content of email FOR DEBUG */
-               //   
-                  //TODO:Ακόμα δεν έχω βρει τον τρόπο να στέλνω το email επιβεβαίωσης.
-                  //Αυτό που θα κάνω τώρα είναι ότι απλά θα ενημερώνω τοω χρήστη ότι 
-                  //επιτυχώς δημιουργήθηκε ο λογαριασμός του και και θα του δίνω τον σύνδεσμο
-                  //για να συνδεθεί. Αυτό θα γίνει με την χρήση flash όπως γίνεται και όταν ο
-                  //χρήστης κάνει login
-                  $url = '/users/login';
-                  $this->flash('Πατήστε εδώ για να οδηγηθείτε στη σελίδα σύνδεσης', $url, 4, 'register_success');
-               }
-               else
-               {
-                  debug($this->User->validationErrors);
-                  $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
-               }
-               
-            }
-         }
-         
-    }
+           if($this->User->validates())
+           {
+              //TODO:
+              //1:hash password χρησιμοποιώντας customize συνάρτηση
+              //2:sanitize την είσοδο που δίνει ο χρήστης
+              $this->User->create(); 
 
-    function notifyuser()
-    {
-      
-                                 
-    }
+              $data = array(
+                  'name'=> $this->data['User']['name'],
+                  'surname'=> $this->data['User']['surname'],
+                  'phone_number'=>$this->data['User']['phone_number'],
+                  'email'=>$this->data['User']['email'],
+                  'password'=>$this->data['User']['password'],
+                  'education'=>$this->data['User']['education'],
+                  'membership'=>$this->data['User']['membership'],
+                  'birth_date'=>$this->data['User']['birth_date'],
+                  'address'=>$this->data['User']['address'],
+                  'country'=>$this->data['User']['country'],
+                  'city'=>$this->data['User']['city'],
 
-    function __sendActivationEmail($user_id)
-    {
-         $conditions = array(
-             'User.id'=>$user_id,
-          );
-         //βρες αν υπάρχει ο χρήστης με το συγκεκριμένο username
-         $user = $this->User->find('first', array('conditions'=>$conditions));
-       if ($user === false) 
-       {
-         debug(__METHOD__." failed to retrieve User data for user.id: {$user_id}");
-         return false;
-       }
-        $this->set('activate_url', 'http://' . env('SERVER_NAME') . 
-                '/users/activate/' . $user['User']['id'] . '/');
-                
-        $this->set('username', $this->data['User']['email']);
-        //echo "to email einai " . $user['User']['email'];
-        $this->Email->to = $user['User']['email'];
-        $this->Email->subject = env('SERVER_NAME') . ' – Please confirm your email address';
-        $this->Email->from = 'stgeorgiou89@gmail.com';
-        $this->Email->template = 'default';
-		$this->Email->layout = 'default';
-        $this->Email->sendAs = 'both';   // you probably want to use both :)    
-	    $this->Email->smtpOptions = array(
-			'port'=>'465',
-			'timeout'=>'30',
-			'host' => 'ssl://smtp.gmail.com',
-			'username'=>'stgeorgiou89@gmail.com',
-			'password'=>'mypass',
-		);
-		$this->Email->delivery = 'smtp';
-		if ($this->Email->send()) {
-			return true;
-		} else {
-			return false;
-		}
-
-
-
-
+                  );
+              if($this->User->save($data, false))
+              {
+                 $id = $this->User->getUserId($this->data['User']['email']);
+                 if($this->__sendActivationEmail($id)) 
+                 {
+                    $this->Session->setFlash("Το email επιβεβαίωσης στάλθηκε επιτυχώς");
+                 }
+                 else
+                 {
+                   $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
+                   $this->User->delete($id);  //delete user from database if message not sent
+                 }
+                 $this->redirect(array('controller'=>'users', 'action'=>'notify_user', 
+                                       $this->data['User']['email']));  
+              }
+              else
+              {
+                 debug($this->User->validationErrors);
+                 $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
+              }
+              
+           }
+        }
         
-    }
-    
-
+   }
     
     function edit() 
     {
@@ -278,107 +222,166 @@ class UsersController extends AppController{
         
     }
     
+
     function login() 
-    {    //ελέγχει εάν ο χρήστης είναι ήδη συνδεδεμένος. Εάν έιναι ήδη συνδεδεμένος
-         //τότε τον κάνει redirect στην αρχική σελίδα
-        // if( $this->Session->check('UserUsername') ) 
-        // {  
-        //    $this->redirect(array('controller'=>'Index', 'action'=>'index'));  
+    {  //ελέγχει εάν ο χρήστης είναι ήδη συνδεδεμένος. Εάν έιναι ήδη συνδεδεμένος
+       //τότε τον κάνει redirect στην αρχική σελίδα
+      if($this->Session->check('UserUsername'))
+      {
+         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+      }
+      if(!empty($this->data))
+      {
+        $result = $this->User->validate_user($this->data);
+        if($result !== FALSE)
+        {
+          $name = $result['User']['name'];
+          //το πλήρες όνομα του χρήστη υπό την μορφή:V.Kazhs
+          //(αν name=Vasilhs και Surname=Kazhs)
+          $arr = str_split($name);
 
-        // }
-         if($this->Session->check('UserUsername'))
-         {
-            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
-         }
-         if(!empty($this->data))
-         {
+          $surname = $result['User']['surname'];
 
+          $fullname = $arr[0] .".". $surname;
 
-               $result = $this->User->validate_user($this->data);
-               
-               if($result !== FALSE)
-               {
-                     // update login time  
-                     //$this->User->id = $result['User']['id'];  
-                     //$this->User->saveField('last_login',date("Y-m-d H:i:s"));  
-                     
-                      
+          $this->Session->write('UserUsername',$result['User']['email']);  
+          $this->Session->write('UserType', $result['User']['user_type']);
+          $this->Session->write('UserFullName',$fullname);  
+          $this->Session->write('UserName',$name);  
+          $this->Session->write('UserSurname',$surname);  
+          $this->Session->write('UserEducation',$result['User']['education']);  
+          $this->Session->write('UserMembership',$result['User']['membership']);  
+          $this->Session->write('UserBirthDate',$result['User']['birth_date']);  
+          $this->Session->write('UserPhoneNumber',$result['User']['phone_number']);  
 
-                  $name = $result['User']['name'];
-                  //το πλήρες όνομα του χρήστη υπό την μορφή:V.Kazhs
-                  //(αν name=Vasilhs και Surname=Kazhs)
-                  $arr = str_split($name);
+          $url = $this->referer();
 
-                  $surname = $result['User']['surname'];
-
-                  $fullname = $arr[0] .".". $surname;
-
-                  $this->Session->write('UserUsername',$result['User']['email']);  
-                  $this->Session->write('UserType', $result['User']['user_type']);
-                  $this->Session->write('UserFullName',$fullname);  
-                  $this->Session->write('UserName',$name);  
-                  $this->Session->write('UserSurname',$surname);  
-                  $this->Session->write('UserEducation',$result['User']['education']);  
-                  $this->Session->write('UserMembership',$result['User']['membership']);  
-                  $this->Session->write('UserBirthDate',$result['User']['birth_date']);  
-                  $this->Session->write('UserPhoneNumber',$result['User']['phone_number']);  
-
-                  $url = $this->referer();
-
-                  $this->flash('Πατήστε εδώ αν ο browser δεν σας ανακατευθύνει αυτόματα', $url, 4, 'login_success');
-               }
-               else 
-               {  
-                  $this->Session->setFlash('Το mail ή ο κωδικός χρήστη που εισάγατε ήταν λάθος!','flash_bad');  
-				      $this->redirect(array('controller'=>'users','action'=>'login'));			  
-               }
-            }
+          $this->flash('Πατήστε εδώ αν ο browser δεν σας ανακατευθύνει αυτόματα', $url, 4, 'login_success');
+        }
+        else 
+        {  
+          $this->Session->setFlash('Το mail ή ο κωδικός χρήστη που εισάγατε ήταν λάθος!','flash_bad');  
+	  	    $this->redirect(array('controller'=>'users','action'=>'login'));			  
+        }
+      }
     }
+
 
     function logout() 
     {  
       if($this->Session->check('UserUsername')) 
-      {  
-          $this->Session->delete('UserUsername');  
-          $this->Session->delete('UserType');  
-          $this->Session->delete('UserFullName');  
-          $this->Session->delete('UserName');  
-          $this->Session->delete('UserSurname');  
-          $this->Session->delete('UserEducation');  
-          $this->Session->delete('UserMembership');  
-          $this->Session->delete('UserBirthDate');  
-          $this->Session->delete('UserPhoneNumber');  
-          $url = array('controller'=>'pages', 'action'=>'display');
-          $this->flash('Πατήστε εδώ αν ο browser δεν σας ανακατευθύνει αυτόματα στην αρχική σελίδα', 
+      {   
+        $this->Session->delete('UserUsername');  
+        $this->Session->delete('UserType');  
+        $this->Session->delete('UserFullName');  
+        $this->Session->delete('UserName');  
+        $this->Session->delete('UserSurname');  
+        $this->Session->delete('UserEducation');  
+        $this->Session->delete('UserMembership');  
+        $this->Session->delete('UserBirthDate');  
+        $this->Session->delete('UserPhoneNumber');  
+        $url = array('controller'=>'pages', 'action'=>'display');
+        $this->flash('Πατήστε εδώ αν ο browser δεν σας ανακατευθύνει αυτόματα στην αρχική σελίδα', 
                   $url, 4, 'logout_success');
       }  
       else
       {
-         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
       }
     }
     
-    function validate($code = null) 
+    function activate($id=null) 
     {
-        //put your code here
+      
     }
 
-    function captcha() 
+    function notify_user($email = null)
     {
-         $this->autoRender = false;
-         $this->layout='ajax';
-         if(!isset($this->Captcha)) { //if Component was not loaded throug $components array()
-          App::import('Component','Captcha'); //load it
-          $this->Captcha = new CaptchaComponent(); //make instance
-          $this->Captcha->startup($this); //and do some manually calling
-         }
-         //$width = isset($_GET['width']) ? $_GET['width'] : '120';
-         //$height = isset($_GET['height']) ? $_GET['height'] : '40';
-         //$characters = isset($_GET['characters']) && $_GET['characters'] > 1 ? $_GET['characters'] : '6';
-         //$this->Captcha->create($width, $height, $characters); //options, default are 120, 40, 6.
-         $this->Captcha->create();
+      $this->set('email', $email);
+      
     }
+
+/////////////////////////Core UsersController Methods(end)//////////////////////
+
+
+
+
+///////////////////////////Helpful methods(begin)///////////////////////////////
+
+    function __sendActivationEmail($user_id)
+    {
+       $conditions = array(
+           'User.id'=>$user_id,
+        );
+       //βρες αν υπάρχει ο χρήστης με το συγκεκριμένο username
+         $user = $this->User->find('first', array('conditions'=>$conditions));
+
+       if ($user === false) 
+       {
+         debug(__METHOD__." failed to retrieve User data for user.id: {$user_id}");
+         return false;
+       }
+       $activateUrl = $this->__curPageURL('/users/activate/' . $user['User']['id'] .'/');
+
+       $activationHash = $this->User->getActivationHash();
+
+       $activateUrl = $activateUrl . $activationHash;
+
+       $this->set('activate_url', $activateUrl);
+
+               
+       $this->set('email', $this->data['User']['email']);
+
+       $this->Email->to = $user['User']['email'];
+       $this->Email->subject = env('SERVER_NAME') . ' – Παρακαλούμε επιβεβαιώστε την 
+                                                  διεύθυνση ηλεκτρονικού σας ταχυδρομείου.';
+       $this->Email->from = 'no-reply <no-reply@elke8e.com>"';
+       $this->Email->template = 'user_confirm';
+		 $this->Email->layout = 'user_confirm';
+       $this->Email->sendAs = 'text';       
+	    $this->Email->smtpOptions = array(
+			'port'=>'465',
+			'timeout'=>'30',
+			'host' => 'ssl://smtp.gmail.com',
+			'username'=>'vas1l1skaz1s@gmail.com',
+			'password'=>'passsss',
+		 );
+		 $this->Email->delivery = 'smtp';
+		 if ($this->Email->send()) 
+       {
+		 	return true;
+		 } 
+       else 
+       {
+		 	return false;
+		 }
+    }
+
+
+    function __curPageURL($targetPage) 
+    {
+      $pageURL = 'http';
+      if ($_SERVER["HTTPS"] == "on") 
+      {
+         $pageURL .= "s";
+      }
+
+      $pageURL .= "://";
+      if ($_SERVER["SERVER_PORT"] != "80") 
+      {
+       $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"] . $targetPage;
+      } 
+      else 
+      {
+       $pageURL .= $_SERVER["SERVER_NAME"].$targetPage;
+      }
+
+      return $pageURL;
+    }
+///////////////////////////Helpful methods(end)/////////////////////////////////
     
 }
+
+
 
 ?>

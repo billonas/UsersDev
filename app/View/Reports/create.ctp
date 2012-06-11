@@ -222,7 +222,7 @@ $(document).ready(function(){
 						echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br>';
                         echo '<table>';
                         if($this->Session->check('UserUsername')){
-							echo '<tr><td><label for="ReportAge" class="std_form">Επιπλέον Σχόλια </label></td>';
+							echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
 							echo '<td>'.$this->Form->input('age',array('label'=>false,'default'=>$this->Session->read('UserBirthDate'),'disabled'=>'true', 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
 							$options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
 							echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
@@ -243,7 +243,7 @@ $(document).ready(function(){
                         	//echo '</div>';
 							}
 							else{
-								echo '<tr><td><label for="ReportAge" class="std_form">Επιπλέον Σχόλια </label></td>';
+								echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
 								echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
 								$options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
 								echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
