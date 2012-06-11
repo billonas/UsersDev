@@ -3,7 +3,7 @@
  * @author darkmatter 
  */
 ?>
-<?php echo $this->Html->css(array('main', 'jquery-ui', 'tablesorter', 'reportsTable', 'jquery.tablesorter.pager.css')); ?>
+<?php echo $this->Html->css(array('main', 'jquery-ui', 'reportsTable', 'jquery.tablesorter.pager.css')); ?>
 <?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js')); ?>
 <?php
     //echo '<script type="text/javascript" src="'.$this->GoogleMapV3->apiUrl().'"></script>';
@@ -18,10 +18,8 @@
     
     $(document).ready(function() 
     { 
-        $("#reportsTable").tablesorter({sortList: [[0,0]]})  //sort the first column in ascending order
-            .tablesorterPager({container: $("#pager")});
-        
         $("#pager button, .deleteButton, .editButton, #filterContainer form input[type='submit']").button();
+        //$('#pager select').combobox();
         
         // Set autocomplete support
         var selection = $("#filterCategory").val();
@@ -30,6 +28,12 @@
                 source: hints[selection]
             }
         );
+        
+        $("#reportsTable").tablesorter({sortList: [[0,0]]})  //sort the first column in ascending order
+            .tablesorterPager({container: $("#pager")});
+        
+        // Correct tablesorterPager's tyrranic styling
+        $('#pager').attr('style', '');
     } 
 );
     
@@ -183,7 +187,7 @@
     <!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
     <!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
                             <select class="pagesize">
-                                    <option selected="selected" value="2">2</option>
+                                    <option selected="selected" value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
                                     <option value="40">40</option>

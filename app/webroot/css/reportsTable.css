@@ -34,7 +34,7 @@
 table.tablesorter {
 	font-family:arial;
 /*	background-color: #CDCDCD;*/
-	margin:10px 0pt 15px;
+	margin:10px 0pt 0px;
 	font-size: 8pt;
 	width: 100%;
 	text-align: left;
@@ -98,7 +98,7 @@ div.tablesorterPager input {
 
 #tableOuterWrapper {
     background: #dcdcdc;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 5px 15px 5px;
     border-radius: 5px 5px 5px 5px;
 }
 
@@ -106,7 +106,10 @@ div.tablesorterPager input {
 #pager {
     margin-left: 10%;
     margin-right: 10%;
-    margin-bottom: 40px;
+}
+#pager .pagedisplay {
+    margin-top: 0px;
+    background-color: inherit;
 }
 
 .pagerButton {
