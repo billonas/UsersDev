@@ -115,7 +115,7 @@ class HotSpeciesController extends AppController{
         } else {
             if ($this->HotSpecie->save($this->data)) {
                 $this->Session->setFlash('The HotSpecie has been saved');
-                $this->redirect(array('action'=>'show'), null, true);
+                return $this->redirect(array('action'=>'show'), null, true);
             } else {
                 $this->Session->setFlash('The HotSpecie could not be saved.
                                             Please, try again.');

@@ -181,6 +181,10 @@ class ReportsController extends AppController{
 				$this->set('species',$species);
             } 
             else {
+                //Kodikas pou kalei thn synartisi pou stelnei mail stous analytes tis catigorias
+                /*$catId = $this->request->data['Report']['category_id'];
+                $repId = $this->request->data['Report']['id'];
+                $this->Report->notifyCategorizedReport($repId, $catId);*/
                 if ($this->Report->save($this->data)) {
                     $this->data = $this->Report->findById($id);
                     if(empty($this->data)){

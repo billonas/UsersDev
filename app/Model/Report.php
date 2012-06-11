@@ -187,6 +187,29 @@ class Report extends AppModel{
 	  return $pe;
     }
     
+    /*function notifyCategorizedReport($reportId = null,$categoryId = null){
+        
+        App::uses('CakeEmail', 'Network/Email');
+        $report = $this->findById($reportId);
+        if($report['Report']['category_id'] != $categoryId)
+        {
+            $analysts1 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category1' => $categoryId)));
+            $analysts2 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category2' => $categoryId)));
+            foreach($analysts1 as $analyst)
+            {
+                $email = new CakeEmail();
+                $email->config('smtp');
+                $email->from(array('nickal1987@hotmail.com' => 'Elkethe-Admin'));
+                $email->to($analyst['User']['email']);
+                $email->subject('New report');
+                $email->transport('Smtp');
+                $email->send('New report for you: http://localhost/UsersDev/reports/edit/'.$reportId);
+            }
+            return true;
+        }
+        else return false;
+    }*/
+    
 }
 
 ?>
