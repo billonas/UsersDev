@@ -125,7 +125,7 @@ $(document).ready(function(){
         <div class="middle_wrapper">
             <div id="tabs">
                 <ul>
-                    <?php if(isset($uploaded1) || isset($uploaded2)){
+                    <?php if(isset($uploaded1) || isset($uploaded2) || isset($validation_error)){
                         echo '<li class="long_tab fragment"><a href="#1" class="fragment"><span>1. Βασικές Πληροφορίες</span></a></li>
                         <li class="long_tab fragment"><a href="#2" class="fragment"><span>2. Επιπλέον Πληροφορίες</span></a></li>
                         <li class="long_tab fragment"><a href="#3" class="fragment"><span>3. Στοιχεία Παρατηρητή</span></a></li>';
@@ -136,7 +136,7 @@ $(document).ready(function(){
                 </ul>
                 <div>
                 <?php
-                if(!isset($uploaded1) && !isset($uploaded2)){
+                if(!isset($uploaded1) && !isset($uploaded2) && !isset($validation_error)){
                         echo '<div id="f1">';
                         echo '<div class="flash_box gradient">';
                         echo $this->Session->flash().'</br>';

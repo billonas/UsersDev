@@ -93,6 +93,14 @@ class ReportsController extends AppController{
                             $this->redirect('create');
                           }
 			}
+                        ////RENAME VIDEO FILE TO RECORD NAME AND SAVE IT TO DIR
+                        if(!empty($this->data['Report']['video'])){
+			 $ret = $this->Video->mvSubVideo($this->Report, $this->data['Report']['video'], "reports");
+                         if(!$ret){
+                            $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                            $this->redirect('create');
+                         }
+                        }
                         //UPLOAD EXTRA IMAGES
                         if(!empty($this->data['Report']['image2']['tmp_name'])){
 			    $res = $this->Image->checkImage($this->data['Report']['image2']);
@@ -130,19 +138,14 @@ class ReportsController extends AppController{
                             	 }
 			    }
                         }
-			if(!empty($this->data['Report']['video'])){
-			 $ret = $this->Video->mvSubVideo($this->Report, $this->data['Report']['video'], "reports");
-                         if(!$ret){
-                            $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
-                            $this->redirect('create');
-                         }
-                        }
                         $this->Session->setFlash('Η αναφορά κατατέθηκε επιτυχώς','flash_good');
                         $this->redirect(array('controller'=>'pages', 'action'=>'display'));
                     } 
                     else {
+                        
                         $this->Session->setFlash('Η αναφορά δεν κατατέθηκε επιτυχώς','flash_bad');
-                        $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
+                        //$this->redirect(array('controller'=>'Reports', 'action'=>'create'));
+                        $this->set("validation_error", 1);
                     }
             }
         }
@@ -166,18 +169,16 @@ class ReportsController extends AppController{
                     $this->redirect('table');
                 }
                 $categories = ClassRegistry::init('Category')->find('all');
-                $species = ClassRegistry::init('Specie')->find('all');
+                $temp_species = ClassRegistry::init('Specie')->find('all');
                 $report = $this->data;
                 $this->set('report',$report);
                 $this->set('categories',$categories);
-                $this->set('species',$species);
-				
 				$i=0;
-				foreach($species as $item){
-					$response[$i]=$item['Specie']['scientific_name'];
+				foreach($temp_species as $item){
+					$species[$i]=$item['Specie']['scientific_name'];
 					$i++;
 				}
-				$this->set('response',$response);
+				$this->set('species',$species);
             } 
             else {
                 if ($this->Report->save($this->data)) {
@@ -243,23 +244,46 @@ class ReportsController extends AppController{
     
     function table(){
 //      if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
-			
-			
-	
 			//probably awkward way to get only the names of categories - only for temp testing
 			$table = ClassRegistry::init('Category')->find('all');
+                        $temp_species = ClassRegistry::init('Specie')->find('all');
+
             $this->set('table',$table);
-				
-				$i=0;
-				foreach($table as $item){
-					$categories[$i]=$item['Category']['category_name'];
-					$i++;
-				}
+                        $i=0;
+                        foreach($table as $item){
+                                $categories[$i]=$item['Category']['category_name'];
+                                $i++;
+                        }
 			$this->set('categories',$categories);
+                        $i=0;
+                        foreach($temp_species as $item){
+                                $species[$i]=$item['Specie']['scientific_name'];
+                                $i++;
+                        }
+                        $this->set('species',$species);
 			
             if (!empty($this->data)) {
-                  // Return reports after filtering
+                // INPUT GIVEN 
+                if(!empty($this->data['Report']['text'])){
+                    // SEARCH BY SPECIES 
+                    if(!strcmp($this->data['Report']['select'],'species')){
+                        $conditions = array(
+                            'Specie.scientific_name'=>$this->data['Report']['text']
+                        );
+                        $reports = $this->Report->find("all", array('conditions'=> $conditions));
+                        $this->set('reports',$reports);
 
+                    }
+                    // SEARCH BY CATEGORY
+                    if(!strcmp($this->data['Report']['select'],'category')){
+                        $reports = $this->Report->find("all", array('conditions'=> array( 'Category.category_name'=>$this->data['Report']['text'])));
+                        $this->set('reports',$reports);
+                    }
+                }
+                else{
+                     $reports = $this->Report->find("all");
+                     $this->set('reports',$reports);
+                }
             }
             else{
                 //$this->set('reports',$this->Report->find('all'));

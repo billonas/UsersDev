@@ -343,8 +343,8 @@ class UsersController extends AppController
 			'port'=>'465',
 			'timeout'=>'30',
 			'host' => 'ssl://smtp.gmail.com',
-			'username'=>'vas1l1skaz1s@gmail.com',
-			'password'=>'passsss',
+			'username'=>'testhcmr@gmail.com',
+			'password'=>'hcmrelkethe',
 		 );
 		 $this->Email->delivery = 'smtp';
 		 if ($this->Email->send()) 

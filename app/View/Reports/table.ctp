@@ -79,24 +79,28 @@
 
                 <div id="tableOuterWrapper">
                     <div id="filterContainer">
-                        <form>
                             <table>
+                                <?php echo $this->Form->create('Report', array('action' => 'table'));     
+                                ?>
                                 <tr>
                                     <td>
-                                        <select id="filterCategory" onchange="filterCategory_changed(this)">
+                                        <select name="data[Report][select]" id="filterCategory" onchange="filterCategory_changed(this)">
                                             <option value="category" selected="selected">Κατηγορία</option>
                                             <option value="species">Είδος</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" class="" id="filterTerm"/>
+                                        <input name="data[Report][text]" type="text" class="" id="filterTerm"/>
                                     </td>
                                     <td>
-                                        <input type="submit" class="" value="Αναζήτηση"/>
+                                       <?php echo $this->Form->end(array(
+                                                            'label' => 'Αναζήτηση',
+                                                            'div' => false,
+                                                            'class' => 'std_form'));
+                                       ?>
                                     </td>
                                 </tr>
                             </table>
-                        </form>
                     </div>
                     <table id="reportsTable" class="tablesorter reportsTable">
                         <thead>
