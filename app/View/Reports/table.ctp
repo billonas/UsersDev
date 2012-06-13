@@ -184,9 +184,15 @@
                                     ?>
                                 </td>
                                 <td class="rightmost">
-                                    <?php echo $this->Html->link('Επεξεργασία', array('action'=>'edit',$report['Report']['id']), array('class'=>'editButton')); 
-                                            echo ' ';
-                                            echo $this->Html->link('Διαγραφή', array('action'=>'delete',$report['Report']['id']), array('class'=>'deleteButton')); 
+                                    <a class="editButton "href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'edit', $report['Report']['id'])) ?>">Επεξεργασία</a>
+                                    <a class="deleteButton "href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'delete', $report['Report']['id'])) ?>">
+                                        <img class="icon" src="../img/whiteX.png"/>
+                                        Διαγραφή
+                                    </a>
+                                    
+                                    <?php //echo $this->Html->link('Επεξεργασία', array('action'=>'edit',$report['Report']['id']), array('class'=>'editButton')); 
+                                            //echo ' ';
+                                            //echo $this->Html->link('Διαγραφή', array('action'=>'delete',$report['Report']['id']), array('class'=>'deleteButton')); 
                                     ?>
 
                                 </td>
