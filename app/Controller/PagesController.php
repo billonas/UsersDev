@@ -48,7 +48,12 @@ class PagesController extends AppController{
 					$i++;
 				}
 		$this->set('hotspecies',$hotspecies);
-				
+		
+		
+		$coords=('0');
+		
+		//Load last 30 reports coords
+		$this->set('coords',$coords);		
 		
 
 		$count = count($path);

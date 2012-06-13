@@ -351,6 +351,11 @@
                 }                
             </script>
             <div class="marker_db" style="display:none">
+            	<?php 
+					 foreach($reports as $coords){
+						//echo $coords['lat'].', '.$coords['lng'];
+					 }
+				?>
                 38.0397, 24.644;
                 38.1397, 24.744;
                 38.0397, 24.744;
