@@ -12,7 +12,23 @@ class HotSpeciesController extends AppController{
     var $uses = array('HotSpecie'); 
     //to uses edo xreiazetai epeidi xoris tin xrisi tou uses to cakephp psaxnei to antistoixo model
     //to opoio stin sigekrimeni periptosi den vriskei afou to species den exei eniko(i leksi specie den iparxei)
-        
+      
+        function beforeFilter() 
+   {
+
+      if($this->Session->check('report')){
+            $this->Session->delete('report');
+        }
+        if($this->Session->check('report_completed')){
+            $this->Session->delete('report_completed');
+        }
+        if($this->Session->check('uploaded1')){
+            $this->Session->delete('uploaded1');
+        }
+        if($this->Session->check('uploaded2')){
+            $this->Session->delete('uploaded2');
+        }
+   }
 
     function create() {
         if (!empty($this->data)) {

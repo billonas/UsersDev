@@ -19,6 +19,19 @@ class UsersController extends AppController
    //συγκεκριμένου controller.
       parent::beforeFilter();
       $this->Email->delivery = 'debug'; /* used to debug email message */
+      
+      if($this->Session->check('report')){
+            $this->Session->delete('report');
+        }
+        if($this->Session->check('report_completed')){
+            $this->Session->delete('report_completed');
+        }
+        if($this->Session->check('uploaded1')){
+            $this->Session->delete('uploaded1');
+        }
+        if($this->Session->check('uploaded2')){
+            $this->Session->delete('uploaded2');
+        }
    }
 
 /////////////////////////Parent Methods(end)////////////////////////////////////
