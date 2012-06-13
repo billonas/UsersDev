@@ -35,15 +35,15 @@ class Report extends AppModel{
                    'message'=>'Παρακαλούμε δώστε έγκυρη ημερομηνία παρακολούθησης'
              )
         ),
-
-        'email'=>array(
-            'rule1'=>array(
-                   'rule'=>array('email', true),
-                   'allowEmpty'=> true,
-                   'message'=>'Παρακαλούμε δώστε έγκυρή διεύθυνση ηλεκτρονικού ταχυδρομείου'
-             ) 
-        ),
-        
+//        ,
+//
+//        'email'=>array(
+//            'rule1'=>array(
+//                   'rule'=>array('email', true),
+//                   'allowEmpty'=> true,
+//                   'message'=>'Παρακαλούμε δώστε έγκυρή διεύθυνση ηλεκτρονικού ταχυδρομείου'
+//             ) 
+//        ), 
        'lat'=>array(  
                'rule1'=>array(
                    'rule'=>array('decimal'),
@@ -51,7 +51,7 @@ class Report extends AppModel{
                    'message'=>'Το γεωγραφικό πλάτος δεν έχει κανονική μορφή'
                ),
                'rule3'=>array(
-                   'rule' => array('between', 2, 20),
+                   'rule' => array('maxLength',20),
                    'alloEmpty'=>false,
                    'message'=>'Το γεωγραφικό πλάτος δεν μπορεί να έχει παραπάνω από 16 αριθμητικά ψηφία'  
                )
@@ -60,44 +60,51 @@ class Report extends AppModel{
         'lng'=>array(  
                'rule1'=>array(
                    'rule'=>array('decimal'),
+                   'alloEmpty'=>false,
                    'message'=>'Το γεωγραφικό μήκος δεν έχει κανονική μορφή'
                ),
                'rule3'=>array(
-                   'rule' => array('between', 2, 20),
+                   'rule' => array('maxLength',20),
+                   'alloEmpty'=>false,
                    'message'=>'Το γεωγραφικό μήκος δεν μπορεί να έχει παραπάνω από 16 αριθμητικά ψηφία'  
                )
-         ),
-        'name'=>array(  
-               'rule1'=>array(
-                  'rule' => array('between', 1, 25),
-                   'alloEmpty'=>true,
-                  'message'=>'Το όνομα σας δεν μπορεί να περιέχει πάνω από 25 χαρακτήρες'  
-               ),
-               'rule2'=>array(
-                  'rule'=>'alphaNumeric',
-                   'alloEmpty'=>true,
-                  'message'=>'Το όνομα σας μπορεί να περιέχει μόνο γράμματα'  
-               )
-        ),
-        'surname'=>array(  
-               'rule1'=>array(
-                  'rule' => array('between', 1, 25),
-                  'alloEmpty'=>true,
-                  'message'=>'Το επώνυμο σας δεν μπορεί να περιέχει πάνω από 25 χαρακτήρες'  
-             ),
-               'rule2'=>array(
-                  'rule'=>'alphaNumeric',
-                  'alloEmpty'=>true,
-                  'message'=>'Το επώνυμο σας μπορεί να περιέχει μόνο γράμματα'  
-             )
-        ),
-        'phone_number'=>array(  
-               'rule1'=>array(
-                   'rule'=>array('numeric'),
-                   'alloEmpty'=>true,
-                   'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς  χωρίς κενά'
-             )
-        )
+         )
+//        ,
+//        'name'=>array(  
+//               'rule1'=>array(
+//                  'rule' => array('maxLength',25),
+//                   'alloEmpty'=>true,
+//                  'message'=>'Το όνομα σας δεν μπορεί να περιέχει πάνω από 25 χαρακτήρες'  
+//               )
+//            ,
+//               'rule2'=>array(
+//                  'rule'=>'alphaNumeric',
+//                   'alloEmpty'=>true,
+//                  'message'=>'Το όνομα σας μπορεί να περιέχει μόνο γράμματα'  
+//               )
+//        )
+//            ,
+//        'surname'=>array(  
+//               'rule1'=>array(
+//                  'rule' => array('maxLength',25),
+//                  'alloEmpty'=>true,
+//                  'message'=>'Το επώνυμο σας δεν μπορεί να περιέχει πάνω από 25 χαρακτήρες'  
+//             )
+//            ,
+//               'rule2'=>array(
+//                  'rule'=>'alphaNumeric',
+//                  'alloEmpty'=>true,
+//                  'message'=>'Το επώνυμο σας μπορεί να περιέχει μόνο γράμματα'  
+//             )
+//        )
+//            ,
+//        'phone_number'=>array(  
+//               'rule1'=>array(
+//                   'rule'=>array('numeric'),
+//                   'alloEmpty'=>true,
+//                   'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς  χωρίς κενά'
+//             )
+//        )
     );
     
      function saveReport($report){
