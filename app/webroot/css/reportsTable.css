@@ -6,7 +6,7 @@
 
 #filterContainer form table {
     margin-left: 10px;
-    min-width: 80%;
+    min-width: 75%;
 }
 
 #filterContainer form input,
@@ -155,7 +155,7 @@ h2 {
 #exportLink .icon {
     height: 10px;
     width: 10px;
-    background-image: url("../img/whiteArrow.png");
+/*    background-image: url("../img/whiteArrow.png");*/
 /*    float: right;*/
     margin: 0px 1px 0px 0.5em;
 }
