@@ -72,17 +72,17 @@
             
             <div id="tableOuterWrapper">
                 <div id="filterContainer">
-                    <?php echo $this->Form->create('Report', array('action' => 'table'/*, 'type'=>'get'*/)); ?>
+                    <?php echo $this->Form->create('Report', array('action' => 'table', 'type'=>'get')); ?>
                         <table>                        
                             <tr>
                                 <td>
-                                    <select name="data[Report][select]" id="filterCategory" onchange="filterCategory_changed(this)">
+                                    <select name="Report.select" id="filterCategory" onchange="filterCategory_changed(this)">
                                         <option value="category" selected="selected">Κατηγορία</option>
                                         <option value="species">Είδος</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input name="data[Report][text]" type="text" class="" id="filterTerm"/>
+                                    <input name="Report.text" type="text" class="" id="filterTerm"/>
                                 </td>
                                 <td>
                                     <input type="submit" value="Αναζήτηση"/>
@@ -90,15 +90,15 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" id="searchConfirmed" value="confirmed" name="data[Report][state1]" checked/>
+                                    <input type="checkbox" id="searchConfirmed" value="confirmed" name="Report.state1" checked/>
                                     <label for="searchConfirmed">Επιβεβαιωμένες</label>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="searchRejected"  value="rejected"  name="data[Report][state2]" checked/>
+                                    <input type="checkbox" id="searchRejected"  value="rejected"  name="Report.state2" checked/>
                                     <label for="searchRejected">Απορριφθείσες</label>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="searchUnknown"   value="unknown"   name="data[Report][state3]" checked/>
+                                    <input type="checkbox" id="searchUnknown"   value="unknown"   name="Report.state3" checked/>
                                     <label for="searchUnknown">Εκκρεμούσες</label>
                                 </td>
     <!--                            <td>
