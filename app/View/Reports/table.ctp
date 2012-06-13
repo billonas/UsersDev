@@ -16,10 +16,11 @@
         'species': <?php if (isset($species)) echo json_encode($species); else echo "[]"?>
     }
     
-    $(document).ready(function() 
+    $(document).ready(function()
     { 
         $("#pager button, .deleteButton, .editButton, #filterContainer form input[type='submit']").button();
-        //$('#pager select').combobox();
+//        $(".deleteButton, .editButton").button();
+        $("#tr.report .buttonContainer").buttonset();
         
         // Set autocomplete support
         var selection = $("#filterCategory").val();
@@ -76,13 +77,13 @@
                         <table>                        
                             <tr>
                                 <td>
-                                    <select name="Report.select" id="filterCategory" onchange="filterCategory_changed(this)">
+                                    <select name="select" id="filterCategory" onchange="filterCategory_changed(this)">
                                         <option value="category" selected="selected">Κατηγορία</option>
                                         <option value="species">Είδος</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input name="Report.text" type="text" class="" id="filterTerm"/>
+                                    <input name="text" type="text" class="" id="filterTerm"/>
                                 </td>
                                 <td>
                                     <input type="submit" value="Αναζήτηση"/>
@@ -90,15 +91,15 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" id="searchConfirmed" value="confirmed" name="Report.state1" checked/>
+                                    <input type="checkbox" id="searchConfirmed" value="confirmed" name="state1" checked/>
                                     <label for="searchConfirmed">Επιβεβαιωμένες</label>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="searchRejected"  value="rejected"  name="Report.state2" checked/>
+                                    <input type="checkbox" id="searchRejected"  value="rejected"  name="state2" checked/>
                                     <label for="searchRejected">Απορριφθείσες</label>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="searchUnknown"   value="unknown"   name="Report.state3" checked/>
+                                    <input type="checkbox" id="searchUnknown"   value="unknown"   name="state3" checked/>
                                     <label for="searchUnknown">Εκκρεμούσες</label>
                                 </td>
     <!--                            <td>
@@ -190,7 +191,6 @@
                                         <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'edit', $report['Report']['id'])) ?>">
                                             Επεξεργασία
                                         </a>
-                                        <br/>
                                         <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'delete', $report['Report']['id'])) ?>">
                                             <img class="icon" src="../img/whiteX.png"/>
                                             Διαγραφή
