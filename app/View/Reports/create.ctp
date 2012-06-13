@@ -147,12 +147,12 @@ $(document).ready(function(){
 			echo '</br>';
                         echo '<label for="ReportImage" class="std_form">Δώστε μία Φωτογραφία: </label>';
                         echo $this->Form->input('image',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
-                        echo '<label for="ReportImage" class="std_form">Δώστε ένα Βίντεο: </label>';
+                        echo 'ή &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="ReportImage" class="std_form">Δώστε ένα Βίντεο: </label>';
                         echo $this->Form->input('video_file',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
                         echo '<br />';
                         echo '<br />';
                         echo $this->Form->end(array(
-                        'label' => 'Ανέβασμα Φωτογραφίας ή Video',
+                        'label' => 'Ανέβασμα Φωτογραφίας ή/και Video',
                         'div' => false,
                         'class' => 'std_form big_button'));
                 }
@@ -362,22 +362,19 @@ $(document).ready(function(){
                     echo $this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>'Κατάσταση Αναφοράς ','type'=>'hidden', 'class'=>'std_form'));
                     echo '<br/>';
                     echo '</table></div>';
-                    echo '<a href="#" class="fragment button_like_anchor left_arrow white_arrow"><img src="';
-                    echo $this->webroot;
-                    echo '/img/arrows/white_arrow_left_small3.png"/>Προηγούμενο Βήμα</a>';
+                    echo '<a href="#" class="fragment button_like_anchor left_arrow white_arrow"><img src="'.$this->webroot.'/img/arrows/white_arrow_left_small3.png"/>Προηγούμενο Βήμα</a>';
                     echo $this->Form->end(array(
                     'label' => 'Κατάθεση Αναφοράς',
                     'div' => false,
                     'class' => 'std_form'));
-                    echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Επόμενο Βήμα<img src="';
-                    echo $this->webroot;
-                    echo '/img/arrows/white_arrow_right_small3.png"/></a>';
+                    echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Επόμενο Βήμα<img src="'.$this->webroot.'/img/arrows/white_arrow_right_small3.png"/></a>';
 		   }
                     ?>
                 </div>
             </div>
         </div>
     </div>
+    <?php echo $this->Html->link('Νέα αναφορά', array('controller' => 'reports', 'action'=>'createnew'), array('class' => 'button_like_anchor'));?>
     <div class="comments">
         <div><br />Powered by <a href="http://cakephp.org/">Cake.php</a>, <a href="http://jquery.com/">jQuery</a> and <a href="http://modernizr.com/">Modernizr</a>.</div>
     </div>
