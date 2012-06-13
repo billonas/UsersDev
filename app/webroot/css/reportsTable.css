@@ -21,11 +21,16 @@
     padding: 2px 5px 2px 5px;
 }
 
-#filterContainer form input[type="submit"]{
+#filterContainer form input[type="submit"],
+#filterContainer form button[type="submit"] {
     background: #008FF9;
     color: white;
 }
-#filterContainer form input[type="submit"]:hover{
+#filterContainer form button[type="submit"] img {
+    max-height: 1em;
+}
+#filterContainer form input[type="submit"]:hover,
+#filterContainer form button[type="submit"]:hover {
     background: #007FE9;
 }
 

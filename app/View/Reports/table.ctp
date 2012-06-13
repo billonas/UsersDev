@@ -18,7 +18,7 @@
     
     $(document).ready(function()
     { 
-        $("#pager button, .deleteButton, .editButton, #filterContainer form input[type='submit']").button();
+        $("#pager button, .deleteButton, .editButton, #filterContainer form input[type='submit'], #filterContainer form button[type='submit']").button();
         
         // Set autocomplete support
         var selection = $("#filterCategory").val();
@@ -84,7 +84,11 @@
                                     <input name="text" type="text" class="" id="filterTerm"/>
                                 </td>
                                 <td>
-                                    <input type="submit" value="Αναζήτηση"/>
+                                    <button type="submit" value="Αναζήτηση">
+                                        <img src="../img/whiteSpyglass.png"/>
+                                        Αναζήτηση
+                                    </button>
+<!--                                    <input type="submit" value="Αναζήτηση"/>-->
                                 </td>
                             </tr>
                             <tr>
