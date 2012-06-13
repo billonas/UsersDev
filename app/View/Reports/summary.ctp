@@ -55,6 +55,9 @@
                 
                             <?php 
                                 $report = $this->Session->read('report');
+								echo '<div class="login_box">  
+                    				<br><h1>Σύνοψη αναφοράς</h1></br>
+									</div>';
                                 echo '<div class="flash_box gradient">';
                                 echo '</br/>'.$this->Session->flash().'</br>';
                                 echo '</div>';
@@ -123,13 +126,13 @@
                     else{
                         if($this->Session->check('report')){
                             echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-                            echo '<td>'.$this->Form->input('age',array('label'=>false,'value'=>$report['Report']['age'], 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                            echo '<td>'.$this->Form->input('age',array('label'=>false,'value'=>$report['Report']['age'], 'class'=>'std_form blue shadow', 'div'=>false, 'disabled'=>'true')).'</td></tr>';
                             $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
                             echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
-                            echo '<td>'.$this->Form->input('education', array('options' => $options,'value'=>$report['Report']['education'], 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                            echo '<td>'.$this->Form->input('education', array('options' => $options,'value'=>$report['Report']['education'], 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false, 'disabled'=>'true')).'</td></tr>';
                             $options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο');
                             echo '<tr><td><label for="ReportOccupation" class="std_form">Ιδιότητα </label></td>';
-                            echo '<td>'.$this->Form->input('occupation', array('options' => $options,'value'=>$report['Report']['occupation'], 'default' => ' - ', 'label'=>false,'class'=>'std_form')).'</td></tr>';
+                            echo '<td>'.$this->Form->input('occupation', array('options' => $options,'value'=>$report['Report']['occupation'], 'default' => ' - ', 'label'=>false,'class'=>'std_form', 'disabled'=>'true')).'</td></tr>';
                             echo '<tr><td><label for="ReportName" class="std_form">Όνομα</label></td>';
                             echo '<td>'.$this->Form->input('name',array("label" => false,'value'=>$report['Report']['name'],'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
                             echo '<tr><td><label for="ReportSurname" class="std_form">Επώνυμο</label></td>';
@@ -137,17 +140,17 @@
                             echo '<tr><td><label for="ReportPhone_number" class="std_form">Τηλέφωνο Επικοινωνίας </label></td>';
                             echo '<td>'.$this->Form->input('phone_number',array("label" => false,'value'=>$report['Report']['phone_number'], 'placeholder' => 'Σταθερό ή Κινητό','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
                             echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
-                            echo '<td>'.$this->Form->input('email',array("label"=>false,'value'=>$report['Report']['email'], 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'div'=>false)).'</td></tr>';							    
+                            echo '<td>'.$this->Form->input('email',array("label"=>false,'value'=>$report['Report']['email'], 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'div'=>false, 'disabled'=>'true')).'</td></tr>';							    
                         }
                         else{
                             echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-                            echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                            echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false, 'disabled'=>'true')).'</td></tr>';
                             $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
                             echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
-                            echo '<td>'.$this->Form->input('education', array('options' => $options, 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                            echo '<td>'.$this->Form->input('education', array('options' => $options, 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false, 'disabled'=>'true')).'</td></tr>';
                             $options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο');
                             echo '<tr><td><label for="ReportOccupation" class="std_form">Ιδιότητα </label></td>';
-                            echo '<td>'.$this->Form->input('occupation', array('options' => $options, 'default' => ' - ', 'label'=>false,'class'=>'std_form')).'</td></tr>';
+                            echo '<td>'.$this->Form->input('occupation', array('options' => $options, 'default' => ' - ', 'label'=>false, 'disabled'=>'true', 'class'=>'std_form')).'</td></tr>';
                             echo '<tr><td><label for="ReportName" class="std_form">Όνομα</label></td>';
                             echo '<td>'.$this->Form->input('name',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
                             echo '<tr><td><label for="ReportSurname" class="std_form">Επώνυμο</label></td>';
@@ -155,15 +158,18 @@
                             echo '<tr><td><label for="ReportPhone_number" class="std_form">Τηλέφωνο Επικοινωνίας </label></td>';
                             echo '<td>'.$this->Form->input('phone_number',array("label" => false, 'placeholder' => 'Σταθερό ή Κινητό','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
                             echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
-                            echo '<td>'.$this->Form->input('email',array("label"=>false, 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'div'=>false)).'</td></tr>';							    
+                            echo '<td>'.$this->Form->input('email',array("label"=>false, 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'disabled'=>'true', 'div'=>false)).'</td></tr>';							    
                         }
                         
                     }
-                    echo '</table></div>';
-                    echo $this->Form->end(array(
+                    
+					
+					echo '<tr><td>'.$this->Html->link('Επιστροφή στην φόρμα', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
+                    echo '<td>'.$this->Form->end(array(
                                                 'label' => 'Οριστική υποβολή',
                                                 'div' => false,
-                                                'class' => 'std_form'));
+                                                'class' => 'std_form
+												')).'</td></tr></table>'.'</div>';
                            ?>
                         
             </div>
