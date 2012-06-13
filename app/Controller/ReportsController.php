@@ -347,33 +347,33 @@ class ReportsController extends AppController{
                         }
                         $this->set('species',$species);
 			
-            if (!empty($this->data)) {
+            if ((!empty($this->params['url']['text']))||(!empty($this->params['url']['state1']))||(!empty($this->params['url']['state2']))||(!empty($this->params['url']['state3']))) {
                 // INPUT GIVEN 
-                if(!empty($this->data['Report']['text'])){
+                if(!empty($this->params['url']['text'])){
                     $state = array();
-                    if(isset($this->data['Report']['state1'])){
-                        array_push($state, $this->data['Report']['state1']);
-                        $state1 = $this->data['Report']['state1'];
+                    if(!empty($this->params['url']['state1'])){
+                        array_push($state, $this->params['url']['state1']);
+                        $state1 = $this->params['url']['state1'];
                     }
-                    if(isset($this->data['Report']['state2'])){
-                        array_push($state, $this->data['Report']['state2']);
+                    if(!empty($this->params['url']['state2'])){
+                        array_push($state, $this->params['url']['state2']);
                     }
-                    if(isset($this->data['Report']['state3'])){
-                        array_push($state, $this->data['Report']['state3']);
+                    if(!empty($this->params['url']['state3'])){
+                        array_push($state,$this->params['url']['state3']);
                     }
                     $conditions = array(
                             'Report.state' => $state
                     );
-                    if(!strcmp($this->data['Report']['select'],'species')){
+                    if(!strcmp($this->params['url']['select'],'species')){
                         $conditions = array(
-                            'Specie.scientific_name'=>$this->data['Report']['text'],
+                            'Specie.scientific_name'=> $this->params['url']['text'],
                             'Report.state' => $state
                         );
 
                     }
-                    else if(!strcmp($this->data['Report']['select'],'category')){
+                    else if(!strcmp($this->params['url']['select'],'category')){
                         $conditions = array(
-                           'Category.category_name'=>$this->data['Report']['text'],
+                           'Category.category_name'=> $this->params['url']['text'],
                            'Report.state' => $state
                         );
                         
@@ -383,15 +383,14 @@ class ReportsController extends AppController{
                 }
                 else{
                     $state = array();
-                    if(isset($this->data['Report']['state1'])){
-                        array_push($state, $this->data['Report']['state1']);
-                        $state1 = $this->data['Report']['state1'];
+                    if(!empty($this->params['url']['state1'])){
+                        array_push($state, $this->params['url']['state1']);
                     }
-                    if(isset($this->data['Report']['state2'])){
-                        array_push($state, $this->data['Report']['state2']);
+                    if(!empty($this->params['url']['state2'])){
+                        array_push($state, $this->params['url']['state2']);
                     }
-                    if(isset($this->data['Report']['state3'])){
-                        array_push($state, $this->data['Report']['state3']);
+                    if(!empty($this->params['url']['state3'])){
+                        array_push($state, $this->params['url']['state3']);
                     }
                     $conditions = array(
                             'Report.state' => $state
