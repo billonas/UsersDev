@@ -49,7 +49,7 @@
                 <span class="report_text">Συναντήσατε κάποιο παράξενο είδος που δεν μπορούσατε να αναγνωρίσετε. Κάντε μία αναφορά και οι ερευνητές μας θα αναλάβουν
                 να το αναγνωρίσουν.
                 </span>
-                <a href="#" class="button_like_anchor">Κάντε Αναφορά</a>
+                <?php echo $this->Html->link('Κάντε αναφορά', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor'));?>
             </div>
             <div class="index_tile">
                 <span class="news_header">Τα Νέα μας</span>
