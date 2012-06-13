@@ -16,10 +16,9 @@
         'species': <?php if (isset($species)) echo json_encode($species); else echo "[]"?>
     }
     
-    $(document).ready(function() 
+    $(document).ready(function()
     { 
         $("#pager button, .deleteButton, .editButton, #filterContainer form input[type='submit']").button();
-        //$('#pager select').combobox();
         
         // Set autocomplete support
         var selection = $("#filterCategory").val();
@@ -72,38 +71,45 @@
             
             <div id="tableOuterWrapper">
                 <div id="filterContainer">
-                    <table>
-                        <?php echo $this->Form->create('Report', array('action' => 'table'));     
-                        ?>
-                        <tr>
-                            <td>
-                                <select name="data[Report][select]" id="filterCategory" onchange="filterCategory_changed(this)">
-                                    <option value="category" selected="selected">Κατηγορία</option>
-                                    <option value="species">Είδος</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input name="data[Report][text]" type="text" class="" id="filterTerm"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" id="searchConfirmed" value="confirmed" name="data[Report][state1]" checked/>
-                                <label for="searchConfirmed">Επιβεβαιωμένες</label>
-                                <input type="checkbox" id="searchRejected"  value="unreliable"  name="data[Report][state2]"  checked/>
-                                <label for="searchRejected">Απορριφθείσες</label>
-                                <input type="checkbox" id="searchUnknown"   value="unknown"   name="data[Report][state3]"   checked/>
-                                <label for="searchUnknown">Εκκρεμούσες</label>
-                            </td>
-                            <td>
-                                <?php echo $this->Form->end(array(
-                                                    'label' => 'Αναζήτηση',
-                                                    'div' => false,
-                                                    'class' => 'std_form'));
-                                ?>
-                            </td>
-                        </tr>
-                    </table>
+                    <?php echo $this->Form->create('Report', array('action' => 'table', 'type'=>'get')); ?>
+                        <table>                        
+                            <tr>
+                                <td>
+                                    <select name="select" id="filterCategory" onchange="filterCategory_changed(this)">
+                                        <option value="category" selected="selected">Κατηγορία</option>
+                                        <option value="species">Είδος</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input name="text" type="text" class="" id="filterTerm"/>
+                                </td>
+                                <td>
+                                    <input type="submit" value="Αναζήτηση"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="searchConfirmed" value="confirmed" name="state1" checked/>
+                                    <label for="searchConfirmed">Επιβεβαιωμένες</label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" id="searchRejected"  value="unreliable"  name="state2" checked/>
+                                    <label for="searchRejected">Απορριφθείσες</label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" id="searchUnknown"   value="unknown"   name="state3" checked/>
+                                    <label for="searchUnknown">Εκκρεμούσες</label>
+                                </td>
+    <!--                            <td>
+                                    <?php echo $this->Form->end(array(
+                                                        'label' => 'Αναζήτηση',
+                                                        'div' => false,
+                                                        'class' => 'std_form'));
+                                    ?>
+                                </td>-->
+                            </tr>
+                        </table>
+                    <?php echo $this->Form->end(); ?>
                 </div>
                 <?php if (empty($reports)): ?>
                 <div class="report noReportFiller">
@@ -180,11 +186,11 @@
                                 </td>
                                 <td class="rightmost">
                                     <div class="buttonContainer">
-                                        <a class="editButton "href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'edit', $report['Report']['id'])) ?>">
+                                        <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'edit', $report['Report']['id'])) ?>">
                                             Επεξεργασία
                                         </a>
                                         <br/>
-                                        <a class="deleteButton "href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'delete', $report['Report']['id'])) ?>">
+                                        <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'delete', $report['Report']['id'])) ?>">
                                             <img class="icon" src="../img/whiteX.png"/>
                                             Διαγραφή
                                         </a>
