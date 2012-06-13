@@ -181,6 +181,12 @@ tr.report .icon {
     max-width: 0.8em;
 }
 
+tr.report .buttonContainer {
+    float:right;
+    margin-right: 5%;
+    margin-top: 10px;
+}
+
 /* Rules for highlighting based on report status */
 .report.rejected td {
     background-color: #ffdddd;
@@ -191,6 +197,7 @@ tr.report .icon {
 .report.pending td {
     background-color: white;
 }
+/*  */
 
 .report td {
     height: 110px;

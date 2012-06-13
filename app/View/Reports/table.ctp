@@ -56,21 +56,6 @@
 <div class="middle_row">
     <div class="middle_wrapper">
         <div>
-            
-            <?php
-//                echo $this->GoogleMapV3->map(array('map'=>array(
-//                'defaultLat' => 39, # only last fallback, use Configure::write('Google.lat', ...); to define own one
-//                'defaultLng' => 21, # only last fallback, use Configure::write('Google.lng', ...); to define own one
-//                'defaultZoom' => 5,
-//                ),'div'=>array('id'=>'my_map', 'height'=>'400', 'width'=>'700')));
-////                SET MARKERS FOR ALL REPORTS                
-////                $options = array(
-////                'lat'=>39,
-////                'lng'=>21,
-////                );
-////                $this->GoogleMapV3->addMarker($options);
-//                echo $this->GoogleMapV3->script();
-            ?>
             <div class="login_box">  
                 <p><?php //echo print_r($reports)?></p>
             <h1>Πίνακας Αναφορών</h1>
@@ -99,6 +84,16 @@
                             </td>
                             <td>
                                 <input name="data[Report][text]" type="text" class="" id="filterTerm"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="searchConfirmed" value="confirmed" name="data[Report][confirmed]" checked/>
+                                <label for="searchConfirmed">Επιβεβαιωμένες</label>
+                                <input type="checkbox" id="searchRejected"  value="rejected"  name="data[Report][rejected]"  checked/>
+                                <label for="searchRejected">Απορριφθείσες</label>
+                                <input type="checkbox" id="searchUnknown"   value="unknown"   name="data[Report][unknown]"   checked/>
+                                <label for="searchUnknown">Εκκρεμούσες</label>
                             </td>
                             <td>
                                 <?php echo $this->Form->end(array(
@@ -184,17 +179,16 @@
                                     ?>
                                 </td>
                                 <td class="rightmost">
-                                    <a class="editButton "href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'edit', $report['Report']['id'])) ?>">Επεξεργασία</a>
-                                    <a class="deleteButton "href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'delete', $report['Report']['id'])) ?>">
-                                        <img class="icon" src="../img/whiteX.png"/>
-                                        Διαγραφή
-                                    </a>
-                                    
-                                    <?php //echo $this->Html->link('Επεξεργασία', array('action'=>'edit',$report['Report']['id']), array('class'=>'editButton')); 
-                                            //echo ' ';
-                                            //echo $this->Html->link('Διαγραφή', array('action'=>'delete',$report['Report']['id']), array('class'=>'deleteButton')); 
-                                    ?>
-
+                                    <div class="buttonContainer">
+                                        <a class="editButton "href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'edit', $report['Report']['id'])) ?>">
+                                            Επεξεργασία
+                                        </a>
+                                        <br/>
+                                        <a class="deleteButton "href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'delete', $report['Report']['id'])) ?>">
+                                            <img class="icon" src="../img/whiteX.png"/>
+                                            Διαγραφή
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
