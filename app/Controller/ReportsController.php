@@ -350,31 +350,59 @@ class ReportsController extends AppController{
             if (!empty($this->data)) {
                 // INPUT GIVEN 
                 if(!empty($this->data['Report']['text'])){
-                    // SEARCH BY SPECIES 
+                    $state = array();
+                    if(isset($this->data['Report']['state1'])){
+                        array_push($state, $this->data['Report']['state1']);
+                        $state1 = $this->data['Report']['state1'];
+                    }
+                    if(isset($this->data['Report']['state2'])){
+                        array_push($state, $this->data['Report']['state2']);
+                    }
+                    if(isset($this->data['Report']['state3'])){
+                        array_push($state, $this->data['Report']['state3']);
+                    }
+                    $conditions = array(
+                            'Report.state' => $state
+                    );
                     if(!strcmp($this->data['Report']['select'],'species')){
                         $conditions = array(
-                            'Specie.scientific_name'=>$this->data['Report']['text']
+                            'Specie.scientific_name'=>$this->data['Report']['text'],
+                            'Report.state' => $state
                         );
-                        $reports = $this->Report->find("all", array('conditions'=> $conditions));
-                        $this->set('reports',$reports);
 
                     }
-                    // SEARCH BY CATEGORY
-                    if(!strcmp($this->data['Report']['select'],'category')){
-                        $reports = $this->Report->find("all", array('conditions'=> array( 'Category.category_name'=>$this->data['Report']['text'])));
-                        $this->set('reports',$reports);
+                    else if(!strcmp($this->data['Report']['select'],'category')){
+                        $conditions = array(
+                           'Category.category_name'=>$this->data['Report']['text'],
+                           'Report.state' => $state
+                        );
+                        
                     }
+                    $reports = $this->Report->find("all", array('conditions'=> $conditions));
+                    $this->set('reports',$reports);
                 }
                 else{
-                     $reports = $this->Report->find("all");
-                     $this->set('reports',$reports);
+                    $state = array();
+                    if(isset($this->data['Report']['state1'])){
+                        array_push($state, $this->data['Report']['state1']);
+                        $state1 = $this->data['Report']['state1'];
+                    }
+                    if(isset($this->data['Report']['state2'])){
+                        array_push($state, $this->data['Report']['state2']);
+                    }
+                    if(isset($this->data['Report']['state3'])){
+                        array_push($state, $this->data['Report']['state3']);
+                    }
+                    $conditions = array(
+                            'Report.state' => $state
+                    );
+                    $this->set('reports',$this->Report->find('all', array('conditions'=> $conditions)));
+
                 }
             }
             else{
-                //$this->set('reports',$this->Report->find('all'));
-                $this->set('reports',$this->Report->find('all', array('order'=>'Report.created DESC')));
-                
-
+                 $reports = $this->Report->find("all");
+                 $this->set('reports',$reports);
             }
 //       }
 //       else{
