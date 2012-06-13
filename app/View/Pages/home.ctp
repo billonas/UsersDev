@@ -14,6 +14,7 @@
                 </span>
             </div>
             <div class="index_tile" style="background:#101010 url('<?php echo $this->webroot; ?>img/arrows/loading.gif') no-repeat center center;">
+            	
                 <a href="#" class="button display_on_hover" id="left_arrow"><img src ='<?php echo $this->webroot; ?>img/arrows/left_arrow_fat_white.png'/></a>
                 <a href="#" class="button display_on_hover" id="right_arrow"><img src ='<?php echo $this->webroot; ?>img/arrows/right_arrow_fat_white.png'/></a>
                 <a href="#" class="button display_on_hover" id="play"><img src ='<?php echo $this->webroot; ?>img/arrows/play_white.png'/></a>
@@ -22,26 +23,16 @@
                     <span>Είδη-στόχοι</span><br />
                     Πατήστε πάνω σε μία φωτογραφία για να μάθετε<br /> περισσότερες πληροφορίες για το είδος
                 </div>
-                <div class="specie_header">Δελφίνι Δελφίνους</div>
+                <div class="specie_header"></div>
                 <div id="fish_slideshow" class="fish_slideshow">
-                    <a href="#">
-                        <img src='<?php echo $this->webroot; ?>img/Dolphins-HQ-Photos-Wallpapers.jpg' alt="images/1.jpg"/>
-                    </a>
-                    <a href="#">
-                        <img class="out_of_sight" data-specie_name="Δελφίνι Δελφίνους" src='<?php echo $this->webroot; ?>img/1_Dolphin_Wallpaper_04.jpg' alt="images/2.jpg"/>
-                    </a>
-                    <a href="#">
-                        <img class="out_of_sight" data-specie_name="Δελφίνι Δελφίνους" src='<?php echo $this->webroot; ?>img/2-Dolphins-Loving-Wallpapers.jpg' alt="images/3.jpg"/>
-                    </a>
-                    <a href="#">
-                        <img class="out_of_sight" data-specie_name="Δελφίνι Δελφίνους" src='<?php echo $this->webroot; ?>img/3D-Dolphin-Wallpapers.jpg' alt="images/4.jpg"/>
-                    </a>
-                    <a href="#">
-                        <img class="out_of_sight" data-specie_name="Φάλαινα Φάλαινους" src='<?php echo $this->webroot; ?>img/humpback_whale-wallpaper-1920x1200.jpg' alt="images/5.jpg"/>
-                    </a>
-                    <a href="#">
-                        <img class="out_of_sight" data-specie_name="Φάλαινα Φάλαινους" src='<?php echo $this->webroot; ?>img/whale-shark-belize.jpg' alt="images/6.jpg"/>
-                    </a>
+                    <?php 
+				 foreach($hotspecies as $hot){
+					echo '<a href="#"><img class="out_of_sight" data-specie_name="'.$hot['scientific_name'].'" src="'.$this->webroot.'img/hotspecies/'.$hot['id'].'.jpg" alt="images/1.jpg"/>				 							</a>';
+                    
+				}
+				
+				
+				?>
                 </div>
             </div>
             <div class="index_tile">
@@ -84,10 +75,10 @@
             </script>
             <script type="text/javascript">
                 var interval            = 4000;
-                var playtime;
-                var current             = 1;                                
+                var playtime;                                                
                 var nmb_thumbs          = $('#fish_slideshow img').length;
-                var prev                = nmb_thumbs;
+                var current             = nmb_thumbs;
+                var prev                = nmb_thumbs - 1;
 
                 $('#pause').bind('click',function(e){
                     $this = $(this);
@@ -109,7 +100,7 @@
                     $('#pause').css({'display':'none'});
                     $('#play').css({'display':'block'});
                     pause();
-                    previous();
+                    previous(false);
                     return false;
                 });
 
@@ -117,7 +108,7 @@
                     $('#pause').css({'display':'none'});
                     $('#play').css({'display':'block'});
                     pause();
-                    next();
+                    next(false);
                     return false;
                 });
 
@@ -135,33 +126,50 @@
                     clearInterval(playtime);
                 }
 
-                function next(){
+                function next(start){
                     prev = current;
                     current++;
-                    if(current == nmb_thumbs)
+                    if(current == nmb_thumbs + 1)
                         current = 1;                                    
-                    showImage('l');
+                    showImage('l',start);
                 }
 
-                function previous(){
-                    var temp = current;
-                    current = prev;
-                    prev = temp;
-                    showImage('r');
+                function previous(start){
+                    prev = current;
+                    current--;
+                    if(current == 0)
+                        current = nmb_thumbs;
+                    showImage('r',start);
                 }
 
-                function showImage(dir){
+                function showImage(dir,start){
                     var $next_thumb = $('#fish_slideshow').find('a:nth-child(' + current + ')').find('img');
                     var $cur_thumb = $('#fish_slideshow').find('a:nth-child(' + prev + ')').find('img');
                     if($next_thumb.length && $cur_thumb.length){
                         if(dir == 'r'){
-                            $cur_thumb
-                                .animate({
-                                    opacity:.0 ,
-                                    left: '100%'
-                                    }, 600, function(){
-                                        $(this).attr('style','').toggleClass('out_of_sight');
-                                        $next_thumb
+                            if(!start){
+                                $cur_thumb
+                                    .animate({
+                                        opacity:.0 ,
+                                        left: '100%'
+                                        }, 600, function(){
+                                            $(this).attr('style','').toggleClass('out_of_sight');
+                                            $next_thumb
+                                                .toggleClass('out_of_sight')
+                                                .css({
+                                                    'opacity' : '0' ,
+                                                    'left' : '-100%'
+                                                    })
+                                                .animate({
+                                                        'left' : '0',
+                                                        'opacity' : 1
+                                                    }, 800
+                                                );
+                                        }
+                                    );
+                            }
+                            else{
+                                $next_thumb
                                             .toggleClass('out_of_sight')
                                             .css({
                                                 'opacity' : '0' ,
@@ -172,23 +180,34 @@
                                                     'opacity' : 1
                                                 }, 800
                                             );
-                                    }
-                                );
-                                var specie = $cur_thumb.attr('data-specie_name');
-                                //specie = "Είδος: " + specie;
-                                $('.specie_header').text(specie);
-                                prev = current - 1;
-                                if(prev == 0)
-                                    prev = nmb_thumbs;
+                            }
+                            var specie = $next_thumb.attr('data-specie_name');
+                            $('.specie_header').text(specie);                                
                         }
                         else if(dir == 'l'){
-                            $cur_thumb
-                                .animate({
-                                    opacity:.0 ,
-                                    left: '-100%'
-                                    }, 600, function(){
-                                        $(this).attr('style','').toggleClass('out_of_sight');
-                                        $next_thumb
+                            if(!start){
+                                $cur_thumb
+                                    .animate({
+                                        opacity:.0 ,
+                                        left: '-100%'
+                                        }, 600, function(){
+                                            $(this).attr('style','').toggleClass('out_of_sight');
+                                            $next_thumb
+                                                .toggleClass('out_of_sight')
+                                                .css({
+                                                    'opacity' : '0' ,
+                                                    'left' : '100%'
+                                                    })
+                                                .animate({
+                                                        'left' : '0',
+                                                        'opacity' : 1
+                                                    }, 800
+                                                );
+                                        }
+                                    );
+                            }
+                            else{
+                                $next_thumb
                                             .toggleClass('out_of_sight')
                                             .css({
                                                 'opacity' : '0' ,
@@ -199,10 +218,9 @@
                                                     'opacity' : 1
                                                 }, 800
                                             );
-                                    }
-                                );
-                                var specie = $cur_thumb.attr('data-specie_name');
-                                $('.specie_header').text(specie);
+                            }
+                            var specie = $next_thumb.attr('data-specie_name');
+                            $('.specie_header').text(specie);
                         }
                     }
                     else{
@@ -211,6 +229,7 @@
                 }
 
                 $(document).ready(function(){
+                   next(true);
                    play(); 
                    initialize();
                    getMarkers();
