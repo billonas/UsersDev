@@ -88,11 +88,11 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="checkbox" id="searchConfirmed" value="confirmed" name="data[Report][confirmed]" checked/>
+                                <input type="checkbox" id="searchConfirmed" value="confirmed" name="data[Report][type]" checked/>
                                 <label for="searchConfirmed">Επιβεβαιωμένες</label>
-                                <input type="checkbox" id="searchRejected"  value="rejected"  name="data[Report][rejected]"  checked/>
+                                <input type="checkbox" id="searchRejected"  value="rejected"  name="data[Report][type]"  checked/>
                                 <label for="searchRejected">Απορριφθείσες</label>
-                                <input type="checkbox" id="searchUnknown"   value="unknown"   name="data[Report][unknown]"   checked/>
+                                <input type="checkbox" id="searchUnknown"   value="unknown"   name="data[Report][type]"   checked/>
                                 <label for="searchUnknown">Εκκρεμούσες</label>
                             </td>
                             <td>
