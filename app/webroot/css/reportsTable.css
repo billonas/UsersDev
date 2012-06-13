@@ -22,7 +22,9 @@
 }
 
 #filterContainer form input[type="submit"]{
-    background: #008FF9;
+/*    background: #008FF9;*/
+    background: #008FF9 url('../img/whiteSpyglass.png') no-repeat top left;
+    padding-left: 16px;
     color: white;
 }
 #filterContainer form input[type="submit"]:hover{

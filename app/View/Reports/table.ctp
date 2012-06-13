@@ -19,8 +19,6 @@
     $(document).ready(function()
     { 
         $("#pager button, .deleteButton, .editButton, #filterContainer form input[type='submit']").button();
-//        $(".deleteButton, .editButton").button();
-        $("#tr.report .buttonContainer").buttonset();
         
         // Set autocomplete support
         var selection = $("#filterCategory").val();
@@ -95,7 +93,7 @@
                                     <label for="searchConfirmed">Επιβεβαιωμένες</label>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="searchRejected"  value="rejected"  name="state2" checked/>
+                                    <input type="checkbox" id="searchRejected"  value="unreliable"  name="state2" checked/>
                                     <label for="searchRejected">Απορριφθείσες</label>
                                 </td>
                                 <td>
@@ -191,6 +189,7 @@
                                         <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'edit', $report['Report']['id'])) ?>">
                                             Επεξεργασία
                                         </a>
+                                        <br/>
                                         <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'delete', $report['Report']['id'])) ?>">
                                             <img class="icon" src="../img/whiteX.png"/>
                                             Διαγραφή
