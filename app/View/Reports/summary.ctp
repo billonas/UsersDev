@@ -87,7 +87,7 @@
 					
                     echo '</td></tr>';
                     echo '<tr><td><label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label></td>';
-                    echo '<td>'.$this->Form->input('Report.lng',array('div'=>false,'id'=>'info2','value'=>$report['Report']['lng'],'label' => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow','readonly'=>'readonly'));
+                    echo '<td>'.$this->Form->input('lng',array('div'=>false,'id'=>'info2','value'=>$report['Report']['lng'],'label' => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow','readonly'=>'readonly'));
                     echo '</td></tr>';
 					 echo '<tr><td><label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label></td>';
                     echo '<td>'.$this->Form->input('date',array('label'=>false,'default'=>$report['Report']['date'],'div'=>false, 'class'=>'std_form blue shadow','disabled'=>true, 'empty' => true,'minYear' => date('Y')-50, 'maxYear' => date('Y'))).'</td></tr>';
@@ -157,15 +157,15 @@
                             echo '<td>'.$this->Form->input('age',array('label'=>false,'default'=>$report['Report']['age'], 'class'=>'std_form blue shadow', 'div'=>false, 'disabled'=>true, 'empty' => true,'minYear' => date('Y')-50, 'maxYear' => date('Y'))).'</td></tr>';
 							
 							echo '<select name="data[Report][age][month]" id="ReportAgeMonth" style="display:none;">
-							<option value="'.$report['Report']['age']['month'].'" selected="selected">06</option>
+							<option value="'.$report['Report']['age']['month'].'" selected="selected">'.$report['Report']['age']['month'].'</option>
 						</select>
 						
 						<select name="data[Report][age][day]" id="ReportAgeDay" style="display:none;">
-							<option value="'.$report['Report']['age']['day'].'" selected="selected">13</option>
+							<option value="'.$report['Report']['age']['day'].'" selected="selected">'.$report['Report']['age']['day'].'</option>
 						</select>
 						
 						<select name="data[Report][age][year]" id="ReportAgeYear" style="display:none;">
-							<option value="'.$report['Report']['age']['year'].'" selected="selected">2012</option>
+							<option value="'.$report['Report']['age']['year'].'" selected="selected">'.$report['Report']['age']['year'].'</option>
 						</select>';
 							
 							
@@ -175,11 +175,18 @@
                             echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
                             echo '<td>'.$this->Form->input('education', array('options' => $options,'default'=>$report['Report']['education'], 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false, 'disabled'=>true)).'</td></tr>';
 							
+							echo '<select name="data[Report][education]" id="ReportEducation" style="display:none;">
+							<option value="'.$report['Report']['education'].'" selected="selected">'.$report['Report']['education'].'</option>
+							</select>';
 							
 							
                             $options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο');
                             echo '<tr><td><label for="ReportOccupation" class="std_form">Ιδιότητα </label></td>';
-                            echo '<td>'.$this->Form->input('occupation', array('options' => $options,'value'=>$report['Report']['occupation'], 'default' => ' - ', 'label'=>false,'class'=>'std_form', 'readonly'=>'readonly')).'</td></tr>';
+                            echo '<td>'.$this->Form->input('occupation', array('options' => $options,'value'=>$report['Report']['occupation'], 'default' => ' - ', 'label'=>false,'class'=>'std_form', 'disabled'=>true)).'</td></tr>';
+							echo '<select name="data[Report][occupation]" id="ReportOccupation" style="display:none;">
+								<option value="'.$report['Report']['occupation'].'" selected="selected">'.$report['Report']['occupation'].'</option>
+							</select>';
+							
                             echo '<tr><td><label for="ReportName" class="std_form">Όνομα</label></td>';
                             echo '<td>'.$this->Form->input('name',array("label" => false,'value'=>$report['Report']['name'],'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','div'=>false, 'readonly'=>'readonly')).'</td></tr>';
                             echo '<tr><td><label for="ReportSurname" class="std_form">Επώνυμο</label></td>';
