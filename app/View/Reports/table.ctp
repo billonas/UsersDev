@@ -81,15 +81,9 @@
             <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'export')) ?>">
                 <div class="inner">
                     <span>Εξαγωγή</span>
-                    <div class="icon"></div>
+                    <img class="icon" src="../img/whiteArrow.png"/>
                 </div>
             </a>
-            
-<!--            <div id="exportLink">
-                <span>Εξαγωγή</span>
-                <?php  echo $this->Html->link('', array('action'=>'export'));?>
-                <div class="icon"></div>
-            </div>-->
             
             <div id="tableOuterWrapper">
                 <div id="filterContainer">
@@ -209,7 +203,7 @@
                         <input type="text" class="pagedisplay"/>
 <!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
 <!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
-                        <select class="pagesize" onchange="positionPagerButtons">
+                        <select style="visibility: hidden" class="pagesize" onchange="positionPagerButtons">
                                 <option selected="selected" value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="30">30</option>
