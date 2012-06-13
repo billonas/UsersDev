@@ -176,7 +176,10 @@ h2 {
 tr.report {
 }
 
-
+tr.report .icon {
+    max-height: 0.8em;
+    max-width: 0.8em;
+}
 
 /* Rules for highlighting based on report status */
 .report.rejected td {
