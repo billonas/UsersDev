@@ -219,7 +219,22 @@ class User extends AppModel
                 return false;
         }
         return substr(Security::hash(Configure::read('Security.salt') . 
-                      $this->field('email') . date('Ymd')), 0, 8);
+                      $this->field('email') . $this->field('created')), 0, 8);
+      }
+
+      function activateAccount()
+      {
+         $this->set('validated', 1); 
+
+         if($this->save())
+            return true;
+         else
+            return false;
+      }
+
+      function isActivated()
+      {
+         return $this->field('validated');
       }
 
       

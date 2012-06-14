@@ -18,7 +18,7 @@ A:HOVER { text-decoration: underline; color:#44E }
   left: 50%;
   margin-top:  0px;
   margin-left: -250px;">
-<p>O λογαριασμός σας δημιουργήθηκε επιτυχώς</br>
+<p>Έχει σταλεί email επιβεβαίωσης στη διεύθυνση ηλεκτρονικού ταχυδρομείου που εισαγάγατε.</br>
 <a href="<?php echo $url; ?>" style="color:#44E"><?php echo $message; ?></a></p></div>
 </body>
 </html>

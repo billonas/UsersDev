@@ -10,11 +10,20 @@ class AnalystsController extends AppController{
     public $helpers = array('Html', 'Form');
     //put your code here
     
-    function create_news() {
-        //put your code here
+    function create()
+    {
+       
     }
     
+    function update()
+    {
+      
+    }
   
+    function show()
+    {
+      
+    }
 }
 
 ?>

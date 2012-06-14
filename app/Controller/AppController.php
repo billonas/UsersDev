@@ -46,9 +46,12 @@ class AppController extends Controller {
  *		will return an array with the success of each file upload
  */
    var $layout='template';
+//   var $components = 'Security';
 
    function beforeFilter() 
    {
+
+//      $this->Security->validatePost = false;
 
    }
 	
