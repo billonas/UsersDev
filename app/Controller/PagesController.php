@@ -12,6 +12,23 @@ class PagesController extends AppController{
 	public $helpers = array('Html', 'Session','Js'); //To 'js' prepei na ginei 'Js' gia na douleuei
     
 	public $uses = array();
+        
+            function beforeFilter() 
+   {
+
+      if($this->Session->check('report')){
+            $this->Session->delete('report');
+        }
+        if($this->Session->check('report_completed')){
+            $this->Session->delete('report_completed');
+        }
+        if($this->Session->check('uploaded1')){
+            $this->Session->delete('uploaded1');
+        }
+        if($this->Session->check('uploaded2')){
+            $this->Session->delete('uploaded2');
+        }
+   }
 
 /**
  * Displays a view
@@ -26,6 +43,23 @@ class PagesController extends AppController{
    }
 	public function display() {
 		$path = func_get_args();
+
+
+        $temp_species = ClassRegistry::init('HotSpecie')->find('all');
+		$i=0;
+        foreach($temp_species as $item){
+					$hotspecies[$i]['scientific_name']=$item['HotSpecie']['scientific_name'];
+					$hotspecies[$i]['id']=$item['HotSpecie']['id'];
+					$i++;
+				}
+		$this->set('hotspecies',$hotspecies);
+		
+		
+		$coords=('0');
+		
+		//Load last 30 reports coords
+		$this->set('coords',$coords);		
+		
 
 		$count = count($path);
 		if (!$count) {

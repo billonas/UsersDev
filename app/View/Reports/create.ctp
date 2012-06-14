@@ -125,7 +125,7 @@ $(document).ready(function(){
         <div class="middle_wrapper">
             <div id="tabs">
                 <ul>
-                    <?php if(isset($uploaded1) || isset($uploaded2)){
+                    <?php if($this->Session->check('uploaded1') || $this->Session->check('uploaded2') || $this->Session->check('report_completed')){
                         echo '<li class="long_tab fragment"><a href="#1" class="fragment"><span>1. Βασικές Πληροφορίες</span></a></li>
                         <li class="long_tab fragment"><a href="#2" class="fragment"><span>2. Επιπλέον Πληροφορίες</span></a></li>
                         <li class="long_tab fragment"><a href="#3" class="fragment"><span>3. Στοιχεία Παρατηρητή</span></a></li>';
@@ -136,65 +136,70 @@ $(document).ready(function(){
                 </ul>
                 <div>
                 <?php
-                if(!isset($uploaded1) && !isset($uploaded2)){
+                if(!$this->Session->check('uploaded1') && !$this->Session->check('uploaded2') && !$this->Session->check('report_completed')){
                         echo '<div id="f1">';
                         echo '<div class="flash_box gradient">';
-                        echo $this->Session->flash().'</br>';
+                        echo '</br/>'.$this->Session->flash().'</br>';
                         echo '</div>';
                         echo $this->Form->create('Report', array('action' => 'create','div'=>false, "enctype" => "multipart/form-data"));
-						echo $this->Html->image('photo.png', array('alt' => 'Photo'));
-						echo $this->Html->image('video.png', array('alt' => 'Video'));
-						echo '</br>';
+			echo $this->Html->image('photo.png', array('alt' => 'Photo'));
+			echo $this->Html->image('video.png', array('alt' => 'Video'));
+			echo '</br>';
                         echo '<label for="ReportImage" class="std_form">Δώστε μία Φωτογραφία: </label>';
                         echo $this->Form->input('image',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
-                        echo '<label for="ReportImage" class="std_form">Δώστε ένα Βίντεο: </label>';
+                        echo 'ή &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="ReportImage" class="std_form">Δώστε ένα Βίντεο: </label>';
                         echo $this->Form->input('video_file',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
                         echo '<br />';
                         echo '<br />';
                         echo $this->Form->end(array(
-                        'label' => 'Ανέβασμα Φωτογραφίας ή Video',
+                        'label' => 'Ανέβασμα Φωτογραφίας ή/και Video',
                         'div' => false,
                         'class' => 'std_form big_button'));
                 }
                 else{
-                    echo '<div id="f1">';
-                    echo $this->Session->flash();
-		    echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));
-                    if(isset($photo)){
-                        echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
-                        echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
-                        echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
-                    }
-                    if(isset($video)){
-                        echo 'VIDEO';
-			echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
-                    }
-                    echo '<br/>';
-                    echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'class'=>'std_form'));
-                    echo '</br><label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';
-                    echo $this->Form->input('date',array('label'=>false,'div'=>false, 'class'=>'std_form blue shadow'));
-                    echo '</br></br><div id="mapCanvas"></div>';
-                    echo '<table>';
-                    echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
-                    echo '<br/>';
-                    echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
-                    echo '<td>'.$this->Form->input('lat',array('id'=>'info','label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));
-                    echo '</td></tr>';
-                    echo '<tr><td><label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label></td>';
-                    echo '<td>'.$this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
-                    echo '</td></tr></table>';
-                    //echo "<a href='#2' class='button_like_anchor'>Επόμενο βήμα &#187;</a>";
-                    echo '<big><span style="color:red;font-family:Arial,sans-serif;"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
-                    echo '</div>';
-                
-                    echo '<div id="f2">';
-                    echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
-								echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
-                                echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-								echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
-                                echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-								echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
-						echo '</table>';    
+                    if(!$this->Session->check('report')){
+                        echo '<div id="f1">';
+                        echo '<div class="flash_box gradient">';
+                        echo '</br/>'.$this->Session->flash().'</br>';
+                        echo '</div>';
+                        echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));
+                        if($this->Session->check('uploaded1')){
+                            $uploaded1 = $this->Session->read('uploaded1');
+                            echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
+                            echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
+                            echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
+                        }
+                        if($this->Session->check('uploaded2')){
+                            $uploaded2 = $this->Session->read('uploaded2');
+                            echo 'VIDEO';
+                            echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
+                        }
+                        echo '<br/>';
+                        echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'class'=>'std_form'));
+                        echo '</br><label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';
+                        echo $this->Form->input('date',array('label'=>false,'div'=>false, 'class'=>'std_form blue shadow', 'empty' => true,'minYear' => date('Y')-50, 'maxYear' => date('Y')));
+                        echo '</br></br><div id="mapCanvas"></div>';
+                        echo '<table>';
+                        echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
+                        echo '<br/>';
+                        echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
+                        echo '<td>'.$this->Form->input('lat',array('id'=>'info','label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));
+                        echo '</td></tr>';
+                        echo '<tr><td><label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label></td>';
+                        echo '<td>'.$this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
+                        echo '</td></tr></table>';
+                        //echo "<a href='#2' class='button_like_anchor'>Επόμενο βήμα &#187;</a>";
+                        echo '<big><span style="color:red;font-family:Arial,sans-serif;"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
+                        echo '</div>';
+
+                        echo '<div id="f2">';
+                        echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
+                                                                    echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
+                                    echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                                                                    echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
+                                    echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                                                                    echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
+                                                    echo '</table>';    
                         echo '<br/>';
                         $options = array();
                         $options['1'] = $this->Html->image('hotspecies/1.jpg');
@@ -214,73 +219,162 @@ $(document).ready(function(){
                         echo '<tr><td><label for="ReportComments" class="std_form">Επιπλέον Σχόλια </label></td>';
                         echo '<td>'.$this->Form->input('comments', array('type' => 'textarea','label' => false,'placeholder' =>'Περιγράψτε ότι σας έκανε εντύπωση','class'=>'std_form blue_shadow', 'div'=>false)).'</td></tr>';
                         echo '</table>';
-						//echo "<a href='#1' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
-						//echo "<a href='#3' class='next-tab mover'>Επόμενο βήμα &#187;</a>";
+                                                //echo "<a href='#1' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
+                                                //echo "<a href='#3' class='next-tab mover'>Επόμενο βήμα &#187;</a>";
                         echo '</div>';
-               
+
                         echo '<div id="f3">';
-						echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br>';
+                        echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br>';
                         echo '<table>';
-                        if($this->Session->check('UserUsername')){
-							echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-							echo '<td>'.$this->Form->input('age',array('label'=>false,'default'=>$this->Session->read('UserBirthDate'),'disabled'=>'true', 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
-							$options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
-							echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
-							echo '<td>'.$this->Form->input('education', array('options' => $options,'default'=>$this->Session->read('UserEducation'),'label'=>false,'disabled'=>'true', 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
-							$options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο');
-							echo '<tr><td><label for="ReportOccupation" class="std_form">Ιδιότητα </label></td>';
-							echo '<td>'.$this->Form->input('occupation', array('options' => $options,'default'=>$this->Session->read('UserMembership'),'label'=>false,'disabled'=>'true', 'class'=>'std_form')).'</td></tr>';
-							echo '<tr><td><label for="ReportName" class="std_form">Όνομα</label></td>';
-							echo '<td>'.$this->Form->input('name',array("label" => false,'value'=>$this->Session->read('UserName'),'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','disabled'=>'true', 'div'=>false)).'</td></tr>';
-							echo '<tr><td><label for="ReportSurname" class="std_form">Επώνυμο</label></td>';
-							echo '<td>'.$this->Form->input('surname',array("label" => false, 'value'=>$this->Session->read('UserSurname'),'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','disabled'=>'true', 'div'=>false)).'</td></tr>';
-							echo '<tr><td><label for="ReportPhone_number" class="std_form">Τηλέφωνο Επικοινωνίας </label></td>';
-							echo '<td>'.$this->Form->input('phone_number',array("label" => false,'value'=>$this->Session->read('UserPhoneNumber'),'placeholder' => 'Σταθερό ή Κινητό','class'=>'std_form blue_shadow','disabled'=>'true', 'div'=>false)).'</td></tr>';
-							echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
-							echo '<td>'.$this->Form->input('email',array("label"=>false,'value'=>$this->Session->read('UserUsername'),'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow','disabled'=>'true', 'div'=>false)).'</td></tr>';
-							echo $this->Form->input('observer',array('value'=>$userId,"type"=>'hidden', 'class'=>'std_form'));
-							echo "<a href='#2' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
-                        	//echo '</div>';
-							}
-							else{
-								echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-								echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
-								$options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
-								echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
-								echo '<td>'.$this->Form->input('education', array('options' => $options, 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
-								$options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο');
-								echo '<tr><td><label for="ReportOccupation" class="std_form">Ιδιότητα </label></td>';
-								echo '<td>'.$this->Form->input('occupation', array('options' => $options, 'default' => ' - ', 'label'=>false,'class'=>'std_form')).'</td></tr>';
-								echo '<tr><td><label for="ReportName" class="std_form">Όνομα</label></td>';
-								echo '<td>'.$this->Form->input('name',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
-								echo '<tr><td><label for="ReportSurname" class="std_form">Επώνυμο</label></td>';
-								echo '<td>'.$this->Form->input('surname',array("label" => false, 'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
-								echo '<tr><td><label for="ReportPhone_number" class="std_form">Τηλέφωνο Επικοινωνίας </label></td>';
-								echo '<td>'.$this->Form->input('phone_number',array("label" => false, 'placeholder' => 'Σταθερό ή Κινητό','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
-								echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
-								echo '<td>'.$this->Form->input('email',array("label"=>false, 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'div'=>false)).'</td></tr>';							    
-							}
+                    }
+                    else{
+                        $report = $this->Session->read('report');
+                        echo '<div id="f1">';
+                        echo '<div class="flash_box gradient">';
+                        echo '</br/>'.$this->Session->flash().'</br>';
+                        echo '</div>';
+                        echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));
+                        if($this->Session->check('uploaded1')){
+                            $uploaded1 = $this->Session->read('uploaded1');
+                            echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
+                            echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
+                            echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
+                        }
+                        if($this->Session->check('uploaded2')){
+                            $uploaded2 = $this->Session->read('uploaded2');
+                            echo 'VIDEO';
+                            echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
+                        }
+                        echo '<br/>';
+                        echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'class'=>'std_form'));
+                        echo '</br><label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';
+                        echo $this->Form->input('date',array('label'=>false,'div'=>false, 'class'=>'std_form blue shadow'));
+                        echo '</br></br><div id="mapCanvas"></div>';
+                        echo '<table>';
+                        echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
+                        echo '<br/>';
+                        echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
+                        echo '<td>'.$this->Form->input('lat',array('id'=>'info','value'=>$report['Report']['lat'],'label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));
+                        echo '</td></tr>';
+                        echo '<tr><td><label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label></td>';
+                        echo '<td>'.$this->Form->input('lng',array('div'=>false,'value'=>$report['Report']['lng'],'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
+                        echo '</td></tr></table>';
+                        //echo "<a href='#2' class='button_like_anchor'>Επόμενο βήμα &#187;</a>";
+                        echo '<big><span style="color:red;font-family:Arial,sans-serif;"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
+                        echo '</div>';
+
+                        echo '<div id="f2">';
+                        echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
+                                                                    echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
+                                    echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                                                                    echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
+                                    echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                                                                    echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
+                                                    echo '</table>';    
+                        echo '<br/>';
+                        $options = array();
+                        $options['1'] = $this->Html->image('hotspecies/1.jpg');
+                        $options['2'] = $this->Html->image('hotspecies/2.jpg');
+                        $options['3'] = $this->Html->image('hotspecies/3.jpg');
+                        echo $this->Form->input('hot_id', array('options' => $options,'value'=>$report['Report']['hot_id'],'type'=>'radio','legend'=> false,'class'=>'std_form'));
+                        echo '<br/><table>';
+                        echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
+                        echo '<td>'.$this->Form->input('habitat',array('label'=>false,'placeholder' => 'Περιγράψτε. Π.Χ. «Βράχια καλυμμένα με βλάστηση»','value'=>$report['Report']['habitat'],'div'=> false, 'class' => 'std_form blue_shadow')).'</td></tr>';
+                        echo '<tr><td><label for="ReportDepth" class="std_form">Βάθος</label></td>';
+                        echo '<td>'.$this->Form->input('depth',array('label'=>false,'value'=>$report['Report']['depth'],'placeholder'=>'Γράψτε μέτρα(m) ή περιγράψτε','class'=>'std_form blue_shadow', 'div'=>false)).'</td></tr>';
+                        echo '<tr><td><label for="ReportRe_observation" class="std_form">Έχετε ξαναδεί το συγκεκριμένο είδος στην περιοχή; </label></td>';
+                        echo '<td>'.$this->Form->input('re_observation',array('label' => false,'value'=>$report['Report']['re_observation'],'placeholder' =>'Αν ναι, περιγράψτε την εμπειρία...','class'=>'std_form blue_shadow', 'div'=>false)).'</td></tr>';
+                        $options = array('-'=>'-','few' => '1-5', 'some' => '6-10','many' => '10-30');
+                        echo '<tr><td><label for="ReportCrowd" class="std_form">Πλήθος Ατόμων Είδους </label></td>';
+                        echo '<td>'.$this->Form->input('crowd', array('options' => $options, 'default' => ' - ','label' => false,'value'=>$report['Report']['crowd'], 'class'=>'std_form blue_shadow', 'div'=> false)).'</td></tr>';
+                        echo '<tr><td><label for="ReportComments" class="std_form">Επιπλέον Σχόλια </label></td>';
+                        echo '<td>'.$this->Form->input('comments', array('type' => 'textarea','label' => false,'value'=>$report['Report']['comments'],'placeholder' =>'Περιγράψτε ότι σας έκανε εντύπωση','class'=>'std_form blue_shadow', 'div'=>false)).'</td></tr>';
+                        echo '</table>';
+                                                //echo "<a href='#1' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
+                                                //echo "<a href='#3' class='next-tab mover'>Επόμενο βήμα &#187;</a>";
+                        echo '</div>';
+
+                        echo '<div id="f3">';
+                        echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br>';
+                        echo '<table>';
+                    }
+                    if($this->Session->check('UserUsername')){
+                        echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
+                        echo '<td>'.$this->Form->input('age',array('label'=>false,'default'=>$this->Session->read('UserBirthDate'),'disabled'=>'true', 'class'=>'std_form blue shadow', 'div'=>false,'empty' => true,'minYear' => date('Y')-100, 'maxYear' => date('Y'))).'</td></tr>';
+                        $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
+                        echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
+                        echo '<td>'.$this->Form->input('education', array('options' => $options,'default'=>$this->Session->read('UserEducation'),'label'=>false,'disabled'=>'true', 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                        $options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο');
+                        echo '<tr><td><label for="ReportOccupation" class="std_form">Ιδιότητα </label></td>';
+                        echo '<td>'.$this->Form->input('occupation', array('options' => $options,'default'=>$this->Session->read('UserMembership'),'label'=>false,'disabled'=>'true', 'class'=>'std_form')).'</td></tr>';
+                        echo '<tr><td><label for="ReportName" class="std_form">Όνομα</label></td>';
+                        echo '<td>'.$this->Form->input('name',array("label" => false,'value'=>$this->Session->read('UserName'),'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','disabled'=>'true', 'div'=>false)).'</td></tr>';
+                        echo '<tr><td><label for="ReportSurname" class="std_form">Επώνυμο</label></td>';
+                        echo '<td>'.$this->Form->input('surname',array("label" => false, 'value'=>$this->Session->read('UserSurname'),'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','disabled'=>'true', 'div'=>false)).'</td></tr>';
+                        echo '<tr><td><label for="ReportPhone_number" class="std_form">Τηλέφωνο Επικοινωνίας </label></td>';
+                        echo '<td>'.$this->Form->input('phone_number',array("label" => false,'value'=>$this->Session->read('UserPhoneNumber'),'placeholder' => 'Σταθερό ή Κινητό','class'=>'std_form blue_shadow','disabled'=>'true', 'div'=>false)).'</td></tr>';
+                        echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
+                        echo '<td>'.$this->Form->input('email',array("label"=>false,'value'=>$this->Session->read('UserUsername'),'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow','disabled'=>'true', 'div'=>false)).'</td></tr>';
+                        echo $this->Form->input('observer',array('value'=>$userId,"type"=>'hidden', 'class'=>'std_form'));
+                        echo "<a href='#2' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
+                        //echo '</div>';
+                    }
+                    else{
+                        if($this->Session->check('report')){
+                            echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
+                            echo '<td>'.$this->Form->input('age',array('label'=>false,'value'=>$report['Report']['age'], 'class'=>'std_form blue shadow', 'div'=>false,'empty' => true,'minYear' => date('Y')-100, 'maxYear' => date('Y'))).'</td></tr>';
+                            $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
+                            echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
+                            echo '<td>'.$this->Form->input('education', array('options' => $options,'value'=>$report['Report']['education'], 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                            $options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο');
+                            echo '<tr><td><label for="ReportOccupation" class="std_form">Ιδιότητα </label></td>';
+                            echo '<td>'.$this->Form->input('occupation', array('options' => $options,'value'=>$report['Report']['occupation'], 'default' => ' - ', 'label'=>false,'class'=>'std_form')).'</td></tr>';
+                            echo '<tr><td><label for="ReportName" class="std_form">Όνομα</label></td>';
+                            echo '<td>'.$this->Form->input('name',array("label" => false,'value'=>$report['Report']['name'],'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
+                            echo '<tr><td><label for="ReportSurname" class="std_form">Επώνυμο</label></td>';
+                            echo '<td>'.$this->Form->input('surname',array("label" => false, 'value'=>$report['Report']['surname'],'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
+                            echo '<tr><td><label for="ReportPhone_number" class="std_form">Τηλέφωνο Επικοινωνίας </label></td>';
+                            echo '<td>'.$this->Form->input('phone_number',array("label" => false,'value'=>$report['Report']['phone_number'], 'placeholder' => 'Σταθερό ή Κινητό','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
+                            echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
+                            echo '<td>'.$this->Form->input('email',array("label"=>false,'value'=>$report['Report']['email'], 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'div'=>false)).'</td></tr>';							    
+                        }
+                        else{
+                            echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
+                            echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false,'empty' => true,'minYear' => date('Y')-100, 'maxYear' => date('Y'))).'</td></tr>';
+                            $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
+                            echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
+                            echo '<td>'.$this->Form->input('education', array('options' => $options, 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                            $options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο');
+                            echo '<tr><td><label for="ReportOccupation" class="std_form">Ιδιότητα </label></td>';
+                            echo '<td>'.$this->Form->input('occupation', array('options' => $options, 'default' => ' - ', 'label'=>false,'class'=>'std_form')).'</td></tr>';
+                            echo '<tr><td><label for="ReportName" class="std_form">Όνομα</label></td>';
+                            echo '<td>'.$this->Form->input('name',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
+                            echo '<tr><td><label for="ReportSurname" class="std_form">Επώνυμο</label></td>';
+                            echo '<td>'.$this->Form->input('surname',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
+                            echo '<tr><td><label for="ReportPhone_number" class="std_form">Τηλέφωνο Επικοινωνίας </label></td>';
+                            echo '<td>'.$this->Form->input('phone_number',array("label" => false, 'placeholder' => 'Σταθερό ή Κινητό','class'=>'std_form blue_shadow','div'=>false)).'</td></tr>';
+                            echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
+                            echo '<td>'.$this->Form->input('email',array("label"=>false, 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'div'=>false)).'</td></tr>';							    
+                        }
+                    }
                     $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');
                     echo $this->Form->input('category_id', array('value'=>null,'label'=>'Κατηγορία Είδους','type'=>'hidden', 'class'=>'std_form'));
                     echo $this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>'Κατάσταση Αναφοράς ','type'=>'hidden', 'class'=>'std_form'));
                     echo '<br/>';
                     echo '</table></div>';
-                    echo '<a href="#" class="fragment button_like_anchor left_arrow white_arrow"><img src="';
-                    echo $this->webroot;
-                    echo '/img/arrows/white_arrow_left_small3.png"/>Προηγούμενο Βήμα</a>';
+                    echo '<a href="#" class="fragment button_like_anchor left_arrow white_arrow"><img src="'.$this->webroot.'/img/arrows/white_arrow_left_small3.png"/>Προηγούμενο Βήμα</a>';
                     echo $this->Form->end(array(
                     'label' => 'Κατάθεση Αναφοράς',
                     'div' => false,
                     'class' => 'std_form'));
-                    echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Επόμενο Βήμα<img src="';
-                    echo $this->webroot;
-                    echo '/img/arrows/white_arrow_right_small3.png"/></a>';
+                    echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Επόμενο Βήμα<img src="'.$this->webroot.'/img/arrows/white_arrow_right_small3.png"/></a>';
 		   }
                     ?>
                 </div>
             </div>
         </div>
     </div>
+    <?php echo $this->Html->link('Νέα αναφορά', array('controller' => 'reports', 'action'=>'createnew'), array('class' => 'button_like_anchor'));?>
     <div class="comments">
         <div><br />Powered by <a href="http://cakephp.org/">Cake.php</a>, <a href="http://jquery.com/">jQuery</a> and <a href="http://modernizr.com/">Modernizr</a>.</div>
     </div>

@@ -12,7 +12,7 @@
    <script>
  
 	$(function() {
-		var availableTags = <?php echo json_encode($response); ?>;
+		var availableTags = <?php echo json_encode($species); ?>;
 		
 		$( "#autoComplete" ).autocomplete({
 			source: availableTags

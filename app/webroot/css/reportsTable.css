@@ -6,7 +6,7 @@
 
 #filterContainer form table {
     margin-left: 10px;
-    min-width: 50%;
+    min-width: 75%;
 }
 
 #filterContainer form input,
@@ -22,7 +22,9 @@
 }
 
 #filterContainer form input[type="submit"]{
-    background: #008FF9;
+/*    background: #008FF9;*/
+    background: #008FF9 url('../img/whiteSpyglass.png') no-repeat top left;
+    padding-left: 16px;
     color: white;
 }
 #filterContainer form input[type="submit"]:hover{
@@ -34,7 +36,7 @@
 table.tablesorter {
 	font-family:arial;
 /*	background-color: #CDCDCD;*/
-	margin:10px 0pt 15px;
+	margin:10px 0pt 0px;
 	font-size: 8pt;
 	width: 100%;
 	text-align: left;
@@ -98,15 +100,20 @@ div.tablesorterPager input {
 
 #tableOuterWrapper {
     background: #dcdcdc;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 5px 10px 5px;
     border-radius: 5px 5px 5px 5px;
 }
 
 
 #pager {
+    padding-top: 0.5em;
+    padding-bottom: 1em;
     margin-left: 10%;
     margin-right: 10%;
-    margin-bottom: 40px;
+}
+#pager .pagedisplay {
+    margin-top: 0px;
+    background-color: inherit;
 }
 
 .pagerButton {
@@ -127,7 +134,36 @@ h2 {
 
 #exportLink {
     float: right;
-    margin-right: 5px;
+    background-color: #dcdcdc;
+    border-radius: 0px 5px;
+    border: solid #F0F0F0;
+    border-width: 0px 0px 2px 2px;
+    color: inherit;
+    text-decoration: none;
+}
+#exportLink:hover {
+    background: #007FE9;
+    color: white;
+}
+#exportLink .inner {
+    border: 1px solid #dcdcdc;
+    border-radius: 0px 4px;
+    margin: 0px;
+    padding: 2px 5px 2px 5px;
+}
+#exportLink:hover .inner {
+    border-color: silver;
+}
+#exportLink .icon {
+    height: 10px;
+    width: 10px;
+/*    background-image: url("../img/whiteArrow.png");*/
+/*    float: right;*/
+    margin: 0px 1px 0px 0.5em;
+}
+#exportLink a {
+    text-decoration: inherit;
+    color: inherit;
 }
 
 .tableImage {
@@ -142,7 +178,18 @@ h2 {
 tr.report {
 }
 
+tr.report .icon {
+    height: 0.8em;
+    width: 0.8em;
+    max-height: 20px;
+    max-width: 20px;
+}
 
+tr.report .buttonContainer {
+    float:right;
+    margin-right: 5%;
+    margin-top: 10px;
+}
 
 /* Rules for highlighting based on report status */
 .report.rejected td {
@@ -154,6 +201,7 @@ tr.report {
 .report.pending td {
     background-color: white;
 }
+/*  */
 
 .report td {
     height: 110px;
@@ -183,6 +231,14 @@ tr.report {
 /*    box-shadow: 0px 0px 8px lightblue;
     -moz-box-shadow: 0px 0px 8px lightblue;
     -webkit-box-shadow: 0px 0px 8px lightblue;*/
+}
+
+.report.noReportFiller {
+    height: 110px;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 5px;
+    padding-top: 35px;
 }
 
 

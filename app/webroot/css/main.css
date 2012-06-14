@@ -1249,115 +1249,141 @@ telos kodika selidas report
 										body{font-size: 8px;}
 										}
 @media screen and (max-width:715px) {   /*.middle_row:after{content:'group27'}*/
-										body{font-size: 14px;}
-										.upper_row{
-											height: auto;
-										}
-										.upper_row a {
-											padding-left: 35%;
-											padding-right: 35%;
-											margin-right: 5%;
-											margin-left: 5%;
-											border-bottom: 4px dotted #fff;
-											float: none;
-										}
-										.upper_row a img{width: 20%;}
-										.upper_row ul{
-											float: none;
-											height: auto;
-											margin-right: 0;
-										}
-										.upper_row ul li{
-											margin: 0;
-											float: none;
-											font-size: 14px;
-											width: 100%;
-											border:0;
-											border-bottom: 1px dashed rgb(58,58,58);
-											box-shadow: none;
-											height: auto;
-										}
-										.upper_row ul li:last-child{
-											box-shadow: none;
-											border-left: 0;
-										}
-										.upper_row ul li.active{
-											background-color: transparent;
-										}
-										.upper_row ul li a{
-											color: #fff;
-											width: 100%;
-										}
-										.upper_row ul li div{
-											width: 100%;
-											display: block;
-											position: static;
-										}
-										.upper_row ul li div div {
-											border-top: 1px dashed #fff;
-											box-shadow: none;
-											position: static;
-											border-radius: 0px;
-											margin-top: 5px;
-											width: 100%;
-										}
-										.upper_row ul li div div h1{width: 100%;}
-										.upper_row ul li div div input[type="text"],
-										.upper_row ul li div div input[type="password"]{
-											width: 100%;
-										}
-										.upper_row ul li div div input[type="submit"]{margin: 0 0 auto auto;}
-										.upper_row ul li div div label[data-icon]:after{
-											top: 1.5em;
-											left: .8em;
-										}
-										.middle_picture{display:none;}
-										.middle_row{
-											padding: 0;
-											margin:0;
-											min-heigth: 2em;
-											box-shadow: 0px 1px 1px 0px #777;
-										}
-										.middle_wrapper{
-											width: 100%;
-											margin:0;
-											border-radius: 0;
-											height: 100%;
-											position: static;
-										}
-										.lower_row{
-											overflow: visible;
-										}
-										.lower_row a{
-											padding-bottom: 10px;
-											padding-top: 10px;
-										}
-										.lower_row a:first-child,
-										.lower_row a:nth-child(2),
-										.lower_row a:last-child{
-											float: none;
-											width: 100%;
-											margin: 0;
-											padding-bottom: 10px;
-											overflow: visible;
-											text-align: center;
-											border-top: 2px dotted rgb(0,0,0);
-											border-bottom: 2px dotted rgb(0,0,0);
-											/*border-bottom: 2px dotted rgb(0,0,0);*/
-										}
-										.lower_row a h2{
-											margin-top: 1em;
-										}
-										.lower_row a p{
-											margin:0;
-										}
-										.comments div{
-											width: 100%;
-											margin: 0;
-											margin-bottom: 1em;
-										}
-										.login_box input[type="text"],
-										.login_box input[type="password"]{width: 30em;}
-										.login_box span{padding-left: 13.5em;}
-										.register_box td{width: 50%;}
-									}
+        body{font-size: 14px;}
+        .upper_row{
+                height: auto;
+        }
+        .upper_row a {
+                padding-left: 35%;
+                padding-right: 35%;
+                margin-right: 5%;
+                margin-left: 5%;
+                border-bottom: 4px dotted #fff;
+                float: none;
+        }
+        .upper_row a img{width: 20%;}
+        .upper_row ul{
+                float: none;
+                height: auto;
+                margin-right: 0;
+        }
+        .upper_row ul li{
+                margin: 0;
+                float: none;
+                font-size: 14px;
+                width: 100%;
+                border:0;
+                border-bottom: 1px dashed rgb(58,58,58);
+                box-shadow: none;
+                height: auto;
+        }
+        .upper_row ul li:last-child{
+                box-shadow: none;
+                border-left: 0;
+        }
+        .upper_row ul li.active{
+                background-color: transparent;
+        }
+        .upper_row ul li a{
+                color: #fff;
+                width: 100%;
+        }
+        .upper_row ul li div{
+                width: 100%;
+                display: block;
+                position: static;
+        }
+        .upper_row ul li div div {
+                border-top: 1px dashed #fff;
+                box-shadow: none;
+                position: static;
+                border-radius: 0px;
+                margin-top: 5px;
+                width: 100%;
+        }
+        .upper_row ul li div div h1{width: 100%;}
+        .upper_row ul li div div input[type="text"],
+        .upper_row ul li div div input[type="password"]{
+                width: 100%;
+        }
+        .upper_row ul li div div input[type="submit"]{margin: 0 0 auto auto;}
+        .upper_row ul li div div label[data-icon]:after{
+                top: 1.5em;
+                left: .8em;
+        }
+        .middle_picture{display:none;}
+        .middle_row{
+                padding: 0;
+                margin:0;
+                min-height: 2em;
+        }
+        .middle_wrapper{
+                width: 100%;
+                margin:0;
+                border-radius: 0;
+                height: auto;
+                position: static;
+        }
+        .lower_row{
+                overflow: visible;
+        }
+        .lower_row a{
+                padding-bottom: 10px;
+                padding-top: 10px;
+        }
+        .lower_row a:first-child,
+        .lower_row a:nth-child(2),
+        .lower_row a:last-child{
+                float: none;
+                width: 100%;
+                margin: 0;
+                padding-bottom: 10px;
+                overflow: visible;
+                text-align: center;
+                border-top: 2px dotted rgb(0,0,0);
+                border-bottom: 2px dotted rgb(0,0,0);											
+        }
+        .lower_row a h2{
+                margin-top: 1em;
+        }
+        .lower_row a p{
+                margin:0;
+        }
+        .comments div{
+                width: 100%;
+                margin: 0;
+                margin-bottom: 1em;
+        }
+        .login_box input[type="text"],
+        .login_box input[type="password"]{width: 30em;}
+        .login_box span{padding-left: 13.5em;}
+        .register_box td{width: 50%;}
+        /*********************************************************************
+        kodikas gia arxiki selida
+        *********************************************************************/
+        .middle_row .index_tile{
+            width: 100%;
+            padding: 0;
+            padding-left: 5%;
+            padding-right: 5%;
+            background-color: rgb(250,250,250);
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+            border-top: 2px solid rgb(218, 221, 224);    
+            border-bottom: 2px solid rgb(218, 221, 224);    
+            float: none;
+            border-radius: 0;
+            clear: none;
+        }
+        .index_tile:nth-child(1){
+            padding-top: 1em;
+        }
+        .index_tile:nth-child(2),
+        .index_tile:nth-child(5){
+            display:none;
+        }
+        /*********************************************************************
+        telos kodika gia arxiki selida
+        *********************************************************************/
+}
