@@ -34,6 +34,10 @@
     background: #007FE9;
 }
 
+#filterContainer form label:hover {
+    text-decoration: underline;
+}
+
 
 /* Tables */
 table.tablesorter {
@@ -50,6 +54,7 @@ table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 /*	border: 1px solid #FFF;*/
 	font-size: 8pt;
 	padding: 4px;
+        padding-right: 16px;
 }
 table.tablesorter thead tr .header {
         background-image: url(../img/tablesorter-bg.gif);

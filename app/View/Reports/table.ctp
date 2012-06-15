@@ -91,18 +91,44 @@
 <!--                                    <input type="submit" value="Αναζήτηση"/>-->
                                 </td>
                             </tr>
+                        </table>
+                        <table>
                             <tr>
                                 <td>
-                                    <input type="checkbox" id="searchConfirmed" value="confirmed" name="state1" checked/>
-                                    <label for="searchConfirmed">Επιβεβαιωμένες</label>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="searchConfirmed" value="confirmed" name="state1" checked/>
+                                            </td>
+                                            <td>
+                                                <label for="searchConfirmed">Επιβεβαιωμένες</label>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="searchRejected"  value="unreliable"  name="state2" checked/>
-                                    <label for="searchRejected">Απορριφθείσες</label>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="searchRejected"  value="unreliable"  name="state2" checked/>
+                                            </td>
+                                            <td>
+                                                <label for="searchRejected">Απορριφθείσες</label>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="searchUnknown"   value="unknown"   name="state3" checked/>
-                                    <label for="searchUnknown">Εκκρεμούσες</label>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="searchUnknown"   value="unknown"   name="state3" checked/>
+                                            </td>
+                                            <td>
+                                                <label for="searchUnknown">Εκκρεμούσες</label>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
     <!--                            <td>
                                     <?php echo $this->Form->end(array(
@@ -180,12 +206,25 @@
                                 </td>-->
                                 <td>
                                     <?php
-                                        if ( isset($report['Last_edited_by']) )
-                                            echo $report['Report']['modified'];
-                                            echo ', ';
-                                            echo $report['Last_edited_by']['name'];
-                                            echo ' ';
-                                            echo $report['Last_edited_by']['surname'];
+                                        if ( !isset($report['Last_edited_by']) )
+                                        {
+                                            echo '-';
+                                        }
+                                        else
+                                        {
+                                            if ($report['Report']['modified'] === $report['Report']['created'])
+                                            {
+                                                echo '-';
+                                            }
+                                            else
+                                            {
+                                                echo $report['Report']['modified'];
+                                                echo ', ';
+                                                echo $report['Last_edited_by']['name'];
+                                                echo ' ';
+                                                echo $report['Last_edited_by']['surname'];
+                                            }
+                                        }
                                     ?>
                                 </td>
                                 <td class="rightmost">
