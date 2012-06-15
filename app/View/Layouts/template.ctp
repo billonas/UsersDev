@@ -63,7 +63,7 @@
 											else if(!strcmp($this->Session->read('UserType'),'yperanalyst')) {//superanalyst
 												echo $this->Html->link('Πίνακας υπεραναλυτή',
                                                                                                         array('controller' => 'users',
-                                                                                                            'action'=>false,
+                                                                                                            'action'=>'edit_users',
                                                                                                             '?'=>array('userType1'=>'analyst', 'userType2'=>'simple', 'userType3'=>'yperanalyst')
                                                                                                         )
                                                                                                 );
