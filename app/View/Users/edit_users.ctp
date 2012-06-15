@@ -74,22 +74,21 @@
                                     <input type="submit" value="Αναζήτηση"/>
                                 </td>
                             </tr>
+                        </table>
+                        <table>
                             <tr>
                                 <td>
-                                    <input type="checkbox" id="searchConfirmed" value="analyst" name="userType1" checked/>
-                                    <label for="searchConfirmed">Αναλυτές</label>
+                                    <input id="searchAnalyst" type="checkbox" value="analyst" name="userType1" checked/>
+                                    <label for="searchAnalyst">Αναλυτές</label>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="searchRejected"  value="simple"  name="userType2" checked/>
-                                    <label for="searchRejected">Απλοί Χρήστες</label>
+                                    <input id="searchSimple" type="checkbox" value="simple"  name="userType2" checked/>
+                                    <label for="searchSimple">Απλοί Χρήστες</label>
                                 </td>
-    <!--                            <td>
-                                    <?php echo $this->Form->end(array(
-                                                        'label' => 'Αναζήτηση',
-                                                        'div' => false,
-                                                        'class' => 'std_form'));
-                                    ?>
-                                </td>-->
+                                <td>
+                                    <input id="searchHyperanalyst" type="checkbox" value="hyperanalyst"  name="userType3" checked/>
+                                    <label for="searchHyperanalyst">Απλοί Χρήστες</label>
+                                </td>
                             </tr>
                         </table>
                     <?php echo $this->Form->end(); ?>

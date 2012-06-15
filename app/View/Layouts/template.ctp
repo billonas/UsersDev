@@ -64,7 +64,7 @@
 												echo $this->Html->link('Πίνακας υπεραναλυτή',
                                                                                                         array('controller' => 'users',
                                                                                                             'action'=>'edit_users',
-                                                                                                            '?'=>array('userType1'=>'analyst', 'userType2'=>'simple', 'userType3'=>'yperanalyst')
+                                                                                                            '?'=>array('userType1'=>'analyst', 'userType2'=>'simple', 'userType3'=>'hyperanalyst')
                                                                                                         )
                                                                                                 );
 												echo '</br></br>';
