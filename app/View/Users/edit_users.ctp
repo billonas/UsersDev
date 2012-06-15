@@ -3,7 +3,7 @@
  * @author darkmatter 
  */
 ?>
-<?php echo $this->Html->css(array('main', 'jquery-ui', 'reportsTable', 'jquery.tablesorter.pager.css')); ?>
+<?php echo $this->Html->css(array('main', 'jquery-ui', 'table', 'jquery.tablesorter.pager.css')); ?>
 <?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js')); ?>
 <?php
     //echo '<script type="text/javascript" src="'.$this->GoogleMapV3->apiUrl().'"></script>';

@@ -60,7 +60,7 @@
 												echo '</br></br>';
 												echo $this->Html->link('Αποσύνδεση', array('controller' => 'users', 'action'=>'logout'));
 											}
-											else if(!strcmp($this->Session->read('UserType'),'yperanalyst')) {//superanalyst
+											else if(!strcmp($this->Session->read('UserType'),'hyperanalyst')) {//superanalyst
 												echo $this->Html->link('Πίνακας υπεραναλυτή',
                                                                                                         array('controller' => 'users',
                                                                                                             'action'=>'edit_users',
