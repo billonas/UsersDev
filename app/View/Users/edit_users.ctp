@@ -151,7 +151,7 @@
                                 </td>
                                 <td class="rightmost">
                                     <div class="buttonContainer">
-                                        <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'edit', $user['User']['id'])) ?>">
+                                        <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'show', $user['User']['id'])) ?>">
                                             Επεξεργασία
                                         </a>
                                         <br/>

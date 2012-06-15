@@ -354,7 +354,7 @@ class UsersController extends AppController
     function edit_users()
     {
       if((!$this->Session->check('UserUsername')) || 
-                   (strcmp($this->Session->read('UserType'), 'yperanalyst')))
+                   (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
       {
          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
       }
@@ -364,6 +364,7 @@ class UsersController extends AppController
                     ||(!empty($this->params['url']['userType2']))) 
             {
                 $userType = array();
+                $text = array();
                 if(!empty($this->params['url']['userType1']))
                 {
                   array_push($userType, $this->params['url']['userType1']);
@@ -373,29 +374,58 @@ class UsersController extends AppController
                 {
                   array_push($userType, $this->params['url']['userType2']);
                 }
+
+                if(!empty($this->params['url']['userType3']))
+                {
+                  array_push($userType, $this->params['url']['userType3']);
+                }
                 $conditions = array(
                         'User.user_type' => $userType
                 );
+
+                if(!empty($this->params['url']['text']))
+                {
+                  array_push($text, $this->params['url']['text']);
+                  $conditions = array(
+                        'User.name' => $text,
+                        'User.surname' => $text,
+                        'User.user_type' => $userType
+                  );
+                }
+
                 $users = $this->User->find("all", array('conditions'=> $conditions));
                 $this->set('users',$users);
-               
-               
             }
       }
       
     }
 
 
-    function show()
+    function show($id = null)
     {
       if((!$this->Session->check('UserUsername')) || 
-                   (strcmp($this->Session->read('UserType'), 'yperanalyst')))
+                   (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
       {
          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
       }
-      
-      
-      
+      if($id==null){
+          $this->Session->setFlash('Δεν βρέθηκε η αναφορά που ζητήσατε');
+          $this->redirect();
+      }
+      else
+      {
+         $user =$this->User->findById($id); 
+         if($user == null)
+         {
+          $this->Session->setFlash('Δεν βρέθηκε η αναφορά που ζητήσατε');
+          $this->redirect();
+         
+         }
+         else
+         {
+          $this->set('user', $user);
+         }
+      }
     }
 
 /////////////////////////Core UsersController Methods(end)//////////////////////
