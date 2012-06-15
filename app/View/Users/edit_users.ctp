@@ -78,16 +78,16 @@
                         <table>
                             <tr>
                                 <td>
-                                    <input type="checkbox" id="searchAnalyst" value="analyst" name="userType1" checked/>
-                                    <label for="searchConfirmed">Αναλυτές</label>
+                                    <input id="searchAnalyst" type="checkbox" value="analyst" name="userType1" checked/>
+                                    <label for="searchAnalyst">Αναλυτές</label>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="searchSimple"  value="simple"  name="userType2" checked/>
-                                    <label for="searchRejected">Απλοί Χρήστες</label>
+                                    <input id="searchSimple" type="checkbox" value="simple"  name="userType2" checked/>
+                                    <label for="searchSimple">Απλοί Χρήστες</label>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="searchHyperanalyst"  value="hyperanalyst"  name="userType3" checked/>
-                                    <label for="searchRejected">Απλοί Χρήστες</label>
+                                    <input id="searchHyperanalyst" type="checkbox" value="hyperanalyst"  name="userType3" checked/>
+                                    <label for="searchHyperanalyst">Απλοί Χρήστες</label>
                                 </td>
                             </tr>
                         </table>
