@@ -60,8 +60,7 @@
 									</div>';
                                 echo '<div class="flash_box gradient">';
                                 echo '</br/>'.$this->Session->flash().'</br>';
-                                echo '</div>';
-								
+                                echo '</div>';		
                                 echo $this->Form->create('Report', array('action' => 'summary',"enctype" => "multipart/form-data"));     
                                 if($this->Session->check('uploaded1')){
                                     $uploaded1 = $this->Session->read('uploaded1');
@@ -73,6 +72,8 @@
                                     echo 'VIDEO';
                                     echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                                 }
+ 				echo $this->Form->input('additional_photo1',array('type'=>'hidden','value'=>$report['Report']['additional_photo1'], 'class'=>'std_form'));
+                                echo  $this->Form->input('additional_photo2',array('type'=>'hidden','value'=>$report['Report']['additional_photo2'], 'class'=>'std_form'));
                                 echo $this->Form->input('summary',array("type"=>'hidden', 'class'=>'std_form'));
                                 echo '<br/>';
                                 echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ",'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));

@@ -90,6 +90,32 @@ class ReportsController extends AppController{
                 if(!empty($this->data['Report']['x1'])){
                     $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
                 }
+		$res = $this->Image->checkImage($this->data['Report']['image2']);
+                    if($res < 0){
+                        $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
+                        $this->redirect('create');
+                    }
+                    else if(!$res){
+                            $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
+                            $this->redirect('create');
+                    }
+                    //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
+                    $this->request->data['Report']['image2']['name'] = $this->Image->tmpRename($this->request->data['Report']['image2']);
+                    $uploaded3 = $this->JqImgcrop->uploadImage($this->data['Report']['image2'], '/img/temporary/', '');
+                $res = $this->Image->checkImage($this->data['Report']['image3']);
+                    if($res < 0){
+                        $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
+                        $this->redirect('create');
+                    }
+                    else if(!$res){
+                            $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
+                            $this->redirect('create');
+                    }
+                    //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
+                    $this->request->data['Report']['image3']['name'] = $this->Image->tmpRename($this->request->data['Report']['image3']);
+                    $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image3'], '/img/temporary/', '');
+                    $this->request->data['Report']['additional_photo2'] = $uploaded4['imagePath'];
+		    $this->request->data['Report']['additional_photo1'] = $uploaded3['imagePath'];
                 $this->Session->write('report',$this->data);
                 $this->Session->write('report_completed',1);
                 $this->Report->set($this->data);
@@ -132,8 +158,24 @@ class ReportsController extends AppController{
                     $this->redirect('create');
                     }
                 }
+                if(!empty($this->data['Report']['additional_photo1'])){$additional_photo1 = $this->data['Report']['additional_photo1'];
+                    $this->request->data['Report']['additional_photo1'] = "../webroot$additional_photo1";
+                    $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo1'], "reports", "additional_photo1", "a");
+                    if(!$ret){
+                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->redirect('create');
+                    }
+                }
+		if(!empty($this->data['Report']['additional_photo2'])){$additional_photo2 = $this->data['Report']['additional_photo2'];
+                    $this->request->data['Report']['additional_photo2'] = "../webroot$additional_photo2";
+                    $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo2'], "reports", "additional_photo2", "b");
+                    if(!$ret){
+                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->redirect('create');
+                    }
+                }
                 //UPLOAD EXTRA IMAGES
-                if(!empty($this->data['Report']['image2']['tmp_name'])){
+                /*if(!empty($this->data['Report']['image2']['tmp_name'])){
                     $res = $this->Image->checkImage($this->data['Report']['image2']);
                     if($res < 0){
                         //$this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
@@ -168,7 +210,7 @@ class ReportsController extends AppController{
                                 $this->redirect('create');
                             }
                     }
-                }
+                }*/
                 if($this->Session->check('report')){
                     $this->Session->delete('report');
                 }
