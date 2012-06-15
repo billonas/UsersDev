@@ -194,12 +194,12 @@ $(document).ready(function(){
 
                         echo '<div id="f2">';
                         echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
-                                                                    echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
-                                    echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                                                                    echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
-                                    echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                                                                    echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
-                                                    echo '</table>';    
+                        echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
+                        echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
+                        echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
+                        echo '</table>';    
                         echo '<br/>';
                         $options = array();
                         $options['1'] = $this->Html->image('hotspecies/1.jpg');

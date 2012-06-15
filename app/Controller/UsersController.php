@@ -35,6 +35,12 @@ class UsersController extends AppController
         if($this->Session->check('uploaded2')){
             $this->Session->delete('uploaded2');
         }
+        if($this->Session->check('uploaded3')){
+            $this->Session->delete('uploaded3');
+          }
+          if($this->Session->check('uploaded4')){
+            $this->Session->delete('uploaded4');
+          }
    }
 
 /////////////////////////Parent Methods(end)////////////////////////////////////
