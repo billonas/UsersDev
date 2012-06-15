@@ -13,7 +13,7 @@ class PagesController extends AppController{
     
 	public $uses = array();
         
-            function beforeFilter() 
+   function beforeFilter() 
    {
 
       if($this->Session->check('report')){
@@ -36,11 +36,6 @@ class PagesController extends AppController{
  * @param mixed What page to display
  * @return void
  */
-   function beforeFilter() 
-   {
-     parent::beforeFilter(); 
-
-   }
 	public function display() {
 		$path = func_get_args();
 

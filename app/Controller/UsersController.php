@@ -8,7 +8,7 @@
 class UsersController extends AppController
 {
     var $name = 'Users';
-    var $components = array('Security','Email', 'Recaptcha.Recaptcha');//, 'Captcha');
+    var $components = array('Email', 'Recaptcha.Recaptcha');//, 'Captcha');
     public $helpers = array('Html', 'Form', 'Session', 'Recaptcha.Recaptcha');
 	
 
@@ -19,7 +19,8 @@ class UsersController extends AppController
    //συγκεκριμένου controller.
       parent::beforeFilter();
       $this->Email->delivery = 'debug'; /* used to debug email message */
-      $this->Security->validatePost = false;
+//      $this->Security->validatePost = false;
+//      $this->Security->csrfCheck = false;
       
       
       if($this->Session->check('report')){
@@ -359,11 +360,41 @@ class UsersController extends AppController
       }
       else
       {
-         $users = $this->User->find('all'); 
-         $this->set('users', $users);
-         
+            if ((!empty($this->params['url']['text']))||(!empty($this->params['url']['userType1']))
+                    ||(!empty($this->params['url']['userType2']))) 
+            {
+                $userType = array();
+                if(!empty($this->params['url']['userType1']))
+                {
+                  array_push($userType, $this->params['url']['userType1']);
+                }
 
+                if(!empty($this->params['url']['userType2']))
+                {
+                  array_push($userType, $this->params['url']['userType2']);
+                }
+                $conditions = array(
+                        'User.user_type' => $userType
+                );
+                $users = $this->User->find("all", array('conditions'=> $conditions));
+                $this->set('users',$users);
+               
+               
+            }
       }
+      
+    }
+
+
+    function show()
+    {
+      if((!$this->Session->check('UserUsername')) || 
+                   (strcmp($this->Session->read('UserType'), 'yperanalyst')))
+      {
+         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+      }
+      
+      
       
     }
 

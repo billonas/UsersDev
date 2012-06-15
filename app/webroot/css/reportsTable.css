@@ -21,14 +21,21 @@
     padding: 2px 5px 2px 5px;
 }
 
-#filterContainer form input[type="submit"]{
-/*    background: #008FF9;*/
-    background: #008FF9 url('../img/whiteSpyglass.png') no-repeat top left;
-    padding-left: 16px;
+#filterContainer form input[type="submit"],
+#filterContainer form button[type="submit"] {
+    background: #008FF9;
     color: white;
 }
-#filterContainer form input[type="submit"]:hover{
+#filterContainer form button[type="submit"] img {
+    max-height: 1em;
+}
+#filterContainer form input[type="submit"]:hover,
+#filterContainer form button[type="submit"]:hover {
     background: #007FE9;
+}
+
+#filterContainer form label:hover {
+    text-decoration: underline;
 }
 
 
@@ -47,6 +54,7 @@ table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 /*	border: 1px solid #FFF;*/
 	font-size: 8pt;
 	padding: 4px;
+        padding-right: 16px;
 }
 table.tablesorter thead tr .header {
         background-image: url(../img/tablesorter-bg.gif);
