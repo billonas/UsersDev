@@ -99,37 +99,33 @@ class ReportsController extends AppController{
                 //UPLOAD ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
                 if(!empty($this->data['Report']['image2']['name'])){
                     $res = $this->Image->checkImage($this->data['Report']['image2']);
-                    if($res < 0){
-                        $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
-                        $this->redirect('create');
-                    }
-                    else if(!$res){
-                            $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
+                    if(!$res){
+                            $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική δεύτερη φωτογραφία','flash_bad');
                             $this->redirect('create');
                     }
+                    else if($res > 0){
                     //RENAME ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
-                    $this->request->data['Report']['image2']['name'] = $this->Image->tmpRename($this->request->data['Report']['image2']);
-                    $uploaded3 = $this->JqImgcrop->uploadImage($this->data['Report']['image2'], '/img/temporary/', '');
-                    $this->request->data['Report']['additional_photo1'] = $uploaded3['imagePath'];
-                    $this->Session->write('uploaded3',$uploaded3);
+                     $this->request->data['Report']['image2']['name'] = $this->Image->tmpRename($this->request->data['Report']['image2']);
+                     $uploaded3 = $this->JqImgcrop->uploadImage($this->data['Report']['image2'], '/img/temporary/', '');
+                     $this->request->data['Report']['additional_photo1'] = $uploaded3['imagePath'];
+                     $this->Session->write('uploaded3',$uploaded3);
+		    }
                 }
                 
                 //UPLOAD ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
                 if(!empty($this->data['Report']['image3']['name'])){
                     $res = $this->Image->checkImage($this->data['Report']['image3']);
-                    if($res < 0){
-                        $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
-                        $this->redirect('create');
-                    }
-                    else if(!$res){
-                            $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
+                    if(!$res){
+                            $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική τρίτη φωτογραφία','flash_bad');
                             $this->redirect('create');
                     }
+                    else if($res > 0){
                     //RENAME ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
-                    $this->request->data['Report']['image3']['name'] = $this->Image->tmpRename($this->request->data['Report']['image3']);
-                    $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image3'], '/img/temporary/', '');
-                    $this->request->data['Report']['additional_photo2'] = $uploaded4['imagePath'];
-                    $this->Session->write('uploaded4',$uploaded4);
+                     $this->request->data['Report']['image3']['name'] = $this->Image->tmpRename($this->request->data['Report']['image3']);
+                     $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image3'], '/img/temporary/', '');
+                     $this->request->data['Report']['additional_photo2'] = $uploaded4['imagePath'];
+                     $this->Session->write('uploaded4',$uploaded4);
+                    }
                 }
                 $this->Session->write('report',$this->data);
                 $this->Session->write('report_completed',1);
