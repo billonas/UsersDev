@@ -177,7 +177,7 @@ $(document).ready(function(){
                         echo '<br/>';
                         echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'class'=>'std_form'));
                         echo '</br><label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';
-                        echo $this->Form->input('date',array('label'=>false,'div'=>false, 'class'=>'std_form blue shadow'));
+                        echo $this->Form->input('date',array('label'=>false,'div'=>false, 'class'=>'std_form blue shadow', 'empty' => true,'minYear' => date('Y')-50, 'maxYear' => date('Y')));
                         echo '</br></br><div id="mapCanvas"></div>';
                         echo '<table>';
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
@@ -300,7 +300,7 @@ $(document).ready(function(){
                     }
                     if($this->Session->check('UserUsername')){
                         echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-                        echo '<td>'.$this->Form->input('age',array('label'=>false,'default'=>$this->Session->read('UserBirthDate'),'disabled'=>'true', 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                        echo '<td>'.$this->Form->input('age',array('label'=>false,'default'=>$this->Session->read('UserBirthDate'),'disabled'=>'true', 'class'=>'std_form blue shadow', 'div'=>false,'empty' => true,'minYear' => date('Y')-100, 'maxYear' => date('Y'))).'</td></tr>';
                         $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
                         echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
                         echo '<td>'.$this->Form->input('education', array('options' => $options,'default'=>$this->Session->read('UserEducation'),'label'=>false,'disabled'=>'true', 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
@@ -322,7 +322,7 @@ $(document).ready(function(){
                     else{
                         if($this->Session->check('report')){
                             echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-                            echo '<td>'.$this->Form->input('age',array('label'=>false,'value'=>$report['Report']['age'], 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                            echo '<td>'.$this->Form->input('age',array('label'=>false,'value'=>$report['Report']['age'], 'class'=>'std_form blue shadow', 'div'=>false,'empty' => true,'minYear' => date('Y')-100, 'maxYear' => date('Y'))).'</td></tr>';
                             $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
                             echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
                             echo '<td>'.$this->Form->input('education', array('options' => $options,'value'=>$report['Report']['education'], 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
@@ -340,7 +340,7 @@ $(document).ready(function(){
                         }
                         else{
                             echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-                            echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
+                            echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false,'empty' => true,'minYear' => date('Y')-100, 'maxYear' => date('Y'))).'</td></tr>';
                             $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
                             echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
                             echo '<td>'.$this->Form->input('education', array('options' => $options, 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';

@@ -36,8 +36,30 @@ class PagesController extends AppController{
  * @param mixed What page to display
  * @return void
  */
+   function beforeFilter() 
+   {
+     parent::beforeFilter(); 
+
+   }
 	public function display() {
 		$path = func_get_args();
+
+
+        $temp_species = ClassRegistry::init('HotSpecie')->find('all');
+		$i=0;
+        foreach($temp_species as $item){
+					$hotspecies[$i]['scientific_name']=$item['HotSpecie']['scientific_name'];
+					$hotspecies[$i]['id']=$item['HotSpecie']['id'];
+					$i++;
+				}
+		$this->set('hotspecies',$hotspecies);
+		
+		
+		$coords=('0');
+		
+		//Load last 30 reports coords
+		$this->set('coords',$coords);		
+		
 
 		$count = count($path);
 		if (!$count) {

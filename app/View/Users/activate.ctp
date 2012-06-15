@@ -1,4 +1,4 @@
 <?php
 
-         echo "to id toy xristi einai " . $id; 
+         echo $this->Session->flash(); 
 ?>

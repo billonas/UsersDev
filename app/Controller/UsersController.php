@@ -8,7 +8,7 @@
 class UsersController extends AppController
 {
     var $name = 'Users';
-    var $components = array('Email', 'Recaptcha.Recaptcha');//, 'Captcha');
+    var $components = array('Security','Email', 'Recaptcha.Recaptcha');//, 'Captcha');
     public $helpers = array('Html', 'Form', 'Session', 'Recaptcha.Recaptcha');
 	
 
@@ -19,6 +19,8 @@ class UsersController extends AppController
    //συγκεκριμένου controller.
       parent::beforeFilter();
       $this->Email->delivery = 'debug'; /* used to debug email message */
+      $this->Security->validatePost = false;
+      
       
       if($this->Session->check('report')){
             $this->Session->delete('report');
@@ -94,11 +96,7 @@ class UsersController extends AppController
               if($this->User->save($data, false))
               {
                  $id = $this->User->getUserId($this->data['User']['email']);
-                 if($this->__sendActivationEmail($id)) 
-                 {
-                    $this->Session->setFlash("Το email επιβεβαίωσης στάλθηκε επιτυχώς");
-                 }
-                 else
+                 if(!$this->__sendActivationEmail($id)) 
                  {
                    $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
                    $this->User->delete($id);  //delete user from database if message not sent
@@ -248,14 +246,24 @@ class UsersController extends AppController
         $result = $this->User->validate_user($this->data);
         if($result !== FALSE)
         {
+            
+          $validated = $result['User']['validated'];
+          if(!$validated)
+          {
+            $this->Session->setFlash('Ο λογαριασμός σας δεν έχει ενεργοποιηθεί ακόμα.
+                                    Ακολουθήστε το σύνδεσμο που στάλθηκε με email και ενεργοποιήστε τον.');  
+	  	      $this->redirect(array('controller'=>'users','action'=>'login'));			  
+          }
           $name = $result['User']['name'];
           //το πλήρες όνομα του χρήστη υπό την μορφή:V.Kazhs
           //(αν name=Vasilhs και Surname=Kazhs)
-          $arr = str_split($name);
-
           $surname = $result['User']['surname'];
 
-          $fullname = $arr[0] .".". $surname;
+
+
+         preg_match_all('/[\p{L}\p{M}]/u', $name, $result1, PREG_PATTERN_ORDER);
+
+         $fullname = $result1[0][0] . "." .  $surname; 
 
           $this->Session->write('UserUsername',$result['User']['email']);  
           $this->Session->write('UserType', $result['User']['user_type']);
@@ -303,14 +311,59 @@ class UsersController extends AppController
       }
     }
     
-    function activate($id=null) 
+    function activate($id=null, $in_hash=null) 
     {
-      
+      $this->User->id = $id;
+
+      if(($this->User->exists()) && ($in_hash == $this->User->getActivationHash()))
+      {  
+         if(!$this->User->isActivated())
+         {
+            //ενεργοποίηση λογαριασμού χρήστη
+            $this->User->activateAccount();
+
+            $this->Session->setFlash('O λογαριασμός σας ενεργοποιήθηκε επιτυχώς, 
+                                          συνδεθείτε συμπληρώνοντας την φόρμα.');
+            $this->redirect('login');
+
+         }
+         else
+         {
+            
+            $this->Session->setFlash('O λογαριασμός σας έχει ήδη ενεργοποιηθεί επιτυχώς,
+                                     συνδεθείτε συμπληρώνοντας την φόρμα.'); 
+
+            $this->redirect('login');
+         }
+      }
+      else
+      {
+         $this->Session->setFlash('Δεν υπάρχει λογαριασμός με τα συγκεκριμένα στοιχεία.');
+          
+      }
     }
 
     function notify_user($email = null)
     {
-      $this->set('email', $email);
+      $url = array('controller'=>'pages', 'action'=>'display');
+      $this->flash('Αν δεν ανακατευθυνθείτε αυτόματα στην αρχική σελίδα πατήστε εδώ', $url, 4, 'register_success');
+    }
+
+
+    function edit_users()
+    {
+      if((!$this->Session->check('UserUsername')) || 
+                   (strcmp($this->Session->read('UserType'), 'yperanalyst')))
+      {
+         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+      }
+      else
+      {
+         $users = $this->User->find('all'); 
+         $this->set('users', $users);
+         
+
+      }
       
     }
 
@@ -337,6 +390,7 @@ class UsersController extends AppController
        $activateUrl = $this->__curPageURL('/users/activate/' . $user['User']['id'] .'/');
 
        $activationHash = $this->User->getActivationHash();
+       
 
        $activateUrl = $activateUrl . $activationHash;
 
@@ -374,10 +428,12 @@ class UsersController extends AppController
     function __curPageURL($targetPage) 
     {
       $pageURL = 'http';
-      if ($_SERVER["HTTPS"] == "on") 
-      {
-         $pageURL .= "s";
-      }
+      //Εδω υπάρχει κάποιο bug. Δεν αναγνωρίζει την enviromental μεταβλητή $_SERVER['HTTPS']
+     // if ($_SERVER["HTTPS"] == "on") 
+     //
+     // {
+     //    $pageURL .= "s";
+     // }
 
       $pageURL .= "://";
       if ($_SERVER["SERVER_PORT"] != "80") 
