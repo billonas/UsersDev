@@ -29,6 +29,12 @@ class ReportsController extends AppController{
         if($this->Session->check('uploaded2')){
             $this->Session->delete('uploaded2');
         }
+        if($this->Session->check('uploaded3')){
+            $this->Session->delete('uploaded3');
+        }
+        if($this->Session->check('uploaded4')){
+            $this->Session->delete('uploaded4');
+        }
         $this->redirect(array('controller'=>'Reports', 'action'=>'create'));
    }
 
@@ -90,7 +96,9 @@ class ReportsController extends AppController{
                 if(!empty($this->data['Report']['x1'])){
                     $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
                 }
-		$res = $this->Image->checkImage($this->data['Report']['image2']);
+                //UPLOAD ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
+                if(!empty($this->data['Report']['image2']['name'])){
+                    $res = $this->Image->checkImage($this->data['Report']['image2']);
                     if($res < 0){
                         $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
                         $this->redirect('create');
@@ -99,10 +107,16 @@ class ReportsController extends AppController{
                             $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
                             $this->redirect('create');
                     }
-                    //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
+                    //RENAME ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
                     $this->request->data['Report']['image2']['name'] = $this->Image->tmpRename($this->request->data['Report']['image2']);
                     $uploaded3 = $this->JqImgcrop->uploadImage($this->data['Report']['image2'], '/img/temporary/', '');
-                $res = $this->Image->checkImage($this->data['Report']['image3']);
+                    $this->request->data['Report']['additional_photo1'] = $uploaded3['imagePath'];
+                    $this->Session->write('uploaded3',$uploaded3);
+                }
+                
+                //UPLOAD ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
+                if(!empty($this->data['Report']['image3']['name'])){
+                    $res = $this->Image->checkImage($this->data['Report']['image3']);
                     if($res < 0){
                         $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
                         $this->redirect('create');
@@ -111,11 +125,12 @@ class ReportsController extends AppController{
                             $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
                             $this->redirect('create');
                     }
-                    //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
+                    //RENAME ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
                     $this->request->data['Report']['image3']['name'] = $this->Image->tmpRename($this->request->data['Report']['image3']);
                     $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image3'], '/img/temporary/', '');
                     $this->request->data['Report']['additional_photo2'] = $uploaded4['imagePath'];
-		    $this->request->data['Report']['additional_photo1'] = $uploaded3['imagePath'];
+                    $this->Session->write('uploaded4',$uploaded4);
+                }
                 $this->Session->write('report',$this->data);
                 $this->Session->write('report_completed',1);
                 $this->Report->set($this->data);
@@ -174,43 +189,6 @@ class ReportsController extends AppController{
                     $this->redirect('create');
                     }
                 }
-                //UPLOAD EXTRA IMAGES
-                /*if(!empty($this->data['Report']['image2']['tmp_name'])){
-                    $res = $this->Image->checkImage($this->data['Report']['image2']);
-                    if($res < 0){
-                        //$this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
-                        //$this->redirect('create');
-                    }
-                    else if(!$res){
-                        //$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
-                        //$this->redirect('create');
-                    }
-                    else{
-                        $ret = $this->Image->uploadSubImg($this->Report, $this->data['Report']['image2']['tmp_name'], $this->data['Report']['image2']['name'], "reports", "additional_photo1", "a");
-                        if(!$ret){
-                                $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
-                                $this->redirect('create');
-                        }
-                    }
-                }
-                if(!empty($this->data['Report']['image3']['tmp_name'])){
-                    $res = $this->Image->checkImage($this->data['Report']['image3']);
-                    if($res < 0){
-                        //$this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
-                        //$this->redirect('create');
-                    }
-                    else if(!$res){
-                        //$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
-                        //$this->redirect('create');
-                    }
-                    else{
-                        $ret = $this->Image->uploadSubImg($this->Report, $this->data['Report']['image3']['tmp_name'], $this->data['Report']['image3']['name'], "reports", "additional_photo2","b");
-                            if(!$ret){
-                            $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
-                                $this->redirect('create');
-                            }
-                    }
-                }*/
                 if($this->Session->check('report')){
                     $this->Session->delete('report');
                 }
@@ -222,6 +200,12 @@ class ReportsController extends AppController{
                 }
                 if($this->Session->check('uploaded2')){
                     $this->Session->delete('uploaded2');
+                }
+                if($this->Session->check('uploaded3')){
+                    $this->Session->delete('uploaded3');
+                }
+                if($this->Session->check('uploaded4')){
+                    $this->Session->delete('uploaded4');
                 }
                 $this->Session->setFlash('Η αναφορά κατατέθηκε επιτυχώς','flash_good');
                 $this->redirect(array('controller'=>'Reports', 'action'=>'create'));
@@ -250,6 +234,12 @@ class ReportsController extends AppController{
           }
           if($this->Session->check('uploaded2')){
             $this->Session->delete('uploaded2');
+          }
+          if($this->Session->check('uploaded3')){
+            $this->Session->delete('uploaded3');
+          }
+          if($this->Session->check('uploaded4')){
+            $this->Session->delete('uploaded4');
           }
 //        if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
             if ($id==null) {
@@ -342,6 +332,12 @@ class ReportsController extends AppController{
           if($this->Session->check('uploaded2')){
             $this->Session->delete('uploaded2');
           }
+          if($this->Session->check('uploaded3')){
+            $this->Session->delete('uploaded3');
+          }
+          if($this->Session->check('uploaded4')){
+            $this->Session->delete('uploaded4');
+          }
 //        if($this->Session->check('UserUserName')) {  
             if($id==null){
                 $this->Session->setFlash('Invalid ID');
@@ -370,6 +366,12 @@ class ReportsController extends AppController{
         if($this->Session->check('uploaded2')){
             $this->Session->delete('uploaded2');
         }
+        if($this->Session->check('uploaded3')){
+            $this->Session->delete('uploaded3');
+          }
+          if($this->Session->check('uploaded4')){
+            $this->Session->delete('uploaded4');
+          }
 //      if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
 			//probably awkward way to get only the names of categories - only for temp testing
 			$table = ClassRegistry::init('Category')->find('all');
@@ -465,6 +467,12 @@ class ReportsController extends AppController{
           if($this->Session->check('uploaded2')){
             $this->Session->delete('uploaded2');
           }  
+          if($this->Session->check('uploaded3')){
+            $this->Session->delete('uploaded3');
+          }
+          if($this->Session->check('uploaded4')){
+            $this->Session->delete('uploaded4');
+          }
       if(!$this->Session->check('UserUsername')){
          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
       }
@@ -489,6 +497,12 @@ class ReportsController extends AppController{
           }
           if($this->Session->check('uploaded2')){
             $this->Session->delete('uploaded2');
+          }
+          if($this->Session->check('uploaded3')){
+            $this->Session->delete('uploaded3');
+          }
+          if($this->Session->check('uploaded4')){
+            $this->Session->delete('uploaded4');
           }
         $species = ClassRegistry::init('Specie')->find('all');
         $this->set('species',$species);

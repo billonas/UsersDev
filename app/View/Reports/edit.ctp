@@ -60,7 +60,8 @@
                                 echo $this->Form->create('Report', array('action' => 'edit',"enctype" => "multipart/form-data"));     
                                 echo $this->Form->input('id',array("type"=>'hidden', 'class'=>'std_form'));
                                 echo $this->Html->image($report['Report']['main_photo']);
-																
+				echo $this->Html->image($report['Report']['additional_photo1']);							
+                                echo $this->Html->image($report['Report']['additional_photo2']);
                                 echo '<br/>';
                                 echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ",'disabled'=>'true', 'class'=>'std_form'));
                                 echo '<br/>';

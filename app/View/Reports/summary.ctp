@@ -72,9 +72,16 @@
                                     echo 'VIDEO';
                                     echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                                 }
- 				echo $this->Form->input('additional_photo1',array('type'=>'hidden','value'=>$report['Report']['additional_photo1'], 'class'=>'std_form'));
-                                echo  $this->Form->input('additional_photo2',array('type'=>'hidden','value'=>$report['Report']['additional_photo2'], 'class'=>'std_form'));
-                                echo $this->Form->input('summary',array("type"=>'hidden', 'class'=>'std_form'));
+                                if($this->Session->check('uploaded3')){
+                                    $uploaded3 = $this->Session->read('uploaded3');
+                                    echo $this->Html->image($uploaded3["imagePath"]);
+                                    echo $this->Form->input('additional_photo1',array('type'=>'hidden','value'=>$report['Report']['additional_photo1'], 'class'=>'std_form'));
+                                }
+                                if($this->Session->check('uploaded4')){
+                                    $uploaded4 = $this->Session->read('uploaded4');
+                                    echo $this->Html->image($uploaded4["imagePath"]);
+                                    echo  $this->Form->input('additional_photo2',array('type'=>'hidden','value'=>$report['Report']['additional_photo2'], 'class'=>'std_form'));
+                                }
                                 echo '<br/>';
                                 echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ",'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
                                 echo '<br/>';
