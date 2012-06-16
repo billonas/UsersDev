@@ -5,28 +5,10 @@
 ?>
 <?php echo $this->Html->css(array('main', 'jquery-ui', 'table', 'jquery.tablesorter.pager.css')); ?>
 <?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js')); ?>
-<?php
-    //echo '<script type="text/javascript" src="'.$this->GoogleMapV3->apiUrl().'"></script>';
-?>
-<script>
-    // autocomplete hints for category and species
-    var hints =
-    {
-        'category': <?php if (isset($categories))echo json_encode($categories); else echo "[]"?>,
-        'species': <?php if (isset($species)) echo json_encode($species); else echo "[]"?>
-    }
-    
+<script>    
     $(document).ready(function()
     { 
-        $("#pager button, .deleteButton, .editButton, #filterContainer form input[type='submit']").button();
-        
-        // Set autocomplete support
-        var selection = $("#filterCategory").val();
-        $("#filterTerm").autocomplete(
-            {
-                source: hints[selection]
-            }
-        );
+        $("#pager button, .buttonContainer a, #filterContainer form input[type='submit'], #filterContainer form button[type='submit'], #createUserLink a").button();
         
         $("#reportsTable").tablesorter({sortList: [[0,1]]})  //sort the first column in descending order
             .tablesorterPager({container: $("#pager")});
@@ -41,15 +23,9 @@
         $('#pager').attr('style', '');
     }
     
-    function report_onclick(id)
+    function item_onclick(id)
     {
         window.location.href = 'edit/' + id;
-    }
-    
-    function filterCategory_changed()
-    {
-        var selection = $("#filterCategory").val();
-        $("#filterTerm").autocomplete("option", "source", hints[selection]);     
     }
 </script>
 <div class="middle_row">
@@ -63,6 +39,11 @@
             </div>
             
             <div id="tableOuterWrapper">
+                <div id="createUserLink">
+                    <a class="" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'create')) ?>">
+                        Δημιουργία Αναλυτή
+                    </a>
+                </div>
                 <div id="filterContainer">
                     <?php echo $this->Form->create('User', array('action' => 'edit_users', 'type'=>'get')); ?>
                         <table>                        
@@ -71,7 +52,10 @@
                                     <input name="text" type="text" class="" id="filterTerm"/>
                                 </td>
                                 <td>
-                                    <input type="submit" value="Αναζήτηση"/>
+                                    <button type="submit" value="Αναζήτηση">
+                                        <img src="../img/whiteSpyglass.png"/>
+                                        Αναζήτηση
+                                    </button>
                                 </td>
                             </tr>
                         </table>
@@ -79,22 +63,22 @@
                             <tr>
                                 <td>
                                     <input id="searchAnalyst" type="checkbox" value="analyst" name="userType1" checked/>
-                                    <label for="searchAnalyst">Αναλυτές</label>
+                                    <label for="searchAnalyst">Αναλυτές <span class="tag analyst"></span></label>
                                 </td>
                                 <td>
                                     <input id="searchSimple" type="checkbox" value="simple"  name="userType2" checked/>
-                                    <label for="searchSimple">Απλοί Χρήστες</label>
+                                    <label for="searchSimple">Απλοί Χρήστες <span class="tag basic"></span></label>
                                 </td>
                                 <td>
                                     <input id="searchHyperanalyst" type="checkbox" value="hyperanalyst"  name="userType3" checked/>
-                                    <label for="searchHyperanalyst">Απλοί Χρήστες</label>
+                                    <label for="searchHyperanalyst">Υπερχρήστες <span class="tag hyperanalyst"></span></label>
                                 </td>
                             </tr>
                         </table>
                     <?php echo $this->Form->end(); ?>
                 </div>
                 <?php if (empty($users)): ?>
-                <div class="report noReportFiller">
+                <div class="user noItemsFiller">
                     <h2><center>Δεν υπάρχει κανένας εγγεγραμένος χρήστης</center></h2>
                 </div>
                 <?php else: ?>
@@ -104,7 +88,6 @@
                             <th>Ημερομηνία Δημιουργίας Χρήστη</th>
                             <th>Τύπος Χρήστη</th>
                             <th>Όνομα</th>
-    <!--                            <th>Κατάσταση</th>-->
                             <th>Επώνυνο</th>
                             <th>Ενέργειες</th>
                         </tr>
@@ -112,35 +95,47 @@
                     <tbody>
                         <?php foreach ($users as $user): ?>
                         <?php
-                            // Determine the status of the report
-                            $reportStatus = "pending"; // classes are {"pending", "rejected", "verified"}
-                            if ( isset($report['Report']['state']) )
+                            // Determine user class
+                            $userType = "basic"; // classes are {"basic", "analyst", "hyperanalyst"}
+                            if ( isset($user['User']['user_type']) )
                             {
-                                switch ($report['Report']['state'])
+                                switch ($user['User']['user_type'])
                                 {
-                                    case "confirmed":
-                                        $reportStatus = "verified";
+                                    case "simple":
+                                        $userType = "basic";
                                         break;
-                                    case "unreliable":
-                                        $reportStatus = "rejected";
+                                    case "analyst":
+                                        $userType = "analyst";
                                         break;
-                                    case "unknown":
+                                    case "hyperanalyst":
+                                        $userType = "hyperanalyst";
                                         break;
                                 }
                             }
                         ?>
-                            <tr class="report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $user['User']['id'] ?>)">
+                            <tr class="item user <?php echo $userType ?>" onclick="item_onclick(<?php echo $user['User']['id'] ?>)">
                                 <td class="leftmost">
                                     <?php echo $user['User']['created'] ?>
                                 </td>
                                 <td>
                                     <?php
-                                            echo $user['User']['user_type'];
+                                        switch ($user['User']['user_type'])
+                                        {
+                                            case 'simple':
+                                                echo 'Απλός';
+                                                break;
+                                            case 'analyst':
+                                                echo 'Αναλυτής';
+                                                break;
+                                            case 'hyperanalyst':
+                                                echo 'Υπεραναλυτής';
+                                                break;
+                                        }
                                     ?>
                                 </td>
                                 <td>
                                     <?php
-                                            echo $user['User']['name'];
+                                        echo $user['User']['name'];
                                     ?>
                                 </td>
                                 <td>
@@ -150,14 +145,40 @@
                                 </td>
                                 <td class="rightmost">
                                     <div class="buttonContainer">
-                                        <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'show', $user['User']['id'])) ?>">
-                                            Επεξεργασία
-                                        </a>
-                                        <br/>
-                                        <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $user['User']['id'])) ?>">
-                                            <img class="icon" src="../img/whiteX.png"/>
-                                            Διαγραφή
-                                        </a>
+                                        <!-- Show user button-->
+                                        <?php if ($userType==='basic' || $userType==='analyst' || $userType==='hyperanalyst'): ?>
+                                            <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'show', $user['User']['id'])) ?>">
+                                                Επεξεργασία
+                                            </a>
+                                        <?php endif; ?>
+                                        <!-- Delete user button-->
+                                        <?php if ($userType==='basic'): ?>
+                                            <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $user['User']['id'])) ?>">
+                                                <img class="icon" src="../img/whiteX.png"/>
+                                                Διαγραφή
+                                            </a>
+                                        <?php endif; ?>
+                                        <!-- Upgrade basic user button-->
+                                        <?php if ($userType==='basic'): ?>
+                                            <a class="upgradeButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'create', $user['User']['id'])) ?>">
+                                                <img class="icon" src="../img/blackUpArrow.png"/>
+                                                Αναβάθμιση
+                                            </a>
+                                        <?php endif; ?>
+                                        <!-- Upgrade analyst button-->
+                                        <?php if ($userType==='analyst'): ?>
+                                            <a class="upgradeButton" href="<?php echo $this->Html->url(array('controller'=>'analyst', 'action'=>'upgrade', $user['User']['id'])) ?>">
+                                                <img class="icon" src="../img/blackUpArrow.png"/>
+                                                Αναβάθμιση
+                                            </a>
+                                        <?php endif; ?>
+                                        <!-- Downgrade analyst button-->
+                                        <?php if ($userType==='analyst'): ?>
+                                            <a class="downgradeButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'downgrade', $user['User']['id'])) ?>">
+                                                <img class="icon" src="../img/blackDownArrow.png"/>
+                                                Υποβάθμιση
+                                            </a>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             </tr>
@@ -166,13 +187,9 @@
                 </table>
                 <div id="pager" class="pager">
                     <form>
-<!--                        <img src="/img/tablesorter-first.png" class="first"/>-->
-<!--                        <img src="/img/tablesorter-prev.png" class="prev"/>-->
                         <button class="first">Αρχή</button>
                         <button class="prev">Προηγούμενο</button>
                         <input type="text" class="pagedisplay"/>
-<!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
-<!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
                         <select style="visibility: hidden" class="pagesize" onchange="positionPagerButtons">
                                 <option selected="selected" value="10">10</option>
                                 <option value="20">20</option>

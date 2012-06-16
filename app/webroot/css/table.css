@@ -25,6 +25,8 @@
 #filterContainer form button[type="submit"] {
     background: #008FF9;
     color: white;
+    float: left;
+    margin-left: 0.5em;
 }
 #filterContainer form button[type="submit"] img {
     max-height: 1em;
@@ -36,6 +38,14 @@
 
 #filterContainer form label:hover {
     text-decoration: underline;
+}
+
+#filterContainer .tag {
+    border-radius: 4px;
+    border: 1px solid white;
+    padding: 0.2em 0.5em;
+    margin-left: 1em;
+    max-height: 0.5em;
 }
 
 
@@ -174,6 +184,12 @@ h2 {
     color: inherit;
 }
 
+#createUserLink {
+    float: right;
+    margin-top: 0.5em;
+    margin-right: 1em;
+}
+
 .tableImage {
     max-width: 200px;
     max-height: 100px;
@@ -183,20 +199,22 @@ h2 {
     border-radius: 6px;
 }
 
-tr.report {
-}
 
-tr.report .icon {
+tr.item .icon {
     height: 0.8em;
     width: 0.8em;
     max-height: 20px;
     max-width: 20px;
 }
 
-tr.report .buttonContainer {
+tr.item .buttonContainer {
     float:right;
     margin-right: 5%;
     margin-top: 10px;
+}
+
+.item td {
+    background-color: white;
 }
 
 /* Rules for highlighting based on report status */
@@ -211,37 +229,27 @@ tr.report .buttonContainer {
 }
 /*  */
 
-.report td {
+.item.report td {
     height: 110px;
 }
 
-.report td:first-child {
+.item td:first-child {
     border-radius: 5px 0px 0px 5px;
 }
-.report td:last-child {
+.item td:last-child {
     border-radius: 0px 5px 5px 0px;
 }
 
-.report .deleteButton {
+.item .deleteButton {
     background: #ff7766;
     color: white;
 }
-.report .deleteButton:hover {
+.item .deleteButton:hover {
     background: tomato;
 }
 
-.report:hover td {
-    background-color: lightblue;
-    cursor: pointer;
-/*    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.80);
-    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.80);
-    -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.80);*/
-/*    box-shadow: 0px 0px 8px lightblue;
-    -moz-box-shadow: 0px 0px 8px lightblue;
-    -webkit-box-shadow: 0px 0px 8px lightblue;*/
-}
-
-.report.noReportFiller {
+.report.noItemsFiller,
+.user.noItemsFiller {
     height: 110px;
     margin-top: 20px;
     background-color: white;
@@ -249,10 +257,27 @@ tr.report .buttonContainer {
     padding-top: 35px;
 }
 
+.user.basic td {
+    background-color: white;
+}
+.user.analyst td {
+    background-color: #ddddff;
+}
+.user.hyperanalyst td {
+    background-color: #eeddff;
+}
 
-/* Rules for the map */
-.map {
-    border: black solid 1px;
-    margin-left: auto;
-    margin-right: auto;
+.tag.basic {
+    visibility: hidden;
+}
+.tag.analyst {
+    background: #ddddff;
+}
+.tag.hyperanalyst {
+    background: #eeddff;
+}
+
+.item:hover td {
+    background-color: lightblue;
+    cursor: pointer;
 }

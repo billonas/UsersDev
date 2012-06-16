@@ -88,7 +88,6 @@
                                         <img src="../img/whiteSpyglass.png"/>
                                         Αναζήτηση
                                     </button>
-<!--                                    <input type="submit" value="Αναζήτηση"/>-->
                                 </td>
                             </tr>
                         </table>
@@ -142,7 +141,7 @@
                     <?php echo $this->Form->end(); ?>
                 </div>
                 <?php if (empty($reports)): ?>
-                <div class="report noReportFiller">
+                <div class="report noItemsFiller">
                     <h2><center>There are no reports</center></h2>
                 </div>
                 <?php else: ?>
@@ -178,7 +177,7 @@
                                 }
                             }
                         ?>
-                            <tr class="report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $report['Report']['id'] ?>)">
+                            <tr class="item report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $report['Report']['id'] ?>)">
                                 <td class="leftmost">
                                     <?php echo $report['Report']['created'] ?>
                                 </td>
