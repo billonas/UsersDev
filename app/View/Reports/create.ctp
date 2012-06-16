@@ -15,6 +15,7 @@ function updateMarkerPosition(latLng) {
     document.getElementById('info2').innerHTML = latLng.lng();
     document.forms["ReportCreateForm"].elements["data[Report][lat]"].value = latLng.lat();
     document.forms["ReportCreateForm"].elements["data[Report][lng]"].value = latLng.lng();
+	
 }
 
 function handleApiReady() {
@@ -46,11 +47,30 @@ function handleApiReady() {
             position: google.maps.ControlPosition.LEFT_TOP
             }
     });
-    google.maps.event.addListener(map, 'click', function(event) {
-        addMarker(event.latLng);
-        updateMarkerPosition(marker.getPosition());
+	var kmlLayer = new google.maps.KmlLayer('https://dl.dropbox.com/u/71016805/Kolpoi.kmz',
+    {
+        suppressInfoWindows: true,
+        map: map
+    });
+	<!---google.maps.event.addListener(map, 'click', function(event) {
+    <!----addMarker(event.latLng);
+	<!----updateMarkerPosition(marker.getPosition());
+	<!--}); ------------->
+    google.maps.event.addListener(kmlLayer, 'click', function(kmlEvent)
+    {
+        var text = kmlEvent.featureData.description;
+        showInContentWindow(text);
+		addMarker(kmlEvent.latLng);
+		updateMarkerPosition(marker.getPosition());
     });
 }
+
+function showInContentWindow(text)
+{
+        document.getElementById('maparea').innerHTML = text;
+		document.forms["ReportCreateForm"].elements["data[Report][area]"].value =text;
+		
+    }
 
 function addMarker(location) {
     if (once)
@@ -184,22 +204,24 @@ $(document).ready(function(){
                         echo '<br/>';
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
                         echo '<td>'.$this->Form->input('lat',array('id'=>'info','label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));
+						
                         echo '</td></tr>';
                         echo '<tr><td><label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label></td>';
-                        echo '<td>'.$this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
+                        echo '<td>'.$this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));				
                         echo '</td></tr></table>';
+						echo $this->Form->input('area',array( 'id'=>'maparea','div'=>false));
                         //echo "<a href='#2' class='button_like_anchor'>Επόμενο βήμα &#187;</a>";
                         echo '<big><span style="color:red;font-family:Arial,sans-serif;"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
                         echo '</div>';
 
                         echo '<div id="f2">';
                         echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
-                        echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
-                        echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                        echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
-                        echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                        echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
-                        echo '</table>';    
+                                                                    echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
+                                    echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                                                                    echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
+                                    echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                                                                    echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
+                                                    echo '</table>';    
                         echo '<br/>';
                         $options = array();
                         $options['1'] = $this->Html->image('hotspecies/1.jpg');
@@ -259,18 +281,19 @@ $(document).ready(function(){
                         echo '<tr><td><label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label></td>';
                         echo '<td>'.$this->Form->input('lng',array('div'=>false,'value'=>$report['Report']['lng'],'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
                         echo '</td></tr></table>';
+						echo $this->Form->input('area',array( 'id'=>'maparea','label' => false));
                         //echo "<a href='#2' class='button_like_anchor'>Επόμενο βήμα &#187;</a>";
                         echo '<big><span style="color:red;font-family:Arial,sans-serif;"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
                         echo '</div>';
 
                         echo '<div id="f2">';
                         echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
-                                                                    echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
-                                    echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                                                                    echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
-                                    echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                                                                    echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
-                                                    echo '</table>';    
+                        echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
+                        echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
+                        echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
+                        echo '</table>';    
                         echo '<br/>';
                         $options = array();
                         $options['1'] = $this->Html->image('hotspecies/1.jpg');

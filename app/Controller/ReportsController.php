@@ -37,7 +37,7 @@ class ReportsController extends AppController{
         }
         $this->redirect(array('controller'=>'Reports', 'action'=>'create'));
    }
-
+   
    /*
     * Create method handle data of a new report in order to build the report properly. 
     */
@@ -511,4 +511,3 @@ class ReportsController extends AppController{
     
 }
 
-?>
