@@ -63,6 +63,8 @@ class ReportsController extends AppController{
                             $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
                             $this->redirect('create');
                     }
+		    //Βρίσκουμε την ημερομηνία λήψης από τα μεταδεδομένα
+		    $this->request->data['Report']['exif'] = $this->Image->readexif($this->data['Report']['image']['tmp_name']);
                     //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
                     $this->request->data['Report']['image']['name'] = $this->Image->tmpRename($this->request->data['Report']['image']);
                     $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', ''); 

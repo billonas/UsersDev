@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>ExifTool Version History</title>
+<link rel=stylesheet type='text/css' href='style.css' title='Style'>
+<link rel=alternate type='application/rss+xml' title='RSS Feed for ExifTool updates' href='http://owl.phy.queensu.ca/~phil/exiftool/rss.xml'>
+</head>
+<body>
+<h1 class='up'>ExifTool Version History</h1>
+
+<p>RSS feed: <a href="http://owl.phy.queensu.ca/~phil/exiftool/rss.xml">http://owl.phy.queensu.ca/~phil/exiftool/rss.xml</a></p>
+
+<p><b>Note:</b> The most recent production release is <a href="Image-ExifTool-8.90.tar.gz">Version 8.90</a>. (Other versions are
+considered development releases, and are not uploaded to <a href="http://search.cpan.org/dist/Image-ExifTool/">CPAN</a>.)</p>
+
+<!-- Use line width of 80 -->
+<!-- *********************************************************************** -->
+
+<a name='v8.94'><b>June 9, 2012 - Version 8.94</b></a>
+<ul>
+<li>Added ability to read/write IPTC as a block
+<li>Added a few Nikon LensID's (thanks Mike Pollock and Robert Rottmerhusen)
+<li>Added a new Olympus LensType (thanks Brad Grier)
+<li>Added new values for a few Olympus tags
+<li>Decode more Sony tags (thanks Jos Roost and Igal Milchtaich)
+<li>Decode Canon IntelligentContrast and add a new CanonModelID
+<li>Changed names of Canon Sort/LongFocal tags to Min/MaxFocalLength
+</ul>
+
+<a name='v8.93'><b>May 26, 2012 - Version 8.93</b></a>
+<ul>
+<li>Added some new Nikon RetouchHistory values
+<li>Added a couple of new Pentax LensType values
+<li>Added some new Olympus MagicFilter and LensType values
+<li>Added a new CanonModelID
+<li>Decode more Sony tags (thanks Jos Roost)
+<li>Decode some MakerNote information in Olympus E-M5 MOV videos
+<li>Decode a couple more Canon tags
+<li>Patched to overcome formatting problems in Samsung NX200 JPEG maker notes
+</ul>
+
+<a name='v8.92'><b>May 12, 2012 - Version 8.92</b></a>
+<ul>
+<li>Added read support for PCD (Kodak Photo CD Image Pac) files
+<li>Added Geotag support for Winplus Beacon text-format GPS log files
+<li>Added support for Leica X2 MakeNotes
+<li>Added NewGUID tag
+<li>Decode Panasonic ManometerPressure tag (thanks Christoph Mitterer)
+<li>Decode more Sony tags (thanks Jos Roost)
+<li>Changed a few Canon-mount Tokina lens model names for consistency
+</ul>
+
+<a name='v8.91'><b>May 5, 2012 - Version 8.91</b></a>
+<ul>
+<li>Added -progress option
+<li>Added support for XMP fpv namespace
+<li>Added a new Canon EasyMode value and fixed an incorrect one
+<li>Added a couple of new Canon LensTypes
+<li>Decode a number of new tags for the Canon 1DX and 5DmkIII
+<li>Improved the names of a few Sony tags (thanks Jos Roost)
+<li>Fixed -sep option to apply to interpolated tag values in a string when
+    copying
+</ul>
+
+<a name='v8.90'><b>Apr. 28, 2012 - Version 8.90</b></a> <span class=grn>(production release)</span>
+<ul>
+<li>Added ability to fix double-UTF-encoded embedded XMP
+<li>Added a warning for invalid XMP
+<li>Added a new Minolta/Sony LensType (thanks Matthias)
+<li>Added a new values for some Canon tags
+<li>Decode ColorBalance information for a few more Nikon models
+<li>Ignore trailing whitespace when writing converted values
+<li>Enhanced the -z option to avoid writing the 2424 bytes of padding in XMP
+<li>Improved decoding of some Sony MakerNotes tags (thanks Jos Roost)
+<li>Improved "best guess" for fixing corrupted makernote offsets of some Sony
+    models
+</ul>
+
+<a name='v8.89'><b>Apr. 21, 2012 - Version 8.89</b></a>
+<ul>
+<li>Added new Nikon and Ricoh LensID's
+<li>Added a new Olympus CameraType
+<li>Added new Canon LensType, EasyMode and CanonModelID values
+<li>Added new Pentax PictureMode and PentaxModelID values
+<li>Added support for IDimager XMP tags
+<li>Added a number of new XMP-crs tags used by LR4
+<li>Decode a few more QuickTime tags
+<li>More improvements decoding Minolta/Sony CameraSettings (thanks Jos Roost)
+<li>Enhanced -ext option to allow files with any extension to be processed
+<li>Increased maximum number of SubIFD's to accommodate some DNG 1.4 images
+<li>Lowered priority of JPEG APP12 PictureInfo tags when reading
+<li>Created mechanism to allow self-referential XMP structures
+</ul>
+
+<a name='v8.88'><b>Apr. 15, 2012 - Version 8.88</b></a>
+<ul>
+<li>Added a new Canon LensType (thanks Gerald Erdmann)
+<li>Decode a number of new Olympus tags and values
+<li>Decode a few more QuickTime tags
+<li>Many more improvements and additions to Sony decoding (thanks Jos Roost)
+<li>Changed Ricoh InternalSerialNumber to also convert numerical value
+<li>Removed the ability to create IFD1 in TIFF-format images (you shouldn't
+    really do this anyway)
+<li>Fixed incorrect IFD number in some error messages when writing
+</ul>
+
+<a name='v8.87'><b>Apr. 9, 2012 - Version 8.87</b></a>
+<ul>
+<li>Added a new PentaxModelID
+<li>Added new values for some Panasonic tags
+<li>Added a couple of new Canon LensTypes
+<li>Decode a few more Sony tags and values (thanks Jos Roost)
+<li>Decode more CanonVRD tags
+<li>Decode makernotes from Pentax WG-2 GPS MOV videos
+<li>Changed Panasonic AdvancedSceneMode to a Composite tag
+<li>Fixed problem introduced in 8.70 where excluding groups from deletion didn't
+    work when copying back tags in the same command
+<li>Fixed problem repairing incorrect makernotes offsets in JPEG images from
+    Sony SLT and NEX cameras
+</ul>
+
+<a name='v8.86'><b>Apr. 3, 2012 - Version 8.86</b></a>
+<ul>
+<li>Added a few new values for some Panasonic tags
+<li>Added a new CanonModelID and a new Canon LensType
+<li>Added a new Nikon LensID
+<li>Decode more Sony CameraSettings3 information (thanks Jos Roost)
+<li>Decode another Canon 5D tag
+<li>Decode some new CanonVRD DLO tags
+<li>Changed decoding of CanonVRD VRDVersion tag
+<li>Changed formatting of a Pentax LensType for consistency with other lenses
+<li>Patched decoding of Reconyx:DateTimeOriginal to accomodate values written
+    with an incorrect byte order by some models
+</ul>
+
+<a name='v8.85'><b>Mar. 25, 2012 - Version 8.85</b></a> <span class=grn>(production release)</span>
+<ul>
+<li>Added a couple more Olympus CameraType values
+<li>Added two new Pentax LensType's and a PentaxModelID
+<li>Decode a number of new Sony CameraSettings3 tags (thanks Jos Roost)
+<li>Decode a few new Pentax K-01 tags
+<li>Decode new custom functions of the Canon 5D Mark III
+<li>Recognize another non-standard APP1 XMP header
+<li>Increased unrolled depth of XMP-mwg-kw:HierarchicalKeywords from 4 to 6
+<li>Extended "-charset exif=CHARSET" to also apply to EXIF UserComment when
+    stored as ASCII
+<li>Changed name of Olympus MaxApertureAtCurrentFocal to to MaxAperture
+<li>Patched to avoid possibility of unnecessary "references previous directory"
+    warning when the length of one directory is zero
+</ul>
+
+<a name='v8.84'><b>Mar. 17, 2012 - Version 8.84</b></a>
+<ul>
+<li>Added a few more SonyModelID's (thanks Jos Roost)
+<li>Added a new CanonModelID and a number of new Canon LensType values
+<li>Added a new Minolta/Sony LensType
+<li>Decode CameraTemperature for a number of new Canon PowerShot models
+<li>Decode information from PANA atom of Panasonic DMC-FT20 MP4 videos
+<li>Decode a bit more of the Casio MakerNotes
+<li>Improved Polish translations for EXIF information (thanks Kacper Perschke)
+<li>Changed some warning messages for invalid IFD entries
+<li>Patched to allow writing of Sony MakerNotes containing invalid IFD entries
+</ul>
+
+<a name='v8.83'><b>Mar. 13, 2012 - Version 8.83</b></a>
+<ul>
+<li>Added a new SonyModelID and a new Nikon LensID (thanks Gregg Lee and Jos
+    Roost)
+<li>Added Finnish translations (thanks Jens Duttke and Jarkko M&auml;kineva)
+<li>Fixed the Composite:LensID problem properly this time (with any luck)
+</ul>
+
+<a name='v8.82'><b>Mar. 13, 2012 - Version 8.82</b></a>
+<ul>
+<li>Added ability to extract information from PostScript-type DFONT files
+<li>Added a new Minolta/Sony LensType (thanks Jos Roost)
+<li>Improved geotagging of orientation information when extrapolating past end
+    of track
+<li>Changed behaviour while copying information to allow flattened tags to be
+    specified without the need to use the --struct option
+<li>Removed unnecessary warning when writing PreviewImage to Ricoh DNG file
+<li>Fixed problem introduced in 8.81 which prevented generation of the Composite
+    LensID for Nikon images when duplicate tags were disabled
+<li>API Changes:
+    <ul>
+    <li>Added NoFlat option to SetNewValues()
+    <li>Changed Struct option to allow copying of both structured and flattened
+        tags at the same time
+    </ul>
+</ul>
+
+<a name='v8.81'><b>Mar. 9, 2012 - Version 8.81</b></a>
+<ul>
+<li>Added some new Canon, Pentax and Sony/Minolta LensType's
+<li>Added a few new FujiFilm PictureMode values (thanks Kai Lappalainen)
+<li>Added some new FujiFilm FilmMode values
+<li>Added a couple of new CanonModelID values
+<li>Added local timezone message to -v2 geotagging output
+<li>Made all Pentax LensType tags writable
+<li>Improved Composite LensID logic to use Sony LensSpec value if available
+<li>Fixed problem opening files with path names that begin with "&amp;"
+</ul>
+
+<a name='v8.80'><b>Feb. 25, 2012 - Version 8.80</b></a>
+<ul>
+<li>Added a new Olympus CameraType
+<li>Improved geotagging to tolerate out-of-sequence and missing NMEA sentences
+<li>Increased the maximum XMP tag ID length to 250 characters to allow very deep
+    user-defined structure hierarchies
+</ul>
+
+<a name='v8.79'><b>Feb. 20, 2012 - Version 8.79</b></a>
+<ul>
+<li>Avoid deleting the JPEG APP14 Adobe segment when deleting all metadata
+<li>Added ability to read/write/create JPEG APP14 Adobe segment as a block
+<li>Added some new CanonModelID values
+<li>Added another Panasonic WhiteBalance value (thanks PeterK)
+<li>Decode Panasonic ColorTempKelvin tag
+<li>Decode information from Qualcomm APP7 JPEG segment
+<li>Extract PreviewImage for a few more uncommon camera models
+<li>Strengthened MP3 file recognition to avoid mis-identification of some files
+<li>Fixed problems reading "sfnt" resource in some DFONT files
+<li>Fixed problems writing some LensType values for 3rd-party lenses
+</ul>
+
+<a name='v8.78'><b>Feb. 11, 2012 - Version 8.78</b></a>
+<ul>
+<li>Added basic read support for a few obscure audio formats (LA, OFR, PAC, WV)
+<li>Added a couple more Canon LensType values
+<li>Decode some new Kodak tags in MP4 videos
+<li>Patched timezone problem on MirBSD due to leap-second "feature" of this OS
+<li>Fixed problem converting Adobe XMP LensID's for Pentax lenses
+<li>Fixed runtime warning due to conflict with some Vorbis tag ID's
+<li>Fixed problem which could result in duplicate columns in -csv output when
+    used with -f and the "#" suffix on a tag name
+<li>API Changes:
+    <ul>
+    <li>Added XMPAutoConv option
+    </ul>
+</ul>
+
+<a name='v8.77'><b>Jan. 27, 2012 - Version 8.77</b></a> <span class=grn>(production release)</span>
+<ul>
+<li>Added some new and updated some existing Sony/Minolta LensType values
+<li>Added two missing Minolta Teleconverter values
+<li>Added a new Canon LensType
+<li>Decode Olympus ArtFilterEffect
+<li>Enhanced -c (CoordFormat) option to allow signed coordinate output
+<li>Changed -sort option to always sort -json and -X outputs by tag name
+<li>Minor change to an Olympus LensType name (thanks Niels Kristian Bech Jensen)
+<li>Fixed problem geotagging orientation information from PTNTHPR sentence
+<li>Fixed decoding of negative Pentax EffectiveLV values
+<li>Fixed typo in an Olympus LensType
+</ul>
+
+<a name='v8.76'><b>Jan. 18, 2012 - Version 8.76</b></a>
+<ul>
+<li>Added -sort option to sort output by tag name or description
+<li>Added support for FujiFilm RAF version 1.03 images and downgraded RAF
+    version error to a warning
+<li>Added a number of new Minolta/Sony LensType's
+<li>Added a new CanonModelID
+<li>Decode FocusPosition for Sony A850 and calculate Composite FocusDistance
+<li>Decode IFD found in some Samsung Type1 maker notes
+<li>Patched Olympus test to fix failure on some platforms
+<li>Patched -json output to filter out invalid UTF-8 characters
+<li>API Changes:
+    <ul>
+    <li>Added Sort2 option and 'Descr' setting for Sort option
+    <li>Added secondary sort option to GetFoundTags() and GetTagList()
+    <li>Changed name of Sort 'Alpha' setting to 'Tag' (but 'Alpha' still works
+        for backward compatibility)
+    </ul>
+</ul>
+
+<a name='v8.75'><b>Jan. 8, 2012 - Version 8.75</b></a> <span class=grn>(production release)</span>
+<ul>
+<li>Added -php output option (thanks Marcel)
+<li>Decode another AIFF tag and handle character encoding in AIFF text values
+<li>Recognize PHP files
+<li>Enhanced Geotag feature to write speed/track from NMEA GPRMC sentence, and
+    orientation information from Honeywell NMEA PTNTHPR sentence
+<li>Changed verbose XMP output to print raw values
+<li>Lowered default priority of "avoided" tags so they don't override other
+    same-named tags when reading with duplicate tags disabled
+<li>Patched tests to ignore MirBSD leap-second unconformity
+<li>Patched ZIP module to avoid failed tests with Perl 5.6.2 on GNU/Linux 2.6
+<li>Fixed problem reading xref table of some PDF files created by PScript5.dll
+<li>Fixed problem reading RicohSubdir from AVI videos of the GR Digital 4
+</ul>
+
+<a name='ancient' href="ancient_history.html"><b>History of older versions</b> (back to 1.00) --></a><br><br>
+
+<hr>
+<p class='lf'><a href="index.html">&lt;-- Back to ExifTool home page</a></p>
+</body>
+</html>

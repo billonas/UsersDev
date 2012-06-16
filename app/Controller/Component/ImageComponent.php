@@ -13,14 +13,26 @@ class ImageComponent extends Component {
             return -1;
         }
         $result = 1;
-         ini_set("display_errors", 0);  //xreiazetai gia na mhn bgainei warning an den einai foto
-   	 if(!exif_imagetype($image['tmp_name'])){
+         //ini_set("display_errors", 0);  //xreiazetai gia na mhn bgainei warning an den einai foto
+   	 if(!@exif_imagetype($image['tmp_name'])){
             $result = 0;
 	 }
-         ini_set("display_errors", 1);
+         //ini_set("display_errors", 1);
          return $result;
     }
     
+    public function readexif($name){
+	//$exif = @exif_read_data($name, 'FILE', 0);
+	//if(!$exif) return null;
+	//return  $exif['FileDateTime'];
+        $dat = @shell_exec("perl Image-ExifTool-8.94/exiftool -DateTimeOriginal ".$name);
+        if(empty($dat))  return null;
+        $dat = explode(":", $dat);
+        $d = explode(" ", $dat[3]);
+        $dat1 = explode(" ",$dat[1]);        
+	return $dat1[1]."-".$dat[2]."-".$d[0];
+    }
+
     public function tmpRename($img){
         $tok = strtok ($img['name'], "." );
         while(($tok1 = strtok(".")) !== false){

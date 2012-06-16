@@ -66,6 +66,7 @@
                                     $uploaded1 = $this->Session->read('uploaded1');
                                     echo $this->Html->image($uploaded1["imagePath"]);
                                     echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
+				    echo $this->Form->input('exif',array('type'=>'hidden','default'=>$report['Report']['exif'], 'class'=>'std_form'));
                                 }
                                 if($this->Session->check('uploaded2')){
                                     $uploaded2 = $this->Session->read('uploaded2');
