@@ -502,12 +502,18 @@ class ReportsController extends AppController{
           if($this->Session->check('uploaded4')){
             $this->Session->delete('uploaded4');
           }
-        $species = ClassRegistry::init('Specie')->find('all');
+        $species = $this->Report->findSpecies();
         $this->set('species',$species);
-        $perioxes = $this->Report->findPerioxesSpecies();
-        $species2 = $this->Report->findReportsSpecies();
-        $this->set('perioxes',$perioxes);
-        $this->set('species2',$species2);
+        $sAreas = $this->Report->findSpeciesAreas($species);
+        $sReports = $this->Report->findSpeciesReports($species);
+        $this->set('sAreas',$sAreas);
+        $this->set('sReports',$sReports);
+        $areas = $this->Report->findAreas();
+        $this->set('areas', $areas);
+        $aSpecies = $this->Report->findAreasSpecies($areas);
+        $aReports = $this->Report->findAreasReports($areas);
+        $this->set('aSpecies', $aSpecies);
+        $this->set('aReports', $aReports);
     }
     
     

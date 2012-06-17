@@ -138,10 +138,14 @@ class Report extends AppModel{
 
     }
 
-    function findReportsSpecies() {
-         $species = $this->Specie->find('all');
-	if(empty($species)) $s = array();
-          $j = 0;
+    function findSpecies(){
+         return $this->Specie->find('all');
+    }
+
+    function findSpeciesReports($species = null) {
+         if($species == null)
+            $species = $this->findSpecies;
+	 if(empty($species)) $s = array();
 	 foreach ($species as $specie){
 		$sId = $specie['Specie']['id'];
                 $conditions = array(
@@ -149,49 +153,50 @@ class Report extends AppModel{
                 );
 		$reports = $this->find('all', array(
 			'conditions'=>	$conditions));
-		$i = 0;
-		if(empty($reports)) $r = array();
-		foreach ($reports as $report){
-			$r["$i"] = $report['Report'];
-			$i++;
-		}
-		$perioxes = $this->query("SELECT perioxh FROM reports WHERE species_id = $sId "); 
-		$i = 0;
-		if(empty($perioxes)) $p = array();
-		foreach ($perioxes as $perioxh){
-		 $p["$i"] = $perioxh['reports']['perioxh'];
-                  $i++;
-		}
-		$s["$j"] = array($specie['Specie']['scientific_name'],
-				$r, $p);
-		$j++;
+		$s[$specie['Specie']['scientific_name']] = $reports;
 	 }
          return $s;
     }
 	
-    function findPerioxesSpecies() {
-          $perioxes = $this->query("SELECT perioxh FROM reports");
-	  $i = 0;
+    function findSpeciesAreas($species = null) {
+        if($species == null)
+             $species = $this->findSpecies();
+        if(empty($species)) $s = array();
+	foreach ($species as $specie){
+		$sId = $specie['Specie']['id'];
+		$perioxes = $this->find('all', array('conditions' =>
+		array('Report.species_id' => $sId), 'fields' => array('DISTINCT Report.area'))); 
+		$s[$specie['Specie']['scientific_name']] =  $perioxes;
+	 }
+         return $s;
+    }
+
+    function findAreas(){
+         $perioxes = $this->find('all', array('fields' => 'DISTINCT Report.area'));
+         return $perioxes;
+    }
+
+    function findAreasSpecies($perioxes = null) {
+          if($perioxes == null)
+             $perioxes = $this->findAreas();
+	  
 	  if(empty($perioxes)) $pe = array();
-	  foreach ($perioxes as $p){
-		$per = $p['reports']['perioxh'];
-		$pe["$i"][0] = $per;		
-		$species = $this->query("SELECT scientific_name FROM species, reports WHERE species_id = species.id AND perioxh = '$per'");
-		$j = 0;
-		if(empty($species)) $pe["$i"][1] = array();
-		foreach($species as $sp){
-	          $pe["$i"][1]["$j"] = $sp['species']['scientific_name']; 
-		    $j++;
-		}
-		$reports = $this->query("SELECT * FROM reports WHERE perioxh = '$per'");
-		$j = 0;
-		foreach($reports as $report){
-		   $pe["$i"][2]["$j"] = $report['reports'];
-		   $j++;
-		}
-		$i++;
-	  }
-	  return $pe;
+          foreach ($perioxes as $perioxh){
+              $species = $this->find('all', array('conditions' => array('Report.area' => $perioxh['Report']['area']),'fields'=>'DISTINCT Specie.scientific_name'));
+              $pe[$perioxh['Report']['area']] = $species;
+          }
+          return $pe;
+    }
+    
+    function findAreasReports($perioxes = null) {
+         if($perioxes == null)
+              $perioxes = $this->findAreas();
+         if(empty($perioxes)) $pe = array();
+         foreach ($perioxes as $perioxh){
+              $reports = $this->find('all', array('conditions' => array('Report.area' => $perioxh['Report']['area'])));
+              $pe[$perioxh['Report']['area']] = $reports;
+         }
+         return $pe; 
     }
     
     /*function notifyCategorizedReport($reportId = null,$categoryId = null){
