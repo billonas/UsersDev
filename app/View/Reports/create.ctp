@@ -142,7 +142,14 @@ $(document).ready(function(){
     }
 </style>
     <div class="middle_row big_row no_padding">
+        <div class="login_box">  
+                <br><h1>Αναφορά παρατήρησης</h1></br>
+            </div>
+            <?php echo '<div class="flash_box gradient">';
+                        echo '</br/>'.$this->Session->flash().'</br>';
+                        echo '</div>'; ?>
         <div class="middle_wrapper">
+            
             <div id="tabs">
                 <ul>
                     <?php if($this->Session->check('uploaded1') || $this->Session->check('uploaded2') || $this->Session->check('report_completed')){
@@ -158,9 +165,7 @@ $(document).ready(function(){
                 <?php
                 if(!$this->Session->check('uploaded1') && !$this->Session->check('uploaded2') && !$this->Session->check('report_completed')){
                         echo '<div id="f1">';
-                        echo '<div class="flash_box gradient">';
-                        echo '</br/>'.$this->Session->flash().'</br>';
-                        echo '</div>';
+                        
                         echo $this->Form->create('Report', array('action' => 'create','div'=>false, "enctype" => "multipart/form-data"));
 			echo $this->Html->image('photo.png', array('alt' => 'Photo'));
 			echo $this->Html->image('video.png', array('alt' => 'Video'));
@@ -188,7 +193,7 @@ $(document).ready(function(){
                             echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
                             echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
                             echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
-			    echo $this->Form->input('exif',array( 'type'=>'hidden', 'class'=>'std_form'));
+							echo $this->Form->input('exif',array( 'type'=>'hidden', 'class'=>'std_form'));
                         }
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
@@ -210,19 +215,19 @@ $(document).ready(function(){
                         echo '<tr><td><label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label></td>';
                         echo '<td>'.$this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));				
                         echo '</td></tr></table>';
-						echo $this->Form->input('area',array( 'id'=>'maparea','div'=>false));
+			echo $this->Form->input('area',array( 'id'=>'maparea','div'=>false));
                         //echo "<a href='#2' class='button_like_anchor'>Επόμενο βήμα &#187;</a>";
                         echo '<big><span style="color:red;font-family:Arial,sans-serif;"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
                         echo '</div>';
 
                         echo '<div id="f2">';
                         echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
-                                                                    echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
-                                    echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                                                                    echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
-                                    echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                                                                    echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
-                                                    echo '</table>';    
+                        echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
+                        echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
+                        echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
+                        echo '</table>';    
                         echo '<br/>';
                         $options = array();
                         $options['1'] = $this->Html->image('hotspecies/1.jpg');
@@ -262,6 +267,7 @@ $(document).ready(function(){
                             echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
                             echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
                             echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
+                            echo $this->Form->input('exif',array( 'type'=>'hidden', 'class'=>'std_form'));
                         }
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
@@ -282,7 +288,7 @@ $(document).ready(function(){
                         echo '<tr><td><label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label></td>';
                         echo '<td>'.$this->Form->input('lng',array('div'=>false,'value'=>$report['Report']['lng'],'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
                         echo '</td></tr></table>';
-						echo $this->Form->input('area',array( 'id'=>'maparea','label' => false));
+			echo $this->Form->input('area',array( 'id'=>'maparea','div' => false));
                         //echo "<a href='#2' class='button_like_anchor'>Επόμενο βήμα &#187;</a>";
                         echo '<big><span style="color:red;font-family:Arial,sans-serif;"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
                         echo '</div>';
