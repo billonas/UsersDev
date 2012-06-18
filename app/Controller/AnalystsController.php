@@ -6,7 +6,7 @@
  * @author Rodger
  */
 class AnalystsController extends AppController{
-    var $name = 'Analyst';
+    var $name = 'Analysts';
     public $helpers = array('Html', 'Form');
     //put your code here
     
@@ -59,15 +59,14 @@ class AnalystsController extends AppController{
       else
       {
          $analyst =$this->Analyst->findById($id); 
-         if($user == null)
+         if($analyst == null)
          {
           $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
           $this->redirect();
-         
          }
          else
          {
-          $this->set('analyst', $user);
+          $this->set('analyst', $analyst);
          }
       }
     }

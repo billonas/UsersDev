@@ -7,6 +7,7 @@
  */
 class Analyst extends AppModel{
     var $name= 'Analyst';
+    public $recursive = 3;
     public $belongsTo = array(
         'Category1' => array(
            'className' => 'Category',
