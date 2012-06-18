@@ -211,7 +211,7 @@ class Report extends AppModel{
             {
                 $email = new CakeEmail();
                 $email->config('smtp');
-                $email->from(array('nickal1987@hotmail.com' => 'Elkethe-Admin'));
+                $email->from(array('no-reply@elke8e.com' => 'Elkethe-Admin'));
                 $email->to($analyst['User']['email']);
                 $email->subject('New report');
                 $email->transport('Smtp');

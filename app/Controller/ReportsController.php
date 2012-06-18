@@ -9,7 +9,7 @@
 class ReportsController extends AppController{
     var $name = 'Reports';
     public $helpers = array('Html', 'Form', 'Cropimage','GoogleMapV3', 'Js','Session', 'Xls');
-    public $components = array('JqImgcrop', 'Image','Video');
+    public $components = array('JqImgcrop', 'Image','Video','Email');
 
    function export() { //http://eureka.ykyuen.info/2009/10/04/cakephp-export-data-to-a-xls-file/       
    	$data = $this->Report->find('all');
@@ -269,9 +269,36 @@ class ReportsController extends AppController{
             } 
             else {
                 //Kodikas pou kalei thn synartisi pou stelnei mail stous analytes tis catigorias
-                /*$catId = $this->request->data['Report']['category_id'];
-                $repId = $this->request->data['Report']['id'];
-                $this->Report->notifyCategorizedReport($repId, $catId);*/
+                $categoryId = $this->request->data['Report']['category_id'];
+                $reportId = $this->request->data['Report']['id'];
+                //$this->Report->notifyCategorizedReport($reportId, $categoryId);
+                $report = $this->Report->findById($reportId);
+                if($report['Report']['category_id'] != $categoryId)
+                {
+                    $analysts1 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category1' => $categoryId)));
+                    //$analysts2 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category2' => $categoryId)));
+                    foreach($analysts1 as $analyst)
+                    {
+
+                        $this->set('report_link', 'http://localhost/UsersDev/reports/edit/'.$reportId);//env('SERVER_NAME')
+
+                        $this->Email->to = $analyst['User']['email'];
+                        $this->Email->subject = env('SERVER_NAME') . ' – Νέα αναφορά είδους.';
+                        $this->Email->from = 'no-reply <no-reply@elke8e.com>"';
+                        $this->Email->template = 'new_report';
+                        $this->Email->layout = 'new_report';
+                        $this->Email->sendAs = 'text';       
+                        $this->Email->smtpOptions = array(
+                                            'port'=>'465',
+                                            'timeout'=>'30',
+                                            'host' => 'ssl://smtp.gmail.com',
+                                            'username'=>'testhcmr@gmail.com',
+                                            'password'=>'hcmrelkethe',
+                                    );
+                        $this->Email->delivery = 'smtp';
+                        $this->Email->send();
+                    }
+                }
                 if ($this->Report->save($this->data)) {
                     $this->data = $this->Report->findById($id);
                     if(empty($this->data)){
