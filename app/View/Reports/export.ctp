@@ -52,7 +52,7 @@
 	  $this->Xls->writeString($report['Report']['date']);
 	  $this->Xls->writeString($report['Report']['lat']);
 	  $this->Xls->writeString($report['Report']['lng']);
-	  $this->Xls->writeString($report['Report']['perioxh']);
+	  $this->Xls->writeString($report['Report']['area']);
 	  $this->Xls->writeString($report['Report']['habitat']);
 	  $this->Xls->writeString($report['Report']['comments']);
 	  if($report['Report']['observer'] == null){
