@@ -62,7 +62,7 @@
                         <table>                        
                             <tr>
                                 <td>
-                                    <input name="text" type="text" class="" id="filterTerm"/>
+                                    <input name="text" type="text" class="" id="filterTerm" value="<?php if(isset($text))echo $text;?>"/>
                                 </td>
                                 <td>
                                     <button type="submit" value="Αναζήτηση">
@@ -75,15 +75,15 @@
                         <table>
                             <tr>
                                 <td>
-                                    <input id="searchAnalyst" type="checkbox" value="analyst" name="userType1" checked/>
+                                    <input id="searchAnalyst" type="checkbox" value="analyst" name="userType1" <?php if($checkboxes['userType1']) echo 'checked'; ?>/>
                                     <label for="searchAnalyst">Αναλυτές <span class="tag analyst"></span></label>
                                 </td>
                                 <td>
-                                    <input id="searchSimple" type="checkbox" value="simple"  name="userType2" checked/>
+                                    <input id="searchSimple" type="checkbox" value="simple"  name="userType2" <?php if($checkboxes['userType2']) echo 'checked'; ?>/>
                                     <label for="searchSimple">Απλοί Χρήστες <span class="tag basic"></span></label>
                                 </td>
                                 <td>
-                                    <input id="searchHyperanalyst" type="checkbox" value="hyperanalyst"  name="userType3" checked/>
+                                    <input id="searchHyperanalyst" type="checkbox" value="hyperanalyst"  name="userType3" <?php if($checkboxes['userType3']) echo 'checked'; ?>/>
                                     <label for="searchHyperanalyst">Υπερχρήστες <span class="tag hyperanalyst"></span></label>
                                 </td>
                             </tr>
