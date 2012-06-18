@@ -36,6 +36,7 @@ class AnalystsController extends AppController{
     
     function create()
     {
+      
 
     }
     
@@ -44,10 +45,31 @@ class AnalystsController extends AppController{
       
     }
   
-    function show()
+    function show($id = null)
     {
-      
-      
+      if((!$this->Session->check('UserUsername')) || 
+                   (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+      {
+         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+      }
+      if($id==null){
+          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
+          $this->redirect();
+      }
+      else
+      {
+         $analyst =$this->Analyst->findById($id); 
+         if($user == null)
+         {
+          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
+          $this->redirect();
+         
+         }
+         else
+         {
+          $this->set('analyst', $user);
+         }
+      }
     }
 }
 
