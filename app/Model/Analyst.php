@@ -15,13 +15,10 @@ class Analyst extends AppModel{
         'Category2' => array(
             'className' => 'Category',
             'foreignKey' => 'category2'
-         )
-    );
-    public $hasOne = array(
+         ),
 	'User' => array(
 	    'className' => 'User',
 	    'foreignKey' => 'id',
-	    'dependent' => true
         )
     );
     //put your code here
