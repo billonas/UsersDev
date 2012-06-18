@@ -412,7 +412,7 @@ class UsersController extends AppController
                               'userType2' => false,
                               'userType3' => false
                 );
-
+                $text = null;
                 if(!empty($this->params['url']['userType1']))
                 {
                   array_push($userType, $this->params['url']['userType1']);
@@ -447,7 +447,7 @@ class UsersController extends AppController
                 $users = $this->User->find("all", array('conditions'=> $conditions));
                 $this->set('users',$users);
                 $this->set('checkboxes',$checkboxes);
-                $this->set('text',$text);
+                $this->set('text',  $text);
             }
       }
       
