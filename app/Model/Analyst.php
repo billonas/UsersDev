@@ -18,7 +18,7 @@ class Analyst extends AppModel{
          ),
 	'User' => array(
 	    'className' => 'User',
-	    'foreignKey' => 'id',
+	    'foreignKey' => 'id'
         )
     );
     //put your code here
