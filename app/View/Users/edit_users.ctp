@@ -23,9 +23,21 @@
         $('#pager').attr('style', '');
     }
     
-    function item_onclick(id)
+    function item_onclick(id, type)
     {
-        window.location.href = 'show/' + id;
+        var target = '';
+        switch (type)
+        {
+            case 'basic':
+                target = 'show/' + id;
+                break;
+            case 'analyst':
+            case 'hypernalyst':
+                target = '/analyst/show/' + id;
+                break;
+        }
+        
+        window.location.href = target;
     }
 </script>
 <div class="middle_row">
@@ -71,7 +83,7 @@
                                 </td>
                                 <td>
                                     <input id="searchHyperanalyst" type="checkbox" value="hyperanalyst"  name="userType3" checked/>
-                                    <label for="searchHyperanalyst">Υπέρ-Αναλυτές <span class="tag hyperanalyst"></span></label>
+                                    <label for="searchHyperanalyst">Υπερχρήστες <span class="tag hyperanalyst"></span></label>
                                 </td>
                             </tr>
                         </table>
@@ -113,7 +125,7 @@
                                 }
                             }
                         ?>
-                            <tr class="item user <?php echo $userType ?>" onclick="item_onclick(<?php echo $user['User']['id'] ?>)">
+                            <tr class="item user <?php echo $userType ?>" onclick="item_onclick(<?php echo $user['User']['id'] ?>, <?php echo $userType?>)">
                                 <td class="leftmost">
                                     <?php echo $user['User']['created'] ?>
                                 </td>
@@ -145,14 +157,20 @@
                                 </td>
                                 <td class="rightmost">
                                     <div class="buttonContainer">
-                                        <!-- Show user button-->
-                                        <?php if ($userType==='basic' || $userType==='analyst' || $userType==='hyperanalyst'): ?>
+                                        <!-- Show basic user button-->
+                                        <?php if ($userType==='basic'): ?>
                                             <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'show', $user['User']['id'])) ?>">
-                                                Εμφάνιση
+                                                Προβολή
+                                            </a>
+                                        <?php endif; ?>
+                                        <!-- Show analyst button-->
+                                        <?php if ($userType==='analyst' || $userType==='hyperanalyst'): ?>
+                                            <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'show', $user['User']['id'])) ?>">
+                                                Προβολή
                                             </a>
                                         <?php endif; ?>
                                         <!-- Delete user button-->
-                                        <?php if ($userType==='basic'|| $userType==='analyst'): ?>
+                                        <?php if ($userType==='basic'): ?>
                                             <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $user['User']['id'])) ?>">
                                                 <img class="icon" src="../img/whiteX.png"/>
                                                 Διαγραφή
