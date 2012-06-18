@@ -71,7 +71,7 @@
                                 </td>
                                 <td>
                                     <input id="searchHyperanalyst" type="checkbox" value="hyperanalyst"  name="userType3" checked/>
-                                    <label for="searchHyperanalyst">Υπερχρήστες <span class="tag hyperanalyst"></span></label>
+                                    <label for="searchHyperanalyst">Υπέρ-Αναλυτές <span class="tag hyperanalyst"></span></label>
                                 </td>
                             </tr>
                         </table>
@@ -152,7 +152,7 @@
                                             </a>
                                         <?php endif; ?>
                                         <!-- Delete user button-->
-                                        <?php if ($userType==='basic'): ?>
+                                        <?php if ($userType==='basic'|| $userType==='analyst'): ?>
                                             <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $user['User']['id'])) ?>">
                                                 <img class="icon" src="../img/whiteX.png"/>
                                                 Διαγραφή
