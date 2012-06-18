@@ -21,7 +21,12 @@ class Analyst extends AppModel{
 	    'foreignKey' => 'id'
         )
     );
-    //put your code here
+    
+     public function saveAnalyst($analyst){ 
+        $this->User->save($analyst, false);
+        $analyst['Analyst']['id'] = $this->User->id;
+        return $this->save($analyst);
+    }
 }
 
 ?>
