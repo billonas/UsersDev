@@ -14,8 +14,7 @@
             .tablesorterPager({container: $("#pager")});
         
         positionPagerButtons();
-    } 
-);
+    });
     
     function positionPagerButtons()
     {
@@ -32,9 +31,11 @@
                 target = 'show/' + id;
                 break;
             case 'analyst':
-            case 'hypernalyst':
-                target = '/analyst/show/' + id;
+            case 'hyperanalyst':
+                target = '/analysts/show/' + id;
                 break;
+            default:
+                throw "Invalid user type: " + type;
         }
         
         window.location.href = target;
@@ -125,7 +126,7 @@
                                 }
                             }
                         ?>
-                            <tr class="item user <?php echo $userType ?>" onclick="item_onclick(<?php echo $user['User']['id'] ?>, <?php echo $userType?>)">
+                            <tr class="item user <?php echo $userType ?>" onclick="item_onclick(<?php echo $user['User']['id'] ?>, '<?php echo $userType?>')">
                                 <td class="leftmost">
                                     <?php echo $user['User']['created'] ?>
                                 </td>
