@@ -7,14 +7,30 @@
 <?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js')); ?>
 <script>    
     $(document).ready(function()
-    { 
-        $("#pager button, .buttonContainer a, #filterContainer form input[type='submit'], #filterContainer form button[type='submit'], #createUserLink a").button();
+    {  
+//        $('.item a.editButton').each(function(index) {
+//           var target = $(this).attr('href');
+//           $(this).attr('href', 'javascript:void(0);');
+//           $(this).attr('onclick', 'confirmAndNav("'+target+'");')
+//        });
+        
+        // Create button styles
+        $("#pager button, .buttonContainer a, #filterContainer form input[type='submit'], #filterContainer form button[type='submit'], #createUserLink a").button();    
         
         $("#reportsTable").tablesorter({sortList: [[0,1]]})  //sort the first column in descending order
             .tablesorterPager({container: $("#pager")});
         
         positionPagerButtons();
     });
+    
+    function confirmAndNav(url)
+    {
+        if (confirm('Are you sure?'))
+            alert('yeah');
+        else
+            alert('nah');
+            //window.location.href = url;
+    }
     
     function positionPagerButtons()
     {
@@ -172,7 +188,7 @@
                                         <?php endif; ?>
                                         <!-- Delete user button-->
                                         <?php if ($userType==='basic'): ?>
-                                            <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $user['User']['id'])) ?>">
+                                            <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $user['User']['id']))?>" >
                                                 <img class="icon" src="../img/whiteX.png"/>
                                                 Διαγραφή
                                             </a>
