@@ -407,20 +407,28 @@ class UsersController extends AppController
                     ||(!empty($this->params['url']['userType2']))) 
             {
                 $userType = array();
+                $checkboxes = array(
+                              'userType1' => false,
+                              'userType2' => false,
+                              'userType3' => false
+                );
                 $text = array();
                 if(!empty($this->params['url']['userType1']))
                 {
                   array_push($userType, $this->params['url']['userType1']);
+                  $checkboxes['userType1'] = true; 
                 }
 
                 if(!empty($this->params['url']['userType2']))
                 {
                   array_push($userType, $this->params['url']['userType2']);
+                  $checkboxes['userType2'] = true; 
                 }
 
                 if(!empty($this->params['url']['userType3']))
                 {
                   array_push($userType, $this->params['url']['userType3']);
+                  $checkboxes['userType3'] = true; 
                 }
                 $conditions = array(
                         'User.user_type' => $userType
@@ -438,6 +446,7 @@ class UsersController extends AppController
 
                 $users = $this->User->find("all", array('conditions'=> $conditions));
                 $this->set('users',$users);
+                $this->set('checkboxes',$checkboxes);
             }
       }
       
@@ -470,6 +479,8 @@ class UsersController extends AppController
          }
       }
     }
+
+    
 
 
 /////////////////////////Core UsersController Methods(end)//////////////////////
