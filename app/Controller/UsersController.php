@@ -237,7 +237,44 @@ class UsersController extends AppController
     
     function delete($id = null) 
     {
-        
+      if((!$this->Session->check('UserUsername')) || 
+                   (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+      {
+         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+      }
+      else
+      {
+         if($id==null){
+             $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
+             $this->redirect();
+         }
+         else
+         {
+            if(!$this->User->delete($id))
+            {
+             $this->Session->setFlash('Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε!');
+             $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
+                                   "?" => array(
+                                          "userType1" => "analyst",
+                                          "userType2" => "simple",
+                                          "userType3" => "hyperanalyst"
+                                          ),
+                                    ));  
+            }
+            else
+            {
+             $this->Session->setFlash('Ο χρήστης διαγράφηκε επιτυχώς!');
+             $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
+                                   "?" => array(
+                                          "userType1" => "analyst",
+                                          "userType2" => "simple",
+                                          "userType3" => "hyperanalyst"
+                                          ),
+                                    ));  
+            }
+         }
+         
+      }
     }
     
 
@@ -415,7 +452,7 @@ class UsersController extends AppController
          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
       }
       if($id==null){
-          $this->Session->setFlash('Δεν βρέθηκε η αναφορά που ζητήσατε');
+          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
           $this->redirect();
       }
       else
@@ -423,7 +460,7 @@ class UsersController extends AppController
          $user =$this->User->findById($id); 
          if($user == null)
          {
-          $this->Session->setFlash('Δεν βρέθηκε η αναφορά που ζητήσατε');
+          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
           $this->redirect();
          
          }
@@ -433,6 +470,7 @@ class UsersController extends AppController
          }
       }
     }
+
 
 /////////////////////////Core UsersController Methods(end)//////////////////////
 

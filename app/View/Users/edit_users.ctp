@@ -25,7 +25,7 @@
     
     function item_onclick(id)
     {
-        window.location.href = 'edit/' + id;
+        window.location.href = 'show/' + id;
     }
 </script>
 <div class="middle_row">
@@ -148,7 +148,7 @@
                                         <!-- Show user button-->
                                         <?php if ($userType==='basic' || $userType==='analyst' || $userType==='hyperanalyst'): ?>
                                             <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'show', $user['User']['id'])) ?>">
-                                                Επεξεργασία
+                                                Εμφάνιση
                                             </a>
                                         <?php endif; ?>
                                         <!-- Delete user button-->

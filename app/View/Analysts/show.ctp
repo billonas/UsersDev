@@ -1,9 +1,7 @@
-<?php $this->set('title_for_layout', 'Προφίλ Χρήστη - ΕΛΚΕΘΕ');?> 
- 
-    <div class="middle_row  big_row">
+<div class="middle_row  big_row">
 			<div class="middle_wrapper">
 				<div class="register_box login_box" align="center">
-			 		<br><h1>Προφίλ χρήστη</h1></br>
+			 		<br><h1>Προφίλ αναλυτή</h1></br>
 
 					<?php echo $this->Form->create('User', array('action' => 'edit'));?>
                <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
@@ -44,4 +42,4 @@
 								    ?>
 			    </div>
 			</div>
-    </div>
+    <

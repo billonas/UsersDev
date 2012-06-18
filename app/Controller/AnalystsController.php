@@ -10,10 +10,6 @@ class AnalystsController extends AppController{
     public $helpers = array('Html', 'Form');
     //put your code here
     
-    function create()
-    {
-
-    }
        
     function beforeFilter() 
    {
@@ -38,6 +34,11 @@ class AnalystsController extends AppController{
           }
    }
     
+    function create()
+    {
+
+    }
+    
     function update()
     {
       
@@ -45,6 +46,7 @@ class AnalystsController extends AppController{
   
     function show()
     {
+      
       
     }
 }
