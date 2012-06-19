@@ -7,15 +7,30 @@
 <?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js')); ?>
 <script>    
     $(document).ready(function()
-    { 
-        $("#pager button, .buttonContainer a, #filterContainer form input[type='submit'], #filterContainer form button[type='submit'], #createUserLink a").button();
+    {  
+//        $('.item a.editButton').each(function(index) {
+//           var target = $(this).attr('href');
+//           $(this).attr('href', 'javascript:void(0);');
+//           $(this).attr('onclick', 'confirmAndNav("'+target+'");')
+//        });
+        
+        // Create button styles
+        $("#pager button, .buttonContainer a, #filterContainer form input[type='submit'], #filterContainer form button[type='submit'], #createUserLink a").button();    
         
         $("#reportsTable").tablesorter({sortList: [[0,1]]})  //sort the first column in descending order
             .tablesorterPager({container: $("#pager")});
         
         positionPagerButtons();
-    } 
-);
+    });
+    
+    function confirmAndNav(url)
+    {
+        if (confirm('Are you sure?'))
+            alert('yeah');
+        else
+            alert('nah');
+            //window.location.href = url;
+    }
     
     function positionPagerButtons()
     {
@@ -23,9 +38,23 @@
         $('#pager').attr('style', '');
     }
     
-    function item_onclick(id)
+    function item_onclick(id, type)
     {
-        window.location.href = 'show/' + id;
+        var target = '';
+        switch (type)
+        {
+            case 'basic':
+                target = 'show/' + id;
+                break;
+            case 'analyst':
+            case 'hyperanalyst':
+                target = '/analysts/show/' + id;
+                break;
+            default:
+                throw "Invalid user type: " + type;
+        }
+        
+        window.location.href = target;
     }
 </script>
 <div class="middle_row">
@@ -49,7 +78,7 @@
                         <table>                        
                             <tr>
                                 <td>
-                                    <input name="text" type="text" class="" id="filterTerm"/>
+                                    <input name="text" type="text" class="" id="filterTerm" value="<?php if(isset($text))echo $text;?>"/>
                                 </td>
                                 <td>
                                     <button type="submit" value="Αναζήτηση">
@@ -62,16 +91,16 @@
                         <table>
                             <tr>
                                 <td>
-                                    <input id="searchAnalyst" type="checkbox" value="analyst" name="userType1" checked/>
+                                    <input id="searchAnalyst" type="checkbox" value="analyst" name="userType1" <?php if($checkboxes['userType1']) echo 'checked'; ?>/>
                                     <label for="searchAnalyst">Αναλυτές <span class="tag analyst"></span></label>
                                 </td>
                                 <td>
-                                    <input id="searchSimple" type="checkbox" value="simple"  name="userType2" checked/>
+                                    <input id="searchSimple" type="checkbox" value="simple"  name="userType2" <?php if($checkboxes['userType2']) echo 'checked'; ?>/>
                                     <label for="searchSimple">Απλοί Χρήστες <span class="tag basic"></span></label>
                                 </td>
                                 <td>
-                                    <input id="searchHyperanalyst" type="checkbox" value="hyperanalyst"  name="userType3" checked/>
-                                    <label for="searchHyperanalyst">Υπέρ-Αναλυτές <span class="tag hyperanalyst"></span></label>
+                                    <input id="searchHyperanalyst" type="checkbox" value="hyperanalyst"  name="userType3" <?php if($checkboxes['userType3']) echo 'checked'; ?>/>
+                                    <label for="searchHyperanalyst">Υπερχρήστες <span class="tag hyperanalyst"></span></label>
                                 </td>
                             </tr>
                         </table>
@@ -113,7 +142,7 @@
                                 }
                             }
                         ?>
-                            <tr class="item user <?php echo $userType ?>" onclick="item_onclick(<?php echo $user['User']['id'] ?>)">
+                            <tr class="item user <?php echo $userType ?>" onclick="item_onclick(<?php echo $user['User']['id'] ?>, '<?php echo $userType?>')">
                                 <td class="leftmost">
                                     <?php echo $user['User']['created'] ?>
                                 </td>
@@ -145,15 +174,21 @@
                                 </td>
                                 <td class="rightmost">
                                     <div class="buttonContainer">
-                                        <!-- Show user button-->
-                                        <?php if ($userType==='basic' || $userType==='analyst' || $userType==='hyperanalyst'): ?>
+                                        <!-- Show basic user button-->
+                                        <?php if ($userType==='basic'): ?>
                                             <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'show', $user['User']['id'])) ?>">
-                                                Εμφάνιση
+                                                Προβολή
+                                            </a>
+                                        <?php endif; ?>
+                                        <!-- Show analyst button-->
+                                        <?php if ($userType==='analyst' || $userType==='hyperanalyst'): ?>
+                                            <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'show', $user['User']['id'])) ?>">
+                                                Προβολή
                                             </a>
                                         <?php endif; ?>
                                         <!-- Delete user button-->
-                                        <?php if ($userType==='basic'|| $userType==='analyst'): ?>
-                                            <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $user['User']['id'])) ?>">
+                                        <?php if ($userType==='basic'): ?>
+                                            <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $user['User']['id']))?>" >
                                                 <img class="icon" src="../img/whiteX.png"/>
                                                 Διαγραφή
                                             </a>
