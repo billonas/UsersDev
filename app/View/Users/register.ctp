@@ -46,13 +46,14 @@
 					
 				                                       
 					?></table>				
-					
+                                </div>
+                            <div align="center">
 					<?php echo $this->Recaptcha->show(array(
 						'theme' => 'white',
 						'custom_translations' => array('instructions_visual' => 'Γράψτε τις λέξεις')	
 					));
    					echo $this->Recaptcha->error();	  
-					
+				echo '</div><div class="register_box login_box" align="center">';	
 					echo '</br><p>'.$this->Form->end(array(
 									'name' => 'data[User][register]',
 									'label' => 'Εγγραφή',

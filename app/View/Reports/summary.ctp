@@ -70,6 +70,7 @@
                         echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
                         echo $this->Form->input('exif',array('type'=>'hidden','default'=>$report['Report']['exif'], 'class'=>'std_form'));
                     }
+                    
                     if($this->Session->check('uploaded2')){
                         $uploaded2 = $this->Session->read('uploaded2');
                         echo 'VIDEO';
@@ -189,46 +190,13 @@
                     echo '<tr><td><label for="ReportComments" class="std_form">Επιπλέον Σχόλια </label></td>';
                     echo '<td>'.((!strcmp($report['Report']['comments'],'')) ? '-' : $report['Report']['comments']).'</td></tr>';             
                     echo $this->Form->input('comments', array('type' => 'hidden','value'=>$report['Report']['comments'])).'</td></tr>';
-                 
-                    if($this->Session->check('UserUsername')){
-                        echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-                        echo '<td>'.$this->Form->input('age',array('label'=>false,'default'=>$this->Session->read('UserBirthDate'), 'disabled'=>true, 'class'=>'std_form blue shadow', 'div'=>false, 'empty' => true,'minYear' => date('Y')-50, 'maxYear' => date('Y'))).'</td></tr>';
-                                                echo '<select name="data[Report][age][month]" id="ReportAgeMonth" style="display:none;">
-                                                        <option value="'.$report['Report']['age']['month'].'" selected="selected">06</option>
-                                                </select>
-
-                                                <select name="data[Report][age][day]" id="ReportAgeDay" style="display:none;">
-                                                        <option value="'.$report['Report']['age']['day'].'" selected="selected">13</option>
-                                                </select>
-
-                                                <select name="data[Report][age][year]" id="ReportAgeYear" style="display:none;">
-                                                        <option value="'.$report['Report']['age']['year'].'" selected="selected">2012</option>
-                                                </select>';
-
-                        //$options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
-                        echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
-                        echo '<td>'.$this->Session->read('UserEducation').'</td></tr>';
-                        echo $this->Form->input('education', array('type'=>'hidden', 'value'=>$this->Session->read('UserEducation')));
-
-
-                        //$options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο');
-                        echo '<tr><td><label for="ReportOccupation" class="std_form">Ιδιότητα </label></td>';
-                        echo '<td>'.$this->Form->input('occupation', array('options' => $options,'default'=>$this->Session->read('UserMembership'),'label'=>false,'readonly'=>'readonly', 'class'=>'std_form')).'</td></tr>';
-                        echo '<tr><td><label for="ReportName" class="std_form">Όνομα</label></td>';
-                        echo '<td>'.$this->Form->input('name',array("label" => false,'value'=>$this->Session->read('UserName'),'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','readonly'=>'readonly', 'div'=>false)).'</td></tr>';
-                        echo '<tr><td><label for="ReportSurname" class="std_form">Επώνυμο</label></td>';
-                        echo '<td>'.$this->Form->input('surname',array("label" => false, 'value'=>$this->Session->read('UserSurname'),'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά','class'=>'std_form blue_shadow','readonly'=>'readonly', 'div'=>false)).'</td></tr>';
-                        echo '<tr><td><label for="ReportPhone_number" class="std_form">Τηλέφωνο Επικοινωνίας </label></td>';
-                        echo '<td>'.$this->Form->input('phone_number',array("label" => false,'value'=>$this->Session->read('UserPhoneNumber'),'placeholder' => 'Σταθερό ή Κινητό','class'=>'std_form blue_shadow','readonly'=>'readonly', 'div'=>false)).'</td></tr>';
-                        echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
-                        echo '<td>'.$this->Form->input('email',array("label"=>false,'value'=>$this->Session->read('UserUsername'),'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow','readonly'=>'readonly', 'div'=>false)).'</td></tr>';
-                        echo $this->Form->input('observer',array('value'=>$userId,"type"=>'hidden', 'class'=>'std_form'));
-                        echo "<a href='#2' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
-                        //echo '</div>';
-                    }
-                    else{
-                        if($this->Session->check('report')){
-                            echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
+                    echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
+                    
+                    
+                    
+                    if($this->Session->check('report')){
+                        
+                        
                             echo '<td>'.$report['Report']['age']['day'].' ';
                             switch ($report['Report']['age']['month']) {
                                 case '01':
@@ -259,7 +227,7 @@
                                     echo "Σεπτεμβρίου ";
                                     break;
                                 case '10':
-                                    echo "Οκτοβρίου ";
+                                    echo "Οκτωβρίου ";
                                     break;
                                 case '11':
                                     echo "Νοεμβρίου ";
@@ -273,23 +241,21 @@
 
                             }
                             echo $report['Report']['age']['year'].'</td></tr>';
-                                                        echo '<select name="data[Report][age][month]" id="ReportAgeMonth" style="display:none;">
-                                                        <option value="'.$report['Report']['age']['month'].'" selected="selected">'.$report['Report']['age']['month'].'</option>
-                                                </select>
+                            echo '<select name="data[Report][age][month]" id="ReportAgeMonth" style="display:none;">
+                                        <option value="'.$report['Report']['age']['month'].'" selected="selected">'.$report['Report']['age']['month'].'</option>
+                                  </select>
 
-                                                <select name="data[Report][age][day]" id="ReportAgeDay" style="display:none;">
-                                                        <option value="'.$report['Report']['age']['day'].'" selected="selected">'.$report['Report']['age']['day'].'</option>
-                                                </select>
+                                 <select name="data[Report][age][day]" id="ReportAgeDay" style="display:none;">
+                                         <option value="'.$report['Report']['age']['day'].'" selected="selected">'.$report['Report']['age']['day'].'</option>
+                                 </select>
 
-                                                <select name="data[Report][age][year]" id="ReportAgeYear" style="display:none;">
-                                                        <option value="'.$report['Report']['age']['year'].'" selected="selected">'.$report['Report']['age']['year'].'</option>
-                                                </select>';
-
-
-
-
+                                 <select name="data[Report][age][year]" id="ReportAgeYear" style="display:none;">
+                                         <option value="'.$report['Report']['age']['year'].'" selected="selected">'.$report['Report']['age']['year'].'</option>
+                                 </select>';
                             
                             
+                            
+                        
                             echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
                             echo '<td>';
                             switch($report['Report']['education']){
@@ -356,8 +322,61 @@
                             echo $this->Form->input('email',array('type'=>'hidden' ,'value'=>$report['Report']['email']));							    
                         }
                         else{ 
+                            echo 'what case is this?';
                             echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-                            echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false,'readonly'=>'readonly')).'</td></tr>';
+                            
+                            echo '<td>'.$report['Report']['date']['day'].' ';
+                            switch ($report['Report']['date']['month']) {
+                                case '01':
+                                    echo "Ιανουαρίου ";
+                                    break;
+                                case '02':
+                                    echo "Φεβρουαρίου ";
+                                    break;
+                                case '03':
+                                    echo "Μαρτίου ";
+                                    break;
+                                case '04':
+                                    echo "Απριλίου ";
+                                    break;
+                                case '05':
+                                    echo "Μαίου ";
+                                    break;
+                                case '06':
+                                    echo "Ιουνίου ";
+                                    break;
+                                case '07':
+                                    echo "Ιουλίου ";
+                                    break;
+                                case '08':
+                                    echo "Αυγούστου ";
+                                    break;
+                                case '09':
+                                    echo "Σεπτεμβρίου ";
+                                    break;
+                                case '10':
+                                    echo "Οκτοβρίου ";
+                                    break;
+                                case '11':
+                                    echo "Νοεμβρίου ";
+                                    break;
+                                case '12':
+                                    echo "Δεκεμβρίου ";
+                                    break;
+
+                            }
+                            echo $report['Report']['age']['year'].'</td></tr>';
+                            echo '<select name="data[Report][date][month]" class="std_form blue shadow" id="ReportDateMonth" style="display:none;">
+                                                        <option value="'.$report['Report']['date']['month'].'" selected="selected">'.$report['Report']['date']['month'].'</option>
+                                                </select>					
+                                                <select name="data[Report][date][day]" class="std_form blue shadow" id="ReportDateDay" style="display:none;">
+                                                        <option value="'.$report['Report']['date']['day'].'" selected="selected">'.$report['Report']['date']['day'].'</option>
+                                                </select>
+                                                <select name="data[Report][date][year]" class="std_form blue shadow" id="ReportDateYear" style="display:none;">
+                                                        <option value="'.$report['Report']['date']['year'].'" selected="selected">'.$report['Report']['date']['year'].'</option>
+                                                </select>';
+
+                            //echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false,'readonly'=>'readonly')).'</td></tr>';
                             $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
                             echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
                             echo '<td>'.$this->Form->input('education', array('options' => $options, 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false, 'readonly'=>'readonly')).'</td></tr>';
@@ -374,7 +393,7 @@
                             echo '<td>'.$this->Form->input('email',array("label"=>false, 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'readonly'=>'readonly', 'div'=>false)).'</td></tr>';							    
                         }
 
-                    }
+                    
                     //echo $this->Form->input('category_id', array('value'=>null,'label'=>'Κατηγορία Είδους','type'=>'hidden', 'class'=>'std_form'));
                     //echo $this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>'Κατάσταση Αναφοράς ','type'=>'hidden', 'class'=>'std_form'));
 	            echo '<tr><td>'.$this->Html->link('Επιστροφή στην φόρμα αναφοράς', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
