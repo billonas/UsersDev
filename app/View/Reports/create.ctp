@@ -1,9 +1,11 @@
-<?php echo $this->Html->css(array('main','jquery-ui','imgareaselect-default'),null, array('inline'=>false)); ?>
-<?php echo $this->Html->script(array('jquery.min','jquery.imgareaselect.pack.js'), array('inline'=>false));?>
+<?php echo $this->Html->css(array('jquery-ui','imgareaselect-default','bubbletip'),null, array('inline'=>false)); ?>
+<?php echo $this->Html->script(array('jquery.min','jquery.imgareaselect.pack.js','jQuery.bubbletip-1.0.6'), array('inline'=>false));?>
 
 <script type="text/javascript"
     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC0azkJD2QB5m24LzhdEUenVmgCJPNaiDI&sensor=false">
 </script>
+
+
 <script type="text/javascript">
 
 var map; 
@@ -98,10 +100,15 @@ function toggleBounce() {
 }
 
 $(document).ready(function(){
+    
     $('div[id*="f"]').css('display','none');
     $('#f1').css('display','block');
     $('a[href="#1"]').parent().addClass('selected_tab');
     $('.fragment').bind('click',function(e){
+        
+        
+        
+        
         var $this = $(this);
         if($this.is('a') && !$this.parent().hasClass('selected_tab')){
             var prev_temp = $('.selected_tab').find('a').attr('href');
@@ -125,15 +132,57 @@ $(document).ready(function(){
             $('#f' + addr).css('display','block');            
             return false;
         }
+        
     });
     handleApiReady();
+    
+    $('#a1_right').bubbletip($('#tip1_right'), { deltaDirection: 'right' });
+    $('#a1_trigger').bubbletip($('#tip1_trigger1'), { positionAtElement: $('#a1_target') });
+
+    $('#a_unbind').bubbletip($('#tip1_trigger2_unbind'));
+    $('#a_unbind').bind('click', function(event) {
+            $('#a1_trigger').removeBubbletip($('#tip1_trigger2'));
+            event.preventDefault();
+    });
+    $('#a_bind').bubbletip($('#tip1_trigger2_bind'));
+    $('#a_bind').bind('click', function(event) {
+            $('#a1_trigger').bubbletip($('#tip1_trigger2'), {
+                    positionAtElement: $('#a1_target'),
+                    deltaDirection: 'right',
+                    delayShow: 500,
+                    delayHide: 1000
+            });
+            event.preventDefault();
+    });
+
+    $('#inpText').bubbletip($('#tip1_focusblur'), {
+            deltaDirection: 'right',
+            bindShow: 'focus',
+            bindHide: 'blur'
+    });     
+
+    
 });
 
 
 </script>
-    <!--[if lt IE 10 ]>
-    <link rel="stylesheet" href="hacks.css" type="text/css" media="screen" />
-    <![endif]-->
+
+<script>
+
+
+function loadTip(){
+    
+    
+    
+    
+}
+
+
+</script>
+    
+
+    
+    
 <style>
     #mapCanvas {
         width: 500px;
@@ -141,6 +190,7 @@ $(document).ready(function(){
         position: relative;
     }
 </style>
+
     <div class="middle_row big_row no_padding">
         <div class="login_box">  
                 <br><h1>Αναφορά παρατήρησης</h1></br>
@@ -227,20 +277,26 @@ $(document).ready(function(){
                         echo '<big><span style="color:red;font-family:Arial,sans-serif;"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
                         echo '</div>';
 
-                        echo '<div id="f2">';
+                        echo '<div id="f2" >';
                         echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
                         echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
                         echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
                         echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
                         echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                        echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
+                        echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label><a id="a1_right" href="#">'.$this->Html->image('info.png').'</a></td></tr>';
                         echo '</table>';    
                         echo '<br/>';
                         $options = array();
                         $options['1'] = $this->Html->image('hotspecies/1.jpg');
                         $options['2'] = $this->Html->image('hotspecies/2.jpg');
                         $options['3'] = $this->Html->image('hotspecies/3.jpg');
-                        echo $this->Form->input('hot_id', array('options' => $options,'type'=>'radio','legend'=> false,'class'=>'std_form'));
+                        $options['0'] = 'Kανένα απο τα παραπάνω';
+                        echo $this->Form->input('hot_id', array('options' => $options,'type'=>'radio','legend'=> false,'class'=>'std_form','div'=>false));
+                                               
+                        
+
+                        
+                        
                         echo '<br/><table>';
                         echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
                         echo '<td>'.$this->Form->input('habitat',array('label'=>false,'placeholder' => 'Περιγράψτε. Π.Χ. «Βράχια καλυμμένα με βλάστηση»','div'=> false, 'class' => 'std_form blue_shadow')).'</td></tr>';
@@ -314,13 +370,14 @@ $(document).ready(function(){
                         echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
                         echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
                         echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                        echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
+                        echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label><a id="a1_right" href="#">'.$this->Html->image('info.png').'</a></td></tr>';
                         echo '</table>';    
                         echo '<br/>';
                         $options = array();
                         $options['1'] = $this->Html->image('hotspecies/1.jpg');
                         $options['2'] = $this->Html->image('hotspecies/2.jpg');
                         $options['3'] = $this->Html->image('hotspecies/3.jpg');
+                        $options['0'] = 'Kανένα απο τα παραπάνω';
                         echo $this->Form->input('hot_id', array('options' => $options,'value'=>$report['Report']['hot_id'],'type'=>'radio','legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
                         echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
@@ -465,3 +522,9 @@ $(document).ready(function(){
         <div><br />Powered by <a href="http://cakephp.org/">Cake.php</a>, <a href="http://jquery.com/">jQuery</a> and <a href="http://modernizr.com/">Modernizr</a>.</div>
     </div>
 </div>
+
+
+<div id="tip1_right" style="display:none;">
+                            Αν θέλετε να μάθετε περισσότερα <br/>για τα είδη αυτά, επισκεφτείτε <br/> την σελίδα 
+                            <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotspecies', 'action'=>'show'));?>
+                        </div>
