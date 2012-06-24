@@ -1,4 +1,43 @@
 <?php $this->set('title_for_layout', 'Εγγραφή Χρήστη - ΕΛΚΕΘΕ');?> 
+<?php echo $this->Html->css(array('jquery-ui','bubbletip'),null, array('inline'=>false)); ?>
+
+<?php echo $this->Html->script(array('jquery.min','jQuery.bubbletip-1.0.6'), array('inline'=>false));?>
+
+
+<script>
+$(document).ready(function(){
+    
+    $('#a1_right').bubbletip($('#tip1_right'), { deltaDirection: 'right' });
+    $('#a1_trigger').bubbletip($('#tip1_trigger1'), { positionAtElement: $('#a1_target') });
+
+    $('#a_unbind').bubbletip($('#tip1_trigger2_unbind'));
+    $('#a_unbind').bind('click', function(event) {
+            $('#a1_trigger').removeBubbletip($('#tip1_trigger2'));
+            event.preventDefault();
+    });
+    $('#a_bind').bubbletip($('#tip1_trigger2_bind'));
+    $('#a_bind').bind('click', function(event) {
+            $('#a1_trigger').bubbletip($('#tip1_trigger2'), {
+                    positionAtElement: $('#a1_target'),
+                    deltaDirection: 'right',
+                    delayShow: 500,
+                    delayHide: 1000
+            });
+            event.preventDefault();
+    });
+
+    $('#inpText').bubbletip($('#tip1_focusblur'), {
+            deltaDirection: 'right',
+            bindShow: 'focus',
+            bindHide: 'blur'
+    });     
+
+    
+});
+
+
+</script>
+
 
     <div class="middle_row  big_row">
             
@@ -53,12 +92,16 @@
                </table>
                                 </div>
                             <div align="center">
+                                        <table><tr><td>
 					<?php echo $this->Recaptcha->show(array(
 						'theme' => 'white',
 						'custom_translations' => array('instructions_visual' => 'Γράψτε τις λέξεις')	
 					));
-   					echo $this->Recaptcha->error();	  
-				echo '</div><div class="register_box login_box" align="center">';	
+                                        
+   					echo $this->Recaptcha->error();	 ?>
+                                        </td><td><?php echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';?></td></tr></table>
+                                      
+				<?php echo '</div><div class="register_box login_box" align="center">';	
 					echo '</br><p>'.$this->Form->end(array(
 									'name' => 'data[User][register]',
 									'label' => 'Εγγραφή',
@@ -68,3 +111,10 @@
 			    </div>
 			</div>
     </div>
+
+
+<div id="tip1_right" style="display:none;">
+                            Συμπληρώνοντας τις λέξεις της εικόνας <br/>
+                            μας βοηθάει να προστατέψουμε τη σελίδα <br/>
+                            από κακόβουλο λογισμικό
+                        </div>
