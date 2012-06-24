@@ -10,8 +10,11 @@
 					<div class="required" style="color:red">(υποχρεωτικά πεδία *)</div>
 					<?php echo $this->Form->create('User', array('action' => 'register'));?>
                <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
-                                        <table>
+               <table>
+                                       <td> <table>
 					<?php 
+                                        echo '<tr><td><label for="UserUsername" class="username std_form">Ψευδώνυμο χρήστη<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.username', 
+									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserUsername','placeholder' => 'Τουλάχιστον 4 Χαρακτήρες','class' => ' std_form blue_shadow')).'</p></td></tr>';
 					echo '<tr><td><label for="UserName" class="name std_form">Όνομα<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.name', 
 									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
@@ -23,11 +26,12 @@
 									      array('label' => false, 'div' => false, 'type' => 'text', 'required' => 'required', 'id'=> 'UserEmail', 'placeholder' => 'π.χ. mymail@mail.com','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
 				    echo '<tr><td><label for="UserPassword" class="youpasswd std_form">Κωδικός<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.password', 
-									      array('label' => false, 'div' => false, 'type' => 'password', 'required' => 'required', 'id'=> 'UserPassword','placeholder' => 'example111','class' => 'std_form blue_shadow')).'</p></td></tr>';	
+									      array('label' => false, 'div' => false, 'type' => 'password', 'required' => 'required', 'id'=> 'UserPassword','placeholder' => 'Τουλάχιστον 8 Χαρακτήρες','class' => 'std_form blue_shadow')).'</p></td></tr>';	
 										  
 				    echo '<tr><td><label for="UserPasswordCfm" class="youpasswdcfm std_form">Επαναλάβετε τον Κωδικό<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.passwordConfirm', 
-									      array('label' => false, 'div' => false, 'type' => 'password', 'required' => 'required', 'id'=> 'UserPasswordCfm','placeholder' => 'example111','class' => ' std_form blue_shadow')).'</p></td></tr>';			  
-				    echo '<tr><td><label for="UserPhone" class="phone std_form">Τηλέφωνο:  </label></td><td><p>'.$this->Form->input('User.phone_number', 
+									      array('label' => false, 'div' => false, 'type' => 'password', 'required' => 'required', 'id'=> 'UserPasswordCfm','placeholder' => 'Τουλάχιστον 8 Χαρακτήρες','class' => ' std_form blue_shadow')).'</p></td></tr>';			  
+				    echo '</table></td><td><table>';
+                                    echo '<tr><td><label for="UserPhone" class="phone std_form">Τηλέφωνο:  </label></td><td><p>'.$this->Form->input('User.phone_number', 
 									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserPhone','placeholder' => 'π.χ. 234385497','class' => ' std_form blue_shadow')).'</p></td></tr>';
 					echo '<tr><td><label for="UserAddress" class="address std_form">Διεύθυνση:  </label></td><td><p>'.$this->Form->input('User.address', 
 									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=>	'UserAddress','placeholder' => 'π.χ Κολοπετινίτσας 100','class' => ' std_form blue_shadow')).'</p></td></tr>';
@@ -45,7 +49,8 @@
 									      array('options'=> $options, 'label' => false, 'div' => false, 'id'=>'UserMembership','class' => ' std_form blue_shadow')).'</p></td></tr></br>';	
 					
 				                                       
-					?></table>				
+					?></td></table>	
+               </table>
                                 </div>
                             <div align="center">
 					<?php echo $this->Recaptcha->show(array(
