@@ -8,11 +8,10 @@
 <script>    
     $(document).ready(function()
     {  
-//        $('.item a.editButton').each(function(index) {
-//           var target = $(this).attr('href');
-//           $(this).attr('href', 'javascript:void(0);');
-//           $(this).attr('onclick', 'confirmAndNav("'+target+'");')
-//        });
+        $('.item a.deleteButton').click(function(e) {
+            e.stopPropagation();
+            return confirm('Είστε βέβαιος/η ότι θέλετε να διαγράψετε αυτόν τον χρήστη;');
+        });
         
         // Create button styles
         $("#pager button, .buttonContainer a, #filterContainer form input[type='submit'], #filterContainer form button[type='submit'], #createUserLink a").button();    
@@ -22,15 +21,6 @@
         
         positionPagerButtons();
     });
-    
-    function confirmAndNav(url)
-    {
-        if (confirm('Are you sure?'))
-            alert('yeah');
-        else
-            alert('nah');
-            //window.location.href = url;
-    }
     
     function positionPagerButtons()
     {
