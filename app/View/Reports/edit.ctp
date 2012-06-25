@@ -11,38 +11,10 @@
 			source: availableTags
 		});
 	});
-	
 
-/*$(function() {
-    $('#autoComplete').autocomplete({
-        //source: "/groceries/items/autoComplete", ///This works but response isn't formatted correctly'
-        //dataType: "json"
-        minLength: 2,
-        source: function( request, response ) {
-            $.ajax({
-                url: "http://localhost/UsersDev/Reports/autoComplete",
-                dataType: "jsonp",
-                data: {
-                    featureClass: "P",
-                    style: "full",
-                    maxRows: 12,
-                    term: request.term
-                },
-                success: function( data ) {
-                    response( $.map( data, function( el ) {
-                        return { label: el.label, value: el.value }
-                    }));
-                }
-            });
-        }
-    });
-	});*/
 	</script>
   
-  
-		<!--[if lt IE 10 ]>
-			<link rel="stylesheet" href="hacks.css" type="text/css" media="screen" />
-		 <![endif]-->
+
 <div class="middle_row big_row no_padding">
         <div class="login_box">  
             <br><h1>Επεξεργασία αναφοράς</h1></br>
@@ -59,12 +31,13 @@
                         echo $this->Html->image($report['Report']['main_photo']);
 
                     //check if additional photos are available
+					echo '<div class="additional">';
                     for($i=1;$i<6;$i++){
                         if(isset($report['Report']['additional_photo'.$i]))
                                 echo $this->Html->image($report['Report']['additional_photo'.$i]);	  
                                 //can have a break here assuming they're uploaded additively
                     }
-
+					echo '</div>';
                     if(isset($report['Report']['video'])){
                         echo '<a href="'.$this->webroot.'video/'.$report['Report']['video'].'" 
                                 style="display:block;width:520px;height:330px" id="player"> </a>  '; //only works for mp4, flv, f4v. more soon
@@ -144,12 +117,15 @@
                         echo $this->Form->input('last_edited_by',array("type"=>'hidden', 'class'=>'std_form','value'=>$userId));
                     }
                     echo '<tr><td><label for="ReportCategory" class="std_form">Σχόλια-Παρατηρήσεις</label></td><td>';
-                    echo $this->Tinymce->input('Report.analyst_comments',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form')).'</td></tr>';
-                    echo '</table><br/>';
-                    echo $this->Form->end(array(
+                    echo $this->Tinymce->input('Report.analyst_comments',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form'),null,'full').'</td></tr>';
+                    
+					
+                    echo '<tr><td>'.$this->Html->link('Επιστροφή στον πίνακα', array('controller' => 'reports', 'action'=>'table'),array('class' => 'button_like_anchor')).'</td><td>';
+					echo $this->Form->end(array(
                                                 'label' => 'Επεξεργασία Αναφοράς',
                                                 'div' => false,
-                                                'class' => 'std_form'));
+                                                'class' => 'std_form')).'</td></tr></table>';
+					
                 ?>
 
         </div>
