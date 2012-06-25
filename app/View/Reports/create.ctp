@@ -1,8 +1,8 @@
 <?php //echo $this->Html->css(array('main','jquery-ui','imgareaselect-default'),null, array('inline'=>false)); ?>
 <?php //echo $this->Html->script(array('jquery.min','jquery.imgareaselect.pack.js'), array('inline'=>false));?>
 
-<?php echo $this->Html->css(array('main','jquery.Jcrop'),null, array('inline'=>false)); ?>
-<?php echo $this->Html->script(array('jquery.min','jquery.Jcrop.js'), array('inline'=>false));?>
+<?php echo $this->Html->css(array('main','jquery.Jcrop','bubbletip'),null, array('inline'=>false)); ?>
+<?php echo $this->Html->script(array('jquery.min','jquery.Jcrop.js','jQuery.bubbletip-1.0.6'), array('inline'=>false));?>
 
 <script type="text/javascript"
     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC0azkJD2QB5m24LzhdEUenVmgCJPNaiDI&sensor=false">
@@ -345,6 +345,31 @@ $(document).ready(function(){
                 });
         }
     });
+	
+	 $('#a1_right').bubbletip($('#tip1_right'), { deltaDirection: 'right' });
+    $('#a1_trigger').bubbletip($('#tip1_trigger1'), { positionAtElement: $('#a1_target') });
+
+    $('#a_unbind').bubbletip($('#tip1_trigger2_unbind'));
+    $('#a_unbind').bind('click', function(event) {
+            $('#a1_trigger').removeBubbletip($('#tip1_trigger2'));
+            event.preventDefault();
+    });
+    $('#a_bind').bubbletip($('#tip1_trigger2_bind'));
+    $('#a_bind').bind('click', function(event) {
+            $('#a1_trigger').bubbletip($('#tip1_trigger2'), {
+                    positionAtElement: $('#a1_target'),
+                    deltaDirection: 'right',
+                    delayShow: 500,
+                    delayHide: 1000
+            });
+            event.preventDefault();
+    });
+
+    $('#inpText').bubbletip($('#tip1_focusblur'), {
+            deltaDirection: 'right',
+            bindShow: 'focus',
+            bindHide: 'blur'
+    });     
 });
 
 
@@ -450,7 +475,7 @@ $(document).ready(function(){
                             //echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
                             echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
                             echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
-			    //echo $this->Form->input('exif',array('class'=>'std_form'));
+			    echo $this->Form->input('exif',array('type'=>'hidden', 'class'=>'std_form'));
                         }
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
@@ -472,8 +497,10 @@ $(document).ready(function(){
                         $options['1'] = $this->Html->image('hotspecies/1.jpg');
                         $options['2'] = $this->Html->image('hotspecies/2.jpg');
                         $options['3'] = $this->Html->image('hotspecies/3.jpg');
+						
                         echo $this->Form->input('hot_id', array('options' => $options,'type'=>'radio','legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
+						echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
                         echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
                         echo '<td>'.$this->Form->input('habitat',array('label'=>false,'placeholder' => 'Περιγράψτε. Π.Χ. «Βράχια καλυμμένα με βλάστηση»','div'=> false, 'class' => 'std_form blue_shadow')).'</td></tr>';
                         echo '<tr><td><label for="ReportDepth" class="std_form">Βάθος</label></td>';
@@ -498,47 +525,60 @@ $(document).ready(function(){
                         
                         $report = $this->Session->read('report');
                        
-                        echo '<div id="f1">';
+			echo '<div id="f1">';
                         echo '<div class="flash_box gradient">';
                         echo '</br/>'.$this->Session->flash().'</br>';
                         echo '</div>';
                         echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));
+						
+						
+						echo '<span class="red_msg"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span>';
+                        echo '<table>';                        
+                        echo '<tr><td colspan="2">';
+                        echo '<div id="mapCanvas"></div>';
+                        echo '</td></tr>';
+                        echo '<tr><td colspan="2">';
+                        echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';                                               
+                        echo $this->Form->month('date', array('label'=> false, 'empty' => "Μήνας",'value'=>$report['Report']['date']['month']));
+                        echo $this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα', 'value'=>$report['Report']['date']['day']));
+                        echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά", 'value'=>$report['Report']['date']['year']));
+                        echo '</td></tr>';
+                        echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
+                        echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
+                        echo '<td>'.$this->Form->input('lat',array('id'=>'info','value'=>$report['Report']['lat'],'label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));						
+                        echo '</td></tr>';
+                        echo '<tr><td>';
+                        echo '<label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label>';
+                        echo '</td>';
+                        echo '<td>';
+                        echo $this->Form->input('lng',array('div'=>false,'id'=>'info2','value'=>$report['Report']['lng'],"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
+                        echo '</td>';
+                        echo '</tr>';
+                        echo '<td>';
+                        echo '<label for="ReportArea" class="std_form">Περιοχή</label>';
+                        echo '</td>';
+                        echo '<td>';
+			echo $this->Form->input('area',array( 'id'=>'maparea','div'=>false , 'value'=>$report['Report']['area'], "label" => false , "class" => "std_form"));
+                        echo '</td>';
+                        echo '</table>';
+						
+						
+						
+						
                         if($this->Session->check('uploaded1')){
                             $uploaded1 = $this->Session->read('uploaded1');
                             //echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
                             echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
                             echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
-                            //echo $this->Form->input('exif',array('type'=>'hidden', 'class'=>'std_form'));
+                            echo $this->Form->input('exif',array('type'=>'hidden', 'class'=>'std_form'));
                         }
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
                             echo 'VIDEO';
                             echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                         }
-                        echo '<br/>';
-                        echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'class'=>'std_form'));
-                        echo '</br><label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';
-                        
-                        
-                        echo $this->Form->month('date', array('label'=> false, 'empty' => "Μήνας", 'value'=>$report['Report']['date']['month']));
-                        echo $this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα', 'value'=>$report['Report']['date']['day']));
-                        echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά", 'value'=>$report['Report']['date']['year']));
-                        //echo $this->Form->input('date',array('label'=>false,'div'=>false, 'class'=>'std_form blue shadow','empty' => true,'minYear' => date('Y')-50, 'maxYear' => date('Y')));
-                       
-                        echo '</br></br><div id="mapCanvas"></div>';
-                        echo '<table>';
-                        echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
-                        echo '<br/>';
-                        echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
-                        echo '<td>'.$this->Form->input('lat',array('id'=>'info','value'=>$report['Report']['lat'],'label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));
-                        echo '</td></tr>';
-                        echo '<tr><td><label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label></td>';
-                        echo '<td>'.$this->Form->input('lng',array('div'=>false,'value'=>$report['Report']['lng'],'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
-                        echo '</td></tr></table>';
-			echo $this->Form->input('area',array( 'id'=>'maparea','div' => false));
-                        //echo "<a href='#2' class='button_like_anchor'>Επόμενο βήμα &#187;</a>";
-                        echo '<big><span style="color:red;font-family:Arial,sans-serif;"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span></big></br></br></br>';
-                        echo '</div>';
+                        echo '</div>'; 
+			
 
                         echo '<div id="f2">';
                         echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
@@ -555,6 +595,7 @@ $(document).ready(function(){
                         $options['3'] = $this->Html->image('hotspecies/3.jpg');
                         echo $this->Form->input('hot_id', array('options' => $options,'value'=>$report['Report']['hot_id'],'type'=>'radio','legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
+						echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
                         echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
                         echo '<td>'.$this->Form->input('habitat',array('label'=>false,'placeholder' => 'Περιγράψτε. Π.Χ. «Βράχια καλυμμένα με βλάστηση»','value'=>$report['Report']['habitat'],'div'=> false, 'class' => 'std_form blue_shadow')).'</td></tr>';
                         echo '<tr><td><label for="ReportDepth" class="std_form">Βάθος</label></td>';
@@ -706,3 +747,7 @@ $(document).ready(function(){
         <div><br />Powered by <a href="http://cakephp.org/">Cake.php</a>, <a href="http://jquery.com/">jQuery</a> and <a href="http://modernizr.com/">Modernizr</a>.</div>
     </div>
 </div>
+
+<div id="tip1_right" style="display:none;">
+                            Μπορείτε να μάθετε περισσότερα για τα είδη αυτα στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotspecies', 'action'=>'show'));?>
+                        </div>
