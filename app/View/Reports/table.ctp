@@ -9,6 +9,12 @@
     //echo '<script type="text/javascript" src="'.$this->GoogleMapV3->apiUrl().'"></script>';
 ?>
 <script>
+    // Add confirmation before delete
+    $('.item a.deleteButton').click(function(e) {
+        e.stopPropagation();
+        return confirm('Είστε βέβαιος/η ότι θέλετε να διαγράψετε αυτήν την αναφορά;');
+    });
+        
     // autocomplete hints for category and species
     var hints =
     {
