@@ -8,13 +8,7 @@
 <?php
     //echo '<script type="text/javascript" src="'.$this->GoogleMapV3->apiUrl().'"></script>';
 ?>
-<script>
-    // Add confirmation before delete
-    $('.item a.deleteButton').click(function(e) {
-        e.stopPropagation();
-        return confirm('Είστε βέβαιος/η ότι θέλετε να διαγράψετε αυτήν την αναφορά;');
-    });
-        
+<script>        
     // autocomplete hints for category and species
     var hints =
     {
@@ -24,6 +18,12 @@
     
     $(document).ready(function()
     { 
+        // Add confirmation before delete
+        $('.item a.deleteButton').click(function(e) {
+            e.stopPropagation();
+            return confirm('Είστε βέβαιος/η ότι θέλετε να διαγράψετε αυτήν την αναφορά;');
+        });
+    
         $("#pager button, .deleteButton, .editButton, #filterContainer form input[type='submit'], #filterContainer form button[type='submit']").button();
         
         // Set autocomplete support
