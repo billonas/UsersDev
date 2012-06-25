@@ -57,8 +57,8 @@ class ReportsController extends AppController{
                     $res = $this->Image->checkImage($this->data['Report']['image']);
                     if($res < 0){
                         $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
-                        $this->redirect('create');
-                    }
+                        $this->redirect('create'); 
+                   }
                     else if(!$res){
                             $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
                             $this->redirect('create');
@@ -71,7 +71,9 @@ class ReportsController extends AppController{
                     $this->Session->write('uploaded1',$uploaded);
                 }
                 /* Video Upload */
+                
                 if(!empty($this->data['Report']['video_file']['name'])){
+                    //$this->Session->setFlash('Λολα μηλο2','flash_bad');
                     $uploaded = $this->Video->uploadVideo($this->data['Report']['video_file'], "video/temporary/");
                     if($uploaded['error']){
                         switch($uploaded['error']){
@@ -82,6 +84,9 @@ class ReportsController extends AppController{
                         case 3: $this->Session->setFlash('Παρακαλώ εισάγετε ένα πιο μικρό αρχείο','flash_bad');
                                 break;
                         case 4: $this->Session->setFlash('Πρόβλημα στη μεταφορά','flash_bad');
+                                break;
+                        default:
+                                $this->Session->setFlash('Άγνωστο σφάλμα','flash_bad');
                                 break;
                         }
                         $this->redirect('create');
