@@ -1,14 +1,7 @@
 
 		<?php echo $this->Html->css(array('main','jquery-ui','imgareaselect-default'),null, array('inline'=>false));	?>
-        <?php echo $this->Html->script(array('jquery.min','jquery-ui.min','jquery.imgareaselect.pack.js'), array('inline'=>false));?>
+        <?php echo $this->Html->script(array('jquery.min','jquery-ui.min','tiny_mce/tiny_mce'), array('inline'=>false));?>
 
-<script>
-  $(document).ready(function() {
-    $("#tabs").tabs();
-  });
-  </script>
-  
-  
    <script>
  
 	$(function() {
@@ -120,37 +113,17 @@
                                 {
                                     $options[$category['Category']['id']]= $category['Category']['category_name'];
                                 }
-                                // Add categories manually
-//                                $options = array(
-//                                    null => '-',
-//                                    '4' => 'Ασκίδια',
-//                                    '3' => 'Εχινόδερμα',
-//                                    '1' => 'Μαλάκια',
-//                                    '5' => 'Φύκια',
-//                                    '2' => 'Ψάρια',
-//                                );
-                                
-								
-								echo '<tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td><td>'.$this->Form->input('category_id', array('options' => $options, 'value'=>null,'label'=>false, 'class'=>'std_form')).'</td></tr>';
-								
-								
-                    			echo '<tr><td><label for="ReportState" class="std_form">Επιστημονική Ονομασία</label></td><td>'.$this->Form->input('scientific_name', array('value'=>null,'label'=>false,'class'=>'std_form','id'=>'autoComplete')).'</td></tr>';
-								
-								$options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');  								
-								echo '<tr><td><label for="ReportState" class="std_form">Κατάσταση αναφοράς</label></td><td>'.$this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>false,'class'=>'std_form')).'</td></tr>';
+                                echo '<tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td><td>'.$this->Form->input('category_id', array('options' => $options, 'value'=>null,'label'=>false, 'class'=>'std_form')).'</td></tr>';
+				echo '<tr><td><label for="ReportState" class="std_form">Επιστημονική Ονομασία</label></td><td>'.$this->Form->input('scientific_name', array('value'=>null,'label'=>false,'class'=>'std_form','id'=>'autoComplete')).'</td></tr>';
+				$options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');  								
+				echo '<tr><td><label for="ReportState" class="std_form">Κατάσταση αναφοράς</label></td><td>'.$this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>false,'class'=>'std_form')).'</td></tr>';
                     			
-								
-								
-								
-                                if(isset($userId)){
-                                echo $this->Form->input('last_edited_by',array("type"=>'hidden', 'class'=>'std_form','value'=>$userId));
+				if(isset($userId)){
+                                    echo $this->Form->input('last_edited_by',array("type"=>'hidden', 'class'=>'std_form','value'=>$userId));
                                 }
-                                echo '<tr><td><label for="ReportCategory" class="std_form">Σχόλια-Παρατηρήσεις</label></td><td>'.$this->Form->input('analyst_comments',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form')).'</td></tr>';
-                                
-                                
-                                
-                                
-								echo '</table><br/>';
+                                echo '<tr><td><label for="ReportCategory" class="std_form">Σχόλια-Παρατηρήσεις</label></td><td>';
+                                echo $this->Tinymce->input('Report.analyst_comments',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form')).'</td></tr>';
+                                echo '</table><br/>';
                                 echo $this->Form->end(array(
                                                             'label' => 'Επεξεργασία Αναφοράς',
                                                             'div' => false,
