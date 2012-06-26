@@ -1,18 +1,10 @@
-
-		<?php echo $this->Html->css(array('main','jquery-ui','imgareaselect-default'),null, array('inline'=>false));	?>
-        <?php echo $this->Html->script(array('jquery.min','jquery-ui.min','jquery.imgareaselect.pack.js'), array('inline'=>false));?>
-
+<?php echo $this->Html->css(array('main'),null, array('inline'=>false));	?>
+<?php echo $this->Html->script(array('jquery.min'), array('inline'=>false));?>  
+  
 <script>
-  $(document).ready(function() {
-    $("#tabs").tabs();
-  });
-  </script>
-  
-  
-   <script>
- 
+ /*
 	$(function() {
-		var availableTags = <?php echo json_encode($response); ?>;
+		//var availableTags = <?php //echo json_encode($response); ?>;
 		
 		$( "#autoComplete" ).autocomplete({
 			source: availableTags
@@ -45,53 +37,83 @@
     });
 	});*/
 	</script>
+        <script type="text/javascript"
+            src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC0azkJD2QB5m24LzhdEUenVmgCJPNaiDI&sensor=false">
+        </script>
+        <script>
+            var map;
+            $(window).ready(function(){
+                var centerlatLng = new google.maps.LatLng(38.0397, 24.644);
+                map = new google.maps.Map(document.getElementById('mapCanvas'), {
+                            zoom: 6,
+                            center: centerlatLng,
+                            mapTypeId: google.maps.MapTypeId.SATELLITE,
+                            mapTypeControl: true,
+                            mapTypeControlOptions: {
+                            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                            position: google.maps.ControlPosition.BOTTOM_CENTER
+                            },
+                        panControl: true,
+                        panControlOptions: {
+                            position: google.maps.ControlPosition.TOP_RIGHT
+                            },
+                        zoomControl: true,
+                        zoomControlOptions: {
+                            style: google.maps.ZoomControlStyle.LARGE,
+                            position: google.maps.ControlPosition.LEFT_CENTER
+                            },
+                        scaleControl: true,
+                        scaleControlOptions: {
+                            position: google.maps.ControlPosition.TOP_LEFT
+                            },
+                        streetViewControl: true,
+                        streetViewControlOptions: {
+                            position: google.maps.ControlPosition.LEFT_TOP
+                            }
+                    });  
+                    setMarker();
+            });
+        </script>
   
-  
-		<!--[if lt IE 10 ]>
-			<link rel="stylesheet" href="hacks.css" type="text/css" media="screen" />
-		 <![endif]-->
+<!--[if lt IE 10 ]>
+    <link rel="stylesheet" href="hacks.css" type="text/css" media="screen" />
+<![endif]-->
 	<div class="middle_row big_row no_padding">
+            <style>
+                #mapCanvas {
+                    width: 100%;
+                    height: 30em;
+                    position: relative;
+                }
+            </style>
                     
             <?php   echo '<div class="login_box">  
-                               <br><h1>Σύνοψη αναφοράς</h1></br>
+                               <h1>Σύνοψη αναφοράς</h1>
                          </div>';
                     echo '<div class="flash_box gradient">';
                     echo '</br/>'.$this->Session->flash().'</br>';
                     echo '</div>';	?>
-        	<div class="middle_wrapper">   
+        	<div class="summary_middle_wrapper">   
                 
                 <?php 
                     $report = $this->Session->read('report');
                     	
-                    echo $this->Form->create('Report', array('action' => 'summary',"enctype" => "multipart/form-data"));     
-                    if($this->Session->check('uploaded1')){
-                        $uploaded1 = $this->Session->read('uploaded1');
-                        echo $this->Html->image($uploaded1["imagePath"]);
-                        echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
-                        echo $this->Form->input('exif',array('type'=>'hidden','default'=>$report['Report']['exif'], 'class'=>'std_form'));
-                    }
-                    
-                    if($this->Session->check('uploaded2')){
-                        $uploaded2 = $this->Session->read('uploaded2');
-                        echo 'VIDEO';
-                        echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
-                    }
-                    if($this->Session->check('uploaded3')){
-                        $uploaded3 = $this->Session->read('uploaded3');
-                        echo $this->Html->image($uploaded3["imagePath"]);
-                        echo $this->Form->input('additional_photo1',array('type'=>'hidden','value'=>$report['Report']['additional_photo1'], 'class'=>'std_form'));
-                    }
-                    if($this->Session->check('uploaded4')){
-                        $uploaded4 = $this->Session->read('uploaded4');
-                        echo $this->Html->image($uploaded4["imagePath"]);
-                        echo  $this->Form->input('additional_photo2',array('type'=>'hidden','value'=>$report['Report']['additional_photo2'], 'class'=>'std_form'));
-                    }
-                    echo '<br/>';
-                    echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ",'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
-                    echo '<br/>';
-
+                    echo $this->Form->create('Report', array('action' => 'summary',"enctype" => "multipart/form-data"));
 
                     echo '<table>';
+                    echo '<tr><td colspan="2"><div id="mapCanvas"></div></td></tr>';
+                    echo '<script>';
+                    echo 'function setMarker(){';
+                    echo '  var point1 = '.$report['Report']['lat'].';';
+                    echo '  var point2 = '.$report['Report']['lng'].';';
+                    echo '  var location = new google.maps.LatLng(point1,point2,true);';
+                    echo '  var marker = new google.maps.Marker({
+                                    animation: google.maps.Animation.DROP,
+                                    position: location,
+                                    map: map
+                                });
+                          }';
+                    echo '        </script>';
                     echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
                     
                     echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
@@ -300,7 +322,7 @@
                                     break;    
                             }    
                             echo'</td></tr>';
-                            echo '<td>'.$this->Form->input('occupation', array('type'=>'hidden','value'=>$report['Report']['occupation']));
+                            echo $this->Form->input('occupation', array('type'=>'hidden','value'=>$report['Report']['occupation']));
                             /*echo '<select name="data[Report][occupation]" id="ReportOccupation" style="display:none;">
                                     <option value="'.$report['Report']['occupation'].'" selected="selected">'.$report['Report']['occupation'].'</option>
                             </select>';*/
@@ -393,16 +415,47 @@
                             echo '<td>'.$this->Form->input('email',array("label"=>false, 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'readonly'=>'readonly', 'div'=>false)).'</td></tr>';							    
                         }
 
-                    
+                    echo '</table>';
                     //echo $this->Form->input('category_id', array('value'=>null,'label'=>'Κατηγορία Είδους','type'=>'hidden', 'class'=>'std_form'));
-                    //echo $this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>'Κατάσταση Αναφοράς ','type'=>'hidden', 'class'=>'std_form'));
-	            echo '<tr><td>'.$this->Html->link('Επιστροφή στην φόρμα αναφοράς', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
-                    echo '<td>'.$this->Form->end(array(
+                    //echo $this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>'Κατάσταση Αναφοράς ','type'=>'hidden', 'class'=>'std_form'));                                        
+                    echo '<div class="media_wrapper">';
+                    if($this->Session->check('uploaded1')){
+                        $uploaded1 = $this->Session->read('uploaded1');
+                        echo $this->Html->image($uploaded1["imagePath"]);
+                        echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
+                        echo $this->Form->input('exif',array('type'=>'hidden','default'=>$report['Report']['exif'], 'class'=>'std_form'));
+                    }
+                    
+                    if($this->Session->check('uploaded2')){
+                        $uploaded2 = $this->Session->read('uploaded2');
+                        echo 'VIDEO';
+                        echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
+                    }
+                    if($this->Session->check('uploaded3')){
+                        $uploaded3 = $this->Session->read('uploaded3');
+                        echo $this->Html->image($uploaded3["imagePath"]);
+                        echo $this->Form->input('additional_photo1',array('type'=>'hidden','value'=>$report['Report']['additional_photo1'], 'class'=>'std_form'));
+                    }
+                    if($this->Session->check('uploaded4')){
+                        $uploaded4 = $this->Session->read('uploaded4');
+                        echo $this->Html->image($uploaded4["imagePath"]);
+                        echo  $this->Form->input('additional_photo2',array('type'=>'hidden','value'=>$report['Report']['additional_photo2'], 'class'=>'std_form'));
+                    }
+                    echo '<br/>';
+                    echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ",'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
+                    echo '<br/>';
+                    echo '</div>';
+                    
+                    echo '<div>';
+                    echo $this->Html->link('Επιστροφή στην φόρμα αναφοράς', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
+                    echo $this->Form->end(array(
                                                 'label' => 'Οριστική υποβολή',
                                                 'div' => false,
-                                                'class' => 'std_form
-												')).'</td></tr></table>'.'</div>';
-                           ?>
+                                                'class' => 'std_form'));
+                    echo '</div>';
+                    
+                    echo '</div>';
+            ?>
                         
             </div>
 

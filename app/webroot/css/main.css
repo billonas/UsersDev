@@ -1220,7 +1220,7 @@ kodikas selidas report
 }
 
 .init_tab .init_form form > div{
-    width: 48%;
+    width: 46%;
     height: auto;
     float: left;
     margin:0;
@@ -1245,10 +1245,9 @@ kodikas selidas report
 }
 
 .init_tab .init_form form > div:nth-child(3){
-    width: 4%;
+    width: 7%;
     font-size:2em;
     box-sizing: border-box;
-    padding-left: 1.5%;
     padding-top: 10%;
 }
 
@@ -1287,6 +1286,7 @@ kodikas selidas report
 
 #f1{
     overflow: auto;
+    width: 100%;
 }
 
 #f1 label{
@@ -1338,9 +1338,16 @@ kodikas selidas report
     padding-top: 0.6em;
     padding-bottom: 0.6em;
     margin-left: .5em;
-    margin-right: .5em;
-    position: relative;
-    bottom: 1px;
+    margin-right: .5em;    
+    box-sizing:border-box;
+    line-height: 1em;
+    float:left;
+    width: 15em;
+}
+
+#tabs input.std_form[type="submit"]{
+    padding-bottom:0.4em;
+    padding-top:0;
 }
 
 #tabs .right_arrow{
@@ -1357,6 +1364,7 @@ kodikas selidas report
     height: 2.2em;
     width: 2.8em;
     margin: -.8em;
+    margin-bottom: -1em;
     padding:0;
 }
 
@@ -1382,7 +1390,91 @@ kodikas selidas report
 /***************************************************************************************
 telos kodika selidas report
 ***************************************************************************************/
+/***************************************************************************************
+kodikas summary
+***************************************************************************************/
+.summary_middle_wrapper{
+    background-color: #fff;
+    width: 80%;
+    margin:2% 10% 0;
+    border-radius: 5px;
+    min-height: 30em;
+    height: auto;
+    overflow: auto;
+    padding-left: 2%;
+    padding-top: 1%;
+    padding-right: 2%;
+    padding-bottom: 3%;
+}
 
+.summary_middle_wrapper table{
+    float:left;
+    width: 50%;
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+    border:0;    
+}
+
+.summary_middle_wrapper .media_wrapper{
+    float:left;
+    width: 50%;
+    box-sizing: border-box;
+    padding-left: 5%;
+}
+
+.summary_middle_wrapper .media_wrapper img{
+    width: 90%;
+}
+
+.summary_middle_wrapper .button_like_anchor{
+    float: left;
+    clear: left;
+    margin-top: 1em;
+}
+
+.summary_middle_wrapper .std_form[type="submit"]{
+    float: left;
+    margin-top: 1em;
+    padding-top: 0em;
+    margin-left: 1em;
+}
+
+.summary_middle_wrapper .button_like_anchor,
+.summary_middle_wrapper .std_form[type="submit"]{
+    width: 15em;
+    height: 2.5em;
+    line-height: 2em;
+}
+
+.summary_middle_wrapper tr{
+    margin:0;
+    padding:0;
+    border:0;        
+}
+
+.summary_middle_wrapper td{
+    border: 0;
+    padding: 0;
+    margin: 0;   
+    padding-top: .5em;
+    padding-bottom: .5em;
+    font-size: 1.1em;
+    border-bottom: 1px solid #555;
+}
+
+.summary_middle_wrapper tr:first-child td:first-child{
+    padding:0;
+    border: 0;
+    box-shadow: none;
+}
+
+.summary_middle_wrapper td:nth-child(2n+1){
+    box-shadow: 1em -1px 0px 0px #fff,1em 0px 0px 0px #555;
+}
+/***************************************************************************************
+telos kodika summary
+***************************************************************************************/
 /***************************************************************************************
 kodikas anagnorismenon eidon
 ***************************************************************************************/
@@ -1818,19 +1910,18 @@ kodikas anagnorismenon eidon
         }
         #f1 #img_crop_area{
             float:left;
-            width: 100%;
+            width: 90%;
             padding:0;
             margin: 0;
+            padding-left: 5%;
         }
         #f1 #img_crop_area img{
-            width: 90%;
+            width: 100%;
             height: auto;            
-            margin-left: 5%;
         }        
         #tabs div input.big_button{display:none;}
         #tabs .button_like_anchor{display:none;}
         #tabs input[type="submit"]{
-            /*width: 14.5em;*/
             display:none;
         }
         .report_button_wrapper{
@@ -1841,26 +1932,59 @@ kodikas anagnorismenon eidon
             padding:0;
             border:0;
             padding-left: 50%;
+            padding-top: .5em;
         }        
         #tabs .report_button_wrapper .button_like_anchor{
-            display:inline-block;
+            display:block;
             float:left;
             margin-left: -8.4em;
             clear: both;
             margin-bottom: 1em;
+            width: 17em;
         }
         #tabs .report_button_wrapper input[type="submit"]{
             /*width: 14.5em;*/
-            display:inline-block;
+            display:block;
             float:left;
             margin-left: -8.4em;
             clear: both;
-            width: 16.8em;
+            width: 17em;
         }
         #tabs .right_arrow{
             padding-left: 4.7em;
         }
         /*********************************************************************
         telos kodika report
+        *********************************************************************/
+        /*********************************************************************
+        kodikas summary
+        *********************************************************************/
+        .summary_middle_wrapper{
+            width: 100%;
+            margin: 0;
+            border-radius: 0;
+        }        
+        .summary_middle_wrapper table{
+            width: 100%;
+        }       
+        .summary_middle_wrapper .media_wrapper{
+            width: 100%;
+        }
+        .summary_middle_wrapper td:nth-child(2n+1){
+            box-shadow: 1em -0.5px 0 0 #FFFFFF, 1em 0 0 0 #555555
+        }
+        .summary_middle_wrapper div:last-child{
+            overflow: auto;
+            padding-left: 50%;
+            width: 100%;
+            float: left;
+        }
+        .summary_middle_wrapper .button_like_anchor,
+        .summary_middle_wrapper .std_form[type="submit"]{
+            width: 20em;
+            margin-left: -10em;
+        }
+        /*********************************************************************
+        telos kodikas summary
         *********************************************************************/
 }

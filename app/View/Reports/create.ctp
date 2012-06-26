@@ -1,6 +1,3 @@
-<?php //echo $this->Html->css(array('main','jquery-ui','imgareaselect-default'),null, array('inline'=>false)); ?>
-<?php //echo $this->Html->script(array('jquery.min','jquery.imgareaselect.pack.js'), array('inline'=>false));?>
-
 <?php echo $this->Html->css(array('main','jquery.Jcrop','bubbletip'),null, array('inline'=>false)); ?>
 <?php echo $this->Html->script(array('jquery.min','jquery.Jcrop.js','jQuery.bubbletip-1.0.6'), array('inline'=>false));?>
 
@@ -100,9 +97,9 @@ function addMarker(location) {
     if (once)
     {
         marker = new google.maps.Marker({
-        animation: google.maps.Animation.DROP,
-        position: location,
-        map: map
+            animation: google.maps.Animation.DROP,
+            position: location,
+            map: map
         });
     }
     else{
@@ -143,10 +140,10 @@ var has_crop = false;
 function showNextStep(){
     $('a.right_arrow').each(function(index) {
         if($(this).parent().hasClass("report_button_wrapper") && small_screen){
-            $(this).css('display','inline-block');
+            $(this).css('display','block');
         }
         else if(!$(this).parent().hasClass("report_button_wrapper") && !small_screen){
-            $(this).css('display','inline-block');
+            $(this).css('display','block');
         }
     }); 
 }
@@ -154,10 +151,10 @@ function showNextStep(){
 function showPreviousStep(){
     $('a.left_arrow').each(function(index) {
         if($(this).parent().hasClass("report_button_wrapper") && small_screen){
-            $(this).css('display','inline-block');
+            $(this).css('display','block');
         }
         else if(!$(this).parent().hasClass("report_button_wrapper") && !small_screen){
-            $(this).css('display','inline-block');
+            $(this).css('display','block');
         }
     });
 }
@@ -245,16 +242,29 @@ function pressedButton(button){
     $('#f' + prev_addr).css('display','none');
     $('.selected_tab').toggleClass('selected_tab');
     $('a[href="#' + temp + '"]').parent().toggleClass("selected_tab");
-    $('#f' + temp).css('display','inline-block');
+    $('#f' + temp).css('display','block');
 }
 
 function pressedListItem(li){
     pressedTab(li.find('a'));
 }
 
+function resizeJCrop(){
+    var maxw = $("#img_crop_area").width();
+    $("#jcrop_target").Jcrop({                        
+                onSelect: showCoords,
+                addClass: "jcrop-dark",
+                boxWidth: maxw,
+                boxHeight: 0
+            },function(){
+                jcrop_api = this;
+                has_crop = true;
+        });
+}
+
 $(document).ready(function(){
     $('div[id*="f"]').css('display','none');
-    $('#f1').css('display','inline-block');
+    $('#f1').css('display','block');
     $('a[href="#1"]').parent().addClass('selected_tab');
     if($(".report_button_wrapper").css('display') == 'block'){
         small_screen = true;
@@ -286,20 +296,16 @@ $(document).ready(function(){
     $('#info').bind('blur',checkCoords);
     $('#info2').bind('blur',checkCoords);
     var maxw = $("#img_crop_area").width();
-    //window.alert(maxw);
     $("#jcrop_target").Jcrop({                        
                         onSelect: showCoords,
                         addClass: "jcrop-dark",
                         maxSize: [ maxw , 0 ]
                     },function(){
-                        //window.alert("creating jcrop api");
                         jcrop_api = this;
                         has_crop = true;
                 });
     $(window).resize(function () { 
-        //window.alert("you resized");
         if(has_crop){
-            //window.alert("destroying jcrop api");
             jcrop_api.destroy();
         }
         if($(".report_button_wrapper").css("display") == "block"){
@@ -331,45 +337,9 @@ $(document).ready(function(){
             showPreviousStep();
         }
         if(has_crop){
-            var maxw = $("#img_crop_area").width();
-            //window.alert(maxw);
-            $("#jcrop_target").Jcrop({                        
-                        onSelect: showCoords,
-                        addClass: "jcrop-dark",
-                        boxWidth: maxw,
-                        boxHeight: 0
-                    },function(){
-                        //window.alert("creating jcrop api");
-                        jcrop_api = this;
-                        has_crop = true;
-                });
+            setTimeout("resizeJCrop()",100);
         }
     });
-	
-	 $('#a1_right').bubbletip($('#tip1_right'), { deltaDirection: 'right' });
-    $('#a1_trigger').bubbletip($('#tip1_trigger1'), { positionAtElement: $('#a1_target') });
-
-    $('#a_unbind').bubbletip($('#tip1_trigger2_unbind'));
-    $('#a_unbind').bind('click', function(event) {
-            $('#a1_trigger').removeBubbletip($('#tip1_trigger2'));
-            event.preventDefault();
-    });
-    $('#a_bind').bubbletip($('#tip1_trigger2_bind'));
-    $('#a_bind').bind('click', function(event) {
-            $('#a1_trigger').bubbletip($('#tip1_trigger2'), {
-                    positionAtElement: $('#a1_target'),
-                    deltaDirection: 'right',
-                    delayShow: 500,
-                    delayHide: 1000
-            });
-            event.preventDefault();
-    });
-
-    $('#inpText').bubbletip($('#tip1_focusblur'), {
-            deltaDirection: 'right',
-            bindShow: 'focus',
-            bindHide: 'blur'
-    });     
 });
 
 
@@ -417,7 +387,7 @@ $(document).ready(function(){
                         echo '<label for="ReportImage" class="std_form">Δώστε μία Φωτογραφία: </label>';
                         echo $this->Form->input('image',array("type" => "file",'label'=>false,'div'=>false,'class'=>'std_form'));
                         echo '</div>';
-                        echo '<div>ή</div>';                        
+                        echo '<div>ή/και</div>';                        
                         echo '<div>';
                         echo $this->Html->image('video_camera.svg', array('alt' => 'Video'));
                         echo '</br>';
@@ -748,20 +718,20 @@ $(document).ready(function(){
                     echo $this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>'Κατάσταση Αναφοράς ','type'=>'hidden', 'class'=>'std_form'));
                     echo '<br/>';
                     echo '</table></div>';
-                    echo '<a href="#" style="display:none;" class="fragment button_like_anchor left_arrow white_arrow"><img src="'.$this->webroot.'/img/arrows/white_arrow_left_small3.png"/>Προηγούμενο Βήμα</a>';
+                    echo '<a href="#" style="display:none;" class="fragment button_like_anchor left_arrow white_arrow"><img src="'.$this->webroot.'img/arrows/white_arrow_left_small3.png"/>Προηγούμενο Βήμα</a>';
                     echo $this->Form->end(array(
                     'label' => 'Κατάθεση Αναφοράς',
                     'div' => false,
                     'class' => 'std_form'));
-                    echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Επόμενο Βήμα<img src="'.$this->webroot.'/img/arrows/white_arrow_right_small3.png"/></a>';
+                    echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Επόμενο Βήμα<img src="'.$this->webroot.'img/arrows/white_arrow_right_small3.png"/></a>';
                     echo $this->Html->link('Νέα αναφορά', array('controller' => 'reports', 'action'=>'createnew'), array('class' => 'button_like_anchor' , "style" => "padding-left: 3em;padding-right: 3em;"));
                     echo '<div class="report_button_wrapper">';
-                    echo '<a href="#" style="display:none;" class="fragment button_like_anchor left_arrow white_arrow"><img src="'.$this->webroot.'/img/arrows/white_arrow_left_small3.png"/>Προηγούμενο Βήμα</a>';
+                    echo '<a href="#" style="display:none;" class="fragment button_like_anchor left_arrow white_arrow"><img src="'.$this->webroot.'img/arrows/white_arrow_left_small3.png"/>Προηγούμενο Βήμα</a>';
                     echo $this->Form->end(array(
                     'label' => 'Κατάθεση Αναφοράς',
                     'div' => false,
                     'class' => 'std_form'));
-                    echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Επόμενο Βήμα<img src="'.$this->webroot.'/img/arrows/white_arrow_right_small3.png"/></a>';
+                    echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Επόμενο Βήμα<img src="'.$this->webroot.'img/arrows/white_arrow_right_small3.png"/></a>';
                     echo $this->Html->link('Νέα αναφορά', array('controller' => 'reports', 'action'=>'createnew'), array('class' => 'button_like_anchor' , "style" => "padding-left: 5.4em;padding-right: 5.4em;"));
                     echo "</div>";
 		   }
@@ -776,5 +746,5 @@ $(document).ready(function(){
 </div>
 
 <div id="tip1_right" style="display:none;">
-                            Μπορείτε να μάθετε περισσότερα για τα είδη αυτα στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotspecies', 'action'=>'show'));?>
+                            Μπορείτε να μάθετε περισσότερα για τα είδη αυτά στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotspecies', 'action'=>'show'),array('target' => '_blank'));?>
                         </div>
