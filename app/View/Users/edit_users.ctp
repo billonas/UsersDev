@@ -16,8 +16,14 @@
         // Create button styles
         $("#pager button, .buttonContainer a, #filterContainer form input[type='submit'], #filterContainer form button[type='submit'], #createUserLink a").button();    
         
-        $("#reportsTable").tablesorter({sortList: [[0,1]]})  //sort the first column in descending order
-            .tablesorterPager({container: $("#pager")});
+        $("#reportsTable").tablesorter(
+            {
+                sortList: [[0,1]], //sort the first column in descending order
+                headers:
+                {
+                    4: { sorter: false }
+                }
+            }).tablesorterPager({container: $("#pager")});
         
         positionPagerButtons();
     });
