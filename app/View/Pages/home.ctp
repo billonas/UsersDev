@@ -559,4 +559,3 @@
             <div><br />Powered by <a href="http://cakephp.org/">Cake.php</a>, <a href="http://jquery.com/">jQuery</a>,<a href="http://modernizr.com/">Modernizr</a>.
                 Arrows by <a href="http://www.designworkplan.com">DesignWorkPlan</a>.</div>
         </div>
-	<?php var_dump($reports);?>
