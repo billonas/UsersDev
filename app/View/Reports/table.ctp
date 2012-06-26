@@ -42,7 +42,7 @@
                     1: { sorter: false },
                     5: { sorter: false }
                 }
-            });//.tablesorterPager({container: $("#pager")});
+            }).tablesorterPager({container: $("#pager")});
         
         positionPagerButtons();
     } 
