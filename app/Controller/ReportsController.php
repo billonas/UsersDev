@@ -50,7 +50,7 @@ class ReportsController extends AppController{
         }
         if (!empty($this->data)) {
             /* Upload Step */
-            if(isset($this->data['Report']['image'])){
+            if(isset($this->data['Report']['image']) || isset($this->data['Report']['video_file'])){
                 /* Image Upload */
                 if(!empty($this->data['Report']['image']['tmp_name'])){
                     //CHECK  IF INPUT FILE IS IMAGE FILE
