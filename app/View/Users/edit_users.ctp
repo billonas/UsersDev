@@ -214,7 +214,7 @@
                     <form>
                         <button class="first">Αρχή</button>
                         <button class="prev">Προηγούμενο</button>
-                        <input type="text" class="pagedisplay"/>
+                        <input type="text" class="pagedisplay" readonly="readonly"/>
                         <select style="visibility: hidden" class="pagesize" onchange="positionPagerButtons">
                                 <option selected="selected" value="10">10</option>
                                 <option value="20">20</option>

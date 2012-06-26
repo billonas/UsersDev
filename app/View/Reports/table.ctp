@@ -261,7 +261,7 @@
 <!--                        <img src="/img/tablesorter-prev.png" class="prev"/>-->
                         <button class="first">Αρχή</button>
                         <button class="prev">Προηγούμενο</button>
-                        <input type="text" class="pagedisplay"/>
+                        <input type="text" class="pagedisplay" readonly="readonly"/>
 <!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
 <!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
                         <select style="visibility: hidden" class="pagesize" onchange="positionPagerButtons">
