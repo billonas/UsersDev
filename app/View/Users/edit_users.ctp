@@ -16,8 +16,14 @@
         // Create button styles
         $("#pager button, .buttonContainer a, #filterContainer form input[type='submit'], #filterContainer form button[type='submit'], #createUserLink a").button();    
         
-        $("#reportsTable").tablesorter({sortList: [[0,1]]})  //sort the first column in descending order
-            .tablesorterPager({container: $("#pager")});
+        $("#reportsTable").tablesorter(
+            {
+                sortList: [[0,1]], //sort the first column in descending order
+                headers:
+                {
+                    4: { sorter: false }
+                }
+            }).tablesorterPager({container: $("#pager")});
         
         positionPagerButtons();
     });
@@ -81,15 +87,15 @@
                         <table>
                             <tr>
                                 <td>
-                                    <input id="searchAnalyst" type="checkbox" value="analyst" name="userType1" <?php if($checkboxes['userType1']) echo 'checked'; ?>/>
+                                    <input id="searchAnalyst" type="checkbox" value="analyst" name="userType1" <?php if(isset($checkboxes['userType1'])) if($checkboxes['userType1']) echo 'checked'; ?>/>
                                     <label for="searchAnalyst">Αναλυτές <span class="tag analyst"></span></label>
                                 </td>
                                 <td>
-                                    <input id="searchSimple" type="checkbox" value="simple"  name="userType2" <?php if($checkboxes['userType2']) echo 'checked'; ?>/>
+                                    <input id="searchSimple" type="checkbox" value="simple"  name="userType2" <?php if(isset($checkboxes['userType2'])) if($checkboxes['userType2']) echo 'checked'; ?>/>
                                     <label for="searchSimple">Απλοί Χρήστες <span class="tag basic"></span></label>
                                 </td>
                                 <td>
-                                    <input id="searchHyperanalyst" type="checkbox" value="hyperanalyst"  name="userType3" <?php if($checkboxes['userType3']) echo 'checked'; ?>/>
+                                    <input id="searchHyperanalyst" type="checkbox" value="hyperanalyst"  name="userType3" <?php if(isset($checkboxes['userType3'])) if($checkboxes['userType3']) echo 'checked'; ?>/>
                                     <label for="searchHyperanalyst">Υπερχρήστες <span class="tag hyperanalyst"></span></label>
                                 </td>
                             </tr>
@@ -214,7 +220,7 @@
                     <form>
                         <button class="first">Αρχή</button>
                         <button class="prev">Προηγούμενο</button>
-                        <input type="text" class="pagedisplay"/>
+                        <input type="text" class="pagedisplay" readonly="readonly"/>
                         <select style="visibility: hidden" class="pagesize" onchange="positionPagerButtons">
                                 <option selected="selected" value="10">10</option>
                                 <option value="20">20</option>

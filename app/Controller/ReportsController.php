@@ -5,15 +5,20 @@
  *
  * @author Kiddo
  */
-
+CakePlugin::load('PhpExcel');
 class ReportsController extends AppController{
     var $name = 'Reports';
-    public $helpers = array('Html', 'Form', 'Cropimage','GoogleMapV3', 'Js','Session', 'Xls','Tinymce');
+    public $helpers = array('Html', 'Form', 'Cropimage','GoogleMapV3', 'Js','Session', 'Xls','Tinymce', 'PhpExcel.PhpExcel');
     public $components = array('JqImgcrop', 'Image','Video','Email');
 
    function export() { //http://eureka.ykyuen.info/2009/10/04/cakephp-export-data-to-a-xls-file/       
    	$data = $this->Report->find('all');
    	$this->set('reports', $data);
+   }
+
+   function excelExport(){ //http://bakery.cakephp.org/articles/segy/2012/04/02/phpexcel_helper_for_generating_excel_files
+        $data = $this->Report->find('all');
+        $this->set('data', $data);
    }
    
    function createnew(){

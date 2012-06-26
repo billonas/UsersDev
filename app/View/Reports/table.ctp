@@ -34,8 +34,15 @@
             }
         );
         
-        $("#reportsTable").tablesorter({sortList: [[0,1]]})  //sort the first column in descending order
-            .tablesorterPager({container: $("#pager")});
+        $("#reportsTable").tablesorter(
+            {
+                sortList: [[0,1]], //sort the first column in descending order
+                headers:
+                {
+                    1: { sorter: false },
+                    5: { sorter: false }
+                }
+            }).tablesorterPager({container: $("#pager")});
         
         positionPagerButtons();
     } 
@@ -155,12 +162,12 @@
                     <thead>
                         <tr>
                             <th>Ημερομηνία Υποβολής</th>
-                            <th>Φωτογραφία Παρατήρησης</th>
+                            <th class="{sorter: false}">Φωτογραφία Παρατήρησης</th>
                             <th>Κατηγορία</th>
                             <th>Eίδος</th>
     <!--                            <th>Κατάσταση</th>-->
                             <th>Τελευταία Επεξεργασία</th>
-                            <th>Ενέργειες</th>
+                            <th class="{sorter: false}">Ενέργειες</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -254,7 +261,7 @@
 <!--                        <img src="/img/tablesorter-prev.png" class="prev"/>-->
                         <button class="first">Αρχή</button>
                         <button class="prev">Προηγούμενο</button>
-                        <input type="text" class="pagedisplay"/>
+                        <input type="text" class="pagedisplay" readonly="readonly"/>
 <!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
 <!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
                         <select style="visibility: hidden" class="pagesize" onchange="positionPagerButtons">
