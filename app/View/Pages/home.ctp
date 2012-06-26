@@ -468,8 +468,8 @@
                     
 					 foreach($reports as $confirmed){
 						echo $confirmed['Report']['lat'].','.$confirmed['Report']['lng'].',';
-                                                if(isset($confirmed['Report']['username'])){
-                                                    echo $confirmed['Report']['username'].',';
+                                                if(isset($confirmed['User']['username'])){
+                                                    echo $confirmed['User']['username'].',';
                                                 }else
                                                     echo 'anonymous,';
                                                 
@@ -516,12 +516,12 @@
                                                 }
                                                 echo $date[0].','; 
                                                 
-                                                if(isset($confirmed['Report']['species_name'])){ //needs to be changed into name from species_id 
-                                                    echo 'fish';      //$confirmed['Report']['species_name'];
+                                                if(isset($confirmed['Specie']['scientific_name'])){ 
+                                                    echo $confirmed['Specie']['scientific_name'];
                                                 }
                                                 echo ',';
-                                                if(isset($confirmed['Report']['species_id'])){ //needs to be changed into name from species_id 
-                                                    echo '1'; //$confirmed['Report']['species_id'];
+                                                if(isset($confirmed['Report']['species_id'])){ 
+                                                    echo $confirmed['Report']['species_id'];
                                                 }
                                                 echo ',';
                                                 if(isset($confirmed['Report']['area'])){ //needs to be changed into name from species_id 

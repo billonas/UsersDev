@@ -497,6 +497,19 @@ $(document).ready(function(){
                         $options['1'] = $this->Html->image('hotspecies/1.jpg');
                         $options['2'] = $this->Html->image('hotspecies/2.jpg');
                         $options['3'] = $this->Html->image('hotspecies/3.jpg');
+                        $options['4'] = $this->Html->image('hotspecies/1.jpg');
+                        $options['5'] = $this->Html->image('hotspecies/1.jpg');
+                        $options['6'] = $this->Html->image('hotspecies/2.jpg');
+                        $options['7'] = $this->Html->image('hotspecies/3.jpg');
+                        $options['8'] = $this->Html->image('hotspecies/1.jpg');
+                        
+                        
+                        
+                        /*$options = array();
+                        foreach($hot as $hotspecies){
+                            $options[$hot['id']] = $this->Html->image('hotspecies/'.$hot['id'].'.jpg'); //NOTE: this assumes they're all .jpg's
+                        }*/
+                        $options['0'] = 'Κανένα απο τα παραπάνω';  
 						
                         echo $this->Form->input('hot_id', array('options' => $options,'type'=>'radio','legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
@@ -593,6 +606,20 @@ $(document).ready(function(){
                         $options['1'] = $this->Html->image('hotspecies/1.jpg');
                         $options['2'] = $this->Html->image('hotspecies/2.jpg');
                         $options['3'] = $this->Html->image('hotspecies/3.jpg');
+                        $options['4'] = $this->Html->image('hotspecies/1.jpg');
+                        $options['5'] = $this->Html->image('hotspecies/1.jpg');
+                        $options['6'] = $this->Html->image('hotspecies/2.jpg');
+                        $options['7'] = $this->Html->image('hotspecies/3.jpg');
+                        $options['8'] = $this->Html->image('hotspecies/1.jpg');
+                        $options['9'] = $this->Html->image('hotspecies/2.jpg');
+                        $options['10'] = $this->Html->image('hotspecies/3.jpg');
+                        
+                        
+                        /*$options = array();
+                        foreach($hot as $hotspecies){
+                            $options[$hot['id']] = $this->Html->image('hotspecies/'.$hot['id'].'.jpg'); //NOTE: this assumes they're all .jpg's
+                        }*/
+                        $options['0'] = 'Κανένα απο τα παραπάνω';  
                         echo $this->Form->input('hot_id', array('options' => $options,'value'=>$report['Report']['hot_id'],'type'=>'radio','legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
 						echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
