@@ -7,7 +7,7 @@
                                 
                 <br />
                 <span class="about_text">
-                    Η ιστοσελίδα που βρίσκεστε αυτή τη στιγμή είναι η επίσημη ιστοσελίδα του ΕΛΚΕΘΕ. Σκοπός μας είναι η μελέτη
+                    Η ιστοσελίδα που βρίσκεστε αυτή τη στιγμή αποτελεί παράρτημα του ΕΛΚΕΘΕ με σκοπό τη μελέτη
                     των ελληνικών θαλασσών και η καταγραφή των ειδών της. Μέσα από αυτή τη σελίδα μας ενδιαφέρει κυρίως να καταγράψουμε
                     εμφανίσεις ξενικών ειδών που κανονικά δεν ανήκουν στα ελληνικά οικοσυστήματα και που η παρουσία τους μπορεί να
                     προκαλέσει προβλήματα.
@@ -27,7 +27,7 @@
                 <div id="fish_slideshow" class="fish_slideshow">
                     <?php 
 				 foreach($hotspecies as $hot){
-					echo '<a href="#"><img class="out_of_sight" data-specie_name="'.$hot['scientific_name'].'" src="'.$this->webroot.'img/hotspecies/'.$hot['id'].'.jpg" alt="images/1.jpg"/>				 							</a>';
+					echo '<a href="/hotspecies/show"><img class="out_of_sight" data-specie_name="'.$hot['scientific_name'].'" src="'.$this->webroot.'img/hotspecies/'.$hot['id'].'.jpg" alt="hot_species_img"/>				 							</a>';
                     
 				}
 				
@@ -37,7 +37,7 @@
             </div>
             <div class="index_tile">
                 <span class="report_header">Κάντε Μία Αναφορά</span><br />
-                <span class="report_text">Συναντήσατε κάποιο παράξενο είδος που δεν μπορούσατε να αναγνωρίσετε. Κάντε μία αναφορά και οι ερευνητές μας θα αναλάβουν
+                <span class="report_text">Συναντήσατε κάποιο παράξενο είδος που δεν μπορούσατε να αναγνωρίσετε; Συμπληρώστε μία αναφορά και οι ερευνητές μας θα αναλάβουν
                 να το αναγνωρίσουν.
                 </span>
                 <?php echo $this->Html->link('Κάντε αναφορά', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor'));?>
@@ -56,7 +56,7 @@
             <div class="index_tile">
                 <div class="tile_header">
                     <span>Χάρτης Αναφορών</span><br />
-                    Εδώ μπορείτε να δείτε τις τελευταίες επιβεβαιωμένες αναφορές<br />εμφάνισης κάποιου ξενικού είδους
+                    Δείτε τις τελευταίες επιβεβαιωμένες αναφορές<br />εμφάνισης κάποιου ξενικού είδους
                 </div>
                 <style>
                     #mapCanvas{
