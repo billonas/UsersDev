@@ -348,7 +348,12 @@ $(document).ready(function(){
     });
 });
 
+$(window).bind('load', function() {
 
+	$('#a1_right').bubbletip($('#tip1_right'), { calculateOnShow: true, deltaDirection: 'right' , offsetTop: -20 });
+
+						
+});
 </script>
     <!--[if lt IE 10 ]>
     <link rel="stylesheet" href="hacks.css" type="text/css" media="screen" />
@@ -429,11 +434,11 @@ $(document).ready(function(){
                         echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά"));
                         echo '</td></tr>';
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
-                        echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
+                        echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
                         echo '<td>'.$this->Form->input('lat',array('id'=>'info','label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));						
                         echo '</td></tr>';
                         echo '<tr><td>';
-                        echo '<label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label>';
+                        echo '<label for="ReportLng" class="std_form">Γεωγραφικό Μήκος </label>';
                         echo '</td>';
                         echo '<td>';
                         echo $this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
@@ -464,8 +469,19 @@ $(document).ready(function(){
                         echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
                         echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
                         echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                        echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
+                        
+                        echo '<tr id="photo3" style="display:none;"><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
                         echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        
+                        echo '<tr id="photo4" style="display:none;"><td><label for="ReportImage4" class="std_form">Επιπλέον Φωτογραφία 3 </label></td>';
+                        echo '<td>'.$this->Form->input('image4',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        
+                        echo '<tr id="photo5" style="display:none;"><td><label for="ReportImage5" class="std_form">Επιπλέον Φωτογραφία 4 </label></td>';
+                        echo '<td>'.$this->Form->input('image5',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        
+                        echo '<tr id="photo6" style="display:none;"><td><label for="ReportImage6" class="std_form">Επιπλέον Φωτογραφία 5 </label></td>';
+                        echo '<td>'.$this->Form->input('image6',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        
                         echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
                         echo '</table>';    
                         echo '<br/>';
@@ -489,7 +505,7 @@ $(document).ready(function(){
 						
                         echo $this->Form->input('hot_id', array('options' => $options,'type'=>'radio','legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
-						echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
+			echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
                         echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
                         echo '<td>'.$this->Form->input('habitat',array('label'=>false,'placeholder' => 'Περιγράψτε. Π.Χ. «Βράχια καλυμμένα με βλάστηση»','div'=> false, 'class' => 'std_form blue_shadow')).'</td></tr>';
                         echo '<tr><td><label for="ReportDepth" class="std_form">Βάθος</label></td>';
@@ -533,11 +549,11 @@ $(document).ready(function(){
                         echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά", 'value'=>$report['Report']['date']['year']));
                         echo '</td></tr>';
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
-                        echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
+                        echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
                         echo '<td>'.$this->Form->input('lat',array('id'=>'info','value'=>$report['Report']['lat'],'label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));						
                         echo '</td></tr>';
                         echo '<tr><td>';
-                        echo '<label for="ReportLng" class="std_form">Γεωγραφικός Μήκος </label>';
+                        echo '<label for="ReportLng" class="std_form">Γεωγραφικό Μήκος </label>';
                         echo '</td>';
                         echo '<td>';
                         echo $this->Form->input('lng',array('div'=>false,'id'=>'info2','value'=>$report['Report']['lng'],"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
@@ -551,10 +567,7 @@ $(document).ready(function(){
                         echo '</td>';
                         echo '</table>';
 						
-						
-						
-						
-                        if($this->Session->check('uploaded1')){
+			if($this->Session->check('uploaded1')){
                             $uploaded1 = $this->Session->read('uploaded1');
                             //echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
                             echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
@@ -570,11 +583,24 @@ $(document).ready(function(){
 			
 
                         echo '<div id="f2">';
+                        
                         echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
                         echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td>';
                         echo '<td>'.$this->Form->input('image2',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                        echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
+                        
+                        echo '<tr id="photo3" style="display:none;"><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td>';
                         echo '<td>'.$this->Form->input('image3',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        
+                        echo '<tr id="photo4" style="display:none;"><td><label for="ReportImage4" class="std_form">Επιπλέον Φωτογραφία 3 </label></td>';
+                        echo '<td>'.$this->Form->input('image4',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        
+                        echo '<tr id="photo5" style="display:none;"><td><label for="ReportImage5" class="std_form">Επιπλέον Φωτογραφία 4 </label></td>';
+                        echo '<td>'.$this->Form->input('image5',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        
+                        echo '<tr id="photo6" style="display:none;"><td><label for="ReportImage6" class="std_form">Επιπλέον Φωτογραφία 5 </label></td>';
+                        echo '<td>'.$this->Form->input('image6',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
+                        
+                        
                         echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
                         echo '</table>';    
                         echo '<br/>';
@@ -598,7 +624,8 @@ $(document).ready(function(){
                         $options['0'] = 'Κανένα απο τα παραπάνω';  
                         echo $this->Form->input('hot_id', array('options' => $options,'value'=>$report['Report']['hot_id'],'type'=>'radio','legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
-						echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
+						
+			echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
                         echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
                         echo '<td>'.$this->Form->input('habitat',array('label'=>false,'placeholder' => 'Περιγράψτε. Π.Χ. «Βράχια καλυμμένα με βλάστηση»','value'=>$report['Report']['habitat'],'div'=> false, 'class' => 'std_form blue_shadow')).'</td></tr>';
                         echo '<tr><td><label for="ReportDepth" class="std_form">Βάθος</label></td>';
@@ -752,5 +779,5 @@ $(document).ready(function(){
 </div>
 
 <div id="tip1_right" style="display:none;">
-                            Μπορείτε να μάθετε περισσότερα για τα είδη αυτά στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotspecies', 'action'=>'show'),array('target' => '_blank'));?>
+                            Μπορείτε να μάθετε περισσότερα για τα παραπάνω είδη στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotspecies', 'action'=>'show'),array('target' => '_blank'));?>
 </div>
