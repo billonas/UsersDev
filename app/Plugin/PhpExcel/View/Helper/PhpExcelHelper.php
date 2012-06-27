@@ -137,12 +137,12 @@ if($img != null && is_file('./img/'.$img)){
   //$objDrawing->setName('Logo');
   //$objDrawing->setDescription('Logo');
   $objDrawing->setPath('./img/'.$img);
-  $objDrawing->setHeight('99%');
-  $objDrawing->setWidth('89%');
+  $objDrawing->setResizeProportional(false);
+  $objDrawing->setHeight(65);
+  $objDrawing->setWidth(65);
   //$objDrawing->setOffsetX(30);
   //$objDrawing->setOffsetY(3*$this->row-3);
   $objDrawing->setCoordinates('A'.$this->row);
-  $objDrawing->setResizeProportional(true);
   $objDrawing->setWorksheet($this->xls->getActiveSheet());
 }
 $offset++;
