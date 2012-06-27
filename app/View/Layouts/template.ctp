@@ -112,7 +112,7 @@
 						
 					</li>
                     <li><?php echo $this->Html->link('Είδη-στόχοι', array('controller' => 'hotspecies', 'action'=>'show'));?></li>
-					<li><?php echo $this->Html->link('Αναγνωρισμένα Είδη', array('controller' => 'reports', 'action'=>'species'));?></li>
+					<li><?php echo $this->Html->link('Αναγνωρισμένα Είδη', array('controller' => 'reports', 'action'=>'showspecies'));?></li>
 					<li><?php echo $this->Html->link('Υποβολή Αναφοράς', array('controller' => 'reports', 'action'=>'create'));?></li>
                     
 					    
