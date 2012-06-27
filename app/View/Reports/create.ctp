@@ -251,11 +251,14 @@ function pressedListItem(li){
 
 function resizeJCrop(){
     var maxw = $("#img_crop_area").width();
+    var height = <?php if($this->Session->check('uploaded1')){$uploaded1 = $this->Session->read('uploaded1'); echo $uploaded1['imageHeight'].';';} else echo "0;";?>
+    var width =  <?php if($this->Session->check('uploaded1'))echo $uploaded1['imageWidth'].';'; else echo "0;";?>
     $("#jcrop_target").Jcrop({                        
                 onSelect: showCoords,
                 addClass: "jcrop-dark",
                 boxWidth: maxw,
-                boxHeight: 0
+                boxHeight: 0,
+                trueSize: [width,height]
             },function(){
                 jcrop_api = this;
                 has_crop = true;
@@ -296,10 +299,13 @@ $(document).ready(function(){
     $('#info').bind('blur',checkCoords);
     $('#info2').bind('blur',checkCoords);
     var maxw = $("#img_crop_area").width();
+    var height = <?php if($this->Session->check('uploaded1'))echo $uploaded1['imageHeight'].';'; else echo "0;";?>
+    var width =  <?php if($this->Session->check('uploaded1'))echo $uploaded1['imageWidth'].';'; else echo "0;";?>
     $("#jcrop_target").Jcrop({                        
                         onSelect: showCoords,
                         addClass: "jcrop-dark",
-                        maxSize: [ maxw , 0 ]
+                        maxSize: [ maxw , 0 ],
+                        trueSize: [width,height]
                     },function(){
                         jcrop_api = this;
                         has_crop = true;
@@ -747,4 +753,4 @@ $(document).ready(function(){
 
 <div id="tip1_right" style="display:none;">
                             Μπορείτε να μάθετε περισσότερα για τα είδη αυτά στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotspecies', 'action'=>'show'),array('target' => '_blank'));?>
-                        </div>
+</div>
