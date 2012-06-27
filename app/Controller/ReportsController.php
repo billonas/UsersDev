@@ -106,7 +106,11 @@ class ReportsController extends AppController{
             else{
                 /* Crop needed */
                 if(!empty($this->data['Report']['x1'])){
-                    $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
+                   $cropped = $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
+                    $uploaded1 = $this->Session->read('uploaded1');
+                   $uploaded1['imageWidth'] = $this->JqImgcrop->getWidth($cropped);
+		   $uploaded1['imageHeight'] = $this->JqImgcrop->getHeight($cropped);
+                   $this->Session->write('uploaded1',$uploaded1);
                 }
                 //UPLOAD ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
                 if(!empty($this->data['Report']['image2']['name'])){
