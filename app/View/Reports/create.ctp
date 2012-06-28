@@ -499,7 +499,7 @@ $(window).bind('load', function() {
                         
                         /*$options = array();
                         foreach($hot as $hotspecies){
-                            $options[$hot['id']] = $this->Html->image('hotspecies/'.$hot['id'].'.jpg'); //NOTE: this assumes they're all .jpg's
+                            $options[$hot['scientific_name']] = $this->Html->image($hot['main_photo']); 
                         }*/
                         $options['0'] = 'Κανένα απο τα παραπάνω';  
 						
@@ -566,8 +566,10 @@ $(window).bind('load', function() {
 			echo $this->Form->input('area',array( 'id'=>'maparea','div'=>false , 'value'=>$report['Report']['area'], "label" => false , "class" => "std_form"));
                         echo '</td>';
                         echo '</table>';
-						
-			if($this->Session->check('uploaded1')){
+			
+                        
+                        
+                      	if($this->Session->check('uploaded1')){
                             $uploaded1 = $this->Session->read('uploaded1');
                             //echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
                             echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
@@ -619,7 +621,7 @@ $(window).bind('load', function() {
                         
                         /*$options = array();
                         foreach($hot as $hotspecies){
-                            $options[$hot['id']] = $this->Html->image('hotspecies/'.$hot['id'].'.jpg'); //NOTE: this assumes they're all .jpg's
+                            $options[$hot['HotSpecie']['scientific_name']] = $this->Html->image($hot['HotSpecie']['main_photo']); 
                         }*/
                         $options['0'] = 'Κανένα απο τα παραπάνω';  
                         echo $this->Form->input('hot_id', array('options' => $options,'value'=>$report['Report']['hot_id'],'type'=>'radio','legend'=> false,'class'=>'std_form'));
