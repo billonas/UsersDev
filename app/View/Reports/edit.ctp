@@ -1,3 +1,4 @@
+<?php echo $this->Html->css(array('jquery-ui'),null, array('inline'=>false)); ?>
 <?php echo $this->Html->script(array('jquery.min','tiny_mce/tiny_mce','jwplayer/jwplayer'), array('inline'=>false));?>  
 <?php $this->set('title_for_layout', 'Επεξεργασία αναφοράς - ΕΛΚΕΘΕ');?>  
 
