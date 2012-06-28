@@ -75,7 +75,7 @@
                 <?php echo $this->Session->flash().'</br>';?>
             </div>
             
-            <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'export')) ?>">
+            <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'excelExport')) ?>">
                 <div class="inner">
                     <span>Εξαγωγή</span>
                     <img class="icon" src="../img/whiteArrow.png"/>
