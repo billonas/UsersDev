@@ -23,6 +23,8 @@ class ReportsController extends AppController{
    
    
    function downloadvid($id = null) {
+       
+        if(!$this->Session->check('UserUsername')){ $this->redirect(array('controller'=>'pages', 'action'=>'display'));}
         if(strcmp($this->Session->read('UserType'),'simple')){  
             $this->viewClass = 'Media';
             $params = array(
