@@ -6,33 +6,10 @@
 
 <script>
 $(document).ready(function(){
-    
-    $('#a1_right').bubbletip($('#tip1_right'), { deltaDirection: 'right' });
-    $('#a1_trigger').bubbletip($('#tip1_trigger1'), { positionAtElement: $('#a1_target') });
-
-    $('#a_unbind').bubbletip($('#tip1_trigger2_unbind'));
-    $('#a_unbind').bind('click', function(event) {
-            $('#a1_trigger').removeBubbletip($('#tip1_trigger2'));
-            event.preventDefault();
-    });
-    $('#a_bind').bubbletip($('#tip1_trigger2_bind'));
-    $('#a_bind').bind('click', function(event) {
-            $('#a1_trigger').bubbletip($('#tip1_trigger2'), {
-                    positionAtElement: $('#a1_target'),
-                    deltaDirection: 'right',
-                    delayShow: 500,
-                    delayHide: 1000
-            });
-            event.preventDefault();
-    });
-
-    $('#inpText').bubbletip($('#tip1_focusblur'), {
-            deltaDirection: 'right',
-            bindShow: 'focus',
-            bindHide: 'blur'
-    });     
-
-    
+  
+    $(window).bind('load', function() {
+	$('#a1_right').bubbletip($('#tip1_right'), { calculateOnShow: true, deltaDirection: 'up' , offsetTop: -45 });
+    });  
 });
 
 
@@ -114,7 +91,7 @@ $(document).ready(function(){
 
 
 <div id="tip1_right" style="display:none;">
-                            Συμπληρώνοντας τις λέξεις της εικόνας <br/>
-                            μας βοηθάει να προστατέψουμε τη σελίδα <br/>
-                            από κακόβουλο λογισμικό
+    <div>Συμπληρώνοντας τις λέξεις της εικόνας μας βοηθάτε </div>
+<div>να προστατέψουμε τη σελίδα 
+                            από κακόβουλο λογισμικό</div>
                         </div>

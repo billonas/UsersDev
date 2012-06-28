@@ -5,10 +5,10 @@
 		<meta http-equiv="content-language" content="en-gb" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<title><?php echo $title_for_layout?></title>
-		<?php 	echo $this->Html->css(array('main'), null, array('media' => 'screen', 'rel' => 'stylesheet')); 	?>
+		<?php 	echo $this->Html->css(array('main','bubbletip'), null, array('media' => 'screen', 'rel' => 'stylesheet')); 	?>
         <?php   echo $scripts_for_layout;?>
 		<!--[if lt IE 10 ]>
-			<?php 	echo $this->Html->css(array('hacks'), null, array('media' => 'screen')); 	?>
+			<?php 	echo $this->Html->css(array('hacks','bubbletip-IE'), null, array('media' => 'screen')); 	?>
 		 <![endif]-->
                 <!--[if gte IE 9]>
                   <style type="text/css">

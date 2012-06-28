@@ -1,6 +1,6 @@
-<?php echo $this->Html->css(array('main','jquery.Jcrop','bubbletip'),null, array('inline'=>false)); ?>
+<?php echo $this->Html->css(array('jquery.Jcrop'),null, array('inline'=>false)); ?>
 <?php echo $this->Html->script(array('jquery.min','jquery.Jcrop.js','jQuery.bubbletip-1.0.6'), array('inline'=>false));?>
-
+        <?php $this->set('title_for_layout', 'Αναφορά παρατήρησης - ΕΛΚΕΘΕ');?>  
 <script type="text/javascript"
     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC0azkJD2QB5m24LzhdEUenVmgCJPNaiDI&sensor=false">
 </script>
@@ -456,7 +456,7 @@ $(window).bind('load', function() {
                             //echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
                             echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
                             echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
-			    echo $this->Form->input('exif',array('type'=>'hidden', 'class'=>'std_form'));
+			    echo $this->Form->hidden('exif',array('type'=>'hidden', 'class'=>'std_form'));
                         }
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
@@ -572,7 +572,7 @@ $(window).bind('load', function() {
                             //echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
                             echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
                             echo $this->Form->input('main_photo',array('type'=>'hidden','value'=>$uploaded1["imagePath"], 'class'=>'std_form'));
-                            echo $this->Form->input('exif',array('type'=>'hidden', 'class'=>'std_form'));
+                            echo $this->Form->hidden('exif',array('type'=>'hidden', 'class'=>'std_form'));
                         }
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
