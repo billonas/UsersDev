@@ -14,11 +14,21 @@ A { color:#444; text-decoration:underline}
 A:HOVER { text-decoration: underline; color:#44E }
 --></style>
 </head>
-<body><div id="center" style="position: fixed;
-  top: 25%;
-  left: 50%;
-  margin-top:  0px;
-  margin-left: -250px;">
+    
+<style>     
+    #center {
+        top:35%;
+        position: fixed;
+        margin-top:  0px;
+        
+        width: 100%;
+        z-index: 9000;
+        text-align: center;
+        
+    }
+</style>
+    
+<body><div id="center" >
 <p>Καλώς ήλθατε!</br>
 <a href="<?php echo $url; ?>" style="color:#44E"><?php echo $message; ?></a></p></div>
 </body>

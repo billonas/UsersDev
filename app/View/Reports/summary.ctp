@@ -60,7 +60,7 @@
                 
                 <?php 
                     $report = $this->Session->read('report');
-                    	
+                    
                     echo $this->Form->create('Report', array('action' => 'summary',"enctype" => "multipart/form-data"));
 
                     echo '<table>';
@@ -77,8 +77,9 @@
                                 });
                           }';
                     echo '        </script>';
-                    echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
-                    
+                    echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης </label></td> </tr>';
+                    echo $this->Form->hidden('area',array( 'id'=>'maparea','value'=>$report['Report']['area'], 'div'=>false , "label" => false , "class" => "std_form"));
+
                     echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
                     echo '<td>'.$report['Report']['lat'].'</td></tr>';
 
@@ -405,7 +406,7 @@
                         echo  $this->Form->input('additional_photo2',array('type'=>'hidden','value'=>$report['Report']['additional_photo2'], 'class'=>'std_form'));
                     }
                     echo '<br/>';
-                    echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ",'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
+                    echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ", 'default' => $report['Report']['permissionUseMedia'], 'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
                     echo '<br/>';
                     echo '</div>';
                     

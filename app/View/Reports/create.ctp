@@ -444,12 +444,9 @@ $(window).bind('load', function() {
                         echo $this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
                         echo '</td>';
                         echo '</tr>';
-                        echo '<td>';
-                        echo '<label for="ReportArea" class="std_form">Περιοχή</label>';
-                        echo '</td>';
-                        echo '<td>';
-			echo $this->Form->input('area',array( 'id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
-                        echo '</td>';
+                        
+			echo $this->Form->input('area',array('type'=>'hidden', 'id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
+                        
                         echo '</table>';
                         if($this->Session->check('uploaded1')){
                             $uploaded1 = $this->Session->read('uploaded1');
@@ -548,6 +545,7 @@ $(window).bind('load', function() {
                         echo $this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα', 'value'=>$report['Report']['date']['day']));
                         echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά", 'value'=>$report['Report']['date']['year']));
                         echo '</td></tr>';
+                        echo $this->Form->input('area',array('type'=>'hidden',  'id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
                         echo '<td>'.$this->Form->input('lat',array('id'=>'info','value'=>$report['Report']['lat'],'label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));						
