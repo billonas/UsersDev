@@ -1,6 +1,6 @@
 
 		<?php echo $this->Html->css(array('main','jquery-ui','imgareaselect-default'),null, array('inline'=>false));	?>
-        <?php echo $this->Html->script(array('jquery.min','jquery-ui.min','tiny_mce/tiny_mce','flowplayer/flowplayer-3.2.10.min'), array('inline'=>false));?>
+        <?php echo $this->Html->script(array('jquery.min','jquery-ui.min','tiny_mce/tiny_mce','jwplayer/jwplayer'), array('inline'=>false));?>
 
    <script>
  
@@ -39,16 +39,21 @@
                     }
 					echo '</div>';
                     if(isset($report['Report']['video'])){
-                        echo '<a href="'.$this->webroot.'video/'.$report['Report']['video'].'" 
-                                style="display:block;width:520px;height:330px" id="player"> </a>  '; //only works for mp4, flv, f4v. more soon
-                        echo '<script>
-                                    flowplayer("player", "'.$this->webroot.'/js/flowplayer/flowplayer-3.2.11.swf",{
-                                                clip:  {
-                                                    autoPlay: false,
-                                                    autoBuffering: true
-                                                }
-                                    });
-                                </script>';
+                        
+                        
+                        echo '<div id="container">Loading the player ...</div>
+                                
+                              <script type="text/javascript">
+                                jwplayer("container").setup({
+                                flashplayer: "/js/jwplayer/player.swf",
+                                file: "'.$this->webroot.'video/'.$report['Report']['video'].'",
+                                height: 270,
+                                width: 480
+                                });
+                              </script>';
+                        
+                        $file = explode('/',$report['Report']['video'],3);
+                        echo $this->Html->link("Κατέβασμα βίντεο", '/Reports/downloadvid/'. $file[1]);
                     }
                     echo '<br/>';
                     echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ",'disabled'=>'true', 'class'=>'std_form'));

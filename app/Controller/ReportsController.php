@@ -21,6 +21,21 @@ class ReportsController extends AppController{
         $this->set('data', $data);
    }
    
+   
+   function downloadvid($id = null) {
+        if(strcmp($this->Session->read('UserType'),'simple')){  
+            $this->viewClass = 'Media';
+            $params = array(
+                'id'        => 'reports/'.$id,
+                'download'  => true,
+                'path'      => 'video' . DS
+            );
+            $this->set($params);
+        }
+        
+    }
+   
+   
    function createnew(){
        if($this->Session->check('report')){
             $this->Session->delete('report');
@@ -422,6 +437,7 @@ class ReportsController extends AppController{
                                 $categories[$i]=$item['Category']['category_name'];
                                 $i++;
                         }
+                        $this->set('table',$table);
 			$this->set('categories',$categories);
                         $i=0;
                         foreach($temp_species as $item){
