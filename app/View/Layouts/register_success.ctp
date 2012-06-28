@@ -20,7 +20,6 @@ A:HOVER { text-decoration: underline; color:#44E }
         top:35%;
         position: fixed;
         margin-top:  0px;
-        margin-left: -250px;
         text-align: center;
         width: 100%;
         z-index: 9000;
