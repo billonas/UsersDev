@@ -437,7 +437,7 @@ class ReportsController extends AppController{
                                 $categories[$i]=$item['Category']['category_name'];
                                 $i++;
                         }
-                        $this->set('table',$table);
+                        
 			$this->set('categories',$categories);
                         $i=0;
                         foreach($temp_species as $item){
