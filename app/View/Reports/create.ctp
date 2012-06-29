@@ -516,8 +516,6 @@ $(window).bind('load', function() {
                         echo '<tr><td><label for="ReportComments" class="std_form">Επιπλέον Σχόλια </label></td>';
                         echo '<td>'.$this->Form->input('comments', array('type' => 'textarea','label' => false,'placeholder' =>'Περιγράψτε ότι σας έκανε εντύπωση','class'=>'std_form blue_shadow', 'div'=>false)).'</td></tr>';
                         echo '</table>';
-                                                //echo "<a href='#1' class='prev-tab mover'>&#171; Προηγούμενο βήμα</a>";
-                                                //echo "<a href='#3' class='next-tab mover'>Επόμενο βήμα &#187;</a>";
                         echo '</div>';
 
                         echo '<div id="f3">';
@@ -533,9 +531,8 @@ $(window).bind('load', function() {
                         echo '</br/>'.$this->Session->flash().'</br>';
                         echo '</div>';
                         echo $this->Form->create('Report', array('action' => 'create',"enctype" => "multipart/form-data"));
-						
-						
-						echo '<span class="red_msg"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span>';
+								
+			echo '<span class="red_msg"> Όλα τα πεδία αυτού του βήματος είναι υποχρεωτικά!</span>';
                         echo '<table>';                        
                         echo '<tr><td colspan="2">';
                         echo '<div id="mapCanvas"></div>';
@@ -558,12 +555,6 @@ $(window).bind('load', function() {
                         echo $this->Form->input('lng',array('div'=>false,'id'=>'info2','value'=>$report['Report']['lng'],"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
                         echo '</td>';
                         echo '</tr>';
-                        echo '<td>';
-                        echo '<label for="ReportArea" class="std_form">Περιοχή</label>';
-                        echo '</td>';
-                        echo '<td>';
-			echo $this->Form->input('area',array( 'id'=>'maparea','div'=>false , 'value'=>$report['Report']['area'], "label" => false , "class" => "std_form"));
-                        echo '</td>';
                         echo '</table>';
 			
                         
