@@ -137,7 +137,7 @@ if($img != null && is_file('./img/'.$img)){
   //$objDrawing->setName('Logo');
   //$objDrawing->setDescription('Logo');
   $objDrawing->setPath('./img/'.$img);
-  $objDrawing->setHeight(99);
+  $objDrawing->setHeight('99%');
   $objDrawing->setWidth('89%');
   //$objDrawing->setOffsetX(30);
   //$objDrawing->setOffsetY(3*$this->row-3);
