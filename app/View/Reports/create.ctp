@@ -257,7 +257,7 @@ function resizeJCrop(){
                 onSelect: showCoords,
                 addClass: "jcrop-dark",
                 boxWidth: maxw,
-                boxHeight: 0,
+                boxHeight: maxw*0.7,
                 trueSize: [width,height]
             },function(){
                 jcrop_api = this;
@@ -304,7 +304,8 @@ $(document).ready(function(){
     $("#jcrop_target").Jcrop({                        
                         onSelect: showCoords,
                         addClass: "jcrop-dark",
-                        maxSize: [ maxw , 0 ],
+                        boxWidth: maxw,
+                        boxHeight: maxw*0.7,
                         trueSize: [width,height]
                     },function(){
                         jcrop_api = this;
