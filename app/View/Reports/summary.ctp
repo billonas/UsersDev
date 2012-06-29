@@ -1,42 +1,7 @@
-<?php echo $this->Html->css(array('main'),null, array('inline'=>false));	?>
 <?php echo $this->Html->script(array('jquery.min'), array('inline'=>false));?>  
-  
-<script>
- /*
-	$(function() {
-		//var availableTags = <?php //echo json_encode($response); ?>;
-		
-		$( "#autoComplete" ).autocomplete({
-			source: availableTags
-		});
-	});
-	
+<?php $this->set('title_for_layout', 'Σύνοψη αναφοράς - ΕΛΚΕΘΕ');?>  
 
-/*$(function() {
-    $('#autoComplete').autocomplete({
-        //source: "/groceries/items/autoComplete", ///This works but response isn't formatted correctly'
-        //dataType: "json"
-        minLength: 2,
-        source: function( request, response ) {
-            $.ajax({
-                url: "http://localhost/UsersDev/Reports/autoComplete",
-                dataType: "jsonp",
-                data: {
-                    featureClass: "P",
-                    style: "full",
-                    maxRows: 12,
-                    term: request.term
-                },
-                success: function( data ) {
-                    response( $.map( data, function( el ) {
-                        return { label: el.label, value: el.value }
-                    }));
-                }
-            });
-        }
-    });
-	});*/
-	</script>
+
         <script type="text/javascript"
             src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC0azkJD2QB5m24LzhdEUenVmgCJPNaiDI&sensor=false">
         </script>
@@ -75,9 +40,7 @@
             });
         </script>
   
-<!--[if lt IE 10 ]>
-    <link rel="stylesheet" href="hacks.css" type="text/css" media="screen" />
-<![endif]-->
+
 	<div class="middle_row big_row no_padding">
             <style>
                 #mapCanvas {
@@ -97,7 +60,7 @@
                 
                 <?php 
                     $report = $this->Session->read('report');
-                    	
+                    
                     echo $this->Form->create('Report', array('action' => 'summary',"enctype" => "multipart/form-data"));
 
                     echo '<table>';
@@ -114,8 +77,9 @@
                                 });
                           }';
                     echo '        </script>';
-                    echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
-                    
+                    echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης </label></td> </tr>';
+                    echo $this->Form->hidden('area',array( 'id'=>'maparea','value'=>$report['Report']['area'], 'div'=>false , "label" => false , "class" => "std_form"));
+
                     echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικός Πλάτος </label></td>';
                     echo '<td>'.$report['Report']['lat'].'</td></tr>';
 
@@ -442,7 +406,7 @@
                         echo  $this->Form->input('additional_photo2',array('type'=>'hidden','value'=>$report['Report']['additional_photo2'], 'class'=>'std_form'));
                     }
                     echo '<br/>';
-                    echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ",'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
+                    echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ", 'default' => $report['Report']['permissionUseMedia'], 'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
                     echo '<br/>';
                     echo '</div>';
                     

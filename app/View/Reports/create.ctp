@@ -444,12 +444,9 @@ $(window).bind('load', function() {
                         echo $this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
                         echo '</td>';
                         echo '</tr>';
-                        echo '<td>';
-                        echo '<label for="ReportArea" class="std_form">Περιοχή</label>';
-                        echo '</td>';
-                        echo '<td>';
-			echo $this->Form->input('area',array( 'id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
-                        echo '</td>';
+                        
+			echo $this->Form->input('area',array('type'=>'hidden', 'id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
+                        
                         echo '</table>';
                         if($this->Session->check('uploaded1')){
                             $uploaded1 = $this->Session->read('uploaded1');
@@ -499,7 +496,7 @@ $(window).bind('load', function() {
                         
                         /*$options = array();
                         foreach($hot as $hotspecies){
-                            $options[$hot['id']] = $this->Html->image('hotspecies/'.$hot['id'].'.jpg'); //NOTE: this assumes they're all .jpg's
+                            $options[$hot['scientific_name']] = $this->Html->image($hot['main_photo']); 
                         }*/
                         $options['0'] = 'Κανένα απο τα παραπάνω';  
 						
@@ -548,6 +545,7 @@ $(window).bind('load', function() {
                         echo $this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα', 'value'=>$report['Report']['date']['day']));
                         echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά", 'value'=>$report['Report']['date']['year']));
                         echo '</td></tr>';
+                        echo $this->Form->input('area',array('type'=>'hidden',  'id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
                         echo '<td>'.$this->Form->input('lat',array('id'=>'info','value'=>$report['Report']['lat'],'label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));						
@@ -566,8 +564,10 @@ $(window).bind('load', function() {
 			echo $this->Form->input('area',array( 'id'=>'maparea','div'=>false , 'value'=>$report['Report']['area'], "label" => false , "class" => "std_form"));
                         echo '</td>';
                         echo '</table>';
-						
-			if($this->Session->check('uploaded1')){
+			
+                        
+                        
+                      	if($this->Session->check('uploaded1')){
                             $uploaded1 = $this->Session->read('uploaded1');
                             //echo $this->Cropimage->createJavaScript($uploaded1['imageWidth'],$uploaded1['imageHeight'],151,151);
                             echo $this->Cropimage->createForm($uploaded1['imagePath'], 151, 151);
@@ -619,7 +619,7 @@ $(window).bind('load', function() {
                         
                         /*$options = array();
                         foreach($hot as $hotspecies){
-                            $options[$hot['id']] = $this->Html->image('hotspecies/'.$hot['id'].'.jpg'); //NOTE: this assumes they're all .jpg's
+                            $options[$hot['HotSpecie']['scientific_name']] = $this->Html->image($hot['HotSpecie']['main_photo']); 
                         }*/
                         $options['0'] = 'Κανένα απο τα παραπάνω';  
                         echo $this->Form->input('hot_id', array('options' => $options,'value'=>$report['Report']['hot_id'],'type'=>'radio','legend'=> false,'class'=>'std_form'));

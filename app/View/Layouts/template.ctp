@@ -20,7 +20,28 @@
 
          
 	</head>
+        
+        
+      <style>  
+        #noscript-warning {
+            font-family: sans-serif;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            z-index: 9000;
+            text-align: center;
+            font-weight: bold;
+            font-size: 80%;
+            color: rgb(255, 255, 255);
+            background-color: rgb(174, 0, 0);
+            padding: 3px 0px;
+        }
+      </style>
 	<body>
+            <noscript>
+                <div id="noscript-warning" style="display:block;">Η σελίδα μας λειτουργεί καλύτερα με ενεργοποιημένη Javascript</div>
+            </noscript>
 		<div class="wrapper">
         	
 			<div class="upper_row">
@@ -60,7 +81,7 @@
 												echo '</br></br>';
 												echo $this->Html->link('Αποσύνδεση', array('controller' => 'users', 'action'=>'logout'));
 											}
-											else if(!strcmp($this->Session->read('UserType'),'yperanalyst')) {//superanalyst
+											else if(!strcmp($this->Session->read('UserType'),'hyperanalyst')) {//superanalyst
 												echo $this->Html->link('Πίνακας υπεραναλυτή', array('controller' => 'users', 'action'=>false));
 												echo '</br></br>';
 												echo $this->Html->link('Πίνακας αναφορών', array('controller' => 'reports', 'action'=>'table'));
@@ -123,6 +144,8 @@
 				</ul>
 			</div>		
         
+                    
+
 		<?php echo $content_for_layout ?>
         
 	</body>
