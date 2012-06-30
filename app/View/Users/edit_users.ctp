@@ -19,6 +19,11 @@
             return confirm('Είστε βέβαιος/η ότι θέλετε να διαγράψετε αυτόν τον χρήστη;');
         });
         
+        $('.item a.upgradeAnalyst').click(function(e) {
+            e.stopPropagation();
+            return confirm('Είστε βέβαιος/η ότι θέλετε να αναβαθμίσετε αυτόν τον αναλυτή σε υπεραναλυτή;');
+        });
+        
         // Create button styles
         $("#pager button, .buttonContainer a, #filterContainer form input[type='submit'], #filterContainer form button[type='submit'], #createUserLink a").button();    
         
@@ -188,13 +193,7 @@
                                                 Προβολή
                                             </a>
                                         <?php endif; ?>
-                                        <!-- Delete user button-->
-                                        <?php if ($userType==='basic' || $userType ==='analyst'): ?>
-                                            <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $user['User']['id']))?>" >
-                                                <img class="icon" src="../img/whiteX.png"/>
-                                                Διαγραφή
-                                            </a>
-                                        <?php endif; ?>
+                                        
                                         <!-- Upgrade basic user button-->
                                         <?php if ($userType==='basic'): ?>
                                             <a class="upgradeButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'create', $user['User']['id'])) ?>">
@@ -204,7 +203,7 @@
                                         <?php endif; ?>
                                         <!-- Upgrade analyst button-->
                                         <?php if ($userType==='analyst'): ?>
-                                            <a class="upgradeButton" href="<?php echo $this->Html->url(array('controller'=>'analyst', 'action'=>'upgrade', $user['User']['id'])) ?>">
+                                            <a class="upgradeButton upgradeAnalyst" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'upgrade', $user['User']['id'])) ?>">
                                                 <img class="icon" src="../img/blackUpArrow.png"/>
                                                 Αναβάθμιση
                                             </a>
@@ -214,6 +213,13 @@
                                             <a class="downgradeButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'downgrade', $user['User']['id'])) ?>">
                                                 <img class="icon" src="../img/blackDownArrow.png"/>
                                                 Υποβάθμιση
+                                            </a>
+                                        <?php endif; ?>
+                                        <!-- Delete user button-->
+                                        <?php if ($userType==='basic' || $userType ==='analyst'): ?>
+                                            <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $user['User']['id']))?>" >
+                                                <img class="icon" src="../img/whiteX.png"/>
+                                                Διαγραφή
                                             </a>
                                         <?php endif; ?>
                                     </div>

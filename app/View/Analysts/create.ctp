@@ -1,4 +1,5 @@
-<div class="middle_row  big_row">
+<div class="middle_row  big_row"><?php $this->set('title_for_layout', 'Δημιουργία αναλυτή - ΕΛΚΕΘΕ');?> 
+
 			<div class="middle_wrapper">
 				<div class="register_box login_box" align="center">
 			 		<br><h1>Δημιουργία αναλυτή</h1></br>
@@ -9,19 +10,15 @@
 					<?php 
                echo '<tr><td><label for="AnalystId" class="name std_form"></label></td><td><p>'.$this->Form->input('Analyst.id', array('type' => 'hidden', 'value' => $post_id));
                                         
-                                        if(isset($userType) & !strcmp($userType,'basic')){
+                                        if(isset($user['User']['user_type']) & !strcmp($user['User']['user_type'],'simple')){
                                                 echo '<tr><td><label for="AnalystName" class="name std_form">Όνομα:  </label></td><td><p>'.$this->Form->input('Analyst.name', 
                                                                                     array('default'=>$user['User']['name'],'readonly'=>'readonly', 'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
-
-                                            echo '<tr><td><label for="AnalystSurname" class="surname std_form">Επώνυμο:  </label></td><td><p>'.$this->Form->input('Analyst.surname', 
+                                                echo '<tr><td><label for="AnalystSurname" class="surname std_form">Επώνυμο:  </label></td><td><p>'.$this->Form->input('Analyst.surname', 
                                                                                     array('default'=>$user['User']['surname'],'label' => false, 'readonly'=>'readonly',  'div' => false, 'type' => 'text', 'id'=> 'AnalystSurame','placeholder' => 'π.χ. Κακομοίρογλου','class' => ' std_form blue_shadow')).'</p></td></tr>';
-
-
                                                 echo '<tr><td><label for="UserEmail" class="mail std_form">e-mail:  </label></td><td><p>'.$this->Form->input('Analyst.email', 
                                                                                     array('default'=>$user['User']['email'],'label' => false, 'div' => false, 'type' => 'text','readonly'=>'readonly',  'id'=> 'AnalystEmail', 'placeholder' => 'π.χ. mymail@mail.com','class' => ' std_form blue_shadow')).'</p></td></tr>';
-                                            echo '<tr><td><label for="AnalystPhone" class="phone std_form">Τηλέφωνο:  </label></td><td><p>'.$this->Form->input('Analyst.phone_number', 
+                                                echo '<tr><td><label for="AnalystPhone" class="phone std_form">Τηλέφωνο:  </label></td><td><p>'.$this->Form->input('Analyst.phone_number', 
                                                                                     array('default'=>$user['User']['phone_number'],'readonly'=>'readonly', 'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystPhone','placeholder' => 'π.χ. 234385497','class' => ' std_form blue_shadow')).'</p></td></tr>';
-
                                                 echo '<tr><td><label for="AnalystAddress" class="address std_form">Διεύθυνση:  </label></td><td><p>'.$this->Form->input('Analyst.address', 
                                                                                     array('default'=>$user['User']['address'],'label' => false, 'div' => false, 'type' => 'text', 'readonly'=>'readonly', 'id'=>	'AnalystAddress','placeholder' => 'π.χ Κολοπετινίτσας 100','class' => ' std_form blue_shadow')).'</p></td></tr>';
                                                 echo '<tr><td><label for="AnalystCity" class="city std_form">Πόλη:  </label></td><td><p>'.$this->Form->input('Analyst.city', 
@@ -72,15 +69,20 @@
 					echo '<tr><td><label for="UserEducation" class="education std_form">Δευτερεύουσα Κατηγορία Ειδίκευσης:  </label></td><td><p>'.$this->Form->input('Analyst.category2', 
 									      array('options' => $options, 'label' => false, 'div' => false, 'id'=> 'UserEducation','placeholder' => 'π.χ. Δημοτικό','class' => ' std_form blue_shadow')).'</p></td></tr>';										  									  									  
 					echo '<tr><td><label for="AnalystResearchInstitute" class="name std_form">Ινστιτούτο:  </label></td><td><p>'.$this->Form->input('Analyst.research_institute', 
-									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
+									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. ΕΚΠΑ','class' => ' std_form blue_shadow')).'</p></td></tr>';
 
-					?></table><?php					  
-                                        echo '</br><p>'. $this->Form->end(array(
+									  
+                                        echo '<tr><td>'.$this->Html->link('Πίσω', '/users/edit_users?text=&userType1=analyst&userType2=simple&userType3=hyperanalyst', array('class' => 'button_like_anchor')).'</td>'; 
+
+                                        echo '<td>'. $this->Form->end(array(
 														'name' => 'data[User][edit]',
 														'label' => 'Δημιουργία',
 														'div' => false,
-                                                        'class' => ' std_form')).'</p></br></br>';									  
-								    ?>
+                                                        'class' => ' std_form')).'</td></tr></table>';									  
+								    
+                                        
+                                        ?>
+                               
 			    </div>
 			</div>
 </div>
