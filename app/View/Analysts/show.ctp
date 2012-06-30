@@ -1,3 +1,16 @@
+<?php $this->set('title_for_layout', 'Προφίλ Αναλυτή - ΕΛΚΕΘΕ');?> 
+
+<script>
+
+    $(document).ready(function()
+        {  
+            $('.item a.deleteButton').click(function(e) {
+                return confirm('Είστε βέβαιος/η ότι θέλετε να διαγράψετε αυτόν τον αναλυτή;');
+            });
+    });
+
+</script>
+
 <div class="middle_row  big_row">
 			<div class="middle_wrapper">
 				<div class="register_box login_box" align="center">
@@ -7,6 +20,7 @@
                <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
                                         <table>
 					<?php 
+                                        
 					echo '<tr><td><label for="AnalystName" class="name std_form">Όνομα:  </label></td><td><p>'.$this->Form->input('Analyst.name', 
 									      array('default'=>$analyst['User']['name'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow', 'disabled'=>'true')).'</p></td></tr>';
 										  
@@ -46,6 +60,13 @@
 														'div' => false,
                                                         'class' => ' std_form'));									  
 								    ?>
+                                <?php echo '<table><tr>';
+                                    echo '<td>'.$this->Html->link('Πίσω', '/users/edit_users?text=&userType1=analyst&userType2=simple&userType3=hyperanalyst', array('class' => 'button_like_anchor')).'</td>';
+                                    echo '<td>'.$this->Html->link('Διαγραφή αναλυτή', array('controller'=>'users', 'action'=>'delete', $analyst['User']['id']), array('class' => 'button_like_anchor deleteButton')).'</td>';
+                                    echo '<td>'.$this->Html->link('Αναβάθμιση αναλυτή', array('controller'=>'analysts', 'action'=>'upgrade', $analyst['User']['id']), array('class' => 'button_like_anchor deleteButton')).'</td>';
+                                    echo '</tr></table>';
+                                    
+                                ?>
 			    </div>
 			</div>
-    <
+</div>
