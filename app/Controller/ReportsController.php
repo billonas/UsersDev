@@ -5,16 +5,38 @@
  *
  * @author Kiddo
  */
-
+CakePlugin::load('PhpExcel');
 class ReportsController extends AppController{
     var $name = 'Reports';
-    public $helpers = array('Html', 'Form', 'Cropimage','GoogleMapV3', 'Js','Session', 'Xls');
+    public $helpers = array('Html', 'Form', 'Cropimage','GoogleMapV3', 'Js','Session', 'Xls','Tinymce', 'PhpExcel.PhpExcel');
     public $components = array('JqImgcrop', 'Image','Video','Email');
 
    function export() { //http://eureka.ykyuen.info/2009/10/04/cakephp-export-data-to-a-xls-file/       
    	$data = $this->Report->find('all');
    	$this->set('reports', $data);
    }
+
+   function excelExport(){ //http://bakery.cakephp.org/articles/segy/2012/04/02/phpexcel_helper_for_generating_excel_files
+        $data = $this->Report->find('all');
+        $this->set('data', $data);
+   }
+   
+   
+   function downloadvid($id = null) {
+       
+        if(!$this->Session->check('UserUsername')){ $this->redirect(array('controller'=>'pages', 'action'=>'display'));}
+        if(strcmp($this->Session->read('UserType'),'simple')){  
+            $this->viewClass = 'Media';
+            $params = array(
+                'id'        => 'reports/'.$id,
+                'download'  => true,
+                'path'      => 'video' . DS
+            );
+            $this->set($params);
+        }
+        
+    }
+   
    
    function createnew(){
        if($this->Session->check('report')){
@@ -50,15 +72,15 @@ class ReportsController extends AppController{
         }
         if (!empty($this->data)) {
             /* Upload Step */
-            if(isset($this->data['Report']['image'])){
+            if(isset($this->data['Report']['image']) || isset($this->data['Report']['video_file'])){
                 /* Image Upload */
                 if(!empty($this->data['Report']['image']['tmp_name'])){
                     //CHECK  IF INPUT FILE IS IMAGE FILE
                     $res = $this->Image->checkImage($this->data['Report']['image']);
                     if($res < 0){
                         $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
-                        $this->redirect('create');
-                    }
+                        $this->redirect('create'); 
+                   }
                     else if(!$res){
                             $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
                             $this->redirect('create');
@@ -71,7 +93,9 @@ class ReportsController extends AppController{
                     $this->Session->write('uploaded1',$uploaded);
                 }
                 /* Video Upload */
+                
                 if(!empty($this->data['Report']['video_file']['name'])){
+                    //$this->Session->setFlash('Λολα μηλο2','flash_bad');
                     $uploaded = $this->Video->uploadVideo($this->data['Report']['video_file'], "video/temporary/");
                     if($uploaded['error']){
                         switch($uploaded['error']){
@@ -82,6 +106,9 @@ class ReportsController extends AppController{
                         case 3: $this->Session->setFlash('Παρακαλώ εισάγετε ένα πιο μικρό αρχείο','flash_bad');
                                 break;
                         case 4: $this->Session->setFlash('Πρόβλημα στη μεταφορά','flash_bad');
+                                break;
+                        default:
+                                $this->Session->setFlash('Άγνωστο σφάλμα','flash_bad');
                                 break;
                         }
                         $this->redirect('create');
@@ -96,7 +123,11 @@ class ReportsController extends AppController{
             else{
                 /* Crop needed */
                 if(!empty($this->data['Report']['x1'])){
-                    $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
+                   $cropped = $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
+                    $uploaded1 = $this->Session->read('uploaded1');
+                   $uploaded1['imageWidth'] = $this->JqImgcrop->getWidth($cropped);
+		   $uploaded1['imageHeight'] = $this->JqImgcrop->getHeight($cropped);
+                   $this->Session->write('uploaded1',$uploaded1);
                 }
                 //UPLOAD ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
                 if(!empty($this->data['Report']['image2']['name'])){
@@ -408,6 +439,7 @@ class ReportsController extends AppController{
                                 $categories[$i]=$item['Category']['category_name'];
                                 $i++;
                         }
+                        
 			$this->set('categories',$categories);
                         $i=0;
                         foreach($temp_species as $item){

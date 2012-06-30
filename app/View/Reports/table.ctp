@@ -8,7 +8,7 @@
 <?php
     //echo '<script type="text/javascript" src="'.$this->GoogleMapV3->apiUrl().'"></script>';
 ?>
-<script>
+<script>        
     // autocomplete hints for category and species
     var hints =
     {
@@ -18,6 +18,12 @@
     
     $(document).ready(function()
     { 
+        // Add confirmation before delete
+        $('.item a.deleteButton').click(function(e) {
+            e.stopPropagation();
+            return confirm('Είστε βέβαιος/η ότι θέλετε να διαγράψετε αυτήν την αναφορά;');
+        });
+    
         $("#pager button, .deleteButton, .editButton, #filterContainer form input[type='submit'], #filterContainer form button[type='submit']").button();
         
         // Set autocomplete support
@@ -28,8 +34,15 @@
             }
         );
         
-        $("#reportsTable").tablesorter({sortList: [[0,1]]})  //sort the first column in descending order
-            .tablesorterPager({container: $("#pager")});
+        $("#reportsTable").tablesorter(
+            {
+                sortList: [[0,1]], //sort the first column in descending order
+                headers:
+                {
+                    1: { sorter: false },
+                    5: { sorter: false }
+                }
+            }).tablesorterPager({container: $("#pager")});
         
         positionPagerButtons();
     } 
@@ -62,7 +75,7 @@
                 <?php echo $this->Session->flash().'</br>';?>
             </div>
             
-            <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'export')) ?>">
+            <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'excelExport')) ?>">
                 <div class="inner">
                     <span>Εξαγωγή</span>
                     <img class="icon" src="../img/whiteArrow.png"/>
@@ -149,12 +162,12 @@
                     <thead>
                         <tr>
                             <th>Ημερομηνία Υποβολής</th>
-                            <th>Φωτογραφία Παρατήρησης</th>
+                            <th class="{sorter: false}">Φωτογραφία Παρατήρησης</th>
                             <th>Κατηγορία</th>
                             <th>Eίδος</th>
     <!--                            <th>Κατάσταση</th>-->
                             <th>Τελευταία Επεξεργασία</th>
-                            <th>Ενέργειες</th>
+                            <th class="{sorter: false}">Ενέργειες</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -248,7 +261,7 @@
 <!--                        <img src="/img/tablesorter-prev.png" class="prev"/>-->
                         <button class="first">Αρχή</button>
                         <button class="prev">Προηγούμενο</button>
-                        <input type="text" class="pagedisplay"/>
+                        <input type="text" class="pagedisplay" readonly="readonly"/>
 <!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
 <!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
                         <select style="visibility: hidden" class="pagesize" onchange="positionPagerButtons">

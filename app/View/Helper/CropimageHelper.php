@@ -56,14 +56,18 @@ class CropimageHelper extends Helper {
             $y2 = $this->Form->hidden('y2', array("value" => "", "id"=>"y2")); 
             $w =  $this->Form->hidden('w', array("value" => "", "id"=>"w")); 
             $h =  $this->Form->hidden('h', array("value" => "", "id"=>"h")); 
+            $per = $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'class'=>'std_form'));
             $imgP = $this->Form->hidden('imagePath', array("value" => $imagePath)); 
-            $imgTum = $this->Html->image($imagePath, array('style'=>'float: left; margin-right: 10px;', 'id'=>'thumbnail', 'alt'=>'Create Thumbnail')); 
-            $imgTumPrev = $this->Html->image($imagePath, array('style'=>'position: relative;', 'id'=>'thumbnail', 'alt'=>'Thumbnail Preview')); 
-            return $this->output("$imgTum 
-            <div style=\"position:relative; overflow:hidden; width:".$tW."px; height:".$tH."px;\">  
-                $imgTumPrev 
-            </div> 
-            <br style=\"clear:both;\"/>$x1 $y1 $x2 $y2 $w $h $imgP"); 
+            $imgTum = $this->Html->image($imagePath, array('style'=>'', 'id'=>'jcrop_target', 'alt'=>'Create Thumbnail')); 
+            //$imgTumPrev = $this->Html->image($imagePath, array('style'=>'position: relative;', 'id'=>'thumbnail', 'alt'=>'Thumbnail Preview')); 
+            return $this->output("
+                    <div id='img_crop_area'>                        
+                        $imgTum
+                        $per
+                        Εφ'οσον το επιθυμείτε μπορείτε να μαρκάρετε και να καταθέσετε μόνο ένα κομμάτι της φωτογραφίας
+                        $x1 $y1 $x2 $y2 $w $h $imgP
+                    </div>"); 
+            
     }  
 
 } 

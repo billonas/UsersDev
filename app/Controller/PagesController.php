@@ -54,14 +54,15 @@ class PagesController extends AppController{
 					$i++;
 				}
 		$this->set('hotspecies',$hotspecies);
-		
-		
-		$coords=('0');
-		
-		//Load last 30 reports coords
-		$this->set('coords',$coords);		
-		
-
+				
+		//Load last 30 reports
+                $conditions = array(
+                            'Report.state' => 'confirmed',
+                            'limit' => 30,
+                            'order' => array('Report.id' => 'DESC') 
+                );
+                $reports=ClassRegistry::init('Report')->find('all',$conditions);
+		$this->set('reports',$reports);		
 		$count = count($path);
 		if (!$count) {
 			$this->redirect('/');

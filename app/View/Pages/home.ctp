@@ -7,7 +7,7 @@
                                 
                 <br />
                 <span class="about_text">
-                    Η ιστοσελίδα που βρίσκεστε αυτή τη στιγμή είναι η επίσημη ιστοσελίδα του ΕΛΚΕΘΕ. Σκοπός μας είναι η μελέτη
+                    Η ιστοσελίδα που βρίσκεστε αυτή τη στιγμή αποτελεί παράρτημα του ΕΛΚΕΘΕ με σκοπό τη μελέτη
                     των ελληνικών θαλασσών και η καταγραφή των ειδών της. Μέσα από αυτή τη σελίδα μας ενδιαφέρει κυρίως να καταγράψουμε
                     εμφανίσεις ξενικών ειδών που κανονικά δεν ανήκουν στα ελληνικά οικοσυστήματα και που η παρουσία τους μπορεί να
                     προκαλέσει προβλήματα.
@@ -27,7 +27,7 @@
                 <div id="fish_slideshow" class="fish_slideshow">
                     <?php 
 				 foreach($hotspecies as $hot){
-					echo '<a href="#"><img class="out_of_sight" data-specie_name="'.$hot['scientific_name'].'" src="'.$this->webroot.'img/hotspecies/'.$hot['id'].'.jpg" alt="images/1.jpg"/>				 							</a>';
+					echo '<a href="/hotspecies/show"><img class="out_of_sight" data-specie_name="'.$hot['scientific_name'].'" src="'.$this->webroot.'img/hotspecies/'.$hot['id'].'.jpg" alt="hot_species_img"/>				 							</a>';
                     
 				}
 				
@@ -37,7 +37,7 @@
             </div>
             <div class="index_tile">
                 <span class="report_header">Κάντε Μία Αναφορά</span><br />
-                <span class="report_text">Συναντήσατε κάποιο παράξενο είδος που δεν μπορούσατε να αναγνωρίσετε. Κάντε μία αναφορά και οι ερευνητές μας θα αναλάβουν
+                <span class="report_text">Συναντήσατε κάποιο παράξενο είδος που δεν μπορούσατε να αναγνωρίσετε; Συμπληρώστε μία αναφορά και οι ερευνητές μας θα αναλάβουν
                 να το αναγνωρίσουν.
                 </span>
                 <?php echo $this->Html->link('Κάντε αναφορά', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor'));?>
@@ -56,7 +56,7 @@
             <div class="index_tile">
                 <div class="tile_header">
                     <span>Χάρτης Αναφορών</span><br />
-                    Εδώ μπορείτε να δείτε τις τελευταίες επιβεβαιωμένες αναφορές<br />εμφάνισης κάποιου ξενικού είδους
+                    Δείτε τις τελευταίες επιβεβαιωμένες αναφορές<br />εμφάνισης κάποιου ξενικού είδους
                 </div>
                 <style>
                     #mapCanvas{
@@ -239,6 +239,7 @@
                 var map;
                 var marker_buffer;
                 var markers = new Array();
+                var base_url = '<?php echo $this->Html->link('Κάντε αναφορά', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor'));?>';
 
                 function initialize() {
                     var myOptions = {
@@ -267,7 +268,14 @@
                             map: map,
                             clickable: true
                         });
-                        google.maps.event.addListenerOnce(markers[i], 'mouseover', bounceAndInfo);
+                        google.maps.event.addListenerOnce(markers[i], 'mouseover', function(event){                                
+                                showInfo(this.getPosition());
+                            }
+                        );
+                        google.maps.event.addListenerOnce(markers[i], 'click', function(event){                                
+                                showReport(this.getPosition());
+                            }
+                        );
                     }
                 }
 
@@ -279,9 +287,15 @@
                     var j=0;
                     var lat = true;
                     var lngt = false;
+                    var name = false;
+                    var date = false;
+                    var specie = false;
+                    var specie_id = false;
+                    var region = false;
+                    var region_id = false;
                     var small_buffer = new Array();
                     while(i < text.length){
-                        if(lat){
+                        if(lat){                            /*pairnoume to geografiko mikos mexri na vroume komma*/
                             if(text[i] == ','){
                                 lat = false;
                                 lngt = true;
@@ -295,11 +309,95 @@
                                     word = text[i];
                             }
                         }
-                        else if (lngt){
-                            if(text[i] == ';'){
-                                lat = true;
+                        else if (lngt){                     /*pairnoume to geografiko platos mexri na vroume komma*/
+                            if(text[i] == ','){                                
                                 lngt = false;
+                                name = true;
                                 small_buffer[1] = word;
+                                word = null;
+                            }
+                            else if(text[i] != ' '){
+                                if(word != null)
+                                    word += text[i];
+                                else
+                                    word = text[i];
+                            }
+                        }
+                        else if (name){                     /*pairnoume to onoma tou xristi pou ekane tin anafora mexri na vroume komma*/
+                            if(text[i] == ','){                                                             
+                                name = false;
+                                date = true;
+                                small_buffer[2] = word;
+                                word = null;
+                            }
+                            else if(text[i] != ' '){
+                                if(word != null)
+                                    word += text[i];
+                                else
+                                    word = text[i];
+                            }
+                        }
+                        else if (date){                     /*pairnoume tin imerominia mexri na vroume komma*/
+                            if(text[i] == ','){                                
+                                date = false;
+                                specie = true;
+                                small_buffer[3] = word;
+                                word = null;
+                            }
+                            else if(text[i] != ' '){
+                                if(word != null)
+                                    word += text[i];
+                                else
+                                    word = text[i];
+                            }
+                        }
+                        else if (specie){                   /*pairnoume to eidos mexri na vroume komma*/
+                            if(text[i] == ','){                                
+                                specie = false;
+                                specie_id = true;
+                                small_buffer[4] = word;                                
+                                word = null;
+                            }
+                            else if(text[i] != ' '){
+                                if(word != null)
+                                    word += text[i];
+                                else
+                                    word = text[i];
+                            }
+                        }
+                        else if (specie_id){                     /*pairnoume tin taftotita tou eidous mexri na vroume komma*/
+                            if(text[i] == ','){                                
+                                specie_id = false;
+                                region = true;
+                                small_buffer[5] = word;
+                                word = null;
+                            }
+                            else if(text[i] != ' '){
+                                if(word != null)
+                                    word += text[i];
+                                else
+                                    word = text[i];
+                            }
+                        }
+                        else if (region){                     /*pairnoume tin perioxi mexri na vroume komma*/
+                            if(text[i] == ','){                                
+                                region = false;
+                                region_id = true;
+                                small_buffer[6] = word;
+                                word = null;
+                            }
+                            else if(text[i] != ' '){
+                                if(word != null)
+                                    word += text[i];
+                                else
+                                    word = text[i];
+                            }
+                        }
+                        else if (region_id){                   /*pairnoume tin taftotita tis perioxis mexri na vroume erotimatiko*/
+                            if(text[i] == ';'){                                
+                                region_id = false;
+                                lat = true;
+                                small_buffer[7] = word;
                                 marker_buffer[j] = small_buffer;
                                 small_buffer = new Array();
                                 j++;
@@ -316,49 +414,125 @@
                     }
                 }
                 
-                function bounceAndInfo(){                    
-                    var i,index;
+                function showInfo(location){                    
+                    var i,index;                    
                     for(i=0 ; i<markers.length ; i++){
-                        if(markers[i].getPosition() == this.getPosition()){                            
+                        if(markers[i].getPosition().lat() == location.lat() && markers[i].getPosition().lng() == location.lng()){                            
                             index = i;
-                            //markers[index].setAnimation(google.maps.Animation.BOUNCE);
-                            //var pinColor = 'FFFF00';
-                            /*var pinIcon = new google.maps.MarkerImage(
-                                "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
-                                new google.maps.Size(21, 34),
-                                new google.maps.Point(0,0),
-                                new google.maps.Point(10, 34),
-                                new google.maps.Size(42, 68));
-                            //window.alert('got icon');
-                            marker[index].setIcon(pinIcon);
-                            //clearInstanceListeners(markers[index]);
-                            //google.maps.event.addListenerOnce(markers[index], 'mouseout', stopBounceAndInfo);
-                            */
+                            var contentString = 'Αναφέρθηκε από: ' + marker_buffer[index][2] + '<br/>'+
+                                                 'Ημ/νια: ' + marker_buffer[index][3] + '<br/>' +
+                                                 'Είδος: ' + marker_buffer[index][4] + '<br/>' +
+                                                 'Περιοχή: ' + marker_buffer[index][6];
+                            var infowindow = new google.maps.InfoWindow({
+                                content: contentString
+                            });                                                       
+                            infowindow.open(map,markers[index]);
+                            marker_buffer[index][8] = infowindow;
+                            google.maps.event.addListenerOnce(markers[index], 'mouseout' , function(event){                                        
+                                        hideInfo(this.getPosition());
+                                    }
+                                );                            
                             break;
                         }
                     }                    
                 }
-                function stopBounceAndInfo(){
-                    var i,index;
+                function showReport(location){                    
+                    var i,index;                    
                     for(i=0 ; i<markers.length ; i++){
-                        if(markers[i].getPosition() == this.getPosition()){                            
+                        if(markers[i].getPosition().lat() == location.lat() && markers[i].getPosition().lng() == location.lng()){                            
                             index = i;
-                            //markers[index].setAnimation(null);
-                            //clearInstanceListeners(markers[index]);                            
+                            var url = base_url + '/' + 'specie=' + marker_buffer[index][5] + '&region=' + marker_buffer[index][7];
+                            window.location = url;
+                        }
+                    }                    
+                }
+                function hideInfo(location){
+                    var i,index;                    
+                    for(i=0 ; i<markers.length ; i++){
+                        if(markers[i].getPosition().lat() == location.lat() && markers[i].getPosition().lng() == location.lng()){                            
+                            index = i;
+                            marker_buffer[index][8].close();
+                            google.maps.event.addListenerOnce(markers[index], 'mouseover', function(event){                                
+                                    showInfo(this.getPosition());
+                                }
+                            );
                             break;
                         }
                     }   
                 }                
             </script>
-            <div class="marker_db" style="display:none">
-            	<?php 
-					 foreach($reports as $coords){
-						//echo $coords['lat'].', '.$coords['lng'];
-					 }
+            <div class="marker_db" style="display:none">            	
+                
+            
+            	<?php if(isset($reports)){
+                    
+					 foreach($reports as $confirmed){
+						echo $confirmed['Report']['lat'].','.$confirmed['Report']['lng'].',';
+                                                if(isset($confirmed['User']['username'])){
+                                                    echo $confirmed['User']['username'].',';
+                                                }else
+                                                    echo 'anonymous,';
+                                                
+                                                $date=array();
+                                                $date= explode("-",$confirmed['Report']['date'],4);
+                                                echo $date[2].' ';
+                                                switch ($date[1]) {
+                                                    case '01':
+                                                        echo "Ιανουαρίου ";
+                                                        break;
+                                                    case '02':
+                                                        echo "Φεβρουαρίου ";
+                                                        break;
+                                                    case '03':
+                                                        echo "Μαρτίου ";
+                                                        break;
+                                                    case '04':
+                                                        echo "Απριλίου ";
+                                                        break;
+                                                    case '05':
+                                                        echo "Μαίου ";
+                                                        break;
+                                                    case '06':
+                                                        echo "Ιουνίου ";
+                                                        break;
+                                                    case '07':
+                                                        echo "Ιουλίου ";
+                                                        break;
+                                                    case '08':
+                                                        echo "Αυγούστου ";
+                                                        break;
+                                                    case '09':
+                                                        echo "Σεπτεμβρίου ";
+                                                        break;
+                                                    case '10':
+                                                        echo "Οκτοβρίου ";
+                                                        break;
+                                                    case '11':
+                                                        echo "Νοεμβρίου ";
+                                                        break;
+                                                    case '12':
+                                                        echo "Δεκεμβρίου ";
+                                                        break;
+                                                }
+                                                echo $date[0].','; 
+                                                
+                                                if(isset($confirmed['Specie']['scientific_name'])){ 
+                                                    echo $confirmed['Specie']['scientific_name'];
+                                                }
+                                                echo ',';
+                                                if(isset($confirmed['Report']['species_id'])){ 
+                                                    echo $confirmed['Report']['species_id'];
+                                                }
+                                                echo ',';
+                                                if(isset($confirmed['Report']['area'])){ //needs to be changed into name from species_id 
+                                                    echo $confirmed['Report']['area'];
+                                                }
+                                                
+                                                echo ',0;';
+                                          }
+                }
 				?>
-                38.0397, 24.644;
-                38.1397, 24.744;
-                38.0397, 24.744;
+                
             </div>
         </div>
         
@@ -385,4 +559,3 @@
             <div><br />Powered by <a href="http://cakephp.org/">Cake.php</a>, <a href="http://jquery.com/">jQuery</a>,<a href="http://modernizr.com/">Modernizr</a>.
                 Arrows by <a href="http://www.designworkplan.com">DesignWorkPlan</a>.</div>
         </div>
-	

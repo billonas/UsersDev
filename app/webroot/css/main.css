@@ -3,8 +3,8 @@
 	margin: 0;
 	border: 0;
 	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-	        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
 }
  
 @font-face {
@@ -479,7 +479,7 @@ telos kodika gia links san koumpia
 ***************************************************************************************/
 
 /***************************************************************************************
-kodikas eidika gia to pop up tou login
+kodikas eidika gia to pop up tou login kai drop down menu
 ***************************************************************************************/
 .upper_row ul li div div h1{
     width: 12em;
@@ -514,8 +514,14 @@ noindex:-o-prefocus,
     font-size: 1.5em;
 }
 
+.upper_row ul li div div p:last-child{
+    padding-left: 50%;
+}
+
 .upper_row ul li div div input[type="submit"]{
-    margin: 0 1em 0 5em;
+    /*margin: 0 1em 0 5em;*/
+    margin:0;
+    margin-left: -50%;
     width: 10em;
     height: 2.2em;
 }
@@ -546,12 +552,12 @@ noindex:-o-prefocus,
 		width: 80%;
 	}
 	.upper_row ul li div div label[data-icon]:after {
-		top: 0;
+		top: .2em;
 		left: 1em;
 	}
 	.upper_row ul li div div input[type="submit"]{
 		font-size: 1.1em;
-		margin: 0 1em 0 8em;
+		margin: 0 1em 0 6em;
 	}
 	.upper_row ul li div div a{
 		margin-top: 1em;
@@ -560,6 +566,78 @@ noindex:-o-prefocus,
 
 .upper_row ul li div div a.to_register{
 	margin-top: 1em;
+}
+
+
+.upper_row ul li div.upper_pop{
+    display: none;   
+    z-index: 1000;
+    width: auto;
+    height: auto;
+    padding: 0;
+}
+
+.upper_row ul li:hover div.upper_pop{
+    display:block;
+}
+
+.upper_row ul li div.upper_pop div.popup_list{
+    display:none;
+    position: relative;
+    top: 2.4em;   
+    right: 1em;
+    background-color:  rgb(34, 34, 34);
+    margin: 0;
+    padding:0;
+    -webkit-box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7);
+    box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7);
+    border-radius: 5px;
+    color: #fff;
+    height: auto;
+    width: auto;
+}
+
+.upper_row ul li:hover div.upper_pop div.popup_list{
+    display:block;
+}
+
+.upper_row ul li div.upper_pop div.popup_list ul{
+    list-style:none;
+    float: none;
+    background-color: transparent;
+    padding:0;
+    margin: 0;
+    height: auto;
+}
+
+.upper_row ul li div.upper_pop div.popup_list ul li{
+    text-align:center;
+    background-color: transparent;
+    float:none;
+    border: 0;
+    border-bottom: 1px solid white;
+    padding: 0;   
+    box-shadow: none;
+    height: auto;
+    width: 12em;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+}
+
+.upper_row ul li div.upper_pop div.popup_list ul li:last-child{
+    border-bottom: 0;
+}
+
+.upper_row ul li div.upper_pop div.popup_list ul li a{
+    text-align: center;    
+    margin:0;
+    padding: 0;
+    width: 12em;
+    float: none;
+}
+
+.upper_row ul li div.upper_pop div.popup_list ul li a:hover{
+    text-decoration:underline;
 }
 /***************************************************************************************
 telos kodika popup login
@@ -1081,13 +1159,13 @@ kodikas selidas report
 }
 
 #tabs > ul li.long_tab{
-    width: 20em;
+    width: 16em;
 }
 
 .middle_wrapper #tabs > ul > li.selected_tab,
 .middle_wrapper #tabs > ul > li.selected_tab:hover,
 .middle_wrapper #tabs > ul > li.selected_tab:active{
-    box-shadow: 0px 3px 0px rgba(255,255,255,1),
+    box-shadow: 0px 5px 0px rgba(255,255,255,1),
                 -1px 2px 0px rgb(218, 221, 224),                
                 inset 2px 0px 0px rgba(0,0,0,0),
                 inset -2px 0px 0px rgba(0,0,0,0);
@@ -1131,13 +1209,127 @@ kodikas selidas report
     padding-left: .5em;
 }
 
+.init_tab{
+    min-height: 37.5em;
+}
+
+.init_tab div.init_form{
+    height: 100%;
+    overflow: auto;
+    padding-top: 1em;
+}
+
+.init_tab .init_form form > div{
+    width: 46%;
+    height: auto;
+    float: left;
+    margin:0;
+    padding:0;
+    border:0;
+    overflow: auto;
+}
+
+.init_tab .init_form form > div img{
+    width: 40%;
+    height: 20em;
+    margin-left: 30%;
+}
+
+.init_tab .init_form form > div > div{
+    width: 100%;
+    text-align:center;
+    padding:0;
+    margin: 0;
+    border: 0;
+    height: auto;
+}
+
+.init_tab .init_form form > div:nth-child(3){
+    width: 7%;
+    font-size:2em;
+    box-sizing: border-box;
+    padding-top: 10%;
+}
+
+.init_tab .init_form form > div:last-child{
+    width: 100%;
+    height: auto;
+    padding-left:50%;
+    margin-top: 1em;
+}
+
+.centered_button{
+    margin-left: -9.5em;
+}
+
+#img_crop_area{
+    font-size:1em;
+    font-family:Arial,sans-serif;
+    width: 49%;
+    box-sizing: border-box;
+    padding-left: 3%;
+    box-shadow: -2px 0px 0px 0px #ccc;
+    float:left;
+    margin-left: 2px;
+    margin-bottom: 1em;
+}
+
+#img_crop_area .checkbox{
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+#img_crop_area img{
+    width: 100%;
+    height: auto;
+}
+
+#f1{
+    overflow: auto;
+    width: 100%;
+}
+
+#f1 label{
+    font-family: Arial,sans-serif;
+    font-size: 1em;
+}
+
+#f1 table{
+    float: left;
+    width: 50%;
+    padding-right: 3%;
+    box-sizing: border-box;
+    box-shadow: 2px 0px 0px 0px #ccc;
+    margin-bottom: 1em;
+}
+
+#f1 table td{
+    padding-bottom: 1em;
+}
+
+#f1 .red_msg{
+    margin-bottom:1em;
+    text-align:center;
+    text-decoration:underline;
+    color:red;
+    font-family:Arial,sans-serif;
+    font-size:1.2em;
+    width:100%;
+    float:left;
+}
+
 #f2 img{
     max-width: 17%;
     max-height: 15em;
 }
 
+#f2 img:hover{
+ max-width: 20%;
+ max-height: 17em;
+ }
+
 #tabs div input.big_button{
-    width: 22em;
+    width: 19em;
     height: 3.5em;
 }
 
@@ -1151,9 +1343,16 @@ kodikas selidas report
     padding-top: 0.6em;
     padding-bottom: 0.6em;
     margin-left: .5em;
-    margin-right: .5em;
-    position: relative;
-    bottom: 1px;
+    margin-right: .5em;    
+    box-sizing:border-box;
+    line-height: 1em;
+    float:left;
+    width: 15em;
+}
+
+#tabs input.std_form[type="submit"]{
+    padding-bottom:0.4em;
+    padding-top:0;
 }
 
 #tabs .right_arrow{
@@ -1170,6 +1369,7 @@ kodikas selidas report
     height: 2.2em;
     width: 2.8em;
     margin: -.8em;
+    margin-bottom: -1em;
     padding:0;
 }
 
@@ -1180,8 +1380,406 @@ kodikas selidas report
 #tabs .right_arrow img{
     margin-left: 1em; 
 }
+
+.report_button_wrapper{
+    display:none;
+    overflow: auto;
+    margin-top: .5em;
+}
+
+#f2,
+#f3{
+   width: 100%; 
+   margin-bottom: 1em;
+}
 /***************************************************************************************
 telos kodika selidas report
+***************************************************************************************/
+/***************************************************************************************
+kodikas summary
+***************************************************************************************/
+.summary_middle_wrapper{
+    background-color: #fff;
+    width: 80%;
+    margin:2% 10% 0;
+    border-radius: 5px;
+    min-height: 30em;
+    height: auto;
+    overflow: auto;
+    padding-left: 2%;
+    padding-top: 1%;
+    padding-right: 2%;
+    padding-bottom: 3%;
+}
+
+.summary_middle_wrapper table{
+    float:left;
+    width: 50%;
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+    border:0;    
+}
+
+.summary_middle_wrapper .media_wrapper{
+    float:left;
+    width: 50%;
+    box-sizing: border-box;
+    padding-left: 5%;
+}
+
+.summary_middle_wrapper .media_wrapper img{
+    width: 90%;
+}
+
+.summary_middle_wrapper .button_like_anchor{
+    float: left;
+    clear: left;
+    margin-top: 1em;
+}
+
+.summary_middle_wrapper .std_form[type="submit"]{
+    float: left;
+    margin-top: 1em;
+    padding-top: 0em;
+    margin-left: 1em;
+}
+
+.summary_middle_wrapper .button_like_anchor,
+.summary_middle_wrapper .std_form[type="submit"]{
+    width: 15em;
+    height: 2.5em;
+    line-height: 2em;
+}
+
+.summary_middle_wrapper tr{
+    margin:0;
+    padding:0;
+    border:0;        
+}
+
+.summary_middle_wrapper td{
+    border: 0;
+    padding: 0;
+    margin: 0;   
+    padding-top: .5em;
+    padding-bottom: .5em;
+    font-size: 1.1em;
+    border-bottom: 1px solid #555;
+}
+
+.summary_middle_wrapper tr:first-child td:first-child{
+    padding:0;
+    border: 0;
+    box-shadow: none;
+}
+
+.summary_middle_wrapper td:nth-child(2n+1){
+    box-shadow: 1em -1px 0px 0px #fff,1em 0px 0px 0px #555;
+}
+/***************************************************************************************
+telos kodika summary
+***************************************************************************************/
+/***************************************************************************************
+kodikas anagnorismenon eidon
+***************************************************************************************/
+
+.big_specie_header{
+    width: 100%;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    /*text-shadow: 2px 1px 0px #fff, 3px 2px 0px #000;*//*#707070;*/
+    font-weight: bold;
+    font-size: 3em;
+    letter-spacing: 1px;
+    float: left;
+}
+
+.top_box{
+    width: 60%;
+    height: auto;
+    margin-top: 1em;
+    margin-left: 20%;
+    margin-bottom: 1em;    
+    background-color: rgb(250,250,250);
+    box-shadow: 0px 0px 2px 1px rgb(200, 200, 200);
+    padding-top: .1em;
+    padding-bottom: .1em;
+    overflow: auto;
+    border-radius: 2px;
+}
+
+.left_side,
+.right_side{
+    box-sizing: border-box;
+    height: auto;
+    min-height: 10em;    
+    float: left;    
+}
+
+.left_side{
+    width: 45%;
+    box-shadow: 1px 0px 0px 0px rgb(200, 200, 200);
+}
+
+.right_side{
+    width: 55%;
+    box-sizing: border-box;
+    border-left: 1px solid rgb(200, 200, 200);
+    padding-left: .8%;
+    padding-right: 10%;
+}
+
+.specie_div{
+    width: 38%;
+    margin-bottom: 1em;
+    float: left;
+    background-color: rgb(250,250,250);
+    box-shadow: 0px 0px 2px 1px rgb(200, 200, 200);    
+    border-radius: 2px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 3.5em;
+}
+
+.highlight_div{
+    box-shadow: 0px 0px 2px 1px rgb(200, 200, 200);
+}
+
+.specie_div .little_specie_header{
+    text-align: center;
+    margin-top: .4em;
+    margin-bottom: .4em;
+    width: 90%;
+    margin-left: 5%;
+    font-family: Arial, Helvetica, sans-serif;
+    /*text-shadow: 1px 1px 0px #fff, 2px 2px 0px #000;/*#707070;*/
+    font-weight: 600;
+    font-size: 1.5em;
+    letter-spacing: 2px;
+    float: left;
+    text-decoration:underline;
+    z-index: 1;
+}
+
+.specie_div:nth-child(2n){
+    margin-left: 20%;
+}
+
+.specie_div:nth-child(2n+1){
+    margin-left: 2%;
+}
+
+.specie_div .img_frame{
+    width: 90%;
+    height: auto;
+    float: left;
+    background-color: rgb(255,255,255);
+    border: 1px solid rgb(218, 221, 224);   
+    margin: 0;
+    padding: 0;
+    position: relative;
+    margin-left:5%;
+    z-index: 1;
+}
+
+.specie_div .img_frame .squarizer{
+    width: 100%;
+    height: auto;
+    z-index: 1;
+}
+
+.specie_div .img_frame .specie_img{
+    width: 100%;
+    height: 100%;  
+    margin: 0;
+    padding: 0;
+    border: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.specie_div .specie_areas{
+    width: 100%;
+    font-family: Arial,sans-serif;
+    font-size: 1.2em;
+    text-decoration: underline;
+    color: rgb(70,70,70);
+    padding-left: .1em;
+    padding-right: .1em;
+    word-wrap: break-word;
+    line-height: 2em;
+    float:left;
+    overflow:hidden;
+    z-index: inherit;
+}
+
+.specie_div:hover .specie_areas{
+    color: rgb(20,20,20);
+}
+
+.specie_div .specie_areas span{
+    font-weight: bold;  
+    color: #000;
+    z-index: inherit;
+}
+
+.specie_div .region_button_wrapper{
+    width: 100%;
+    height: auto;
+    padding-left: 5%;
+    padding-right: 5%;       
+    padding-top: .5em;
+    padding-bottom: .5em;
+    position: absolute;
+    bottom: -3em;
+    background-color: #fff;
+    z-index: 1;
+    box-shadow: 0px 3px 2px 1px rgb(200, 200, 200);
+}
+
+.specie_div .region_button_wrapper a{
+    color: #fff;    
+    background-color: #3399ff;
+    font-family: Arial,sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;    
+    line-height: 2.5em;
+    cursor: pointer;
+    float: left;
+    z-index: inherit;
+}
+
+.specie_div .region_button_wrapper .more_info{
+    width: 70%;
+    height: 2.5em;
+    display:block;
+    z-index: inherit;
+}
+
+.specie_div .region_button_wrapper .more_info:hover{
+    text-decoration: underline;
+}
+
+.specie_div .region_button_wrapper .more_areas{    
+    width: 20%;
+    height: 2.5em;
+    border-radius: 4px;
+    display:block;
+    margin:0;
+    padding:0;
+    margin-right: 10%;
+    z-index: inherit;
+}
+
+.specie_div .region_button_wrapper .more_areas img{
+    width: auto;
+    height: 100%;
+    z-index: inherit;
+}
+
+.specie_box{
+    height: auto;
+    margin: 0.5em auto 2em;
+    width: 100%;
+}
+
+.info_wrapper{
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0px 0px 2px 1px rgb(200,200,200);
+    border-radius: 2px;
+    float: left;
+    color: rgb(70,70,70);
+    font-size: 1em;
+    font-family: Arial;
+    padding-top:.5em;
+    padding-bottom: .5em;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.info_wrapper .info_header{
+    color: #000;
+    font-weight: bold;
+}
+
+.specie_button_wrapper{
+    width: 70%;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    margin-left: 25% !important;
+}
+
+.specie_button{
+    display:block;
+    color: #fff;    
+    background-color: #3399ff;
+    font-family: Arial,sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;    
+    line-height: 2.5em;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin: 0 auto;
+    width: 35%;
+    float: left;
+    margin-left: 10%;
+}
+
+.specie_button:hover{
+    text-decoration: underline;
+}
+
+.selected_specie_button {
+    box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 2px #3399FF;
+}
+
+.hidden_side{
+    display:none;
+}
+
+.region_center_button{
+    margin-left: 15%;
+}
+
+.current_specie_looked{
+    width: 78%;
+    padding-bottom: 1em;
+}
+
+.current_specie_looked .img_frame{
+    width: 45%;
+    margin-right: 2%;
+}
+
+.current_specie_looked .region_button_wrapper{
+    width: 45%;
+    box-shadow: none;
+    padding:0;
+    position: static;
+    bottom: 0;
+    float: left;
+}
+
+.current_specie_looked .region_button_wrapper .more_areas{
+    display:none;
+}
+
+.current_specie_looked .region_button_wrapper .more_info{
+    margin-left: 30%;
+}
+
+/***************************************************************************************
+kodikas anagnorismenon eidon
 ***************************************************************************************/
 
 
@@ -1288,25 +1886,37 @@ telos kodika selidas report
                 color: #fff;
                 width: 100%;
         }
-        .upper_row ul li div{
+        .upper_row ul li div.upper_pop{
                 width: 100%;
                 display: block;
                 position: static;
         }
-        .upper_row ul li div div {
+        .upper_row ul li div.upper_pop div {
                 border-top: 1px dashed #fff;
                 box-shadow: none;
                 position: static;
                 border-radius: 0px;
                 margin-top: 5px;
                 width: 100%;
+                display:block;
+        }
+        .upper_row ul li div.upper_pop div.popup_list{
+                border-radius: 0 0 0 0;
+                box-shadow: none;
+                display: block;
+                margin-top: 0.9em;
+                position: static;
+                width: 100%;
+        }
+        .upper_row ul li div.upper_pop div.popup_list ul li{
+            width: 100%;
         }
         .upper_row ul li div div h1{width: 100%;}
         .upper_row ul li div div input[type="text"],
         .upper_row ul li div div input[type="password"]{
                 width: 100%;
         }
-        .upper_row ul li div div input[type="submit"]{margin: 0 0 auto auto;}
+        .upper_row ul li div div input[type="submit"]{margin: 0 0 auto -5em;}
         .upper_row ul li div div label[data-icon]:after{
                 top: 1.5em;
                 left: .8em;
@@ -1385,5 +1995,129 @@ telos kodika selidas report
         }
         /*********************************************************************
         telos kodika gia arxiki selida
+        *********************************************************************/
+        /*********************************************************************
+        kodikas gia selida report
+        *********************************************************************/
+        #tabs > div{
+            border-top:1px solid rgb(218, 221, 224);
+            padding:0;
+            border-radius: 0;
+        }
+        #tabs > ul{
+            padding-left: 50%;
+        }
+        #tabs > ul li{
+            display:none;
+        }
+        .middle_wrapper #tabs > ul > li.selected_tab, 
+        .middle_wrapper #tabs > ul > li.selected_tab:hover, 
+        .middle_wrapper #tabs > ul > li.selected_tab:active{
+            display:block;
+            margin-left: -8em;
+        }        
+        .init_tab .init_form form > div{
+            width: 100%;
+            text-align: center;
+        }
+        .init_tab .init_form form > div img{
+            width: 60%;
+            margin-left: 0;
+            margin-bottom: .5em;
+        }
+        .init_tab .init_form form > div:nth-child(3){
+            width: 100%;
+            padding-left: 0;
+            padding-bottom: 10%;
+        }
+        .centered_button{
+            float:left;
+        }
+        #f1 .red_msg{
+            float:left;
+        }
+        #f1 table{
+            float:left;
+            width: 100%;
+            padding:0;
+        }
+        #f1 #img_crop_area{
+            float:left;
+            width: 90%;
+            padding:0;
+            margin: 0;
+            padding-left: 5%;
+        }
+        #f1 #img_crop_area img{
+            width: 100%;
+            height: auto;            
+        }        
+        #tabs div input.big_button{display:none;}
+        #tabs .button_like_anchor{display:none;}
+        #tabs input[type="submit"]{
+            display:none;
+        }
+        .report_button_wrapper{
+            display:block;
+            width: 100%;
+            height: auto;
+            margin:0;
+            padding:0;
+            border:0;
+            padding-left: 50%;
+            padding-top: .5em;
+        }        
+        #tabs .report_button_wrapper .button_like_anchor{
+            display:block;
+            float:left;
+            margin-left: -8.4em;
+            clear: both;
+            margin-bottom: 1em;
+            width: 17em;
+        }
+        #tabs .report_button_wrapper input[type="submit"]{
+            /*width: 14.5em;*/
+            display:block;
+            float:left;
+            margin-left: -8.4em;
+            clear: both;
+            width: 17em;
+        }
+        #tabs .right_arrow{
+            padding-left: 4.7em;
+        }
+        /*********************************************************************
+        telos kodika report
+        *********************************************************************/
+        /*********************************************************************
+        kodikas summary
+        *********************************************************************/
+        .summary_middle_wrapper{
+            width: 100%;
+            margin: 0;
+            border-radius: 0;
+        }        
+        .summary_middle_wrapper table{
+            width: 100%;
+        }       
+        .summary_middle_wrapper .media_wrapper{
+            width: 100%;
+        }
+        .summary_middle_wrapper td:nth-child(2n+1){
+            box-shadow: 1em -0.5px 0 0 #FFFFFF, 1em 0 0 0 #555555
+        }
+        .summary_middle_wrapper div:last-child{
+            overflow: auto;
+            padding-left: 50%;
+            width: 100%;
+            float: left;
+        }
+        .summary_middle_wrapper .button_like_anchor,
+        .summary_middle_wrapper .std_form[type="submit"]{
+            width: 20em;
+            margin-left: -10em;
+        }
+        /*********************************************************************
+        telos kodikas summary
         *********************************************************************/
 }

@@ -5,10 +5,10 @@
 		<meta http-equiv="content-language" content="en-gb" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<title><?php echo $title_for_layout?></title>
-		<?php 	echo $this->Html->css(array('main'), null, array('media' => 'screen', 'rel' => 'stylesheet')); 	?>
+		<?php 	echo $this->Html->css(array('main','bubbletip'), null, array('media' => 'screen', 'rel' => 'stylesheet')); 	?>
         <?php   echo $scripts_for_layout;?>
 		<!--[if lt IE 10 ]>
-			<?php 	echo $this->Html->css(array('hacks'), null, array('media' => 'screen')); 	?>
+			<?php 	echo $this->Html->css(array('hacks','bubbletip-IE'), null, array('media' => 'screen')); 	?>
 		 <![endif]-->
                 <!--[if gte IE 9]>
                   <style type="text/css">
@@ -20,7 +20,28 @@
 
          
 	</head>
+        
+        
+      <style>  
+        #noscript-warning {
+            font-family: sans-serif;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            z-index: 9000;
+            text-align: center;
+            font-weight: bold;
+            font-size: 80%;
+            color: rgb(255, 255, 255);
+            background-color: rgb(174, 0, 0);
+            padding: 3px 0px;
+        }
+      </style>
 	<body>
+            <noscript>
+                <div id="noscript-warning" style="display:block;">Η σελίδα μας λειτουργεί καλύτερα με ενεργοποιημένη Javascript</div>
+            </noscript>
 		<div class="wrapper">
         	
 			<div class="upper_row">
@@ -61,12 +82,7 @@
 												echo $this->Html->link('Αποσύνδεση', array('controller' => 'users', 'action'=>'logout'));
 											}
 											else if(!strcmp($this->Session->read('UserType'),'hyperanalyst')) {//superanalyst
-												echo $this->Html->link('Πίνακας υπεραναλυτή',
-                                                                                                        array('controller' => 'users',
-                                                                                                            'action'=>'edit_users',
-                                                                                                            '?'=>array('userType1'=>'analyst', 'userType2'=>'simple', 'userType3'=>'hyperanalyst')
-                                                                                                        )
-                                                                                                );
+												echo $this->Html->link('Πίνακας υπεραναλυτή', array('controller' => 'users', 'action'=>false));
 												echo '</br></br>';
 												echo $this->Html->link('Πίνακας αναφορών', array('controller' => 'reports', 'action'=>'table'));
 												echo '</br></br>';
@@ -77,7 +93,7 @@
 										else{
 											
 											echo $this->Form->create('User', array('action' => 'login'));
-											echo '<h1>Σύνδεση χρήστη</h1>';
+											echo '<h1 class="big_white_header_line">Σύνδεση χρήστη</h1>';
 											echo '<p>'.$this->Form->input('User.login_email', 
 												  array('label' => array('class' => 'uname std_form', 'text' => 'To e-mail σας </br>', 'data-icon' => 'u'), 'div' => false, 'type' => 'text',
 														'required' => 'required', 'id'=> 'UserUsername', 'placeholder' => 'π.χ. mymail@mail.com','class' => 'std_form')).'</p>';
@@ -90,7 +106,7 @@
 														'name' => 'data[User][login]',
 														'label' => 'Σύνδεση',
 														'div' => false,
-														'class' => 'std_form no_shadow' )).'</p>';	
+														'class' => 'std_form no_shadow light_line' )).'</p>';	
 										    echo $this->Html->link('Δεν είστε μέλος? Εγγραφείτε τώρα!', array('controller' => 'users', 'action'=>'register'),array('class' => 'to_register'));
 										}
 								    ?>
@@ -101,9 +117,23 @@
 							<!--telos pop up-->
 						
 					</li>
-					<li><?php echo'<a href="#">Πληροφορίες<span class="pointer"></span></a>';?></li>	
+					<li><?php echo'<a href="#">Πληροφορίες<span class="pointer"></span></a>';?>                                            
+						<!--oti vriskete apo edo kai kato kai mexri ta epomena sxolia einai o kodikas toy pop up-->
+						<!--xreiazontai kai ta dio div alla ta endiamesa mporoun na figoun kai na allaksoun-->
+							<div class="upper_pop">
+								<div class="popup_list">   
+                                                                    <ul>
+                                                                        <li><?php echo $this->Html->link('Επικοινωνία', array('controller' => 'pages', 'action'=>'communication'));?></li>
+                                                                        <li><?php echo $this->Html->link('Βοήθεια', array('controller' => 'pages', 'action'=>'help'));?></li>
+                                                                        <li><?php echo $this->Html->link('Στόχοι', array('controller' => 'pages', 'action'=>'about'));?></li>
+                                                                    </ul>
+								</div>
+							</div>
+							<!--telos pop up-->
+						
+					</li>
                     <li><?php echo $this->Html->link('Είδη-στόχοι', array('controller' => 'hotspecies', 'action'=>'show'));?></li>
-					<li><?php echo $this->Html->link('Αναγνωρισμένα Είδη', array('controller' => 'reports', 'action'=>'species'));?></li>
+					<li><?php echo $this->Html->link('Αναγνωρισμένα Είδη', array('controller' => 'reports', 'action'=>'showspecies'));?></li>
 					<li><?php echo $this->Html->link('Υποβολή Αναφοράς', array('controller' => 'reports', 'action'=>'create'));?></li>
                     
 					    
@@ -112,9 +142,10 @@
 						
 						
 				</ul>
-			</div>
-		</div>
+			</div>		
         
+                    
+
 		<?php echo $content_for_layout ?>
         
 	</body>
