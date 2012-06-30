@@ -44,7 +44,6 @@ class AnalystsController extends AppController{
       }
 
 
-      $userType = 'analyst';
       $post_id = null;
 
       if(!empty($this->data['Analyst']))
@@ -190,12 +189,10 @@ class AnalystsController extends AppController{
          $user = $this->Analyst->User->findById($id);
 
          //this will cause the fields refering to user's info to be disabled
-         $userType = 'basic';
       }
       
       $this->set('user', $user); 
       $this->set('post_id', $id); 
-      $this->set('userType', $userType);
     }
     
     function update()
