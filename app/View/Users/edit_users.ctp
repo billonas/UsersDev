@@ -187,7 +187,7 @@
                                             </a>
                                         <?php endif; ?>
                                         <!-- Delete user button-->
-                                        <?php if ($userType==='basic'): ?>
+                                        <?php if ($userType==='basic' || $userType ==='analyst'): ?>
                                             <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $user['User']['id']))?>" >
                                                 <img class="icon" src="../img/whiteX.png"/>
                                                 Διαγραφή

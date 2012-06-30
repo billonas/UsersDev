@@ -237,6 +237,24 @@ class User extends AppModel
          return $this->field('validated');
       }
 
+      function hash_password($email, $passwd)
+      {
+        
+        $salt = md5($email); 
+
+        $secret = 'secret';
+
+        $i=0;
+
+        while($i<4)
+        { 
+         $encrypted = hash_hmac("sha256", $passwd.$salt, $secret); 
+         $passwd=$encrypted;
+         $i=$i+1;
+        }
+        return $encrypted;
+      }
+
       
 
 /////////////////////Core User Actions(end)/////////////////////////////////////
