@@ -82,7 +82,7 @@
 												echo $this->Html->link('Αποσύνδεση', array('controller' => 'users', 'action'=>'logout'));
 											}
 											else if(!strcmp($this->Session->read('UserType'),'hyperanalyst')) {//superanalyst
-												echo $this->Html->link('Πίνακας υπεραναλυτή', array('controller' => 'users', 'action'=>false));
+												echo $this->Html->link('Πίνακας υπεραναλυτή', '/users/edit_users?text=&userType1=analyst&userType2=simple&userType3=hyperanalyst');
 												echo '</br></br>';
 												echo $this->Html->link('Πίνακας αναφορών', array('controller' => 'reports', 'action'=>'table'));
 												echo '</br></br>';
