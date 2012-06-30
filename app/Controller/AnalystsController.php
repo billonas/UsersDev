@@ -43,6 +43,10 @@ class AnalystsController extends AppController{
          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
       }
 
+
+      $userType = 'analyst';
+      $post_id = null;
+
       if(!empty($this->data['Analyst']))
       {
         $post_id = $this->data['Analyst']['id'];
@@ -180,13 +184,18 @@ class AnalystsController extends AppController{
       }
       //upgrade user to analyst
       $user = null;
-      if($id != null)
+      if($id != null || $post_id!=null) 
       {
          
          $user = $this->Analyst->User->findById($id);
+
+         //this will cause the fields refering to user's info to be disabled
+         $userType = 'basic';
       }
+      
       $this->set('user', $user); 
       $this->set('post_id', $id); 
+      $this->set('userType', $userType);
     }
     
     function update()
