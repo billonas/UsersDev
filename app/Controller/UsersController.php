@@ -81,9 +81,7 @@ class UsersController extends AppController
 
            if($this->User->validates())
            {
-              //TODO:
-              //1:hash password χρησιμοποιώντας customize συνάρτηση
-              //2:sanitize την είσοδο που δίνει ο χρήστης
+              //$hash_password = $this->User->hash_password($this->data['User']['email'], $this->data['User']['password']);
               $this->User->create(); 
 
               $data = array(
@@ -91,6 +89,7 @@ class UsersController extends AppController
                   'surname'=> $this->data['User']['surname'],
                   'phone_number'=>$this->data['User']['phone_number'],
                   'email'=>$this->data['User']['email'],
+//                  'password'=>$hash_password,
                   'password'=>$this->data['User']['password'],
                   'education'=>$this->data['User']['education'],
                   'membership'=>$this->data['User']['membership'],
@@ -438,7 +437,6 @@ class UsersController extends AppController
                 {
                   $text = $this->params['url']['text'];
                   $conditions = array(
-                        'User.name' => $text,
                         'User.surname' => $text,
                         'User.user_type' => $userType
                   );

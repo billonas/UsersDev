@@ -119,8 +119,10 @@ class ReportsController extends AppController{
                 if(empty($this->data['Report']['image']['name']) && empty($this->data['Report']['video_file']['name'])) {
                     $this->Session->setFlash('Παρακαλώ εισάγετε μια φωτογραφία ή ένα βίντεο','flash_good');
                 }
+                
             }
             else{
+                
                 /* Crop needed */
                 if(!empty($this->data['Report']['x1'])){
                    $cropped = $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
@@ -171,6 +173,8 @@ class ReportsController extends AppController{
                 }
             }
         }
+        $hotspecies = ClassRegistry::init('HotSpecie')->find('all');
+        $this->set('hotspecies',$hotspecies);
    }
    
    /*

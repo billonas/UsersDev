@@ -1,5 +1,18 @@
 <?php $this->set('title_for_layout', 'Προφίλ Χρήστη - ΕΛΚΕΘΕ');?> 
  
+
+<script>
+
+    $(document).ready(function()
+        {  
+            $('.item a.deleteButton').click(function(e) {
+                return confirm('Είστε βέβαιος/η ότι θέλετε να διαγράψετε αυτόν τον χρήστη;');
+            });
+    });
+
+</script>
+
+
     <div class="middle_row  big_row">
 			<div class="middle_wrapper">
 				<div class="register_box login_box" align="center">
@@ -42,6 +55,14 @@
 														'div' => false,
                                                         'class' => ' std_form'));									  
 								    ?>
+               
+                                 <?php echo '<table><tr>';
+                                    echo '<td>'.$this->Html->link('Πίσω', '/users/edit_users?text=&userType1=analyst&userType2=simple&userType3=hyperanalyst', array('class' => 'button_like_anchor')).'</td>';
+                                    echo '<td>'.$this->Html->link('Διαγραφή χρήστη', array('controller'=>'users', 'action'=>'delete', $user['User']['id']), array('class' => 'button_like_anchor deleteButton')).'</td>';
+                                    echo '<td>'.$this->Html->link('Αναβάθμιση χρήστη', array('controller'=>'analysts', 'action'=>'create', $user['User']['id']), array('class' => 'button_like_anchor deleteButton')).'</td>';
+                                    echo '</tr></table>';
+                                    
+                                ?>
 			    </div>
 			</div>
     </div>
