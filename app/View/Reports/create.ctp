@@ -480,28 +480,17 @@ $(window).bind('load', function() {
                         echo '<tr id="photo6" style="display:none;"><td><label for="ReportImage6" class="std_form">Επιπλέον Φωτογραφία 5 </label></td>';
                         echo '<td>'.$this->Form->input('image6',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
                         
-                        echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
+                        echo '<tr><td><label for="ReportHot_species" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
                         echo '</table>';    
                         echo '<br/>';
+                                                                                               
                         $options = array();
-                        $options['1'] = $this->Html->image('hotspecies/1.jpg');
-                        $options['2'] = $this->Html->image('hotspecies/2.jpg');
-                        $options['3'] = $this->Html->image('hotspecies/3.jpg');
-                        $options['4'] = $this->Html->image('hotspecies/1.jpg');
-                        $options['5'] = $this->Html->image('hotspecies/1.jpg');
-                        $options['6'] = $this->Html->image('hotspecies/2.jpg');
-                        $options['7'] = $this->Html->image('hotspecies/3.jpg');
-                        $options['8'] = $this->Html->image('hotspecies/1.jpg');
-                        
-                        
-                        
-                        /*$options = array();
-                        foreach($hot as $hotspecies){
-                            $options[$hot['scientific_name']] = $this->Html->image($hot['main_photo']); 
-                        }*/
+                        foreach($hotspecies as $hot){
+                            $options[$hot['HotSpecie']['scientific_name']] = $this->Html->image($hot['HotSpecie']['main_photo']); 
+                        }
                         $options['0'] = 'Κανένα απο τα παραπάνω';  
 						
-                        echo $this->Form->input('hot_id', array('options' => $options,'type'=>'radio','legend'=> false,'class'=>'std_form'));
+                        echo $this->Form->input('hot_species', array('options' => $options,'type'=>'radio','legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
 			echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
                         echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
@@ -593,28 +582,16 @@ $(window).bind('load', function() {
                         echo '<td>'.$this->Form->input('image6',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
                         
                         
-                        echo '<tr><td><label for="ReportHot_id" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
+                        echo '<tr><td><label for="ReportHot_species" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
                         echo '</table>';    
                         echo '<br/>';
+                        
                         $options = array();
-                        $options['1'] = $this->Html->image('hotspecies/1.jpg');
-                        $options['2'] = $this->Html->image('hotspecies/2.jpg');
-                        $options['3'] = $this->Html->image('hotspecies/3.jpg');
-                        $options['4'] = $this->Html->image('hotspecies/1.jpg');
-                        $options['5'] = $this->Html->image('hotspecies/1.jpg');
-                        $options['6'] = $this->Html->image('hotspecies/2.jpg');
-                        $options['7'] = $this->Html->image('hotspecies/3.jpg');
-                        $options['8'] = $this->Html->image('hotspecies/1.jpg');
-                        $options['9'] = $this->Html->image('hotspecies/2.jpg');
-                        $options['10'] = $this->Html->image('hotspecies/3.jpg');
-                        
-                        
-                        /*$options = array();
-                        foreach($hot as $hotspecies){
+                        foreach($hotspecies as $hot){
                             $options[$hot['HotSpecie']['scientific_name']] = $this->Html->image($hot['HotSpecie']['main_photo']); 
-                        }*/
+                        }
                         $options['0'] = 'Κανένα απο τα παραπάνω';  
-                        echo $this->Form->input('hot_id', array('options' => $options,'value'=>$report['Report']['hot_id'],'type'=>'radio','legend'=> false,'class'=>'std_form'));
+                        echo $this->Form->input('hot_species', array('options' => $options,'value'=>$report['Report']['hot_species'],'type'=>'radio','legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
 						
 			echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
@@ -739,8 +716,7 @@ $(window).bind('load', function() {
                         }
                     }
                     $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');
-                    echo $this->Form->input('category_id', array('value'=>null,'label'=>'Κατηγορία Είδους','type'=>'hidden', 'class'=>'std_form'));
-                    echo $this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>'Κατάσταση Αναφοράς ','type'=>'hidden', 'class'=>'std_form'));
+                    
                     echo '<br/>';
                     echo '</table></div>';
                     echo '<a href="#" style="display:none;" class="fragment button_like_anchor left_arrow white_arrow"><img src="'.$this->webroot.'img/arrows/white_arrow_left_small3.png"/>Προηγούμενο Βήμα</a>';

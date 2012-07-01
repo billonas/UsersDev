@@ -119,6 +119,8 @@ class ReportsController extends AppController{
                 if(empty($this->data['Report']['image']['name']) && empty($this->data['Report']['video_file']['name'])) {
                     $this->Session->setFlash('Παρακαλώ εισάγετε μια φωτογραφία ή ένα βίντεο','flash_good');
                 }
+                $hotspecies = ClassRegistry::init('HotSpecie')->find('all');
+                $this->set('hotspecies',$hotspecies);
             }
             else{
                 /* Crop needed */

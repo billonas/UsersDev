@@ -151,7 +151,7 @@
 
                     echo '<tr><td><label for="ReportRe_observation" class="std_form">Έχετε ξαναδεί το συγκεκριμένο είδος στην περιοχή; </label></td>';
                     echo '<td>'.((!strcmp($report['Report']['re_observation'],'')) ? '-' : $report['Report']['re_observation']).'</td></tr>';
-                    echo $this->Form->input('re_observation',array('type'=>'hidden', 'label' => false));
+                    echo $this->Form->input('re_observation',array('type'=>'hidden', 'value'=>$report['Report']['re_observation'], 'label' => false));
 
                     //$options = array('-'=>'-','few' => '1-5', 'some' => '6-10','many' => '10-30');
                     echo '<tr><td><label for="ReportCrowd" class="std_form">Πλήθος Ατόμων Είδους </label></td>';
@@ -291,6 +291,11 @@
                                     <option value="'.$report['Report']['occupation'].'" selected="selected">'.$report['Report']['occupation'].'</option>
                             </select>';*/
 
+                            echo $report['Report']['observer'];
+                             if(isset($report['Report']['observer']))
+                                    echo $this->Form->input('observer',array('value'=>$report['Report']['observer'],"type"=>'hidden', 'class'=>'std_form'));
+                            
+
                             echo '<tr><td><label for="ReportName" class="std_form">Όνομα</label></td>';
                             echo '<td>'.((!strcmp($report['Report']['name'],'')) ? '-' : $report['Report']['name']).'</td></tr>';
                             echo $this->Form->input('name',array('type'=>'hidden','value'=>$report['Report']['name']));
@@ -361,7 +366,8 @@
                                                 <select name="data[Report][date][year]" class="std_form blue shadow" id="ReportDateYear" style="display:none;">
                                                         <option value="'.$report['Report']['date']['year'].'" selected="selected">'.$report['Report']['date']['year'].'</option>
                                                 </select>';
-
+                            
+                            
                             //echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false,'readonly'=>'readonly')).'</td></tr>';
                             $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
                             echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
@@ -380,8 +386,10 @@
                         }
 
                     echo '</table>';
-                    //echo $this->Form->input('category_id', array('value'=>null,'label'=>'Κατηγορία Είδους','type'=>'hidden', 'class'=>'std_form'));
-                    //echo $this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>'Κατάσταση Αναφοράς ','type'=>'hidden', 'class'=>'std_form'));                                        
+                    echo $this->Form->input('hot_species', array('type'=>'hidden', 'value' => $report['Report']['hot_species']));
+                    echo $this->Form->input('state', array('value'=>'unknown','type'=>'hidden'));                
+                    //echo $this->Form->input('category_id', array('value'=>null,'type'=>'hidden'));
+                                                          
                     echo '<div class="media_wrapper">';
                     if($this->Session->check('uploaded1')){
                         $uploaded1 = $this->Session->read('uploaded1');
