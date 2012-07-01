@@ -138,8 +138,12 @@ class Report extends AppModel{
 
     }
 
-    function findSpecies(){
+   /* function findSpecies(){
          return $this->Specie->find('all');
+    }
+*/
+   function findSpecies(){
+         return $this->find('all', array('fields' => 'DISTINCT Specie.scientific_name', 'conditions' => array('Report.state' => 'confirmed')));
     }
 
     function findSpeciesReports($species = null) {
@@ -147,9 +151,9 @@ class Report extends AppModel{
             $species = $this->findSpecies;
 	 if(empty($species)) $s = array();
 	 foreach ($species as $specie){
-		$sId = $specie['Specie']['id'];
                 $conditions = array(
-			'Report.species_id' => $sId
+			'Specie.scientific_name' => $specie['Specie']['scientific_name'],
+			'Report.state' => 'confirmed'
                 );
 		$reports = $this->find('all', array(
 			'conditions'=>	$conditions));
@@ -163,16 +167,16 @@ class Report extends AppModel{
              $species = $this->findSpecies();
         if(empty($species)) $s = array();
 	foreach ($species as $specie){
-		$sId = $specie['Specie']['id'];
+		$spn = $specie['Specie']['scientific_name'];
 		$perioxes = $this->find('all', array('conditions' =>
-		array('Report.species_id' => $sId), 'fields' => array('DISTINCT Report.area'))); 
+		array('Specie.scientific_name' => $spn, 'Report.state' => 'confirmed'), 'fields' => array('DISTINCT Report.area'))); 
 		$s[$specie['Specie']['scientific_name']] =  $perioxes;
 	 }
          return $s;
     }
 
     function findAreas(){
-         $perioxes = $this->find('all', array('fields' => 'DISTINCT Report.area'));
+         $perioxes = $this->find('all', array('fields' => 'DISTINCT Report.area', 'conditions' => array('Report.state' => 'confirmed')));
          return $perioxes;
     }
 
@@ -182,7 +186,7 @@ class Report extends AppModel{
 	  
 	  if(empty($perioxes)) $pe = array();
           foreach ($perioxes as $perioxh){
-              $species = $this->find('all', array('conditions' => array('Report.area' => $perioxh['Report']['area']),'fields'=>'DISTINCT Specie.scientific_name'));
+              $species = $this->find('all', array('conditions' => array('Report.area' => $perioxh['Report']['area'], 'Report.state' => 'confirmed'),'fields'=>'DISTINCT Specie.scientific_name'));
               $pe[$perioxh['Report']['area']] = $species;
           }
           return $pe;
@@ -193,7 +197,7 @@ class Report extends AppModel{
               $perioxes = $this->findAreas();
          if(empty($perioxes)) $pe = array();
          foreach ($perioxes as $perioxh){
-              $reports = $this->find('all', array('conditions' => array('Report.area' => $perioxh['Report']['area'])));
+              $reports = $this->find('all', array('conditions' => array('Report.area' => $perioxh['Report']['area'], 'Report.state' => 'confirmed')));
               $pe[$perioxh['Report']['area']] = $reports;
          }
          return $pe; 
