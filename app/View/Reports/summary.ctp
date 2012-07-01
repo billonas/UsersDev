@@ -261,11 +261,7 @@
                             echo'</td></tr>';
                             echo $this->Form->input('education', array('type'=>'hidden', 'value'=>$report['Report']['education']));
 
-                            /*echo '<select name="data[Report][education]" id="ReportEducation" style="display:none;">
-                            <option value="'.$report['Report']['education'].'" selected="selected">'.$report['Report']['education'].'</option>
-                            </select>';*/
-
-                            
+                                   
                             echo '<tr><td><label for="ReportOccupation" class="std_form">Ιδιότητα </label></td>';
                             echo '<td>';
                             switch($report['Report']['occupation']){
@@ -291,8 +287,8 @@
                                     <option value="'.$report['Report']['occupation'].'" selected="selected">'.$report['Report']['occupation'].'</option>
                             </select>';*/
 
-                            echo $report['Report']['observer'];
-                             if(isset($report['Report']['observer']))
+                            
+                            if(isset($report['Report']['observer']))
                                     echo $this->Form->input('observer',array('value'=>$report['Report']['observer'],"type"=>'hidden', 'class'=>'std_form'));
                             
 
@@ -316,8 +312,8 @@
                             echo 'what case is this?';
                             echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
                             
-                            echo '<td>'.$report['Report']['date']['day'].' ';
-                            switch ($report['Report']['date']['month']) {
+                            echo '<td>'.$report['Report']['age']['day'].' ';
+                            switch ($report['Report']['age']['month']) {
                                 case '01':
                                     echo "Ιανουαρίου ";
                                     break;
@@ -358,13 +354,13 @@
                             }
                             echo $report['Report']['age']['year'].'</td></tr>';
                             echo '<select name="data[Report][date][month]" class="std_form blue shadow" id="ReportDateMonth" style="display:none;">
-                                                        <option value="'.$report['Report']['date']['month'].'" selected="selected">'.$report['Report']['date']['month'].'</option>
+                                                        <option value="'.$report['Report']['age']['month'].'" selected="selected">'.$report['Report']['age']['month'].'</option>
                                                 </select>					
                                                 <select name="data[Report][date][day]" class="std_form blue shadow" id="ReportDateDay" style="display:none;">
-                                                        <option value="'.$report['Report']['date']['day'].'" selected="selected">'.$report['Report']['date']['day'].'</option>
+                                                        <option value="'.$report['Report']['age']['day'].'" selected="selected">'.$report['Report']['age']['day'].'</option>
                                                 </select>
                                                 <select name="data[Report][date][year]" class="std_form blue shadow" id="ReportDateYear" style="display:none;">
-                                                        <option value="'.$report['Report']['date']['year'].'" selected="selected">'.$report['Report']['date']['year'].'</option>
+                                                        <option value="'.$report['Report']['age']['year'].'" selected="selected">'.$report['Report']['age']['year'].'</option>
                                                 </select>';
                             
                             

@@ -429,9 +429,13 @@ $(window).bind('load', function() {
                         echo '<div id="mapCanvas"></div>';
                         echo '</td></tr>';
                         echo '<tr><td colspan="2">';
-                        echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';                                               
-                        echo $this->Form->month('date', array('label'=> false, 'empty' => "Μήνας"));
+                        echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';  
+                        
+                        $monthOptions = array('01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
+                            '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
+                        
                         echo $this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα'));
+                        echo $this->Form->month('date', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => 'Μήνας'));
                         echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά"));
                         echo '</td></tr>';
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
@@ -527,9 +531,14 @@ $(window).bind('load', function() {
                         echo '<div id="mapCanvas"></div>';
                         echo '</td></tr>';
                         echo '<tr><td colspan="2">';
-                        echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';                                               
-                        echo $this->Form->month('date', array('label'=> false, 'empty' => "Μήνας",'value'=>$report['Report']['date']['month']));
+                        echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';
+                        
+                        $monthOptions = array('01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
+                            '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
+                        
+                        
                         echo $this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα', 'value'=>$report['Report']['date']['day']));
+                        echo $this->Form->month('date', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => "Μήνας",'value'=>$report['Report']['date']['month']));
                         echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά", 'value'=>$report['Report']['date']['year']));
                         echo '</td></tr>';
                         echo $this->Form->input('area',array('type'=>'hidden',  'id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
@@ -618,8 +627,27 @@ $(window).bind('load', function() {
                     if($this->Session->check('UserUsername')){
                         //echo "You are logged in!"; 
                         echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-                        echo '<td>'.$this->Form->input('age',array('minYear' => date('Y') - 100, 'maxYear' => date('Y'), 'label'=>false,'default'=>$this->Session->read('UserBirthDate')));
                         
+                        $monthOptions = array('01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
+                                             '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
+                       
+                        $agedata = explode("-",$this->Session->read('UserBirthDate'));
+                        echo '<td>';
+                        echo $this->Form->day('displayage', array('label'=> false, 'disabled'=>true, 'empty' => 'Ημέρα', 'value' => $agedata[2]));
+                        echo $this->Form->month('displayage', array('label'=> false, 'disabled'=>true, 'monthNames' => $monthOptions, 'empty' => 'Μήνας', 'value' => $agedata[1]));
+                        echo $this->Form->year('displayage', date('Y') - 110, date('Y'), array('label'=> false, 'disabled'=>true, 'empty' => "Χρονιά", 'value' => $agedata[0]));
+                        echo '</td></tr>';
+                        echo '<select name="data[Report][age][month]" id="ReportAgeMonth" style="display:none;">
+                                        <option value="'.$agedata[1].'" selected="selected">'.$agedata[1].'</option>
+                                  </select>
+
+                                 <select name="data[Report][age][day]" id="ReportAgeDay" style="display:none;">
+                                         <option value="'.$agedata[2].'" selected="selected">'.$agedata[2].'</option>
+                                 </select>
+
+                                 <select name="data[Report][age][year]" id="ReportAgeYear" style="display:none;">
+                                         <option value="'.$agedata[0].'" selected="selected">'.$agedata[0].'</option>
+                                 </select>';
                         switch($this->Session->read('UserEducation')){
                                 case 'first':
                                     $education= 'Πρωτοβάθμια';
@@ -680,7 +708,14 @@ $(window).bind('load', function() {
                     else{
                         if($this->Session->check('report')){
                             echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-                            echo '<td>'.$this->Form->input('age',array('label'=>false,'default'=>$report['Report']['age'], 'class'=>'std_form blue shadow', 'div'=>false,'empty' => true,'minYear' => date('Y')-100, 'maxYear' => date('Y'))).'</td></tr>';
+                            
+                            $monthOptions = array('01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
+                            '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
+                            echo '<td>'.$this->Form->day('age', array('label'=> false, 'empty' => 'Ημέρα', 'value'=>$report['Report']['age']['day']));
+                            echo $this->Form->month('age', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => "Μήνας",'value'=>$report['Report']['age']['month']));
+                            echo $this->Form->year('age', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά", 'value'=>$report['Report']['age']['year'])).'</td></tr>';
+                            
+                            //echo '<td>'.$this->Form->input('age',array('label'=>false,'default'=>$report['Report']['age'], 'class'=>'std_form blue shadow', 'div'=>false,'empty' => true,'minYear' => date('Y')-100, 'maxYear' => date('Y'))).'</td></tr>';
                             $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
                             echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
                             echo '<td>'.$this->Form->input('education', array('options' => $options,'value'=>$report['Report']['education'], 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
@@ -698,7 +733,14 @@ $(window).bind('load', function() {
                         }
                         else{
                             echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-                            echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false,'empty' => true,'minYear' => date('Y')-100, 'maxYear' => date('Y'))).'</td></tr>';
+                            $monthOptions = array('01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
+                            '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
+                            echo '<td>'.$this->Form->day('age', array('label'=> false, 'empty' => 'Ημέρα', ));
+                            echo $this->Form->month('age', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => "Μήνας"));
+                            echo $this->Form->year('age', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά")).'</td></tr>';
+
+
+                                //echo '<td>'.$this->Form->input('age',array('label'=>false, 'class'=>'std_form blue shadow', 'div'=>false,'empty' => true,'minYear' => date('Y')-100, 'maxYear' => date('Y'))).'</td></tr>';
                             $options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια - Ανώτατη');
                             echo '<tr><td><label for="ReportEducation" class="std_form">Επίπεδο Εκπαίδευσης </label></td>';
                             echo '<td>'.$this->Form->input('education', array('options' => $options, 'default' => ' - ', 'label'=>false,'class'=>'std_form blue shadow', 'div'=>false)).'</td></tr>';
