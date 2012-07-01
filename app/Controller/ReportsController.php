@@ -89,7 +89,11 @@ class ReportsController extends AppController{
 		    $this->request->data['Report']['exif'] = $this->Image->readexif($this->data['Report']['image']['tmp_name']);
                     //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
                     $this->request->data['Report']['image']['name'] = $this->Image->tmpRename($this->request->data['Report']['image']);
-                    $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', ''); 
+                    $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', '');
+		    if(!$uploaded){
+                         $this->Session->setFlash('Πρόβλημα στη φόρτωση της φωτογραφίας (Ίσως η φωτογραφία είναι πολύ μεγάλη)','flash_bad');
+                        $this->redirect('create');  
+                    } 
                     $this->Session->write('uploaded1',$uploaded);
                 }
                 /* Video Upload */
