@@ -571,16 +571,16 @@ class ReportsController extends AppController{
           }
         $species = $this->Report->findSpecies();
         $this->set('species',$species);
-        $sAreas = $this->Report->findSpeciesAreas($species);
-        $sReports = $this->Report->findSpeciesReports($species);
+        $sAreas = $this->Report->findSpeciesAreas();
+       // $sReports = $this->Report->findSpeciesReports($species[0]['Specie']['scientific_name']);
         $this->set('sAreas',$sAreas);
-        $this->set('sReports',$sReports);
+        //$this->set('sReports',$sReports);
         $areas = $this->Report->findAreas();
         $this->set('areas', $areas);
-        $aSpecies = $this->Report->findAreasSpecies($areas);
-        $aReports = $this->Report->findAreasReports($areas);
+        $aSpecies = $this->Report->findAreasSpecies();
+        //$aReports = $this->Report->findAreasReports($areas[0]['Report']['area']);
         $this->set('aSpecies', $aSpecies);
-        $this->set('aReports', $aReports);
+        //$this->set('aReports', $aReports);
     }
     
     

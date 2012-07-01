@@ -146,32 +146,29 @@ class Report extends AppModel{
          return $this->find('all', array('fields' => 'DISTINCT Specie.scientific_name', 'conditions' => array('Report.state' => 'confirmed')));
     }
 
-    function findSpeciesReports($species = null) {
-         if($species == null)
-            $species = $this->findSpecies;
-	 if(empty($species)) $s = array();
-	 foreach ($species as $specie){
+    function findSpeciesReports($species) {
                 $conditions = array(
-			'Specie.scientific_name' => $specie['Specie']['scientific_name'],
+			'Specie.scientific_name' => $species,
 			'Report.state' => 'confirmed'
                 );
-		$reports = $this->find('all', array(
+		return $this->find('all', array(
 			'conditions'=>	$conditions));
-		$s[$specie['Specie']['scientific_name']] = $reports;
-	 }
-         return $s;
     }
 	
-    function findSpeciesAreas($species = null) {
-        if($species == null)
-             $species = $this->findSpecies();
-        if(empty($species)) $s = array();
-	foreach ($species as $specie){
-		$spn = $specie['Specie']['scientific_name'];
-		$perioxes = $this->find('all', array('conditions' =>
-		array('Specie.scientific_name' => $spn, 'Report.state' => 'confirmed'), 'fields' => array('DISTINCT Report.area'))); 
-		$s[$specie['Specie']['scientific_name']] =  $perioxes;
+    function findSpeciesAreas() {
+        $reports = $this->find('all', array('conditions' =>
+		array('Report.state' => 'confirmed')));
+        $s = array();
+	foreach ($reports as $report){
+                $species = $report['Specie']['scientific_name'];
+ 		$area = $report['Report']['area'];
+                if(!array_key_exists($species, $s))
+                   $s[$species] = array();
+                array_push($s[$species], $area);
 	 }
+         foreach(array_keys($s) as $k){
+             $s[$k] = array_unique($s[$k]);
+         }
          return $s;
     }
 
@@ -180,29 +177,31 @@ class Report extends AppModel{
          return $perioxes;
     }
 
-    function findAreasSpecies($perioxes = null) {
-          if($perioxes == null)
-             $perioxes = $this->findAreas();
-	  
-	  if(empty($perioxes)) $pe = array();
-          foreach ($perioxes as $perioxh){
-              $species = $this->find('all', array('conditions' => array('Report.area' => $perioxh['Report']['area'], 'Report.state' => 'confirmed'),'fields'=>'DISTINCT Specie.scientific_name'));
-              $pe[$perioxh['Report']['area']] = $species;
+    function findAreasSpecies() {	  
+	  $pe = array();
+          $reports = $this->find('all', array('conditions' =>
+		array('Report.state' => 'confirmed')));
+          foreach ($reports as $report){
+              $species = $report['Specie']['scientific_name'];
+ 	      $area = $report['Report']['area'];
+              if(!array_key_exists($area, $pe))
+                 $pe[$area] = array();
+              array_push($pe[$area], $species);
           }
+          foreach(array_keys($pe) as $key)
+             $pe[$key] = array_unique($pe[$key]);
           return $pe;
     }
     
-    function findAreasReports($perioxes = null) {
-         if($perioxes == null)
-              $perioxes = $this->findAreas();
-         if(empty($perioxes)) $pe = array();
-         foreach ($perioxes as $perioxh){
-              $reports = $this->find('all', array('conditions' => array('Report.area' => $perioxh['Report']['area'], 'Report.state' => 'confirmed')));
-              $pe[$perioxh['Report']['area']] = $reports;
-         }
-         return $pe; 
+    function findAreasReports($area) {
+        $conditions = array(
+			'Report.area' => $area,
+			'Report.state' => 'confirmed'
+                );
+	return $this->find('all', array(
+			'conditions'=>	$conditions));
     }
-    
+
     /*function notifyCategorizedReport($reportId = null,$categoryId = null){
         
         App::uses('CakeEmail', 'Network/Email');
