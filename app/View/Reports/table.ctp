@@ -207,8 +207,8 @@
                                 </td>
                                 <td>
                                     <?php
-                                        if ( isset($report['HotSpecie']) )
-                                            echo $report['HotSpecie']['scientific_name'];
+                                        if ( isset($report['Specie']) )
+                                            echo $report['Specie']['scientific_name'];
                                     ?>
                                 </td>
     <!--                                <td>
