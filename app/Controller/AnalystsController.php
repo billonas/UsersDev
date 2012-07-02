@@ -125,21 +125,10 @@ class AnalystsController extends AppController{
 //              $new_user = false;
 
               $data = array(
-               'name'=>            $this->data['Analyst']['name'],
-               'surname'=>         $this->data['Analyst']['surname'],
-               'phone_number'=>    $this->data['Analyst']['phone_number'],
-               'email'=>           $this->data['Analyst']['email'],
-               'education'=>       $this->data['Analyst']['education'],
-               'membership'=>      $this->data['Analyst']['membership'],
-               'birth_date'=>      $this->data['Analyst']['birth_date'],
-               'address'=>         $this->data['Analyst']['address'],
-               'country'=>         $this->data['Analyst']['country'],
-               'city'=>            $this->data['Analyst']['city'],
                'category1'=>       $this->data['Analyst']['category1'],
                'category2'=>       $this->data['Analyst']['category2'],
                'research_institute'=>$this->data['Analyst']['research_institute'],
                'user_type'=>'analyst',
-
                );
            }
 
@@ -150,15 +139,20 @@ class AnalystsController extends AppController{
               if(!$this->__sendActivationEmail($user_id, $rand_password)) 
               {
                 $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
-                $this->Analyst->delete($user_id);  //delete analyst from database if message not sent
+                //undo the changes being done up to here
+                $newUser = false;
+
                 if($post_id == null)
                 {
-                  $this->Analyst->User->delete($user_id);
+                  //new user created
+                  $newUser = true;
                 }
                 else
                 {
-                  $this->Analyst->User->save(array('user_type' => 'simple'), false);
+                  //user already exists
+                  $newUser = false;
                 }
+                $this->Analyst->unSaveAnalyst($newUser, $user_id);
               }
               else
               {
@@ -228,13 +222,91 @@ class AnalystsController extends AppController{
       }
     }
 
-    function downgrade()
+    function downgrade($id = null)
     {
+      if((!$this->Session->check('UserUsername')) || 
+                   (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+      {
+         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+      }
+      if($id==null)
+      {
+          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
+          $this->redirect();
+      }
+      else
+      {
+         if($this->Analyst->downgradeAnalyst($id))
+         {
+              $rand_password = null;
+
+              if(!$this->__sendActivationEmail($id, $rand_password)) 
+              {
+                $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
+                $this->Analyst->unDowngradeAnalyst();
+              }
+              else
+              {
+                 $this->Session->setFlash("O αναλυτής υποβαθμίστηκε σε απλό χρήστη και θα ενημερωθεί με email."); 
+                 $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
+                                  "?" => array(
+                                         "userType1" => "analyst",
+                                         "userType2" => "simple",
+                                         "userType3" => "hyperanalyst"
+                                         ),
+                                   ));  
+              }
+          }
+          else
+          {
+             $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
+          }
+      }
 
     }
 
-    function upgrade()
+    function upgrade($id = null)
     {
+    //this function will upgrade an analnyst to hyperanalyst
+      if((!$this->Session->check('UserUsername')) || 
+                   (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+      {
+         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+      }
+      if($id==null)
+      {
+          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
+          $this->redirect();
+      }
+      else
+      {
+         if($this->Analyst->upgradeAnalyst($id))
+         {
+              $rand_password = null;
+
+              if(!$this->__sendActivationEmail($id, $rand_password)) 
+              {
+                $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
+                $this->Analyst->unUpgradeAnalyst();
+              }
+              else
+              {
+                 $this->Session->setFlash("O αναλυτής αναβαθμίστηκε σε υπέρ-αναλυτή και θα ενημερωθεί με email."); 
+                 $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
+                                  "?" => array(
+                                         "userType1" => "analyst",
+                                         "userType2" => "simple",
+                                         "userType3" => "hyperanalyst"
+                                         ),
+                                   ));  
+                 
+              }
+           }
+           else
+           {
+              $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
+           }
+      }
 
     }
 
@@ -253,6 +325,7 @@ class AnalystsController extends AppController{
          debug(__METHOD__." failed to retrieve User data for user.id: {$user_id}");
          return false;
        }
+
        $activateUrl = $this->__curPageURL('/users/activate/' . $user['User']['id'] .'/');
 
        $activationHash = $this->Analyst->User->getActivationHash();
