@@ -9,13 +9,7 @@ class AnalystsController extends AppController{
     var $name = 'Analysts';
     var $components = array('Email', 'Password');//, 'Captcha');
     public $helpers = array('Html', 'Form');
-    //put your code here
     
-       
-    function beforeFilter() 
-   {
-      $this->clearReportSession();
-   }
     
     function create($id = null)
     {

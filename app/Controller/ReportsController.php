@@ -11,6 +11,13 @@ class ReportsController extends AppController{
     public $helpers = array('Html', 'Form', 'Cropimage','GoogleMapV3', 'Js','Session', 'Xls','Tinymce', 'PhpExcel.PhpExcel');
     public $components = array('JqImgcrop', 'Image','Video','Email');
 
+   function beforeFilter(){
+     if(strcmp($this->params['action'],'create')&&strcmp($this->params['action'],'summary')){  
+        $this->clearReportSession();
+     }
+
+   }
+    
    function export() { //http://eureka.ykyuen.info/2009/10/04/cakephp-export-data-to-a-xls-file/ 
         $this->clearReportSession();
    	$data = $this->Report->find('all');
@@ -41,7 +48,7 @@ class ReportsController extends AppController{
    
    
    function createnew(){
-       $this->clearReportSession();
+       $this->redirect(array('action'=>'create'), null, true);
    }
    
    /*
@@ -232,7 +239,6 @@ class ReportsController extends AppController{
    }
 
     function edit($id = null) {
-          $this->clearReportSession();
           /* Check loggen in user permission rights */
 //        if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
             if ($id==null) {
@@ -314,7 +320,6 @@ class ReportsController extends AppController{
     }
     
     function delete($id = null) {
-        $this->clearReportSession();
         /* Check loggen in user permission rights */
 //        if($this->Session->check('UserUserName')&&($this->Session->read('UserType') == 'hyperanalyst')){
             /* Id not given */
@@ -341,7 +346,6 @@ class ReportsController extends AppController{
     }
     
     function view($id = null) {
-        $this->clearReportSession();
         /* Check loggen in user permission rights */
 //        if($this->Session->check('UserUserName')) {  
             if($id==null){
@@ -359,7 +363,6 @@ class ReportsController extends AppController{
     }
     
     function table(){
-        $this->clearReportSession();
         /* Check loggen in user permission rights */
 //      if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
             /* Find categories' names */
@@ -453,7 +456,6 @@ class ReportsController extends AppController{
     }
     
     function myreports(){
-      $this->clearReportSession();
       /* Check loggen in user permission rights */
       if(!$this->Session->check('UserUsername')){
          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
@@ -472,7 +474,6 @@ class ReportsController extends AppController{
     }
     
     function showspecies(){
-        $this->clearReportSession();
         $species = $this->Report->findSpecies();
         $this->set('species',$species);
         $sAreas = $this->Report->findSpeciesAreas();
