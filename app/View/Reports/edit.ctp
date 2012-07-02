@@ -143,6 +143,8 @@
                     echo $datestr[0].'</td></tr>';
                     echo '<tr><td><label for="ReportDate" class="std_form">Ημερομηνία Exif </label></td>';
                     echo '<td>'.$report['Report']['exif'].'</td></tr>';
+                    echo '<tr><td><label for="ReportHot_Species" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους;</label></td>';
+                    echo '<td>'.$report['Report']['hot_species'].'</td></tr>';
                     echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
                     echo '<td>'.((!strcmp($report['Report']['habitat'],'')) ? '-' : $report['Report']['habitat']).'</td></tr>';
 
@@ -314,10 +316,10 @@
                     {
                         $options[$category['Category']['id']]= $category['Category']['category_name'];
                     }
-                    echo '<table><tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td><td>'.$this->Form->input('category_id', array('options' => $options, 'value'=>null,'label'=>false, 'class'=>'std_form')).'</td></tr>';
-                    echo '<tr><td><label for="ReportState" class="std_form">Επιστημονική Ονομασία</label></td><td>'.$this->Form->input('scientific_name', array('value'=>null,'label'=>false,'class'=>'std_form','id'=>'autoComplete')).'</td></tr>';
+                    echo '<table><tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td><td>'.$this->Form->input('category_id', array('options' => $options, 'label'=>false, 'class'=>'std_form')).'</td></tr>';
+                    echo '<tr><td><label for="ReportState" class="std_form">Επιστημονική Ονομασία</label></td><td>'.$this->Form->input('Specie.scientific_name', array('label'=>false,'class'=>'std_form','id'=>'autoComplete')).'</td></tr>';
                     $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');  								
-                    echo '<tr><td><label for="ReportState" class="std_form">Κατάσταση αναφοράς</label></td><td>'.$this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>false,'class'=>'std_form')).'</td></tr>';
+                    echo '<tr><td><label for="ReportState" class="std_form">Κατάσταση αναφοράς</label></td><td>'.$this->Form->input('state', array('options' => $options,'label'=>false,'class'=>'std_form')).'</td></tr>';
                     echo $this->Form->input('id',array("type"=>'hidden'));
                     if(isset($userId)){
                         echo $this->Form->input('last_edited_by',array("type"=>'hidden', 'class'=>'std_form','value'=>$userId));
