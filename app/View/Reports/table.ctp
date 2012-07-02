@@ -111,7 +111,7 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="searchConfirmed" value="confirmed" name="state1" checked/>
-                                                <label for="searchSimple">Επιβεβαιωμένες</label>
+                                                <label for="searchConfirmed">Επιβεβαιωμένες</label>
                                             </td>
                                         </tr>
                                     </table>
