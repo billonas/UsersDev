@@ -163,6 +163,15 @@ class AppController extends Controller {
         if($this->Session->check('uploaded4')){
             $this->Session->delete('uploaded4');
         }
+        if($this->Session->check('uploaded5')){
+            $this->Session->delete('uploaded5');
+        }
+        if($this->Session->check('uploaded6')){
+            $this->Session->delete('uploaded6');
+        }
+        if($this->Session->check('uploaded7')){
+            $this->Session->delete('uploaded7');
+        }
     }
     
 }

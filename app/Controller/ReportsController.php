@@ -203,7 +203,6 @@ class ReportsController extends AppController{
                         $this->Session->write('uploaded3',$uploaded3);
 		    }
                 }
-                
                 /* Upload 2nd additional photo & save to temp directory */
                 if(!empty($this->data['Report']['image3']['name'])){
                     $res = $this->Image->checkImage($this->data['Report']['image3']);
@@ -217,6 +216,51 @@ class ReportsController extends AppController{
                         $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image3'], '/img/temporary/', '');
                         $this->request->data['Report']['additional_photo2'] = $uploaded4['imagePath'];
                         $this->Session->write('uploaded4',$uploaded4);
+                    }
+                }
+                /* Upload 3th additional photo & save to temp directory */
+                if(!empty($this->data['Report']['image4']['name'])){
+                    $res = $this->Image->checkImage($this->data['Report']['image4']);
+                    if(!$res){
+                        $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική τρίτη φωτογραφία','flash_bad');
+                        $this->redirect('create');
+                    }
+                    else if($res > 0){
+                        /* Rename image file and save to temp directory */
+                        $this->request->data['Report']['image4']['name'] = $this->Image->tmpRename($this->request->data['Report']['image4']);
+                        $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image4'], '/img/temporary/', '');
+                        $this->request->data['Report']['additional_photo3'] = $uploaded5['imagePath'];
+                        $this->Session->write('uploaded5',$uploaded5);
+                    }
+                }
+                /* Upload 4th additional photo & save to temp directory */
+                if(!empty($this->data['Report']['image5']['name'])){
+                    $res = $this->Image->checkImage($this->data['Report']['image5']);
+                    if(!$res){
+                        $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική τρίτη φωτογραφία','flash_bad');
+                        $this->redirect('create');
+                    }
+                    else if($res > 0){
+                        /* Rename image file and save to temp directory */
+                        $this->request->data['Report']['image5']['name'] = $this->Image->tmpRename($this->request->data['Report']['image5']);
+                        $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image5'], '/img/temporary/', '');
+                        $this->request->data['Report']['additional_photo4'] = $uploaded6['imagePath'];
+                        $this->Session->write('uploaded6',$uploaded6);
+                    }
+                }
+                /* Upload 5th additional photo & save to temp directory */
+                if(!empty($this->data['Report']['image6']['name'])){
+                    $res = $this->Image->checkImage($this->data['Report']['image6']);
+                    if(!$res){
+                        $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική τρίτη φωτογραφία','flash_bad');
+                        $this->redirect('create');
+                    }
+                    else if($res > 0){
+                        /* Rename image file and save to temp directory */
+                        $this->request->data['Report']['image6']['name'] = $this->Image->tmpRename($this->request->data['Report']['image6']);
+                        $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image6'], '/img/temporary/', '');
+                        $this->request->data['Report']['additional_photo5'] = $uploaded7['imagePath'];
+                        $this->Session->write('uploaded6',$uploaded7);
                     }
                 }
                 /* Save all report information to session for a while */
@@ -275,10 +319,37 @@ class ReportsController extends AppController{
                     $this->redirect('create');
                     }
                 }
-                // Rename 1st additional photo image file to record id & save to it to appropriate directory
+                // Rename 2nd additional photo image file to record id & save to it to appropriate directory
 		if(!empty($this->data['Report']['additional_photo2'])){$additional_photo2 = $this->data['Report']['additional_photo2'];
                     $this->request->data['Report']['additional_photo2'] = "../webroot$additional_photo2";
                     $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo2'], "reports", "additional_photo2", "b");
+                    if(!$ret){
+                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->redirect('create');
+                    }
+                }
+                // Rename 3th additional photo image file to record id & save to it to appropriate directory
+		if(!empty($this->data['Report']['additional_photo3'])){$additional_photo3 = $this->data['Report']['additional_photo3'];
+                    $this->request->data['Report']['additional_photo3'] = "../webroot$additional_photo3";
+                    $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo3'], "reports", "additional_photo3", "c");
+                    if(!$ret){
+                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->redirect('create');
+                    }
+                }
+                // Rename 4th additional photo image file to record id & save to it to appropriate directory
+		if(!empty($this->data['Report']['additional_photo4'])){$additional_photo4 = $this->data['Report']['additional_photo4'];
+                    $this->request->data['Report']['additional_photo4'] = "../webroot$additional_photo4";
+                    $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo4'], "reports", "additional_photo4", "d");
+                    if(!$ret){
+                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->redirect('create');
+                    }
+                }
+                // Rename 5th additional photo image file to record id & save to it to appropriate directory
+		if(!empty($this->data['Report']['additional_photo5'])){$additional_photo5 = $this->data['Report']['additional_photo5'];
+                    $this->request->data['Report']['additional_photo5'] = "../webroot$additional_photo5";
+                    $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo4'], "reports", "additional_photo5", "e");
                     if(!$ret){
                     $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
                     $this->redirect('create');
