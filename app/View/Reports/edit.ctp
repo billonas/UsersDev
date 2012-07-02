@@ -281,7 +281,7 @@
                     echo '<div class="media_wrapper">';
                     if(isset($report['Report']['main_photo'])){
                         echo $this->Html->image($report['Report']['main_photo']);
-                        echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ", 'default' => $report['Report']['permissionUseMedia'], 'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
+                        echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ", 'default' => $report['Report']['permissionUseMedia'], 'disabled'=>true, 'class'=>'std_form'));
                     }
                     //check if additional photos are available
                     echo '<div class="additional">';
