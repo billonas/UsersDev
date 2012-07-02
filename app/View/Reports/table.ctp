@@ -6,6 +6,8 @@
 <?php echo $this->Html->css(array('main', 'jquery-ui', 'table', 'jquery.tablesorter.pager.css')); ?>
 <?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js')); ?>
 
+<?php $this->set('title_for_layout', 'Πίνακας αναφορών - ΕΛΚΕΘΕ');?>  
+
 <script>        
     // autocomplete hints for category and species
     var hints =
@@ -108,8 +110,6 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="searchConfirmed" value="confirmed" name="state1" checked/>
-                                            </td>
-                                            <td>
                                                 <label for="searchConfirmed">Επιβεβαιωμένες</label>
                                             </td>
                                         </tr>
@@ -120,8 +120,6 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="searchRejected"  value="unreliable"  name="state2" checked/>
-                                            </td>
-                                            <td>
                                                 <label for="searchRejected">Απορριφθείσες</label>
                                             </td>
                                         </tr>
@@ -132,8 +130,6 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="searchUnknown"   value="unknown"   name="state3" checked/>
-                                            </td>
-                                            <td>
                                                 <label for="searchUnknown">Εκκρεμούσες</label>
                                             </td>
                                         </tr>
@@ -203,8 +199,8 @@
                                 </td>
                                 <td>
                                     <?php
-                                        if ( isset($report['HotSpecie']) )
-                                            echo $report['HotSpecie']['scientific_name'];
+                                        if ( isset($report['Specie']) )
+                                            echo $report['Specie']['scientific_name'];
                                     ?>
                                 </td>
     <!--                                <td>

@@ -1,5 +1,5 @@
 <?php echo $this->Html->css(array('jquery-ui'),null, array('inline'=>false)); ?>
-<?php echo $this->Html->script(array('jquery.min','tiny_mce/tiny_mce','jwplayer/jwplayer'), array('inline'=>false));?>  
+<?php echo $this->Html->script(array('jquery.min','jquery-ui.min','tiny_mce/tiny_mce','jwplayer/jwplayer'), array('inline'=>false));?>  
 <?php $this->set('title_for_layout', 'Επεξεργασία αναφοράς - ΕΛΚΕΘΕ');?>  
 
 <script>
@@ -143,16 +143,8 @@
                     echo $datestr[0].'</td></tr>';
                     echo '<tr><td><label for="ReportDate" class="std_form">Ημερομηνία Exif </label></td>';
                     echo '<td>'.$report['Report']['exif'].'</td></tr>';
-                    echo '<select name="data[Report][date][month]" class="std_form blue shadow" id="ReportDateMonth" style="display:none;">
-						<option value="'.$report['Report']['date']['month'].'" selected="selected">'.$report['Report']['date']['month'].'</option>
-					</select>					
-					<select name="data[Report][date][day]" class="std_form blue shadow" id="ReportDateDay" style="display:none;">
-						<option value="'.$report['Report']['date']['day'].'" selected="selected">'.$report['Report']['date']['day'].'</option>
-					</select>
-					<select name="data[Report][date][year]" class="std_form blue shadow" id="ReportDateYear" style="display:none;">
-						<option value="'.$report['Report']['date']['year'].'" selected="selected">'.$report['Report']['date']['year'].'</option>
-					</select>';
-					
+                    echo '<tr><td><label for="ReportHot_Species" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους;</label></td>';
+                    echo '<td>'.$report['Report']['hot_species'].'</td></tr>';
                     echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
                     echo '<td>'.((!strcmp($report['Report']['habitat'],'')) ? '-' : $report['Report']['habitat']).'</td></tr>';
 
@@ -289,7 +281,7 @@
                     echo '<div class="media_wrapper">';
                     if(isset($report['Report']['main_photo'])){
                         echo $this->Html->image($report['Report']['main_photo']);
-                        echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ", 'default' => $report['Report']['permissionUseMedia'], 'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
+                        echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ", 'default' => $report['Report']['permissionUseMedia'], 'disabled'=>true, 'class'=>'std_form'));
                     }
                     //check if additional photos are available
                     echo '<div class="additional">';
@@ -324,10 +316,10 @@
                     {
                         $options[$category['Category']['id']]= $category['Category']['category_name'];
                     }
-                    echo '<table><tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td><td>'.$this->Form->input('category_id', array('options' => $options, 'value'=>null,'label'=>false, 'class'=>'std_form')).'</td></tr>';
-                    echo '<tr><td><label for="ReportState" class="std_form">Επιστημονική Ονομασία</label></td><td>'.$this->Form->input('scientific_name', array('value'=>null,'label'=>false,'class'=>'std_form','id'=>'autoComplete')).'</td></tr>';
+                    echo '<table><tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td><td>'.$this->Form->input('category_id', array('options' => $options, 'label'=>false, 'class'=>'std_form')).'</td></tr>';
+                    echo '<tr><td><label for="ReportState" class="std_form">Επιστημονική Ονομασία</label></td><td>'.$this->Form->input('Specie.scientific_name', array('label'=>false,'class'=>'std_form','id'=>'autoComplete')).'</td></tr>';
                     $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');  								
-                    echo '<tr><td><label for="ReportState" class="std_form">Κατάσταση αναφοράς</label></td><td>'.$this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>false,'class'=>'std_form')).'</td></tr>';
+                    echo '<tr><td><label for="ReportState" class="std_form">Κατάσταση αναφοράς</label></td><td>'.$this->Form->input('state', array('options' => $options,'label'=>false,'class'=>'std_form')).'</td></tr>';
                     echo $this->Form->input('id',array("type"=>'hidden'));
                     if(isset($userId)){
                         echo $this->Form->input('last_edited_by',array("type"=>'hidden', 'class'=>'std_form','value'=>$userId));
@@ -351,27 +343,3 @@
             <div><br />Powered by <a href="http://cakephp.org/">Cake.php</a>, <a href="http://jquery.com/">jQuery</a> and <a href="http://modernizr.com/">Modernizr</a>.</div>
         </div>
 	
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <?php echo $this->Html->script(array('jquery.min','jquery-ui.min','tiny_mce/tiny_mce','jwplayer/jwplayer'), array('inline'=>false));?>
-
-  

@@ -13,11 +13,6 @@ class PagesController extends AppController{
     
 	public $uses = array();
         
-   function beforeFilter() 
-   {
-
-      $this->clearReportSession();
-   }
 
 /**
  * Displays a view

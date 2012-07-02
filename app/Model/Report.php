@@ -113,12 +113,15 @@ class Report extends AppModel{
 	   if(empty($species)) 
 	   {
 		$species['Specie']['scientific_name'] = $report['Specie']['scientific_name'];
-		$this->Specie->save($species);
-		$species = $this->Specie->findByScientific_name($report['Specie']['scientific_name']);
+		if(!$this->Specie->save($species)) return 0;
+		$report['Report']['species_id'] = $this->Specie->id;
 	   }
-	   $report['Report']['species_id'] = $species['Specie']['id'];
+	   else $report['Report']['species_id'] = $species['Specie']['id'];
 	}
-	$this->save($report);
+        else if(!strcmp($report['Report']['state'], "confirmed")){
+              return -1;
+        }
+	return $this->save($report);
      }
 
      function findUserReports($userId){
@@ -143,7 +146,28 @@ class Report extends AppModel{
     }
 */
    function findSpecies(){
-         return $this->find('all', array('fields' => 'DISTINCT Specie.scientific_name', 'conditions' => array('Report.state' => 'confirmed')));
+         $species = $this->find('all', array('fields' => 'Specie.scientific_name, Report.main_photo', 'conditions' => array('Report.state' => 'confirmed'), 'order' => array('Specie.scientific_name')));
+         $size = count($species);
+         $i = 0;
+         $name = "";
+	$index = 0;
+         $falg = false;
+         while($i < $size){
+            if(strcmp($name, $species[$i]['Specie']['scientific_name'])){
+		$name = $species[$i]['Specie']['scientific_name'];
+                $index = $i;
+                $flag = false;
+            }
+            if(!$flag && is_file($species[$i]['Report']['main_photo'])){
+               $species[$index]['Report']['main_photo'] =
+		  $species[$i]['Report']['main_photo'];
+              $flag = true;
+            } 
+            if($index < $i)
+		unset($species[$i]);
+            $i++;
+         }
+         return $species;
     }
 
     function findSpeciesReports($species) {
@@ -172,8 +196,8 @@ class Report extends AppModel{
          return $s;
     }
 
-    function findAreas(){
-         $perioxes = $this->find('all', array('fields' => 'DISTINCT Report.area', 'conditions' => array('Report.state' => 'confirmed')));
+     function findAreas(){
+         $perioxes = $this->find('all', array('fields' => 'DISTINCT Report.area', 'conditions' => array('Report.state' => 'confirmed'), 'order' => array('Specie.scientific_name')));
          return $perioxes;
     }
 

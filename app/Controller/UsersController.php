@@ -21,7 +21,6 @@ class UsersController extends AppController
       $this->Email->delivery = 'debug'; /* used to debug email message */
 //      $this->Security->validatePost = false;
 //      $this->Security->csrfCheck = false;
-      $this->clearReportSession();
       
       
    }
