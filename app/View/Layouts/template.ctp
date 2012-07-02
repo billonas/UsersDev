@@ -47,7 +47,7 @@
 			<div class="upper_row">
 				<?php echo
 					$this->Html->Link( 
-						$this->Html->Image("hcmr_logo.png"), 
+						$this->Html->Image("hcmr_logo_small.png"), 
 						array('controller' => 'pages', 'action' => 'display'), 
 						array('escape' => false));
 			    ?>
