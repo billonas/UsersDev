@@ -47,7 +47,7 @@
 			<div class="upper_row">
 				<?php echo
 					$this->Html->Link( 
-						$this->Html->Image("hcmr-logo.png"), 
+						$this->Html->Image("hcmr_logo.png"), 
 						array('controller' => 'pages', 'action' => 'display'), 
 						array('escape' => false));
 			    ?>
@@ -114,7 +114,7 @@
                                                                     <ul>
                                                                         <li><?php echo $this->Html->link('Επικοινωνία', array('controller' => 'pages', 'action'=>'communication'));?></li>
                                                                         <li><?php echo $this->Html->link('Βοήθεια', array('controller' => 'pages', 'action'=>'help'));?></li>
-                                                                        <li><?php echo $this->Html->link('Στόχοι', array('controller' => 'pages', 'action'=>'about'));?></li>
+                                                                        <li><?php echo $this->Html->link('Στόχοι μας', array('controller' => 'pages', 'action'=>'about'));?></li>
                                                                     </ul>
 								</div>
 							</div>
