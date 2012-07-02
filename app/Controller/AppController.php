@@ -50,7 +50,9 @@ class AppController extends Controller {
 
    function beforeFilter() 
    {
-
+        if(strcmp($this->params['controller'],'reports')){  
+            $this->clearReportSession();
+        }
 //      $this->Security->validatePost = false;
 
    }

@@ -13,11 +13,6 @@ class HotSpeciesController extends AppController{
     //to uses edo xreiazetai epeidi xoris tin xrisi tou uses to cakephp psaxnei to antistoixo model
     //to opoio stin sigekrimeni periptosi den vriskei afou to species den exei eniko(i leksi specie den iparxei)
       
-        function beforeFilter() 
-   {
-
-      $this->clearReportSession();
-   }
 
     function create() {
         if (!empty($this->data)) {

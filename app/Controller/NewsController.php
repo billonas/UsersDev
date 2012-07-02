@@ -10,11 +10,6 @@ class NewsController extends AppController {
     public $helpers = array('Html', 'Form');
     var $uses = array('New');
 
-        function beforeFilter() 
-   {
-
-      $this->clearReportSession();
-   }
     
     public function show() {
         $this->set('news', $this->New->find('all'));
