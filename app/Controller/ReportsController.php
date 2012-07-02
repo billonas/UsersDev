@@ -11,12 +11,14 @@ class ReportsController extends AppController{
     public $helpers = array('Html', 'Form', 'Cropimage','GoogleMapV3', 'Js','Session', 'Xls','Tinymce', 'PhpExcel.PhpExcel');
     public $components = array('JqImgcrop', 'Image','Video','Email');
 
-   function export() { //http://eureka.ykyuen.info/2009/10/04/cakephp-export-data-to-a-xls-file/       
+   function export() { //http://eureka.ykyuen.info/2009/10/04/cakephp-export-data-to-a-xls-file/ 
+        $this->clearReportSession();
    	$data = $this->Report->find('all');
    	$this->set('reports', $data);
    }
 
    function excelExport(){ //http://bakery.cakephp.org/articles/segy/2012/04/02/phpexcel_helper_for_generating_excel_files
+        $this->clearReportSession();
         $data = $this->Report->find('all');
         $this->set('data', $data);
    }
@@ -39,25 +41,7 @@ class ReportsController extends AppController{
    
    
    function createnew(){
-       if($this->Session->check('report')){
-            $this->Session->delete('report');
-        }
-        if($this->Session->check('report_completed')){
-            $this->Session->delete('report_completed');
-        }
-        if($this->Session->check('uploaded1')){
-            $this->Session->delete('uploaded1');
-        }
-        if($this->Session->check('uploaded2')){
-            $this->Session->delete('uploaded2');
-        }
-        if($this->Session->check('uploaded3')){
-            $this->Session->delete('uploaded3');
-        }
-        if($this->Session->check('uploaded4')){
-            $this->Session->delete('uploaded4');
-        }
-        $this->redirect(array('controller'=>'Reports', 'action'=>'create'));
+       $this->clearReportSession();
    }
    
    /*
@@ -71,11 +55,11 @@ class ReportsController extends AppController{
             $this->set('userId',$userId);
         }
         if (!empty($this->data)) {
-            /* Upload Step */
+            /* Upload 1st Step */
             if(isset($this->data['Report']['image']) || isset($this->data['Report']['video_file'])){
-                /* Image Upload */
+                /* Photo Upload */
                 if(!empty($this->data['Report']['image']['tmp_name'])){
-                    //CHECK  IF INPUT FILE IS IMAGE FILE
+                    /* Check if input file's type is a valid image */
                     $res = $this->Image->checkImage($this->data['Report']['image']);
                     if($res < 0){
                         $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_good');
@@ -85,9 +69,9 @@ class ReportsController extends AppController{
                             $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
                             $this->redirect('create');
                     }
-		    //Βρίσκουμε την ημερομηνία λήψης από τα μεταδεδομένα
+		    /* Get photo's shooting date from metadata */ 
 		    $this->request->data['Report']['exif'] = $this->Image->readexif($this->data['Report']['image']['tmp_name']);
-                    //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
+                    /* Rename image file and save to temp directory */
                     $this->request->data['Report']['image']['name'] = $this->Image->tmpRename($this->request->data['Report']['image']);
                     $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', '');
 		    if(!$uploaded){
@@ -97,9 +81,8 @@ class ReportsController extends AppController{
                     $this->Session->write('uploaded1',$uploaded);
                 }
                 /* Video Upload */
-                
                 if(!empty($this->data['Report']['video_file']['name'])){
-                    //$this->Session->setFlash('Λολα μηλο2','flash_bad');
+                    /* Check if input file's type is a valid video */
                     $uploaded = $this->Video->uploadVideo($this->data['Report']['video_file'], "video/temporary/");
                     if($uploaded['error']){
                         switch($uploaded['error']){
@@ -125,50 +108,52 @@ class ReportsController extends AppController{
                 }
                 
             }
+            /* Commit information 2nd step */
             else{
-                
                 /* Crop needed */
                 if(!empty($this->data['Report']['x1'])){
                    $cropped = $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
-                    $uploaded1 = $this->Session->read('uploaded1');
+                   $uploaded1 = $this->Session->read('uploaded1');
                    $uploaded1['imageWidth'] = $this->JqImgcrop->getWidth($cropped);
 		   $uploaded1['imageHeight'] = $this->JqImgcrop->getHeight($cropped);
                    $this->Session->write('uploaded1',$uploaded1);
                 }
-                //UPLOAD ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
+                /* Upload 1st additional photo & save to temp directory */
                 if(!empty($this->data['Report']['image2']['name'])){
                     $res = $this->Image->checkImage($this->data['Report']['image2']);
                     if(!$res){
-                            $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική δεύτερη φωτογραφία','flash_bad');
-                            $this->redirect('create');
+                        $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική δεύτερη φωτογραφία','flash_bad');
+                        $this->redirect('create');
                     }
                     else if($res > 0){
-                    //RENAME ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
-                     $this->request->data['Report']['image2']['name'] = $this->Image->tmpRename($this->request->data['Report']['image2']);
-                     $uploaded3 = $this->JqImgcrop->uploadImage($this->data['Report']['image2'], '/img/temporary/', '');
-                     $this->request->data['Report']['additional_photo1'] = $uploaded3['imagePath'];
-                     $this->Session->write('uploaded3',$uploaded3);
+                        /* Rename image file and save to temp directory */
+                        $this->request->data['Report']['image2']['name'] = $this->Image->tmpRename($this->request->data['Report']['image2']);
+                        $uploaded3 = $this->JqImgcrop->uploadImage($this->data['Report']['image2'], '/img/temporary/', '');
+                        $this->request->data['Report']['additional_photo1'] = $uploaded3['imagePath'];
+                        $this->Session->write('uploaded3',$uploaded3);
 		    }
                 }
                 
-                //UPLOAD ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
+                /* Upload 2nd additional photo & save to temp directory */
                 if(!empty($this->data['Report']['image3']['name'])){
                     $res = $this->Image->checkImage($this->data['Report']['image3']);
                     if(!$res){
-                            $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική τρίτη φωτογραφία','flash_bad');
-                            $this->redirect('create');
+                        $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική τρίτη φωτογραφία','flash_bad');
+                        $this->redirect('create');
                     }
                     else if($res > 0){
-                    //RENAME ADDITIONAL IMAGE FILE AND SAVE TO TEMPORARY DIR
-                     $this->request->data['Report']['image3']['name'] = $this->Image->tmpRename($this->request->data['Report']['image3']);
-                     $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image3'], '/img/temporary/', '');
-                     $this->request->data['Report']['additional_photo2'] = $uploaded4['imagePath'];
-                     $this->Session->write('uploaded4',$uploaded4);
+                        /* Rename image file and save to temp directory */
+                        $this->request->data['Report']['image3']['name'] = $this->Image->tmpRename($this->request->data['Report']['image3']);
+                        $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image3'], '/img/temporary/', '');
+                        $this->request->data['Report']['additional_photo2'] = $uploaded4['imagePath'];
+                        $this->Session->write('uploaded4',$uploaded4);
                     }
                 }
+                /* Save all report information to session for a while */
                 $this->Session->write('report',$this->data);
                 $this->Session->write('report_completed',1);
                 $this->Report->set($this->data);
+                /* Validate report's data */
                 if(!$this->Report->validates()){
                     $this->Session->setFlash('Τα στοιχεία της αναφοράς έχουν πρόβλημα','flash_bad');
                 }
@@ -177,6 +162,7 @@ class ReportsController extends AppController{
                 }
             }
         }
+        /* Initialize report page */
         $hotspecies = ClassRegistry::init('HotSpecie')->find('all');
         $this->set('hotspecies',$hotspecies);
    }
@@ -189,11 +175,11 @@ class ReportsController extends AppController{
        /* Submission step */
        if ($this->Session->check('report_completed')) {
         if(!empty($this->data)){
-            /* Image */
             $this->Report->create();
             $this->Report->set($this->data);
+            // Save report's data
             if ($this->Report->save($this->data)) {
-                //RENAME IMAGE FILE TO RECORD NAME AND SAVE IT TO DIR
+                // Rename image file to record id & save to it to appropriate directory
                 if(!empty($this->data['Report']['main_photo'])){$main_photo = $this->data['Report']['main_photo'];
                     $this->request->data['Report']['main_photo'] = "../webroot$main_photo";
                     $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['main_photo'], "reports", "main_photo");
@@ -202,7 +188,7 @@ class ReportsController extends AppController{
                     $this->redirect('create');
                     }
                 }
-                ////RENAME VIDEO FILE TO RECORD NAME AND SAVE IT TO DIR
+                // Rename video file to record id & save to it to appropriate directory
                 if(!empty($this->data['Report']['video'])){
                     $ret = $this->Video->mvSubVideo($this->Report, $this->data['Report']['video'], "reports");
                     if(!$ret){
@@ -210,6 +196,7 @@ class ReportsController extends AppController{
                     $this->redirect('create');
                     }
                 }
+                // Rename 1st additional photo image file to record id & save to it to appropriate directory
                 if(!empty($this->data['Report']['additional_photo1'])){$additional_photo1 = $this->data['Report']['additional_photo1'];
                     $this->request->data['Report']['additional_photo1'] = "../webroot$additional_photo1";
                     $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo1'], "reports", "additional_photo1", "a");
@@ -218,6 +205,7 @@ class ReportsController extends AppController{
                     $this->redirect('create');
                     }
                 }
+                // Rename 1st additional photo image file to record id & save to it to appropriate directory
 		if(!empty($this->data['Report']['additional_photo2'])){$additional_photo2 = $this->data['Report']['additional_photo2'];
                     $this->request->data['Report']['additional_photo2'] = "../webroot$additional_photo2";
                     $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo2'], "reports", "additional_photo2", "b");
@@ -226,27 +214,11 @@ class ReportsController extends AppController{
                     $this->redirect('create');
                     }
                 }
-                if($this->Session->check('report')){
-                    $this->Session->delete('report');
-                }
-                if($this->Session->check('report_completed')){
-                    $this->Session->delete('report_completed');
-                }
-                if($this->Session->check('uploaded1')){
-                    $this->Session->delete('uploaded1');
-                }
-                if($this->Session->check('uploaded2')){
-                    $this->Session->delete('uploaded2');
-                }
-                if($this->Session->check('uploaded3')){
-                    $this->Session->delete('uploaded3');
-                }
-                if($this->Session->check('uploaded4')){
-                    $this->Session->delete('uploaded4');
-                }
+                $this->clearReportSession();
                 $this->Session->setFlash('Η αναφορά κατατέθηκε επιτυχώς','flash_good');
                 $this->redirect(array('controller'=>'Reports', 'action'=>'create'));
             } 
+            // Save report's data failed
             else {
                 $this->Session->setFlash('Η αναφορά δεν κατατέθηκε επιτυχώς','flash_bad');
                 $this->set("validation", 1);
@@ -260,41 +232,30 @@ class ReportsController extends AppController{
    }
 
     function edit($id = null) {
-          if($this->Session->check('report')){
-            $this->Session->delete('report');
-          }
-          if($this->Session->check('report_completed')){
-            $this->Session->delete('report_completed');
-          }
-          if($this->Session->check('uploaded1')){
-            $this->Session->delete('uploaded1');
-          }
-          if($this->Session->check('uploaded2')){
-            $this->Session->delete('uploaded2');
-          }
-          if($this->Session->check('uploaded3')){
-            $this->Session->delete('uploaded3');
-          }
-          if($this->Session->check('uploaded4')){
-            $this->Session->delete('uploaded4');
-          }
+          $this->clearReportSession();
+          /* Check loggen in user permission rights */
 //        if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
             if ($id==null) {
                 $this->Session->setFlash('Invalid ID');
                 $this->redirect('table');
             }
+            /* Retrieve report's information step */
             if(empty($this->data)) {
+                /* Find analyst's information */
                 if($this->Session->check('UserUsername')){
                     $email = $this->Session->read('UserUsername');
                     $userId = ClassRegistry::init('User')->getUserId($email);
                     $this->set('userId',$userId);
                 }
+                /* Find report information*/
                 $this->data = $this->Report->findById($id);
                 if(empty($this->data)){
                     $this->Session->setFlash('Invalid ID');
                     $this->redirect('table');
                 }
+                /* Find categories */
                 $categories = ClassRegistry::init('Category')->find('all');
+                /* Find species */
                 $temp_species = ClassRegistry::init('Specie')->find('all');
                 $report = $this->data;
                 $this->set('report',$report);
@@ -306,54 +267,42 @@ class ReportsController extends AppController{
 				}
 				$this->set('species',$species);
             } 
+            /* Commit edited information step */
             else {
-                //Kodikas pou kalei thn synartisi pou stelnei mail stous analytes tis catigorias
+                /* Send email to the aproppriate analysts */
                 $categoryId = $this->request->data['Report']['category_id'];
                 $reportId = $this->request->data['Report']['id'];
-                //$this->Report->notifyCategorizedReport($reportId, $categoryId);
                 $report = $this->Report->findById($reportId);
-                if($report['Report']['category_id'] != $categoryId)
-                {
-                    $analysts1 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category1' => $categoryId)));
-                    //$analysts2 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category2' => $categoryId)));
-                    foreach($analysts1 as $analyst)
-                    {
-
-                        $this->set('report_link', 'http://localhost/UsersDev/reports/edit/'.$reportId);//env('SERVER_NAME')
-
-                        $this->Email->to = $analyst['User']['email'];
-                        $this->Email->subject = env('SERVER_NAME') . ' – Νέα αναφορά είδους.';
-                        $this->Email->from = 'no-reply <no-reply@elke8e.com>"';
-                        $this->Email->template = 'new_report';
-                        $this->Email->layout = 'new_report';
-                        $this->Email->sendAs = 'text';       
-                        $this->Email->smtpOptions = array(
-                                            'port'=>'465',
-                                            'timeout'=>'30',
-                                            'host' => 'ssl://smtp.gmail.com',
-                                            'username'=>'testhcmr@gmail.com',
-                                            'password'=>'hcmrelkethe',
-                                    );
-                        $this->Email->delivery = 'smtp';
-                        $this->Email->send();
-                    }
-                }
-                if ($this->Report->save($this->data)) {
+                $this->informAnalysts($categoryId,$reportId,$report);
+                /* Save report's edited data */
+                if($this->Report->save($this->data)) {
                     $this->data = $this->Report->findById($id);
-                    if(empty($this->data)){
-                        $this->Session->setFlash('Invalid ID');
-                        $this->redirect('table');
-                    }
-                    //SAVE SPECIES
+                    /* Save new species */
                     //ClassRegistry::init('Specie')->save($this->data['Report']['scientific_name']);
+                    /* Find categories categories */
                     $categories = ClassRegistry::init('Category')->find('all');
-                    $report = $this->data;
-                    $this->set('report',$report);
                     $this->set('categories',$categories);
                     $this->Session->setFlash('Η αναφορά αναλύθηκε επιτυχώς','flash_good');
                     $this->redirect('table');
                 } 
                 else {
+                    if($this->Session->check('UserUsername')){
+                        $email = $this->Session->read('UserUsername');
+                        $userId = ClassRegistry::init('User')->getUserId($email);
+                        $this->set('userId',$userId);
+                    }
+                    /* Find categories */
+                    $categories = ClassRegistry::init('Category')->find('all');
+                    /* Find species */
+                    $temp_species = ClassRegistry::init('Specie')->find('all');
+                    $this->set('report',$report);
+                    $this->set('categories',$categories);
+                    $i=0;
+                    foreach($temp_species as $item){
+                            $species[$i]=$item['Specie']['scientific_name'];
+                            $i++;
+                    }
+                    $this->set('species',$species);
                     $this->Session->setFlash('Η αναφορά δεν αναλύθηκε επιτυχώς','flash_bad');
                 }    
             }
@@ -365,13 +314,21 @@ class ReportsController extends AppController{
     }
     
     function delete($id = null) {
+        $this->clearReportSession();
+        /* Check loggen in user permission rights */
 //        if($this->Session->check('UserUserName')&&($this->Session->read('UserType') == 'hyperanalyst')){
-            if (!$id) {
-                //$this->Session->setFlash('Invalid id for Task');
+            /* Id not given */
+            if ($id==null) {
                 $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
             }
-            $report = $this->Report->findById($id); //pernw ta stoixeia gia na brw pithana media(eikones)
+            /* Find report */
+            $report = $this->Report->findById($id);
+            if(empty($report)){
+                $this->redirect('table');
+            }
+            /* Delete all multimedia */
             $this->Image->dlImg($this->Report, $id, 'Report');
+            /* Delete report */
             if ($this->Report->delete($id)) {
                 $this->Session->setFlash('Η αναφορά '.$id.' διαγράφηκε επιτυχώς','flash_good');
                 $this->redirect(array('action'=>'table'), null, true);
@@ -384,24 +341,8 @@ class ReportsController extends AppController{
     }
     
     function view($id = null) {
-        if($this->Session->check('report')){
-            $this->Session->delete('report');
-          }
-          if($this->Session->check('report_completed')){
-            $this->Session->delete('report_completed');
-          }
-          if($this->Session->check('uploaded1')){
-            $this->Session->delete('uploaded1');
-          }
-          if($this->Session->check('uploaded2')){
-            $this->Session->delete('uploaded2');
-          }
-          if($this->Session->check('uploaded3')){
-            $this->Session->delete('uploaded3');
-          }
-          if($this->Session->check('uploaded4')){
-            $this->Session->delete('uploaded4');
-          }
+        $this->clearReportSession();
+        /* Check loggen in user permission rights */
 //        if($this->Session->check('UserUserName')) {  
             if($id==null){
                 $this->Session->setFlash('Invalid ID');
@@ -418,47 +359,31 @@ class ReportsController extends AppController{
     }
     
     function table(){
-        if($this->Session->check('report')){
-            $this->Session->delete('report');
-        }
-        if($this->Session->check('report_completed')){
-            $this->Session->delete('report_completed');
-        }
-        if($this->Session->check('uploaded1')){
-            $this->Session->delete('uploaded1');
-        }
-        if($this->Session->check('uploaded2')){
-            $this->Session->delete('uploaded2');
-        }
-        if($this->Session->check('uploaded3')){
-            $this->Session->delete('uploaded3');
-          }
-          if($this->Session->check('uploaded4')){
-            $this->Session->delete('uploaded4');
-          }
+        $this->clearReportSession();
+        /* Check loggen in user permission rights */
 //      if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
-			//probably awkward way to get only the names of categories - only for temp testing
-			$table = ClassRegistry::init('Category')->find('all');
-                        $temp_species = ClassRegistry::init('Specie')->find('all');
-
+            /* Find categories' names */
+            $table = ClassRegistry::init('Category')->find('all');
+            $temp_species = ClassRegistry::init('Specie')->find('all');
             $this->set('table',$table);
-                        $i=0;
-                        foreach($table as $item){
-                                $categories[$i]=$item['Category']['category_name'];
-                                $i++;
-                        }
-                        
-			$this->set('categories',$categories);
-                        $i=0;
-                        foreach($temp_species as $item){
-                                $species[$i]=$item['Specie']['scientific_name'];
-                                $i++;
-                        }
-                        $this->set('species',$species);
-			
+            $i=0;
+            foreach($table as $item){
+                    $categories[$i]=$item['Category']['category_name'];
+                    $i++;
+            }
+
+            $this->set('categories',$categories);
+            $i=0;
+            foreach($temp_species as $item){
+                    $species[$i]=$item['Specie']['scientific_name'];
+                    $i++;
+            }
+            $this->set('species',$species);
+            /* Filtering needed */	
             if ((!empty($this->params['url']['text']))||(!empty($this->params['url']['state1']))||(!empty($this->params['url']['state2']))||(!empty($this->params['url']['state3']))) {
-                // INPUT GIVEN 
+                /* Filtering by species or category needed */
                 if(!empty($this->params['url']['text'])){
+                    /* States accepted */
                     $state = array();
                     if(!empty($this->params['url']['state1'])){
                         array_push($state, $this->params['url']['state1']);
@@ -473,6 +398,7 @@ class ReportsController extends AppController{
                     $conditions = array(
                             'Report.state' => $state
                     );
+                    /* Filtering by species */
                     if(!strcmp($this->params['url']['select'],'species')){
                         $conditions = array(
                             'Specie.scientific_name'=> $this->params['url']['text'],
@@ -480,6 +406,7 @@ class ReportsController extends AppController{
                         );
 
                     }
+                    /* Filtering by category */
                     else if(!strcmp($this->params['url']['select'],'category')){
                         $conditions = array(
                            'Category.category_name'=> $this->params['url']['text'],
@@ -487,10 +414,13 @@ class ReportsController extends AppController{
                         );
                         
                     }
+                    /* Find reports */
                     $reports = $this->Report->find("all", array('conditions'=> $conditions));
                     $this->set('reports',$reports);
                 }
+                /* Filtering by states */
                 else{
+                    /* States accepted */
                     $state = array();
                     if(!empty($this->params['url']['state1'])){
                         array_push($state, $this->params['url']['state1']);
@@ -504,11 +434,14 @@ class ReportsController extends AppController{
                     $conditions = array(
                             'Report.state' => $state
                     );
+                    /* Find reports */
                     $this->set('reports',$this->Report->find('all', array('conditions'=> $conditions)));
 
                 }
             }
+            /* Filtering not needed */
             else{
+                /* Find reports */
                  $reports = $this->Report->find("all");
                  $this->set('reports',$reports);
             }
@@ -520,55 +453,26 @@ class ReportsController extends AppController{
     }
     
     function myreports(){
-      if($this->Session->check('report')){
-            $this->Session->delete('report');
-          }
-          if($this->Session->check('report_completed')){
-            $this->Session->delete('report_completed');
-          }
-          if($this->Session->check('uploaded1')){
-            $this->Session->delete('uploaded1');
-          }
-          if($this->Session->check('uploaded2')){
-            $this->Session->delete('uploaded2');
-          }  
-          if($this->Session->check('uploaded3')){
-            $this->Session->delete('uploaded3');
-          }
-          if($this->Session->check('uploaded4')){
-            $this->Session->delete('uploaded4');
-          }
+      $this->clearReportSession();
+      /* Check loggen in user permission rights */
       if(!$this->Session->check('UserUsername')){
          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
       }
+      /* Find user's id */
       $email = $this->Session->read('UserUsername');
       $userId = ClassRegistry::init('User')->getUserId($email);
-      
+      /* Find user's reports */
       if($userId !== false){
         $reports = $this->Report->findUserReports($userId);
         $this->set('reports', $reports);
       }
+      else{
+          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+      }
     }
     
     function showspecies(){
-        if($this->Session->check('report')){
-            $this->Session->delete('report');
-          }
-          if($this->Session->check('report_completed')){
-            $this->Session->delete('report_completed');
-          }
-          if($this->Session->check('uploaded1')){
-            $this->Session->delete('uploaded1');
-          }
-          if($this->Session->check('uploaded2')){
-            $this->Session->delete('uploaded2');
-          }
-          if($this->Session->check('uploaded3')){
-            $this->Session->delete('uploaded3');
-          }
-          if($this->Session->check('uploaded4')){
-            $this->Session->delete('uploaded4');
-          }
+        $this->clearReportSession();
         $species = $this->Report->findSpecies();
         $this->set('species',$species);
         $sAreas = $this->Report->findSpeciesAreas();
@@ -583,6 +487,36 @@ class ReportsController extends AppController{
         //$this->set('aReports', $aReports);
     }
     
+    function informAnalysts($categoryId,$reportId,$report){
+        /* Category edited */
+        if($report['Report']['category_id'] != $categoryId){
+            /* Find all analysts of the category */
+            $analysts1 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category1' => $categoryId)));
+            //$analysts2 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category2' => $categoryId)));
+            /* Inform each of them */
+            foreach($analysts1 as $analyst)
+            {
+
+                $this->set('report_link', 'http://localhost/UsersDev/reports/edit/'.$reportId);//env('SERVER_NAME')
+
+                $this->Email->to = $analyst['User']['email'];
+                $this->Email->subject = env('SERVER_NAME') . ' – Νέα αναφορά είδους.';
+                $this->Email->from = 'no-reply <no-reply@elke8e.com>"';
+                $this->Email->template = 'new_report';
+                $this->Email->layout = 'new_report';
+                $this->Email->sendAs = 'text';       
+                $this->Email->smtpOptions = array(
+                                    'port'=>'465',
+                                    'timeout'=>'30',
+                                    'host' => 'ssl://smtp.gmail.com',
+                                    'username'=>'testhcmr@gmail.com',
+                                    'password'=>'hcmrelkethe',
+                            );
+                $this->Email->delivery = 'smtp';
+                $this->Email->send();
+            }
+        }
+    }
     
 }
 
