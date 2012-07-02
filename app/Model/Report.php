@@ -146,7 +146,28 @@ class Report extends AppModel{
     }
 */
    function findSpecies(){
-         return $this->find('all', array('fields' => 'DISTINCT Specie.scientific_name', 'conditions' => array('Report.state' => 'confirmed'), 'order' => array('Specie.scientific_name')));
+         $species = $this->find('all', array('fields' => 'Specie.scientific_name, Report.main_photo', 'conditions' => array('Report.state' => 'confirmed'), 'order' => array('Specie.scientific_name')));
+         $size = count($species);
+         $i = 0;
+         $name = "";
+	$index = 0;
+         $falg = false;
+         while($i < $size){
+            if(strcmp($name, $species[$i]['Specie']['scientific_name'])){
+		$name = $species[$i]['Specie']['scientific_name'];
+                $index = $i;
+                $flag = false;
+            }
+            if(!$flag && is_file($species[$i]['Report']['main_photo'])){
+               $species[$index]['Report']['main_photo'] =
+		  $species[$i]['Report']['main_photo'];
+              $flag = true;
+            } 
+            if($index < $i)
+		unset($species[$i]);
+            $i++;
+         }
+         return $species;
     }
 
     function findSpeciesReports($species) {
