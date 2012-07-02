@@ -40,7 +40,7 @@
             });
         </script>
   
-
+        
 	<div class="middle_row big_row no_padding">
             <style>
                 #mapCanvas {
@@ -409,12 +409,27 @@
                         echo $this->Html->image($uploaded4["imagePath"]);
                         echo  $this->Form->input('additional_photo2',array('type'=>'hidden','value'=>$report['Report']['additional_photo2'], 'class'=>'std_form'));
                     }
+                    if($this->Session->check('uploaded5')){
+                        $uploaded5 = $this->Session->read('uploaded5');
+                        echo $this->Html->image($uploaded5["imagePath"]);
+                        echo  $this->Form->input('additional_photo3',array('type'=>'hidden','value'=>$report['Report']['additional_photo3'], 'class'=>'std_form'));
+                    }
+                    if($this->Session->check('uploaded6')){
+                        $uploaded6 = $this->Session->read('uploaded6');
+                        echo $this->Html->image($uploaded6["imagePath"]);
+                        echo  $this->Form->input('additional_photo4',array('type'=>'hidden','value'=>$report['Report']['additional_photo4'], 'class'=>'std_form'));
+                    }
+                    if($this->Session->check('uploaded7')){
+                        $uploaded7 = $this->Session->read('uploaded7');
+                        echo $this->Html->image($uploaded7["imagePath"]);
+                        echo  $this->Form->input('additional_photo5',array('type'=>'hidden','value'=>$report['Report']['additional_photo5'], 'class'=>'std_form'));
+                    }
                     echo '<br/>';
                     echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ", 'default' => $report['Report']['permissionUseMedia'], 'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
                     echo '<br/>';
                     echo '</div>';
                     
-                    echo '<div>';
+                    echo '<div style="clear:left;">';
                     echo $this->Html->link('Επιστροφή στην φόρμα αναφοράς', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
                     echo $this->Form->end(array(
                                                 'label' => 'Οριστική υποβολή',
