@@ -281,7 +281,7 @@ class ReportsController extends AppController{
                 $report = $this->Report->findById($reportId);
                 $this->informAnalysts($categoryId,$reportId,$report);
                 /* Save report's edited data */
-                if($this->Report->save($this->data)) {
+                if($this->Report->saveReport($this->data)) {
                     $this->data = $this->Report->findById($id);
                     /* Save new species */
                     //ClassRegistry::init('Specie')->save($this->data['Report']['scientific_name']);
