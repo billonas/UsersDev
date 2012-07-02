@@ -228,7 +228,7 @@ class ReportsController extends AppController{
                     else if($res > 0){
                         /* Rename image file and save to temp directory */
                         $this->request->data['Report']['image4']['name'] = $this->Image->tmpRename($this->request->data['Report']['image4']);
-                        $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image4'], '/img/temporary/', '');
+                        $uploaded5 = $this->JqImgcrop->uploadImage($this->data['Report']['image4'], '/img/temporary/', '');
                         $this->request->data['Report']['additional_photo3'] = $uploaded5['imagePath'];
                         $this->Session->write('uploaded5',$uploaded5);
                     }
@@ -243,7 +243,7 @@ class ReportsController extends AppController{
                     else if($res > 0){
                         /* Rename image file and save to temp directory */
                         $this->request->data['Report']['image5']['name'] = $this->Image->tmpRename($this->request->data['Report']['image5']);
-                        $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image5'], '/img/temporary/', '');
+                        $uploaded6 = $this->JqImgcrop->uploadImage($this->data['Report']['image5'], '/img/temporary/', '');
                         $this->request->data['Report']['additional_photo4'] = $uploaded6['imagePath'];
                         $this->Session->write('uploaded6',$uploaded6);
                     }
@@ -258,9 +258,9 @@ class ReportsController extends AppController{
                     else if($res > 0){
                         /* Rename image file and save to temp directory */
                         $this->request->data['Report']['image6']['name'] = $this->Image->tmpRename($this->request->data['Report']['image6']);
-                        $uploaded4 = $this->JqImgcrop->uploadImage($this->data['Report']['image6'], '/img/temporary/', '');
+                        $uploaded7 = $this->JqImgcrop->uploadImage($this->data['Report']['image6'], '/img/temporary/', '');
                         $this->request->data['Report']['additional_photo5'] = $uploaded7['imagePath'];
-                        $this->Session->write('uploaded6',$uploaded7);
+                        $this->Session->write('uploaded7',$uploaded7);
                     }
                 }
                 /* Save all report information to session for a while */
