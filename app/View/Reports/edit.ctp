@@ -272,9 +272,20 @@
                             echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
                             echo '<td>'.((!strcmp($report['Report']['email'],'')) ? '-' : $report['Report']['email']).'</td></tr>';
                             					    
-                        
-                        
-
+                    $options = array(null => '-');
+//                                // Add categories dynamically
+                    foreach ($categories as $category)
+                    {
+                        $options[$category['Category']['id']]= $category['Category']['category_name'];
+                    }
+                    echo '<tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td><td>'.$this->Form->input('category_id', array('options' => $options, 'label'=>false, 'class'=>'std_form')).'</td></tr>';
+                    echo '<tr><td><label for="ReportState" class="std_form">Επιστημονική Ονομασία</label></td><td>'.$this->Form->input('Specie.scientific_name', array('label'=>false,'class'=>'std_form','id'=>'autoComplete')).'</td></tr>';
+                    $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');  								
+                    echo '<tr><td><label for="ReportState" class="std_form">Κατάσταση αναφοράς</label></td><td>'.$this->Form->input('state', array('options' => $options,'label'=>false,'class'=>'std_form')).'</td></tr>';
+                    echo $this->Form->input('id',array("type"=>'hidden'));
+                    if(isset($userId)){
+                        echo $this->Form->input('last_edited_by',array("type"=>'hidden', 'class'=>'std_form','value'=>$userId));
+                    }
                     echo '</table>';
                     //echo $this->Form->input('category_id', array('value'=>null,'label'=>'Κατηγορία Είδους','type'=>'hidden', 'class'=>'std_form'));
                     //echo $this->Form->input('state', array('options' => $options,'value'=>'unknown','label'=>'Κατάσταση Αναφοράς ','type'=>'hidden', 'class'=>'std_form'));                                        
@@ -310,29 +321,15 @@
                     }
                     echo '</div>';
                     
-                    $options = array(null => '-');
-//                                // Add categories dynamically
-                    foreach ($categories as $category)
-                    {
-                        $options[$category['Category']['id']]= $category['Category']['category_name'];
-                    }
-                    echo '<table><tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td><td>'.$this->Form->input('category_id', array('options' => $options, 'label'=>false, 'class'=>'std_form')).'</td></tr>';
-                    echo '<tr><td><label for="ReportState" class="std_form">Επιστημονική Ονομασία</label></td><td>'.$this->Form->input('Specie.scientific_name', array('label'=>false,'class'=>'std_form','id'=>'autoComplete')).'</td></tr>';
-                    $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');  								
-                    echo '<tr><td><label for="ReportState" class="std_form">Κατάσταση αναφοράς</label></td><td>'.$this->Form->input('state', array('options' => $options,'label'=>false,'class'=>'std_form')).'</td></tr>';
-                    echo $this->Form->input('id',array("type"=>'hidden'));
-                    if(isset($userId)){
-                        echo $this->Form->input('last_edited_by',array("type"=>'hidden', 'class'=>'std_form','value'=>$userId));
-                    }
-                    echo '<tr><td><label for="ReportCategory" class="std_form">Σχόλια-Παρατηρήσεις</label></td><td>';
-                    echo $this->Tinymce->input('Report.analyst_comments',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form'),null,'full').'</td></tr>';
-                    
-					
-                    echo '<tr><td>'.$this->Html->link('Επιστροφή στον πίνακα', array('controller' => 'reports', 'action'=>'table'),array('class' => 'button_like_anchor' , "style" => "padding-left: 3.2em;padding-right: 3.2em;")).'</td><td>';
+                    echo '<div style="clear:both;">';
+                    echo '<label for="ReportCategory" class="std_form">Σχόλια-Παρατηρήσεις</label>';
+                    echo $this->Tinymce->input('Report.analyst_comments',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form'));
+                    		
+                    echo '<table><tr><td>'.$this->Html->link('Επιστροφή στον πίνακα', array('controller' => 'reports', 'action'=>'table'),array('class' => 'button_like_anchor' , "style" => "padding-left: 3.2em;padding-right: 3.2em;")).'</td><td>';
 					echo $this->Form->end(array(
                                                 'label' => 'Επεξεργασία Αναφοράς',
                                                 'div' => false,
-                                                'class' => 'std_form')).'</td></tr></table>';
+                                                'class' => 'std_form')).'</td></tr></table></div>';
                     echo '</div>';
             ?>
                         
