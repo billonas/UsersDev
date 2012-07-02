@@ -142,4 +142,25 @@ class AppController extends Controller {
     return $result;
     }
     
+    function clearReportSession(){
+        if($this->Session->check('report')){
+            $this->Session->delete('report');
+        }
+        if($this->Session->check('report_completed')){
+            $this->Session->delete('report_completed');
+        }
+        if($this->Session->check('uploaded1')){
+            $this->Session->delete('uploaded1');
+        }
+        if($this->Session->check('uploaded2')){
+            $this->Session->delete('uploaded2');
+        }
+        if($this->Session->check('uploaded3')){
+            $this->Session->delete('uploaded3');
+        }
+        if($this->Session->check('uploaded4')){
+            $this->Session->delete('uploaded4');
+        }
+    }
+    
 }
