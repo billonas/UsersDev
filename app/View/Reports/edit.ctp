@@ -1,5 +1,5 @@
 <?php echo $this->Html->css(array('jquery-ui'),null, array('inline'=>false)); ?>
-<?php echo $this->Html->script(array('jquery.min','tiny_mce/tiny_mce','jwplayer/jwplayer'), array('inline'=>false));?>  
+<?php echo $this->Html->script(array('jquery.min','jquery-ui.min','tiny_mce/tiny_mce','jwplayer/jwplayer'), array('inline'=>false));?>  
 <?php $this->set('title_for_layout', 'Επεξεργασία αναφοράς - ΕΛΚΕΘΕ');?>  
 
 <script>
@@ -143,16 +143,6 @@
                     echo $datestr[0].'</td></tr>';
                     echo '<tr><td><label for="ReportDate" class="std_form">Ημερομηνία Exif </label></td>';
                     echo '<td>'.$report['Report']['exif'].'</td></tr>';
-                    echo '<select name="data[Report][date][month]" class="std_form blue shadow" id="ReportDateMonth" style="display:none;">
-						<option value="'.$report['Report']['date']['month'].'" selected="selected">'.$report['Report']['date']['month'].'</option>
-					</select>					
-					<select name="data[Report][date][day]" class="std_form blue shadow" id="ReportDateDay" style="display:none;">
-						<option value="'.$report['Report']['date']['day'].'" selected="selected">'.$report['Report']['date']['day'].'</option>
-					</select>
-					<select name="data[Report][date][year]" class="std_form blue shadow" id="ReportDateYear" style="display:none;">
-						<option value="'.$report['Report']['date']['year'].'" selected="selected">'.$report['Report']['date']['year'].'</option>
-					</select>';
-					
                     echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
                     echo '<td>'.((!strcmp($report['Report']['habitat'],'')) ? '-' : $report['Report']['habitat']).'</td></tr>';
 
@@ -351,27 +341,3 @@
             <div><br />Powered by <a href="http://cakephp.org/">Cake.php</a>, <a href="http://jquery.com/">jQuery</a> and <a href="http://modernizr.com/">Modernizr</a>.</div>
         </div>
 	
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <?php echo $this->Html->script(array('jquery.min','jquery-ui.min','tiny_mce/tiny_mce','jwplayer/jwplayer'), array('inline'=>false));?>
-
-  
