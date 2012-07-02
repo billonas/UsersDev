@@ -146,7 +146,7 @@ class Report extends AppModel{
     }
 */
    function findSpecies(){
-         return $this->find('all', array('fields' => 'DISTINCT Specie.scientific_name', 'conditions' => array('Report.state' => 'confirmed')));
+         return $this->find('all', array('fields' => 'DISTINCT Specie.scientific_name', 'conditions' => array('Report.state' => 'confirmed'), 'order' => array('Specie.scientific_name')));
     }
 
     function findSpeciesReports($species) {
@@ -175,8 +175,8 @@ class Report extends AppModel{
          return $s;
     }
 
-    function findAreas(){
-         $perioxes = $this->find('all', array('fields' => 'DISTINCT Report.area', 'conditions' => array('Report.state' => 'confirmed')));
+     function findAreas(){
+         $perioxes = $this->find('all', array('fields' => 'DISTINCT Report.area', 'conditions' => array('Report.state' => 'confirmed'), 'order' => array('Specie.scientific_name')));
          return $perioxes;
     }
 
