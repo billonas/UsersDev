@@ -89,7 +89,11 @@ class ReportsController extends AppController{
 		    $this->request->data['Report']['exif'] = $this->Image->readexif($this->data['Report']['image']['tmp_name']);
                     //RENAME IMAGE FILE AND SAVE TO TEMPORARY DIR
                     $this->request->data['Report']['image']['name'] = $this->Image->tmpRename($this->request->data['Report']['image']);
-                    $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', ''); 
+                    $uploaded = $this->JqImgcrop->uploadImage($this->data['Report']['image'], '/img/temporary/', '');
+		    if(!$uploaded){
+                         $this->Session->setFlash('Πρόβλημα στη φόρτωση της φωτογραφίας (Ίσως η φωτογραφία είναι πολύ μεγάλη)','flash_bad');
+                        $this->redirect('create');  
+                    } 
                     $this->Session->write('uploaded1',$uploaded);
                 }
                 /* Video Upload */
@@ -119,8 +123,10 @@ class ReportsController extends AppController{
                 if(empty($this->data['Report']['image']['name']) && empty($this->data['Report']['video_file']['name'])) {
                     $this->Session->setFlash('Παρακαλώ εισάγετε μια φωτογραφία ή ένα βίντεο','flash_good');
                 }
+                
             }
             else{
+                
                 /* Crop needed */
                 if(!empty($this->data['Report']['x1'])){
                    $cropped = $this->JqImgcrop->cropImage($this->data['Report']['w'], $this->data['Report']['x1'], $this->data['Report']['y1'], $this->data['Report']['x2'], $this->data['Report']['y2'], $this->data['Report']['w'], $this->data['Report']['h'], $this->data['Report']['imagePath'], $this->data['Report']['imagePath']);
@@ -171,6 +177,8 @@ class ReportsController extends AppController{
                 }
             }
         }
+        $hotspecies = ClassRegistry::init('HotSpecie')->find('all');
+        $this->set('hotspecies',$hotspecies);
    }
    
    /*
@@ -563,16 +571,16 @@ class ReportsController extends AppController{
           }
         $species = $this->Report->findSpecies();
         $this->set('species',$species);
-        $sAreas = $this->Report->findSpeciesAreas($species);
-        $sReports = $this->Report->findSpeciesReports($species);
+        $sAreas = $this->Report->findSpeciesAreas();
+       // $sReports = $this->Report->findSpeciesReports($species[0]['Specie']['scientific_name']);
         $this->set('sAreas',$sAreas);
-        $this->set('sReports',$sReports);
+        //$this->set('sReports',$sReports);
         $areas = $this->Report->findAreas();
         $this->set('areas', $areas);
-        $aSpecies = $this->Report->findAreasSpecies($areas);
-        $aReports = $this->Report->findAreasReports($areas);
+        $aSpecies = $this->Report->findAreasSpecies();
+        //$aReports = $this->Report->findAreasReports($areas[0]['Report']['area']);
         $this->set('aSpecies', $aSpecies);
-        $this->set('aReports', $aReports);
+        //$this->set('aReports', $aReports);
     }
     
     
