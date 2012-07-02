@@ -1,14 +1,20 @@
 <?php $this->set('title_for_layout', 'Προφίλ Αναλυτή - ΕΛΚΕΘΕ');?> 
 
+<?php echo $this->Html->css(array('main', 'jquery-ui', 'table')); ?>
+<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min')); ?>
+
 <script>
-
     $(document).ready(function()
-        {  
-            $('.item a.deleteButton').click(function(e) {
-                return confirm('Είστε βέβαιος/η ότι θέλετε να διαγράψετε αυτόν τον αναλυτή;');
-            });
+    {
+        // Add confirmation before delete
+        $('a.deleteButton').click(function(e) {
+            e.stopPropagation();
+            return confirm('Είστε βέβαιος/η ότι θέλετε να διαγράψετε αυτόν τον χρήστη;');
+        });
+        
+        // Add button style
+        $('a.deleteButton, a.backButton, a.upgradeButton').button();
     });
-
 </script>
 
 <div class="middle_row  big_row">
@@ -60,13 +66,21 @@
 														'div' => false,
                                                         'class' => ' std_form'));									  
 								    ?>
-                                <?php echo '<table><tr>';
-                                    echo '<td>'.$this->Html->link('Πίσω', '/users/edit_users?text=&userType1=analyst&userType2=simple&userType3=hyperanalyst', array('class' => 'button_like_anchor')).'</td>';
-                                    echo '<td>'.$this->Html->link('Διαγραφή αναλυτή', array('controller'=>'users', 'action'=>'delete', $analyst['User']['id']), array('class' => 'button_like_anchor deleteButton')).'</td>';
-                                    echo '<td>'.$this->Html->link('Αναβάθμιση αναλυτή', array('controller'=>'analysts', 'action'=>'upgrade', $analyst['User']['id']), array('class' => 'button_like_anchor deleteButton')).'</td>';
-                                    echo '</tr></table>';
-                                    
-                                ?>
+               
+                                <div style="margin-top:2em; margin-left: auto; margin-right: auto;">
+                                    <a class="backButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'edit_users', '?'=>'text=&userType1=analyst&userType2=simple&userType3=hyperanalyst'))?>" >
+                                        <img class="icon" src="../../img/blackUpArrow.png" style="transform: rotate(270deg);-ms-transform: rotate(270deg);-webkit-transform: rotate(270deg);-o-transform: rotate(270deg);-moz-transform: rotate(270deg);"/>
+                                        Πίσω
+                                    </a>
+                                    <a class="upgradeButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'upgrade', $analyst['User']['id']))?>" >
+                                        <img class="icon" src="../../img/blackUpArrow.png"/>
+                                        Αναβάθμιση αναλυτή
+                                    </a>
+                                    <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $analyst['User']['id']))?>" >
+                                        <img class="icon" src="../../img/whiteX.png"/>
+                                        Διαγραφή αναλυτή
+                                    </a>
+                                </div>
 			    </div>
 			</div>
 </div>
