@@ -118,6 +118,9 @@ class Report extends AppModel{
 	   }
 	   else $report['Report']['species_id'] = $species['Specie']['id'];
 	}
+        else if(!strcmp($report['Report']['state'], "confirmed")){
+              return -1;
+        }
 	return $this->save($report);
      }
 

@@ -281,10 +281,8 @@ class ReportsController extends AppController{
                 $report = $this->Report->findById($reportId);
                 $this->informAnalysts($categoryId,$reportId,$report);
                 /* Save report's edited data */
-                if($this->Report->saveReport($this->data)) {
+                if(($ret = $this->Report->saveReport($this->data)) > 0) {
                     $this->data = $this->Report->findById($id);
-                    /* Save new species */
-                    //ClassRegistry::init('Specie')->save($this->data['Report']['scientific_name']);
                     /* Find categories categories */
                     $categories = ClassRegistry::init('Category')->find('all');
                     $this->set('categories',$categories);
@@ -309,7 +307,9 @@ class ReportsController extends AppController{
                             $i++;
                     }
                     $this->set('species',$species);
-                    $this->Session->setFlash('Η αναφορά δεν αναλύθηκε επιτυχώς','flash_bad');
+                    if(!$ret)
+                     $this->Session->setFlash('Η αναφορά δεν αναλύθηκε επιτυχώς','flash_bad');
+                    else $this->Session->setFlash('Παρακαλώ εισάγεται Επιστημονική Ονομασία για να επικυρωθεί η αναφορά','flash_bad');
                 }    
             }
 //        }
