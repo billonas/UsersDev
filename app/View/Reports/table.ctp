@@ -39,8 +39,8 @@
                 sortList: [[0,1]], //sort the first column in descending order
                 headers:
                 {
-                    1: { sorter: false },
-                    5: { sorter: false }
+                    1: { sorter: false }, //photo
+                    5: { sorter: false } //buttons
                 }
             }).tablesorterPager({container: $("#pager")});
         
@@ -69,7 +69,6 @@
     <div class="middle_wrapper">
         <div>
             <div class="login_box">  
-                <p><?php //echo print_r($reports)?></p>
             <h1>Πίνακας Αναφορών</h1>
             <div class="flash_box gradient">
                 <?php echo $this->Session->flash().'</br>';?>
@@ -149,7 +148,7 @@
                 </div>
                 <?php if (empty($reports)): ?>
                 <div class="report noItemsFiller">
-                    <h2><center>There are no reports</center></h2>
+                    <h2><center>Δεν υπάρχουν αναφορές</center></h2>
                 </div>
                 <?php else: ?>
                 <table id="reportsTable" class="tablesorter reportsTable">
@@ -159,7 +158,6 @@
                             <th class="{sorter: false}">Φωτογραφία Παρατήρησης</th>
                             <th>Κατηγορία</th>
                             <th>Eίδος</th>
-    <!--                            <th>Κατάσταση</th>-->
                             <th>Τελευταία Επεξεργασία</th>
                             <th class="{sorter: false}">Ενέργειες</th>
                         </tr>
