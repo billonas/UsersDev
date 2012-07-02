@@ -24,10 +24,73 @@ class ReportsController extends AppController{
    	$this->set('reports', $data);
    }
 
-   function excelExport(){ //http://bakery.cakephp.org/articles/segy/2012/04/02/phpexcel_helper_for_generating_excel_files
+  function excelExport(){ //http://bakery.cakephp.org/articles/segy/2012/04/02/phpexcel_helper_for_generating_excel_files
         $this->clearReportSession();
-        $data = $this->Report->find('all');
-        $this->set('data', $data);
+        if ((!empty($this->params['url']['text']))||(!empty($this->params['url']['state1']))||(!empty($this->params['url']['state2']))||(!empty($this->params['url']['state3']))) {
+                /* Filtering by species or category needed */
+                if(!empty($this->params['url']['text'])){
+                    /* States accepted */
+                    $state = array();
+                    if(!empty($this->params['url']['state1'])){
+                        array_push($state, $this->params['url']['state1']);
+                        $state1 = $this->params['url']['state1'];
+                    }
+                    if(!empty($this->params['url']['state2'])){
+                        array_push($state, $this->params['url']['state2']);
+                    }
+                    if(!empty($this->params['url']['state3'])){
+                        array_push($state,$this->params['url']['state3']);
+                    }
+                    $conditions = array(
+                            'Report.state' => $state
+                    );
+                    /* Filtering by species */
+                    if(!strcmp($this->params['url']['select'],'species')){
+                        $conditions = array(
+                            'Specie.scientific_name'=> $this->params['url']['text'],
+                            'Report.state' => $state
+                        );
+
+                    }
+                    /* Filtering by category */
+                    else if(!strcmp($this->params['url']['select'],'category')){
+                        $conditions = array(
+                           'Category.category_name'=> $this->params['url']['text'],
+                           'Report.state' => $state
+                        );
+                        
+                    }
+                    /* Find reports */
+                    $data = $this->Report->find("all", array('conditions'=> $conditions));
+                    $this->set('data',$data);
+                }
+                /* Filtering by states */
+                else{
+                    /* States accepted */
+                    $state = array();
+                    if(!empty($this->params['url']['state1'])){
+                        array_push($state, $this->params['url']['state1']);
+                    }
+                    if(!empty($this->params['url']['state2'])){
+                        array_push($state, $this->params['url']['state2']);
+                    }
+                    if(!empty($this->params['url']['state3'])){
+                        array_push($state, $this->params['url']['state3']);
+                    }
+                    $conditions = array(
+                            'Report.state' => $state
+                    );
+        $data = $this->Report->find('all', array('conditions'=> $conditions));
+                   $this->set('data', $data);
+                }
+            }
+            /* Filtering not needed */
+            else{
+                /* Find reports */
+                 $data = $this->Report->find("all");
+                 $this->set('data',$data);
+            }
+        
    }
    
    
