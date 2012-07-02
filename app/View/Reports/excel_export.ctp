@@ -32,7 +32,6 @@ array('label' => __('Κατηγορία'), 'width' => 'auto'),
 array('label' => __('Επιστημονική ονομασία'), 'width' => 'auto'),
 array('label' => __('Σχόλια αναλυτή'), 'width' => 'auto'),
 array('label' => __('Κατάσταση'), 'width' => 'auto'),
-array('label' => __('Αξιολόγηση(βαθμολογία)'), 'width' => 'auto'),
 array('label' => __('Επεξεργάστηκε από'), 'width' => 'auto'),
 array('label' => __('Δημιουργία'), 'width' => 'auto'),
 array('label' => __('Τροποποίηση'), 'width' => 'auto'),
@@ -42,6 +41,12 @@ array('label' => __('Τροποποίηση'), 'width' => 'auto'),
 $this->PhpExcel->addTableHeader($table, array('name' => 'Cambria', 'bold' => true, 'offset' => 0));
 // data
 foreach ($data as $d) {
+ if(!strcmp($d['Report']['state'], "confirmed"))
+     $d['Report']['state'] = "Έγκυρη";
+ else if(!strcmp($d['Report']['state'], "unreliable"))
+     $d['Report']['state'] = "Αναξιόπιστη";
+ else if(!strcmp($d['Report']['state'], "unknown"))
+     $d['Report']['state'] = "Άγνωστη";
 if($d['Report']['observer'] == null){
     $this->PhpExcel->addTableRow(array(
         $d['Report']['permissionUseMedia'],
@@ -71,7 +76,6 @@ $d['Category']['category_name'],
 $d['Specie']['scientific_name'],
 $d['Report']['analyst_comments'],
 $d['Report']['state'],
-$d['Report']['voting'],
 $d['Last_edited_by']['name'],
 $d['Report']['created'],
 $d['Report']['modified']
@@ -106,7 +110,6 @@ $d['Category']['category_name'],
 $d['Specie']['scientific_name'],
 $d['Report']['analyst_comments'],
 $d['Report']['state'],
-$d['Report']['voting'],
 $d['Last_edited_by']['name'],
 $d['Report']['created'],
 $d['Report']['modified']
