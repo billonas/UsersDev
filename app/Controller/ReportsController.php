@@ -608,18 +608,32 @@ class ReportsController extends AppController{
     }
     
     function showspecies(){
+        if(!empty($this->params['url']['species'])||!empty($this->params['url']['area'])){
+            /* Filter by species */
+            if(!empty($this->params['url']['species'])){
+                $this->set('current_species',$this->params['url']['species']);
+                $conditions = array(
+                           'Report.scientific_name'=> $this->params['url']['species']
+                );
+            }
+            /* Filter by area */
+            else if(!empty($this->params['url']['area'])){
+                $this->set('current_area',$this->params['url']['area']);
+                $conditions = array(
+                           'Report.area' => $this->params['url']['area']
+                );
+            }
+            /* Find reports */
+            $this->set('reports',$this->Report->find('all', array('conditions'=> $conditions)));
+        }
         $species = $this->Report->findSpecies();
         $this->set('species',$species);
         $sAreas = $this->Report->findSpeciesAreas();
-       // $sReports = $this->Report->findSpeciesReports($species[0]['Specie']['scientific_name']);
         $this->set('sAreas',$sAreas);
-        //$this->set('sReports',$sReports);
         $areas = $this->Report->findAreas();
         $this->set('areas', $areas);
         $aSpecies = $this->Report->findAreasSpecies();
-        //$aReports = $this->Report->findAreasReports($areas[0]['Report']['area']);
         $this->set('aSpecies', $aSpecies);
-        //$this->set('aReports', $aReports);
     }
     
     function informAnalysts($categoryId,$reportId,$report){
