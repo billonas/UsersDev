@@ -254,5 +254,5 @@
                             echo '<td>'.((!strcmp($report['Report']['phone_number'],'')) ? '-' : $report['Report']['phone_number']).'</td></tr>';
                              
                             echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
-                            echo '<td>'.((!strcmp($report['Report']['email'],'')) ? '-' : $report['Report']['email']).'</td></tr>';?>
+                            echo '<td>'.((!strcmp($report['Report']['email'],'')) ? '-' : $report['Report']['email']).'</td></tr></table>';?>
 </div>
