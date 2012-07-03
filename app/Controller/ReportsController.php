@@ -428,13 +428,15 @@ class ReportsController extends AppController{
             /* Commit edited information step */
             else {
                 /* Send email to the aproppriate analysts */
+                if($this->request->data['Report']['category_id'] != '-'){
                 $option = $this->request->data['Report']['notifyAnalysts'];
                 if($option != 0){
                 $categoryId = $this->request->data['Report']['category_id'];
                 $reportId = $this->request->data['Report']['id'];
                 $report = $this->Report->findById($reportId);
                 $this->informAnalysts($categoryId,$reportId,$report,$option);
-                } 
+                }
+                }
                 /* Save report's edited data & save new species if needed */
                 if(($ret = $this->Report->saveReport($this->data)) > 0) {
                     $this->data = $this->Report->findById($id);
@@ -687,7 +689,8 @@ class ReportsController extends AppController{
             if($option==2){
             $analysts1 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category1' => $categoryId)));
             $analysts2 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category2' => $categoryId)));
-            $analysts = $analysts1 + $analysts2; //union
+            //$analysts = $analysts1 + $analysts2; //union
+            $analysts = array_merge($analysts1, $analysts2);
             }
             else if($option==1)
                 $analysts = ClassRegistry::init('Analyst')->find('all');
