@@ -22,7 +22,7 @@
 				<div class="register_box login_box" align="center">
 			 		<br><h1>Προφίλ αναλυτή</h1></br>
 
-					<?php echo $this->Form->create('Analyst', array('action' => 'edit'));?>
+					<?php echo $this->Form->create('Analyst', array('action' => 'update'));?>
                <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
                                         <table>
 					<?php 

@@ -241,39 +241,13 @@ class AnalystsController extends AppController{
             
       }
 
-      $user = $this->Analyst->User->findById($id);
+      $analyst = $this->Analyst->findById($id);
       
-      $this->set('user', $user); 
+      $this->set('analyst', $analyst); 
       $this->set('post_id', $id); 
       
     }
   
-    function show($id = null)
-    {
-      if((!$this->Session->check('UserUsername')) || 
-                   (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
-      {
-         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
-      }
-      if($id==null){
-          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
-          $this->redirect();
-      }
-      else
-      {
-         $analyst =$this->Analyst->findById($id); 
-         if($analyst == null)
-         {
-          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
-          $this->redirect();
-         }
-         else
-         {
-          $this->set('analyst', $analyst);
-         }
-      }
-    }
-
     function downgrade($id = null)
     {
       if((!$this->Session->check('UserUsername')) || 

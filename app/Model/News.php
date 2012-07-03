@@ -17,6 +17,10 @@ class News extends AppModel{
             'rule' => 'notEmpty'
         )
     );
+    
+    public function getLast(){
+         return $this->find('first', array('order' => array('created DESC')));
+    }
 }
 
 ?>
