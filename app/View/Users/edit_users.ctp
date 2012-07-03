@@ -85,7 +85,7 @@
                         <table>                        
                             <tr>
                                 <td>
-                                    <select name="testType" id="filterType"">
+                                    <select name="textType" id="filterType"">
                                         <option value="username">Όνομα χρήστη</option>
                                         <option value="name">Όνομα</option>
                                         <option value="surname" selected="selected">Επώνυμο</option>
