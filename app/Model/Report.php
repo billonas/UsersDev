@@ -197,7 +197,7 @@ class Report extends AppModel{
     }
 
      function findAreas(){
-         $perioxes = $this->find('all', array('fields' => 'DISTINCT Report.area', 'conditions' => array('Report.state' => 'confirmed'), 'order' => array('Specie.scientific_name')));
+         $perioxes = $this->find('all', array('fields' => 'DISTINCT Report.area', 'conditions' => array('Report.state' => 'confirmed'), 'order' => array('Report.area')));
          return $perioxes;
     }
 
