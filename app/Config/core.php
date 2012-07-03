@@ -175,8 +175,8 @@
 	Configure::write('Session', array(
 		'defaults' => 'cake',
                 'cookie' => 'HCMR',
-                'timeout' => '60',
-                //'cookieTimeout' => '60',
+                'timeout' => '480',  //refresh session for 8 hours at every request
+                'cookieTimeout' => '2880',  //hold session for at most 2 days
                 'autoRegenerate' => false
 	));
 
