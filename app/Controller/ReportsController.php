@@ -392,7 +392,7 @@ class ReportsController extends AppController{
    
     function edit($id = null) {
           /* Check loggen in user permission rights */
-//        if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
+        if($this->Session->check('UserUsername')&&(strcmp($this->Session->read('UserType'),'simple'))){
             if ($id==null) {
                 $this->Session->setFlash('Invalid ID');
                 $this->redirect('table');
@@ -464,11 +464,10 @@ class ReportsController extends AppController{
                     else $this->Session->setFlash('Παρακαλώ εισάγεται Επιστημονική Ονομασία για να επικυρωθεί η αναφορά','flash_bad');
                 }    
             }
-//        }
-//        else{
-//            $this->Session->setFlash('Access denied');
-//            $this->redirect('table'); 
-//        }
+        }
+        else{
+            $this->redirect('table'); 
+        }
     }
     
     /* 
@@ -477,7 +476,7 @@ class ReportsController extends AppController{
     
     function delete($id = null) {
         /* Check loggen in user permission rights */
-//        if($this->Session->check('UserUserName')&&($this->Session->read('UserType') == 'hyperanalyst')){
+        if($this->Session->check('UserUsername')&&($this->Session->read('UserType') == 'hyperanalyst')){
             /* Id not given */
             if ($id==null) {
                 $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
@@ -494,28 +493,32 @@ class ReportsController extends AppController{
                 $this->Session->setFlash('Η αναφορά '.$id.' διαγράφηκε επιτυχώς','flash_good');
                 $this->redirect(array('action'=>'table'), null, true);
             }
-//        }
-//        else{
-//            $this->Session->setFlash('Access denied');
-//            $this->redirect('table');  
-//        }
+        }
+        else{
+            $this->redirect('table');  
+        }
     }
     
     function view($id = null) {
         /* Check loggen in user permission rights */
-//        if($this->Session->check('UserUserName')) {  
+        if($this->Session->check('UserUsername')) {  
             if($id==null){
                 $this->Session->setFlash('Invalid ID');
-                $this->redirect();
+                $this->redirect(array('controller'=>'pages', 'action'=>'display')); 
             }
             else{
-                $this->set('report',$this->Report->findById($id));
+                $report = $this->Report->findById($id);
+                if(!strcmp($report['User']['email'],$this->Session->read('UserUserName'))){
+                    $this->set('report',$report);
+                }
+                else{
+                    $this->redirect(array('controller'=>'pages', 'action'=>'display'));
+                }
             }
-//        }
-//        else{
-//            $this->Session->setFlash('Access denied');
-//            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
-//        }
+        }
+        else{
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
+        }
     }
     
     /* 
@@ -524,7 +527,7 @@ class ReportsController extends AppController{
     
     function table(){
         /* Check loggen in user permission rights */
-//      if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
+      if($this->Session->check('UserUsername')&&(strcmp($this->Session->read('UserType'),'simple'))){
             /* Find categories' names */
             $table = ClassRegistry::init('Category')->find('all');
             $temp_species = ClassRegistry::init('Specie')->find('all');
@@ -608,11 +611,10 @@ class ReportsController extends AppController{
                  $reports = $this->Report->find("all");
                  $this->set('reports',$reports);
             }
-//       }
-//       else{
-//            $this->Session->setFlash('Access denied');
-//            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
-//       }
+       }
+       else{
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
+       }
     }
     
     /*
@@ -642,16 +644,16 @@ class ReportsController extends AppController{
      */
     
     function showspecies(){
-        if(!empty($this->params['url']['species'])||!empty($this->params['url']['area'])){
+        if(isset($this->params['url']['species'])||isset($this->params['url']['area'])){
             /* Filter by species */
-            if(!empty($this->params['url']['species'])){
+            if(isset($this->params['url']['species'])){
                 $this->set('current_species',$this->params['url']['species']);
                 $conditions = array(
-                           'Report.scientific_name'=> $this->params['url']['species']
+                           'Specie.scientific_name'=> $this->params['url']['species']
                 );
             }
             /* Filter by area */
-            else if(!empty($this->params['url']['area'])){
+            else if(isset($this->params['url']['area'])){
                 $this->set('current_area',$this->params['url']['area']);
                 $conditions = array(
                            'Report.area' => $this->params['url']['area']
