@@ -156,22 +156,7 @@
 
                     //$options = array('-'=>'-','few' => '1-5', 'some' => '6-10','many' => '10-30');
                     echo '<tr><td><label for="ReportCrowd" class="std_form">Πλήθος Ατόμων Είδους </label></td>';
-                    echo '<td>';
-                    switch($report['Report']['crowd']){
-                        case '-':
-                            echo '-';
-                            break;
-                        case 'few':
-                            echo '1-5';
-                            break;
-                        case 'some':
-                            echo '6-10';
-                            break;
-                        case 'many':
-                            echo '10-30';
-                            break;    
-                    }    
-                    echo'</td></tr>';
+                    echo '<td>'.$report['Report']['crowd'].'</td></tr>';
                     
                     echo '<tr><td><label for="ReportComments" class="std_form">Επιπλέον Σχόλια </label></td>';
                     echo '<td>'.((!strcmp($report['Report']['comments'],'')) ? '-' : $report['Report']['comments']).'</td></tr>';             

@@ -1323,10 +1323,6 @@ kodikas selidas report
     max-height: 15em;
 }
 
-#f2 img:hover{
- max-width: 20%;
- max-height: 17em;
- }
 
 #tabs div input.big_button{
     width: 19em;

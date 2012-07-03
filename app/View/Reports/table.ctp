@@ -76,7 +76,13 @@
             
             <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'excelExport', '?' => $this->params['url'])) ?>">
                 <div class="inner">
-                    <span>Εξαγωγή</span>
+                    <span>Εξαγωγή εμφανιζόμενων</span>
+                    <img class="icon" src="../img/whiteArrow.png"/>
+                </div>
+            </a>
+            <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'excelExport')) ?>">
+                <div class="inner">
+                    <span>Εξαγωγή όλων</span>
                     <img class="icon" src="../img/whiteArrow.png"/>
                 </div>
             </a>

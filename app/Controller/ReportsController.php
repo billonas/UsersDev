@@ -236,7 +236,7 @@ class ReportsController extends AppController{
                 if(!empty($this->data['Report']['image4']['name'])){
                     $res = $this->Image->checkImage($this->data['Report']['image4']);
                     if(!$res){
-                        $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική τρίτη φωτογραφία','flash_bad');
+                        $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική τέταρτη φωτογραφία','flash_bad');
                         $this->redirect('create');
                     }
                     else if($res > 0){
@@ -251,7 +251,7 @@ class ReportsController extends AppController{
                 if(!empty($this->data['Report']['image5']['name'])){
                     $res = $this->Image->checkImage($this->data['Report']['image5']);
                     if(!$res){
-                        $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική τρίτη φωτογραφία','flash_bad');
+                        $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική πέμπτη φωτογραφία','flash_bad');
                         $this->redirect('create');
                     }
                     else if($res > 0){
@@ -266,7 +266,7 @@ class ReportsController extends AppController{
                 if(!empty($this->data['Report']['image6']['name'])){
                     $res = $this->Image->checkImage($this->data['Report']['image6']);
                     if(!$res){
-                        $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική τρίτη φωτογραφία','flash_bad');
+                        $this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική έκτη φωτογραφία','flash_bad');
                         $this->redirect('create');
                     }
                     else if($res > 0){
@@ -312,7 +312,7 @@ class ReportsController extends AppController{
                     $this->request->data['Report']['main_photo'] = "../webroot$main_photo";
                     $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['main_photo'], "reports", "main_photo");
                     if(!$ret){
-                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->Session->setFlash("Πρόβλημα στη διαχείριση της εικόνας");
                     $this->redirect('create');
                     }
                 }
@@ -320,7 +320,7 @@ class ReportsController extends AppController{
                 if(!empty($this->data['Report']['video'])){
                     $ret = $this->Video->mvSubVideo($this->Report, $this->data['Report']['video'], "reports");
                     if(!$ret){
-                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->Session->setFlash("Πρόβλημα στη διαχείριση της εικόνας");
                     $this->redirect('create');
                     }
                 }
@@ -329,7 +329,7 @@ class ReportsController extends AppController{
                     $this->request->data['Report']['additional_photo1'] = "../webroot$additional_photo1";
                     $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo1'], "reports", "additional_photo1", "a");
                     if(!$ret){
-                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->Session->setFlash("Πρόβλημα στη διαχείριση της εικόνας");
                     $this->redirect('create');
                     }
                 }
@@ -338,7 +338,7 @@ class ReportsController extends AppController{
                     $this->request->data['Report']['additional_photo2'] = "../webroot$additional_photo2";
                     $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo2'], "reports", "additional_photo2", "b");
                     if(!$ret){
-                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->Session->setFlash("Πρόβλημα στη διαχείριση της εικόνας");
                     $this->redirect('create');
                     }
                 }
@@ -347,7 +347,7 @@ class ReportsController extends AppController{
                     $this->request->data['Report']['additional_photo3'] = "../webroot$additional_photo3";
                     $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo3'], "reports", "additional_photo3", "c");
                     if(!$ret){
-                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->Session->setFlash("Πρόβλημα στη διαχείριση της εικόνας");
                     $this->redirect('create');
                     }
                 }
@@ -356,7 +356,7 @@ class ReportsController extends AppController{
                     $this->request->data['Report']['additional_photo4'] = "../webroot$additional_photo4";
                     $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo4'], "reports", "additional_photo4", "d");
                     if(!$ret){
-                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->Session->setFlash("Πρόβλημα στη διαχείριση της εικόνας");
                     $this->redirect('create');
                     }
                 }
@@ -365,7 +365,7 @@ class ReportsController extends AppController{
                     $this->request->data['Report']['additional_photo5'] = "../webroot$additional_photo5";
                     $ret = $this->Image->mvSubImg($this->Report, $this->data['Report']['additional_photo4'], "reports", "additional_photo5", "e");
                     if(!$ret){
-                    $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                    $this->Session->setFlash("Πρόβλημα στη διαχείριση της εικόνας");
                     $this->redirect('create');
                     }
                 }
@@ -375,7 +375,7 @@ class ReportsController extends AppController{
             } 
             // Save report's data failed
             else {
-                $this->Session->setFlash('Η αναφορά δεν κατατέθηκε επιτυχώς','flash_bad');
+                $this->Session->setFlash('Η κατάθεση της αναφοράς απέτυχε','flash_bad');
                 $this->set("validation", 1);
                 $this->redirect(array('controller'=>'Reports', 'action'=>'summary'));
             }
@@ -460,7 +460,7 @@ class ReportsController extends AppController{
                     }
                     $this->set('species',$species);
                     if(!$ret)
-                     $this->Session->setFlash('Η αναφορά δεν αναλύθηκε επιτυχώς','flash_bad');
+                     $this->Session->setFlash('Η ανάλυση της αναφοράς απέτυχε','flash_bad');
                     else $this->Session->setFlash('Παρακαλώ εισάγεται Επιστημονική Ονομασία για να επικυρωθεί η αναφορά','flash_bad');
                 }    
             }

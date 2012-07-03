@@ -140,7 +140,7 @@
                     <span class="little_specie_header"><?php echo $spc['Specie']['scientific_name']; ?></span>
                     <div class="img_frame">
                         <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg' ?>'/>
+                        <img class="specie_img" src='<?php echo $this->webroot.'img/'.$spc['Report']['main_photo']; ?>'/>
                     </div>
                     <div class="region_button_wrapper">
                         <span class="specie_areas"><span>Περιοχές: </span><?php $flag = false;foreach($sAreas[$spc['Specie']['scientific_name']] as $area){ if($flag) echo ", "; else $flag = true; echo $area;}?></span>
