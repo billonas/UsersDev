@@ -148,8 +148,8 @@
                         <a href="<?php echo $this->Html->url(array(
                                 "controller" => "reports",
                                 "action" => "showspecies",
-                                "?" => array("text" => ""),
-                                "#" => "species=".$spc['Specie']['scientific_name']
+                                "?" => array("species" => $spc['Specie']['scientific_name'])
+                                
                                 ));?>" class="more_info">Περισσότερα...
                         </a>
                         <?php //foreach($sReports as $report) echo $report['Report']['main_photo'];?> 
@@ -176,8 +176,7 @@
                         <a href="<?php echo $this->Html->url(array(
                                 "controller" => "reports",
                                 "action" => "showspecies",
-                                "?" => array("text" => ""),
-                                "#" => "area=".$area['Report']['area']
+                                "?" => array("area" => $area['Report']['area'])
                                 ));?>" class="more_info">Περισσότερα...
                         </a>
                        <?php //foreach($aReports as $report) echo $report['Report']['main_photo'];?>  
