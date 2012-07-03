@@ -147,18 +147,17 @@ class User extends AppModel
       ),
       /*'phone_number'=>array(  
                'rule1'=>array(
-                   'rule'=>'numeric',
-                   'alloempty'=>true,
+                   'rule'=>array('onlyNumbers'),
                    'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς χωρίς κενά'
              )
       ),*/
       
-    //  'address'=>array(  
-    //           'rule1'=>array(
-    //               'rule'=>'alphaNumeric',
-    //               'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
-    //         )
-    //  ),
+//      'address'=>array(  
+//               'rule1'=>array(
+//                   'rule'=>'alphaNumeric',
+//                   'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
+//             )
+//      ),
       );
 
 
@@ -391,7 +390,7 @@ class User extends AppModel
       {
          $phone = array_shift($check);
          //εάν password και confirm_password είναι ίσα 
-         if (preg_match("/^[0-9]+$/", $phone)) 
+         if (preg_match("/^[0-9]+$/", $phone) || (strcmp($phone , "")==0)) 
          {
             return true;
          }
