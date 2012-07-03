@@ -8,7 +8,7 @@
 class NewsController extends AppController {
     public $name = 'News';
     public $helpers = array('Html', 'Form');
-    var $uses = array('New');
+    var $uses = array('New', 'News');
 
     
     public function show() {
