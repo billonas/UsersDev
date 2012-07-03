@@ -291,7 +291,7 @@ class ReportsController extends AppController{
             }
         }
         /* Initialize report page */
-        $hotspecies = ClassRegistry::init('HotSpecie')->find('all');
+        $hotspecies = ClassRegistry::init('HotSpecie')->find('all', array('order'=>'HotSpecie.priority'));
         $this->set('hotspecies',$hotspecies);
    }
    
