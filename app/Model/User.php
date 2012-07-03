@@ -152,12 +152,12 @@ class User extends AppModel
              )
       ),
       
-    //  'address'=>array(  
-    //           'rule1'=>array(
-    //               'rule'=>'alphaNumeric',
-    //               'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
-    //         )
-    //  ),
+//      'address'=>array(  
+//               'rule1'=>array(
+//                   'rule'=>'alphaNumeric',
+//                   'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
+//             )
+//      ),
       );
 
 
