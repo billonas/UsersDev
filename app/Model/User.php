@@ -145,12 +145,12 @@ class User extends AppModel
              )
 
       ),
-      'phone_number'=>array(  
+      /*'phone_number'=>array(  
                'rule1'=>array(
                    'rule'=>array('onlyNumbers'),
                    'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς χωρίς κενά'
              )
-      ),
+      ),*/
       
 //      'address'=>array(  
 //               'rule1'=>array(
