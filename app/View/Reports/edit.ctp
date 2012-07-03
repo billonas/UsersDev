@@ -276,9 +276,9 @@
                         $options[$category['Category']['id']]= $category['Category']['category_name'];
                     }
                     echo '<tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td><td>'.$this->Form->input('category_id', array('options' => $options, 'label'=>false, 'class'=>'std_form', 'id'=>'selectCategory'));
-                    $notifyoptions= array('false' => 'Να μην ενημερωθούν οι αναλυτές', 'true' =>'Να ενημερωθούν οι αναλυτές');
+                    $notifyoptions= array('0' => 'Να μην ενημερωθούν οι αναλυτές', '1' =>'Να ενημερωθούν όλοι οι αναλυτές', '2' =>'Να ενημερωθούν οι αναλυτές της κατηγορίας');
                     echo $this->Form->input('notifyAnalysts', array('id'=>"notifyCategoryAnalysts", 'style' =>"margin-top:4px", 'div'=>false, 'options'=>$notifyoptions, 'label'=> false)).'</td></tr>';
-                    //echo '<select id="notifyCategoryAnalysts" name="notifyCategoryAnalysts" style="margin-top:4px"><option value="true">Να ενημερωθούν οι αναλυτές</option><option value="false">Να μην ενημερωθούν οι αναλυτές</option></select></td></tr>';
+                    
                     echo '<tr><td><label for="ReportState" class="std_form">Επιστημονική Ονομασία</label></td><td>'.$this->Form->input('Specie.scientific_name', array('label'=>false,'class'=>'std_form','id'=>'autoComplete')).'<div id="scientificNameMsg"></div></td></tr>';
                     ?><?php
                     $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');  								
