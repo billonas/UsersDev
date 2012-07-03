@@ -61,6 +61,9 @@ class JqImgcropComponent extends Component {
         }elseif($ext == "gif"){ 
             $source = imagecreatefromgif($image); 
         } 
+	else
+	    return $image;
+
         imagecopyresampled($newImage,$source,0,0,0,0,$newImageWidth,$newImageHeight,$width,$height); 
         if($ext == "png" || $ext == "PNG"){ 
             imagepng($newImage,$image,0); 
@@ -69,6 +72,7 @@ class JqImgcropComponent extends Component {
         }elseif($ext == "gif" || $ext == "GIF"){ 
             imagegif($newImage,$image); 
         } 
+
         chmod($image, 0777); 
         return $image; 
     } 
@@ -86,6 +90,9 @@ class JqImgcropComponent extends Component {
         }elseif($ext == "gif"){ 
             $source = imagecreatefromgif($image); 
         } 
+	else {
+            return $thumb_image_name;
+ 	}
         imagecopyresampled($newImage,$source,0,0,$start_width,$start_height,$newImageWidth,$newImageHeight,$width,$height);
 
         if($ext == "png" || $ext == "PNG"){ 
@@ -95,7 +102,7 @@ class JqImgcropComponent extends Component {
         }elseif($ext == "gif" || $ext == "GIF"){ 
             imagegif($newImage,$thumb_image_name); 
         } 
-
+         
         chmod($thumb_image_name, 0777); 
         return $thumb_image_name; 
     } 
