@@ -401,7 +401,10 @@ class User extends AppModel
       }
 
 //////////////////////////Customized Validation Actions(end)////////////////////
-
+      function getByPar($par, $value){
+          $conditions = array("$par LIKE" => "%$value%");
+	  return $this->find('all', array('conditions' => $conditions));
+      }
 
       
 }
