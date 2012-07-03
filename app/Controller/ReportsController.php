@@ -11,10 +11,15 @@ class ReportsController extends AppController{
     public $helpers = array('Html', 'Form', 'Cropimage','GoogleMapV3', 'Js','Session', 'Xls','Tinymce', 'PhpExcel.PhpExcel');
     public $components = array('JqImgcrop', 'Image','Video','Email');
 
+    
+   /*
+    * beforefilter is used before any action to clear report's session data if needed 
+    */ 
+    
    function beforeFilter(){
-     if(strcmp($this->params['action'],'create')&&strcmp($this->params['action'],'summary')){  
+        if(strcmp($this->params['action'],'create')&&strcmp($this->params['action'],'summary')){  
         $this->clearReportSession();
-     }
+        }
 
    }
     
@@ -24,6 +29,10 @@ class ReportsController extends AppController{
    	$this->set('reports', $data);
    }
 
+  /*
+   *  excelexport method is used to export reports table to spreadsheet
+   */ 
+   
   function excelExport(){ //http://bakery.cakephp.org/articles/segy/2012/04/02/phpexcel_helper_for_generating_excel_files
         $this->clearReportSession();
         if ((!empty($this->params['url']['text']))||(!empty($this->params['url']['state1']))||(!empty($this->params['url']['state2']))||(!empty($this->params['url']['state3']))) {
@@ -93,9 +102,11 @@ class ReportsController extends AppController{
         
    }
    
+   /* 
+    * downloadvid method is used to download report's video 
+    */
    
    function downloadvid($id = null) {
-       
         if(!$this->Session->check('UserUsername')){ $this->redirect(array('controller'=>'pages', 'action'=>'display'));}
         if(strcmp($this->Session->read('UserType'),'simple')){  
             $this->viewClass = 'Media';
@@ -109,13 +120,16 @@ class ReportsController extends AppController{
         
     }
    
+   /*
+    * createnew is used to clear create form data 
+    */ 
    
    function createnew(){
-       $this->redirect(array('action'=>'create'), null, true);
+         $this->redirect(array('action'=>'create'), null, true);
    }
    
    /*
-    * Create method handle data of a new report in order to build the report properly. 
+    * create method handle data of a new report in order to build the report properly. 
     */
    function create() {
         /* Check if user is registerd */
@@ -282,7 +296,7 @@ class ReportsController extends AppController{
    }
    
    /*
-    * Summary method handle data of a report in order to save the report properly. 
+    * summary method handle data of a report in order to save the report properly. 
     */
    
    function summary() {
@@ -372,6 +386,10 @@ class ReportsController extends AppController{
        }
    }
 
+   /*
+    *  edit method present report information to analysts and save edited data 
+    */
+   
     function edit($id = null) {
           /* Check loggen in user permission rights */
 //        if(($this->Session->check('UserUserName')&&(strcmp($this->Session->read('UserType'),'simple'))){
@@ -414,7 +432,7 @@ class ReportsController extends AppController{
                 $reportId = $this->request->data['Report']['id'];
                 $report = $this->Report->findById($reportId);
                 $this->informAnalysts($categoryId,$reportId,$report);
-                /* Save report's edited data */
+                /* Save report's edited data & save new species if needed */
                 if(($ret = $this->Report->saveReport($this->data)) > 0) {
                     $this->data = $this->Report->findById($id);
                     /* Find categories categories */
@@ -452,6 +470,10 @@ class ReportsController extends AppController{
 //            $this->redirect('table'); 
 //        }
     }
+    
+    /* 
+     * delete method is used to delete reports by hyperanalyst
+     */
     
     function delete($id = null) {
         /* Check loggen in user permission rights */
@@ -495,6 +517,10 @@ class ReportsController extends AppController{
 //            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
 //        }
     }
+    
+    /* 
+     * table method present reports table with or without filtering
+     */
     
     function table(){
         /* Check loggen in user permission rights */
@@ -589,23 +615,31 @@ class ReportsController extends AppController{
 //       }
     }
     
+    /*
+     * myreports method present all reports of logged in user
+     */
+    
     function myreports(){
-      /* Check loggen in user permission rights */
-      if(!$this->Session->check('UserUsername')){
-         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
-      }
-      /* Find user's id */
-      $email = $this->Session->read('UserUsername');
-      $userId = ClassRegistry::init('User')->getUserId($email);
-      /* Find user's reports */
-      if($userId !== false){
-        $reports = $this->Report->findUserReports($userId);
-        $this->set('reports', $reports);
-      }
-      else{
-          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
-      }
+        /* Check loggen in user permission rights */
+        if(!$this->Session->check('UserUsername')){
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
+        /* Find user's id */
+        $email = $this->Session->read('UserUsername');
+        $userId = ClassRegistry::init('User')->getUserId($email);
+        /* Find user's reports */
+        if($userId !== false){
+            $reports = $this->Report->findUserReports($userId);
+            $this->set('reports', $reports);
+        }
+        else{
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
     }
+    
+    /*
+     * showspecies method present reports of species by area or species
+     */
     
     function showspecies(){
         if(!empty($this->params['url']['species'])||!empty($this->params['url']['area'])){
@@ -626,6 +660,7 @@ class ReportsController extends AppController{
             /* Find reports */
             $this->set('reports',$this->Report->find('all', array('conditions'=> $conditions)));
         }
+        /* Retrieve species & areas information */
         $species = $this->Report->findSpecies();
         $this->set('species',$species);
         $sAreas = $this->Report->findSpeciesAreas();
@@ -635,6 +670,10 @@ class ReportsController extends AppController{
         $aSpecies = $this->Report->findAreasSpecies();
         $this->set('aSpecies', $aSpecies);
     }
+    
+    /*
+     * informanalysts is used to help edit method for sending email notifications to the appropriate analysts
+     */
     
     function informAnalysts($categoryId,$reportId,$report){
         /* Category edited */
