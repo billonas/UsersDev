@@ -112,6 +112,7 @@
 							<div class="upper_pop">
 								<div class="popup_list">   
                                                                     <ul>
+                                                                        <li><?php echo $this->Html->link('Νέα-Ανακοινώσεις', array('controller' => 'News', 'action'=>'show'));?></li>
                                                                         <li><?php echo $this->Html->link('Επικοινωνία', array('controller' => 'pages', 'action'=>'communication'));?></li>
                                                                         <li><?php echo $this->Html->link('Βοήθεια', array('controller' => 'pages', 'action'=>'help'));?></li>
                                                                         <li><?php echo $this->Html->link('Στόχοι μας', array('controller' => 'pages', 'action'=>'about'));?></li>

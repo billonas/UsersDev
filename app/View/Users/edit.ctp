@@ -1,5 +1,21 @@
 <?php $this->set('title_for_layout', 'Προφίλ Χρήστη - ΕΛΚΕΘΕ');?> 
- 
+<?php echo $this->Html->css(array('jquery-ui','bubbletip'),null, array('inline'=>false)); ?>
+<?php echo $this->Html->script(array('jquery.min','jQuery.bubbletip-1.0.6'), array('inline'=>false));?>
+
+<script>
+$(document).ready(function(){
+  
+    $(window).bind('load', function() {
+	$('#a1_right').bubbletip($('#tip1_right'), { calculateOnShow: true, deltaDirection: 'up' , offsetTop: -45 });
+    });  
+});
+
+
+</script>
+
+
+
+
     <div class="middle_row  big_row">
 			<div class="middle_wrapper">
 				<div class="register_box login_box" align="center">
@@ -11,16 +27,21 @@
                <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
                                         <table>
 					<?php 
-					echo '<tr><td><label for="UserName" class="name std_form">Όνομα<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.name', 
+                                        
+                                         echo '<tr><td><label for="UserUsername" class="username std_form">Ψευδώνυμο χρήστη:  </label></td><td><p>'.$user['User']['username'].'</p></td></tr>';
+					
+					echo '<tr><td><label for="UserName" class="name std_form">Όνομα:  </label></td><td><p>'.$this->Form->input('User.name', 
 									      array('default'=>$user['User']['name'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
-				    echo '<tr><td><label for="UserSurname" class="surname std_form">Επώνυμο<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.surname', 
+				    echo '<tr><td><label for="UserSurname" class="surname std_form">Επώνυμο:  </label></td><td><p>'.$this->Form->input('User.surname', 
 									      array('default'=>$user['User']['surname'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserSurame','placeholder' => 'π.χ. Κακομοίρογλου','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
 					
-					echo '<tr><td><label for="UserEmail" class="mail std_form">e-mail<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.email', 
-									      array('default'=>$user['User']['email'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserEmail', 'placeholder' => 'π.χ. mymail@mail.com','class' => ' std_form blue_shadow')).'</p></td></tr>';
-				    echo '<tr><td><label for="UserPhone" class="phone std_form">Τηλέφωνο:  </label></td><td><p>'.$this->Form->input('User.phone_number', 
+					echo '<tr><td><label for="UserEmail" class="mail std_form">E-mail:  </label></td><td><p>';
+                                        echo $user['User']['email'].'</p></td><td><a id="a1_right" href="#">'.$this->Html->image('info.png').'</a></td></tr>';
+                                        
+                                        
+                                        echo '<tr><td><label for="UserPhone" class="phone std_form">Τηλέφωνο:  </label></td><td><p>'.$this->Form->input('User.phone_number', 
 									      array('default'=>$user['User']['phone_number'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserPhone','placeholder' => 'π.χ. 234385497','class' => ' std_form blue_shadow')).'</p></td></tr>';
 						  
 					echo '<tr><td><label for="UserAddress" class="address std_form">Διεύθυνση:  </label></td><td><p>'.$this->Form->input('User.address', 
@@ -47,3 +68,10 @@
 			    </div>
 			</div>
     </div>
+
+
+
+<div id="tip1_right" style="display:none;">
+    <div>Αν θέλετε αλλάξετε το e-mail ή τον κωδικό σας μπορείτε να το κάνετε μέσα απο τις <?php echo $this->Html->link('ρυθμίσεις λογαριασμού', array('controller' => 'Users', 'action'=>'account'),array('target' => '_blank'));?> </div>
+</div>
+
