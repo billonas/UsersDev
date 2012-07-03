@@ -179,7 +179,7 @@ h2 {
 /*    float: right;*/
     margin: 0px 1px 0px 0.5em;
 }
-.exportLink a {
+a.exportLink {
     text-decoration: inherit;
     color: inherit;
 }
