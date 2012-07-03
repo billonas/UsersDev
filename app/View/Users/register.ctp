@@ -27,7 +27,7 @@ $(document).ready(function(){
 					<?php echo $this->Form->create('User', array('action' => 'register'));?>
                <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
                <table>
-                                       <td> <table>
+                                       <td style="width: 25%;"> <table>
 					<?php 
                                         echo '<tr><td><label for="UserUsername" class="username std_form">Ψευδώνυμο χρήστη<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.username', 
 									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserUsername','placeholder' => 'Τουλάχιστον 4 Χαρακτήρες','class' => ' std_form blue_shadow')).'</p></td></tr>';
@@ -46,7 +46,7 @@ $(document).ready(function(){
 
                                         echo '<tr><td><label for="UserPasswordCfm" class="youpasswdcfm std_form">Επαναλάβετε τον Κωδικό<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.passwordConfirm', 
                                                                                 array('label' => false, 'div' => false, 'type' => 'password', 'required' => 'required', 'id'=> 'UserPasswordCfm','placeholder' => 'Τουλάχιστον 8 Χαρακτήρες','class' => ' std_form blue_shadow')).'</p></td></tr>';			  
-                                        echo '</table></td><td><table>';
+                                        echo '</table></td><td style="width: 25%;"><table>';
                                         echo '<tr><td><label for="UserPhone" class="phone std_form">Τηλέφωνο:  </label></td><td><p>'.$this->Form->input('User.phone_number', 
                                                                                 array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserPhone','placeholder' => 'π.χ. 234385497','class' => ' std_form blue_shadow')).'</p></td></tr>';
 					echo '<tr><td><label for="UserAddress" class="address std_form">Διεύθυνση:  </label></td><td><p>'.$this->Form->input('User.address', 
@@ -74,9 +74,10 @@ $(document).ready(function(){
 				                                       
 					?></td></table>	
                </table>
-                                </div>
+                                
                             <div align="center">
-                                        <table><tr><td>
+                                        <table><td>
+                                                
 					<?php echo $this->Recaptcha->show(array(
 						'theme' => 'white',
 						'custom_translations' => array('instructions_visual' => 'Γράψτε τις λέξεις')	
@@ -85,7 +86,7 @@ $(document).ready(function(){
    					echo $this->Recaptcha->error();	 ?>
                                         </td><td><?php echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';?></td></tr></table>
                                       
-				<?php echo '</div><div class="register_box login_box" align="center">';	
+				<?php 
 					echo '</br><p>'.$this->Form->end(array(
 									'name' => 'data[User][register]',
 									'label' => 'Εγγραφή',

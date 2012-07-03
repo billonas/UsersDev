@@ -5,9 +5,9 @@
 ?>
 <?php echo $this->Html->css(array('main', 'jquery-ui', 'table', 'jquery.tablesorter.pager.css')); ?>
 <?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js')); ?>
-<?php
-    //echo '<script type="text/javascript" src="'.$this->GoogleMapV3->apiUrl().'"></script>';
-?>
+
+<?php $this->set('title_for_layout', 'Πίνακας αναφορών - ΕΛΚΕΘΕ');?>  
+
 <script>        
     // autocomplete hints for category and species
     var hints =
@@ -39,8 +39,8 @@
                 sortList: [[0,1]], //sort the first column in descending order
                 headers:
                 {
-                    1: { sorter: false },
-                    5: { sorter: false }
+                    1: { sorter: false }, //photo
+                    5: { sorter: false } //buttons
                 }
             }).tablesorterPager({container: $("#pager")});
         
@@ -69,15 +69,20 @@
     <div class="middle_wrapper">
         <div>
             <div class="login_box">  
-                <p><?php //echo print_r($reports)?></p>
             <h1>Πίνακας Αναφορών</h1>
             <div class="flash_box gradient">
                 <?php echo $this->Session->flash().'</br>';?>
             </div>
             
+            <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'excelExport', '?' => $this->params['url'])) ?>">
+                <div class="inner">
+                    <span>Εξαγωγή εμφανιζόμενων</span>
+                    <img class="icon" src="../img/whiteArrow.png"/>
+                </div>
+            </a>
             <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'excelExport')) ?>">
                 <div class="inner">
-                    <span>Εξαγωγή</span>
+                    <span>Εξαγωγή όλων</span>
                     <img class="icon" src="../img/whiteArrow.png"/>
                 </div>
             </a>
@@ -111,8 +116,6 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="searchConfirmed" value="confirmed" name="state1" checked/>
-                                            </td>
-                                            <td>
                                                 <label for="searchConfirmed">Επιβεβαιωμένες</label>
                                             </td>
                                         </tr>
@@ -123,8 +126,6 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="searchRejected"  value="unreliable"  name="state2" checked/>
-                                            </td>
-                                            <td>
                                                 <label for="searchRejected">Απορριφθείσες</label>
                                             </td>
                                         </tr>
@@ -135,8 +136,6 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="searchUnknown"   value="unknown"   name="state3" checked/>
-                                            </td>
-                                            <td>
                                                 <label for="searchUnknown">Εκκρεμούσες</label>
                                             </td>
                                         </tr>
@@ -155,7 +154,7 @@
                 </div>
                 <?php if (empty($reports)): ?>
                 <div class="report noItemsFiller">
-                    <h2><center>There are no reports</center></h2>
+                    <h2><center>Δεν υπάρχουν αναφορές</center></h2>
                 </div>
                 <?php else: ?>
                 <table id="reportsTable" class="tablesorter reportsTable">
@@ -165,7 +164,6 @@
                             <th class="{sorter: false}">Φωτογραφία Παρατήρησης</th>
                             <th>Κατηγορία</th>
                             <th>Eίδος</th>
-    <!--                            <th>Κατάσταση</th>-->
                             <th>Τελευταία Επεξεργασία</th>
                             <th class="{sorter: false}">Ενέργειες</th>
                         </tr>
@@ -207,8 +205,8 @@
                                 </td>
                                 <td>
                                     <?php
-                                        if ( isset($report['HotSpecie']) )
-                                            echo $report['HotSpecie']['scientific_name'];
+                                        if ( isset($report['Specie']) )
+                                            echo $report['Specie']['scientific_name'];
                                     ?>
                                 </td>
     <!--                                <td>

@@ -1055,7 +1055,7 @@ kodikas selida register
 ***************************************************************************************/
 
 .register_box td{
-    width: 25%;
+    width: 0%;
 }
 
 .register_box td p:first-child > input[type="text"],
@@ -1323,10 +1323,6 @@ kodikas selidas report
     max-height: 15em;
 }
 
-#f2 img:hover{
- max-width: 20%;
- max-height: 17em;
- }
 
 #tabs div input.big_button{
     width: 19em;

@@ -50,7 +50,9 @@ class AppController extends Controller {
 
    function beforeFilter() 
    {
-
+        if(strcmp($this->params['controller'],'reports')){  
+            $this->clearReportSession();
+        }
 //      $this->Security->validatePost = false;
 
    }
@@ -140,6 +142,36 @@ class AppController extends Controller {
 		}
 	}
     return $result;
+    }
+    
+    function clearReportSession(){
+        if($this->Session->check('report')){
+            $this->Session->delete('report');
+        }
+        if($this->Session->check('report_completed')){
+            $this->Session->delete('report_completed');
+        }
+        if($this->Session->check('uploaded1')){
+            $this->Session->delete('uploaded1');
+        }
+        if($this->Session->check('uploaded2')){
+            $this->Session->delete('uploaded2');
+        }
+        if($this->Session->check('uploaded3')){
+            $this->Session->delete('uploaded3');
+        }
+        if($this->Session->check('uploaded4')){
+            $this->Session->delete('uploaded4');
+        }
+        if($this->Session->check('uploaded5')){
+            $this->Session->delete('uploaded5');
+        }
+        if($this->Session->check('uploaded6')){
+            $this->Session->delete('uploaded6');
+        }
+        if($this->Session->check('uploaded7')){
+            $this->Session->delete('uploaded7');
+        }
     }
     
 }

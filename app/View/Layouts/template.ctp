@@ -47,7 +47,7 @@
 			<div class="upper_row">
 				<?php echo
 					$this->Html->Link( 
-						$this->Html->Image("hcmr-logo.png"), 
+						$this->Html->Image("hcmr_logo_small.png"), 
 						array('controller' => 'pages', 'action' => 'display'), 
 						array('escape' => false));
 			    ?>
@@ -114,16 +114,16 @@
                                                                     <ul>
                                                                         <li><?php echo $this->Html->link('Επικοινωνία', array('controller' => 'pages', 'action'=>'communication'));?></li>
                                                                         <li><?php echo $this->Html->link('Βοήθεια', array('controller' => 'pages', 'action'=>'help'));?></li>
-                                                                        <li><?php echo $this->Html->link('Στόχοι', array('controller' => 'pages', 'action'=>'about'));?></li>
+                                                                        <li><?php echo $this->Html->link('Στόχοι μας', array('controller' => 'pages', 'action'=>'about'));?></li>
                                                                     </ul>
 								</div>
 							</div>
 							<!--telos pop up-->
 						
 					</li>
-                    <li><?php echo $this->Html->link('Είδη-στόχοι', array('controller' => 'hotspecies', 'action'=>'show'));?></li>
+                                        <li><?php echo $this->Html->link('Είδη-στόχοι', array('controller' => 'HotSpecies', 'action'=>'show'));?></li>
 					<li><?php echo $this->Html->link('Αναγνωρισμένα Είδη', array('controller' => 'reports', 'action'=>'showspecies'));?></li>
-					<li><?php echo $this->Html->link('Υποβολή Αναφοράς', array('controller' => 'reports', 'action'=>'create'));?></li>
+					<li><?php echo $this->Html->link('Νέα Αναφορά', array('controller' => 'reports', 'action'=>'createnew'));?></li>
                     
 					    
 						

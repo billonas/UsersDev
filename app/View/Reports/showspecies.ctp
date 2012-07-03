@@ -106,6 +106,7 @@
                 });
             });
         </script>
+        
       	<div class="middle_row">
             
             <div class="login_box specie_box">  
@@ -131,87 +132,30 @@
                         <a href="#" class="more_info">Περισσότερα...</a>
                     </div>
                 </div>
-                
+                          
                 <div class="specie_div" style="display:none"></div>
-
+              
+              <?php foreach ($species as $spc): ?>
                 <div class="specie_div">
-                    <span class="little_specie_header">Τσιπούρα</span>
+                    <span class="little_specie_header"><?php echo $spc['Specie']['scientific_name']; ?></span>
                     <div class="img_frame">
                         <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg' ?>'/>
+                        <img class="specie_img" src='<?php echo $this->webroot.'img/'.$spc['Report']['main_photo']; ?>'/>
                     </div>
                     <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Περιοχές:</span> Κυκλάδες, Κρήτη, Δωδεκάννησα, Ικάριο Πέλαγος, Ιόνιο Πέλαγος</span>
+                        <span class="specie_areas"><span>Περιοχές: </span><?php $flag = false;foreach($sAreas[$spc['Specie']['scientific_name']] as $area){ if($flag) echo ", "; else $flag = true; echo $area;}?></span>
                         <a href="#" class="more_areas"><img src='<?php echo $this->webroot.'img/double_arrow6.png' ?>'/></a>
-                        <a href="#" class="more_info">Περισσότερα...</a>
+                        <a href="<?php echo $this->Html->url(array(
+                                "controller" => "reports",
+                                "action" => "showspecies",
+                                "?" => array("species" => $spc['Specie']['scientific_name'])
+                                
+                                ));?>" class="more_info">Περισσότερα...
+                        </a>
+                        <?php //foreach($sReports as $report) echo $report['Report']['main_photo'];?> 
                     </div>
                 </div>
-                
-                <div class="specie_div">
-                    <span class="little_specie_header">Τσιπούρα</span>
-                    <div class="img_frame">
-                        <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg' ?>'/>
-                    </div>
-                    <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Περιοχές:</span> Κυκλάδες, Κρήτη, Δωδεκάννησα, Ικάριο Πέλαγος, Ιόνιο Πέλαγος</span>
-                        <a href="#" class="more_areas"><img src='<?php echo $this->webroot.'img/double_arrow6.png' ?>'/></a>
-                        <a href="#" class="more_info">Περισσότερα...</a>
-                    </div>
-                </div>
-                
-                <div class="specie_div">
-                    <span class="little_specie_header">Τσιπούρα</span>
-                    <div class="img_frame">
-                        <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg' ?>'/>
-                    </div>
-                    <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Περιοχές:</span> Κυκλάδες, Κρήτη, Δωδεκάννησα, Ικάριο Πέλαγος, Ιόνιο Πέλαγος</span>
-                        <a href="#" class="more_areas"><img src='<?php echo $this->webroot.'img/double_arrow6.png' ?>'/></a>
-                        <a href="#" class="more_info">Περισσότερα...</a>
-                    </div>
-                </div>
-                
-                <div class="specie_div">
-                    <span class="little_specie_header">Τσιπούρα</span>
-                    <div class="img_frame">
-                        <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg' ?>'/>
-                    </div>
-                    <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Περιοχές:</span> Κυκλάδες, Κρήτη, Δωδεκάννησα, Ικάριο Πέλαγος, Ιόνιο Πέλαγος</span>
-                        <a href="#" class="more_areas"><img src='<?php echo $this->webroot.'img/double_arrow6.png' ?>'/></a>
-                        <a href="#" class="more_info">Περισσότερα...</a>
-                    </div>
-                </div>
-                
-                <div class="specie_div">
-                    <span class="little_specie_header">Τσιπούρα</span>
-                    <div class="img_frame">
-                        <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg' ?>'/>
-                    </div>
-                    <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Περιοχές:</span> Κυκλάδες, Κρήτη, Δωδεκάννησα, Ικάριο Πέλαγος, Ιόνιο Πέλαγος</span>
-                        <a href="#" class="more_areas"><img src='<?php echo $this->webroot.'img/double_arrow6.png' ?>'/></a>
-                        <a href="#" class="more_info">Περισσότερα...</a>
-                    </div>
-                </div>
-                
-                <div class="specie_div">
-                    <span class="little_specie_header">Τσιπούρα</span>
-                    <div class="img_frame">
-                        <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg' ?>'/>
-                    </div>
-                    <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Περιοχές:</span> Κυκλάδες, Κρήτη, Δωδεκάννησα, Ικάριο Πέλαγος, Ιόνιο Πέλαγος</span>
-                        <a href="#" class="more_areas"><img src='<?php echo $this->webroot.'img/double_arrow6.png' ?>'/></a>
-                        <a href="#" class="more_info">Περισσότερα...</a>
-                    </div>
-                </div>
-
+             <?php endforeach; ?>
             </div>
             
             <div class="left_side hidden_side">
@@ -220,29 +164,25 @@
                     <a class="specie_button" href="#">Είδη</a>
                     <a class="specie_button selected_specie_button" href="#">Περιοχές</a>
                 </div>
-                
+                <?php foreach($areas as $area): ?>
                 <div class="specie_div">
-                    <span class="little_specie_header">Τσιπούρα</span>
+                    <span class="little_specie_header"><?php echo $area['Report']['area']; ?></span>
                     <div class="img_frame">
                         <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/perioxes/kyklades.PNG' ?>'/>
+                        <img class="specie_img" src='<?php echo $this->webroot.'img/perioxes/'.$area['Report']['area'].'.PNG' ?>'/>
                     </div>
                     <div class="region_button_wrapper">
-                        <a href="#" class="more_info region_center_button">Περισσότερα...</a>
+                        <?php $flag = false; foreach($aSpecies[$area['Report']['area']] as $s){ if($flag) echo ", "; else $flag = true; echo $s;} ?>
+                        <a href="<?php echo $this->Html->url(array(
+                                "controller" => "reports",
+                                "action" => "showspecies",
+                                "?" => array("area" => $area['Report']['area'])
+                                ));?>" class="more_info">Περισσότερα...
+                        </a>
+                       <?php //foreach($aReports as $report) echo $report['Report']['main_photo'];?>  
                     </div>
                 </div>
-                
-                <div class="specie_div">
-                    <span class="little_specie_header">Τσιπούρα</span>
-                    <div class="img_frame">
-                        <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/perioxes/kriti.PNG' ?>'/>
-                    </div>
-                    <div class="region_button_wrapper">
-                        <a href="#" class="more_info region_center_button">Περισσότερα...</a>
-                    </div>
-                </div>
-                
+                <?php endforeach; ?>
             </div>
 
 

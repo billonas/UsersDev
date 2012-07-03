@@ -200,7 +200,8 @@ h2 {
 }
 
 
-tr.item .icon {
+tr.item .icon,
+a .icon {
     height: 0.8em;
     width: 0.8em;
     max-height: 20px;
@@ -240,11 +241,11 @@ tr.item .buttonContainer {
     border-radius: 0px 5px 5px 0px;
 }
 
-.item .deleteButton {
+.deleteButton {
     background: #ff7766;
     color: white;
 }
-.item .deleteButton:hover {
+.deleteButton:hover {
     background: tomato;
 }
 

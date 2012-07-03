@@ -13,28 +13,6 @@ class PagesController extends AppController{
     
 	public $uses = array();
         
-   function beforeFilter() 
-   {
-
-      if($this->Session->check('report')){
-            $this->Session->delete('report');
-        }
-        if($this->Session->check('report_completed')){
-            $this->Session->delete('report_completed');
-        }
-        if($this->Session->check('uploaded1')){
-            $this->Session->delete('uploaded1');
-        }
-        if($this->Session->check('uploaded2')){
-            $this->Session->delete('uploaded2');
-        }
-        if($this->Session->check('uploaded3')){
-            $this->Session->delete('uploaded3');
-          }
-          if($this->Session->check('uploaded4')){
-            $this->Session->delete('uploaded4');
-          }
-   }
 
 /**
  * Displays a view
@@ -56,12 +34,12 @@ class PagesController extends AppController{
 		$this->set('hotspecies',$hotspecies);
 				
 		//Load last 30 reports
-                $conditions = array(
-                            'Report.state' => 'confirmed',
+                $params = array(
+                            'conditions' => array( 'Report.state' => 'confirmed'),
                             'limit' => 30,
                             'order' => array('Report.id' => 'DESC') 
                 );
-                $reports=ClassRegistry::init('Report')->find('all',$conditions);
+                $reports=ClassRegistry::init('Report')->find('all',$params);
 		$this->set('reports',$reports);		
 		$count = count($path);
 		if (!$count) {
