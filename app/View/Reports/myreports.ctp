@@ -29,7 +29,7 @@
     
     function report_onclick(id)
     {
-        window.location.href = '/users/view_report/' + id;
+        window.location.href = '/repots/view/' + id;
     }
 </script>
     <div class="middle_row  big_row">
@@ -81,7 +81,7 @@
                                     </td>                                
                                     <td>
                                         <div class="buttonContainer">
-                                            <a class="showButton" href="<?php echo $this->Html->url(array('controller'=>'reports','action'=>'view_report',$report['Report']['id'])) ?>">
+                                            <a class="showButton" href="<?php echo $this->Html->url(array('controller'=>'reports','action'=>'view',$report['Report']['id'])) ?>">
                                                 Προβολή
                                             </a>
                                         </div>
