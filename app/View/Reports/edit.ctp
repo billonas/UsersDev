@@ -10,6 +10,18 @@
             $( "#autoComplete" ).autocomplete({
                     source: availableTags
             });
+            
+            $('#autoComplete').blur(function(){
+                if ($.inArray($(this).val(), availableTags) > -1) // If the value entered is a known species
+                    $('#scientificNameMsg').html(''); // Clear messsage
+                else
+                    $('#scientificNameMsg').html('Έχετε εισάγει ένα καινούριο ειδος'); // Display message
+            });
+            
+            $('#notifyCategoryAnalysts').css({'display': 'none'}); // Hide option
+            $('#selectCategory').change(function(){ // Display option if the category was changed
+                $('#notifyCategoryAnalysts').css({'display': 'inline'});
+            });
     });
 
 </script>  
@@ -263,8 +275,9 @@
                     {
                         $options[$category['Category']['id']]= $category['Category']['category_name'];
                     }
-                    echo '<tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td><td>'.$this->Form->input('category_id', array('options' => $options, 'label'=>false, 'class'=>'std_form')).'</td></tr>';
-                    echo '<tr><td><label for="ReportState" class="std_form">Επιστημονική Ονομασία</label></td><td>'.$this->Form->input('Specie.scientific_name', array('label'=>false,'class'=>'std_form','id'=>'autoComplete')).'</td></tr>';
+                    echo '<tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td><td>'.$this->Form->input('category_id', array('options' => $options, 'label'=>false, 'class'=>'std_form', 'id'=>'selectCategory')).'<select id="notifyCategoryAnalysts" name="notifyCategoryAnalysts" style="margin-top:4px"><option value="true">Να ενημερωθούν οι αναλυτές</option><option value="false">Να μην ενημερωθούν οι αναλυτές</option></select></td></tr>';
+                    echo '<tr><td><label for="ReportState" class="std_form">Επιστημονική Ονομασία</label></td><td>'.$this->Form->input('Specie.scientific_name', array('label'=>false,'class'=>'std_form','id'=>'autoComplete')).'<div id="scientificNameMsg"></div></td></tr>';
+                    ?><?php
                     $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');  								
                     echo '<tr><td><label for="ReportState" class="std_form">Κατάσταση αναφοράς</label></td><td>'.$this->Form->input('state', array('options' => $options,'label'=>false,'class'=>'std_form')).'</td></tr>';
                     echo $this->Form->input('id',array("type"=>'hidden'));
