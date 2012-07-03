@@ -1,6 +1,14 @@
 <?php echo $this->Html->css(array('main', 'jquery-ui', 'tablesorter', 'reportsTable')); ?>        
 <?php $this->set('title_for_layout', 'Παρουσίαση δημοφιλών ειδών - ΕΛΚΕΘΕ');?>
         
+<style>.tableImage {
+    max-width: 200px;
+    max-height: 100px;
+    min-height: 50px;
+    min-width: 50px;
+    border: 1px solid silver;
+    border-radius: 6px;
+}</style>
       	<div class="middle_row">
 			<div class="middle_wrapper">
 					<div align="center">
@@ -20,7 +28,7 @@
                          </thead>
                          <tbody>
                             <?php foreach ($hotspecies as $hotspecie): ?>
-                         <tr>
+                         <tr height="100px">
                          <td>
                             <?php echo $hotspecie['HotSpecie']['scientific_name'] ?>
                          </td>
