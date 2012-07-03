@@ -74,13 +74,13 @@
                 <?php echo $this->Session->flash().'</br>';?>
             </div>
             
-            <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'excelExport', '?' => $this->params['url'])) ?>">
+            <a class="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'excelExport', '?' => $this->params['url'])) ?>">
                 <div class="inner">
                     <span>Εξαγωγή εμφανιζόμενων</span>
                     <img class="icon" src="../img/whiteArrow.png"/>
                 </div>
             </a>
-            <a id ="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'excelExport')) ?>">
+            <a class="exportLink" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'excelExport')) ?>">
                 <div class="inner">
                     <span>Εξαγωγή όλων</span>
                     <img class="icon" src="../img/whiteArrow.png"/>
