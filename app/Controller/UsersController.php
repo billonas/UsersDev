@@ -122,7 +122,6 @@ class UsersController extends AppController
                    'name'=> $this->data['User']['name'],
                    'surname'=> $this->data['User']['surname'],
                    'phone_number'=>$this->data['User']['phone_number'],
-                   'email'=>$this->data['User']['email'],
                    'education'=>$this->data['User']['education'],
                    'membership'=>$this->data['User']['membership'],
                    'birth_date'=>$this->data['User']['birth_date'],
@@ -144,7 +143,6 @@ class UsersController extends AppController
                    'name'=> $this->data['User']['name'],
                    'surname'=> $this->data['User']['surname'],
                    'phone_number'=>$this->data['User']['phone_number'],
-                   'email'=>$this->data['User']['email'],
                    'education'=>$this->data['User']['education'],
                    'membership'=>$this->data['User']['membership'],
                    'birth_date'=>$this->data['User']['birth_date'],
@@ -166,7 +164,6 @@ class UsersController extends AppController
 
                   $fullname = $arr[0] .".". $surname;
                   
-                  $this->Session->write('UserUsername',$this->data['User']['email']);  
                   $this->Session->write('UserEducation',$this->data['User']['education']);  
                   $this->Session->write('UserMembership',$this->data['User']['membership']);  
                   $this->Session->write('UserBirthDate',$this->data['User']['birth_date']);  
