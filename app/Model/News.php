@@ -29,6 +29,7 @@ class News extends AppModel{
 
     public function getLast(){
          $news = $this->find('first', array('order' => array('created DESC')));
+         if(!$news)  return 0;
          $news['News']['body'] = $this->get_cat_desc($news['News']['body'], 300);
 	return $news;
     }
