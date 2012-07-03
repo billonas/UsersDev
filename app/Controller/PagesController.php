@@ -11,7 +11,7 @@ class PagesController extends AppController{
   
 	public $helpers = array('Html', 'Session','Js'); //To 'js' prepei na ginei 'Js' gia na douleuei
     
-	public $uses = array();
+	public $uses = array('News');
         
 
 /**
@@ -24,7 +24,7 @@ class PagesController extends AppController{
 		$path = func_get_args();
 
 
-        $temp_species = ClassRegistry::init('HotSpecie')->find('all');
+        $temp_species = ClassRegistry::init('HotSpecie')->find('all', array('order'=>'HotSpecie.priority'));
 		$i=0;
         foreach($temp_species as $item){
 					$hotspecies[$i]['scientific_name']=$item['HotSpecie']['scientific_name'];
@@ -40,7 +40,9 @@ class PagesController extends AppController{
                             'order' => array('Report.id' => 'DESC') 
                 );
                 $reports=ClassRegistry::init('Report')->find('all',$params);
-		$this->set('reports',$reports);		
+		$this->set('reports',$reports);
+                $lastnew = $this->News->getLast();
+                $this->set('lastnew',$lastnew);
 		$count = count($path);
 		if (!$count) {
 			$this->redirect('/');
