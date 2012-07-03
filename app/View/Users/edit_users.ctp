@@ -85,6 +85,14 @@
                         <table>                        
                             <tr>
                                 <td>
+                                    <select name="testType" id="filterType"">
+                                        <option value="username">Όνομα χρήστη</option>
+                                        <option value="name">Όνομα</option>
+                                        <option value="surname" selected="selected">Επώνυμο</option>
+                                        <option value="email">Ηλεκτρονική Διεύθυνση</option>
+                                    </select>
+                                </td>
+                                <td>
                                     <input name="text" type="text" class="" id="filterTerm" value="<?php if(isset($text))echo $text;?>"/>
                                 </td>
                                 <td>
