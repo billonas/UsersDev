@@ -31,13 +31,11 @@
                 <div class="specie_header"></div>
                 <div id="fish_slideshow" class="fish_slideshow">
                     <?php 
-				 foreach($hotspecies as $hot){
-					echo '<a href="/hotspecies/show"><img class="out_of_sight" data-specie_name="'.$hot['scientific_name'].'" src="'.$this->webroot.'img/hotspecies/'.$hot['id'].'.jpg" alt="hot_species_img"/>				 							</a>';
+			foreach($hotspecies as $hot){
+                            echo '<a href="/hotspecies/show"><img class="out_of_sight" data-specie_name="'.$hot['scientific_name'].'" src="'.$this->webroot.'img/hotspecies/'.$hot['id'].'.jpg" alt="hot_species_img"/>				 							</a>';
                     
 				}
-				
-				
-				?>
+                    ?>
                 </div>
             </div>
             <div class="index_tile">
@@ -48,15 +46,16 @@
                 <?php echo $this->Html->link('Κάντε αναφορά', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor'));?>
             </div>
             <div class="index_tile">
+                
                 <span class="news_header">Τα Νέα μας</span>
                 <br />
-                <span class="news_date">Προστέθηκε: 23-05-12</span>
+                <span class="news_date">Προστέθηκε: <?php echo $lastnew['News']['created'];?></span>
                 <br />
-                <span class="news_text"><a href="#">Ένα καινούργιο είδος τσιπούρας ανακαλύφθηκε ανοιχτά της Σαντορίνης με τρία μάτια
-                        και δύο στόματα. Εικάζεται ότι είναι αποτέλεσμα της μόλυνσης που προκαλεί το ναυάγιο του Sea Diamond που κάθεται
-                        στο βυθό της Σαντορίνης εδώ και 20000 χρόνια. Οι ειδικοί μας που έσπευσαν στο σημείο μας επιβεβαίωσαν
-                        ότι έχει άθλια γεύση αλλά μετά από 10 ούζο τα πάντα τρώγονται ευχάριστα...........</a>
-                    <br /><a href="#">Διαβάστε Περισσότερα</a></span>
+                <span class="news_text"><p><strong><font size="5" color="blue"><?php echo $lastnew['News']['title']; ?> </font></strong></p>
+                    <?php  echo $lastnew['News']['body'];?>
+                    <br />
+                    <?php echo $this->Html->link('Διαβάστε Περισσότερα', array('controller'=>'News', 'action'=>'show'));?>
+                </span>
             </div>
             <div class="index_tile">
                 <div class="tile_header">
@@ -244,7 +243,10 @@
                 var map;
                 var marker_buffer;
                 var markers = new Array();
-                var base_url = '<?php echo $this->Html->link('Κάντε αναφορά', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor'));?>';
+                var base_url = '<?php echo $this->Html->url(array("controller" => "reports","action" => "showspecies")); ?>';
+                var open_info_window;
+                var open_info_window_ptr = false;
+                var open_info_window_index;
 
                 function initialize() {
                     var myOptions = {
@@ -273,7 +275,7 @@
                             map: map,
                             clickable: true
                         });
-                        google.maps.event.addListenerOnce(markers[i], 'mouseover', function(event){                                
+                        google.maps.event.addListener(markers[i], 'mouseover', function(event){                                
                                 showInfo(this.getPosition());
                             }
                         );
@@ -422,7 +424,10 @@
                 function showInfo(location){                    
                     var i,index;                    
                     for(i=0 ; i<markers.length ; i++){
-                        if(markers[i].getPosition().lat() == location.lat() && markers[i].getPosition().lng() == location.lng()){                            
+                        if(markers[i].getPosition().lat() == location.lat() && markers[i].getPosition().lng() == location.lng()){
+                            if(open_info_window_ptr && open_info_window_index == i){
+                                break;
+                            }
                             index = i;
                             var contentString = 'Αναφέρθηκε από: ' + marker_buffer[index][2] + '<br/>'+
                                                  'Ημ/νια: ' + marker_buffer[index][3] + '<br/>' +
@@ -433,10 +438,15 @@
                             });                                                       
                             infowindow.open(map,markers[index]);
                             marker_buffer[index][8] = infowindow;
-                            google.maps.event.addListenerOnce(markers[index], 'mouseout' , function(event){                                        
-                                        hideInfo(this.getPosition());
-                                    }
-                                );                            
+                            if(open_info_window_ptr){
+                                open_info_window.close();
+                            }
+                            open_info_window = infowindow;
+                            open_info_window_ptr = true;
+                            open_info_window_index = index;
+                            google.maps.event.addListener(infowindow,'closeclick',function(){
+                                open_info_window_ptr = false;
+                            });
                             break;
                         }
                     }                    
@@ -446,24 +456,11 @@
                     for(i=0 ; i<markers.length ; i++){
                         if(markers[i].getPosition().lat() == location.lat() && markers[i].getPosition().lng() == location.lng()){                            
                             index = i;
-                            var url = base_url + '/' + 'specie=' + marker_buffer[index][5] + '&region=' + marker_buffer[index][7];
+                            var url = base_url + '?' + 'species=' + marker_buffer[index][4];// + '&region=' + marker_buffer[index][7];
                             window.location = url;
+                            //window.alert(url);
                         }
                     }                    
-                }
-                function hideInfo(location){
-                    var i,index;                    
-                    for(i=0 ; i<markers.length ; i++){
-                        if(markers[i].getPosition().lat() == location.lat() && markers[i].getPosition().lng() == location.lng()){                            
-                            index = i;
-                            marker_buffer[index][8].close();
-                            google.maps.event.addListenerOnce(markers[index], 'mouseover', function(event){                                
-                                    showInfo(this.getPosition());
-                                }
-                            );
-                            break;
-                        }
-                    }   
                 }                
             </script>
             <div class="marker_db" style="display:none">            	
@@ -547,19 +544,7 @@
         
         
         
-        <!--
-        <div class="lower_row">
-            <?php/* echo $this->Html->link('<h2>Είδη Υψηλής Προτεραιότητας</h2>  <p>Ενημερωθείτε για τα είδη που έχουν μεγαλύτερη προτεραιότητα αυτή την εποχή για τους αναλυτές μας</p>', 
-                                                                                        array('controller' => 'hotSpecies', 'action'=>'show'),array('escape' => false));*/?>
-
-            <?php/* echo $this->Html->link('<h2>Υποβάλλετε Αναφορά</h2>  <p>Υποβάλλετε μία αναφορά για ένα παράξενο είδος που συναντήσατε</p>', 
-                                                                                        array('controller' => 'reports', 'action'=>'create'),array('escape' => false));*/?>
-
-            <?php/* echo $this->Html->link('<h2>Εγγραφείτε</h2>
-                <p>Γίνετε μέλος της κοινότητάς μας και βοηθήστε μας να προστατεύσουμε τις ελληνικές θάλασσες</p>', 
-                                                                                        array('controller' => 'users', 'action'=>'register'),array('escape' => false));*/?>
-
-        </div>-->
+       
         <div class="comments">
             <div><br />Powered by <a href="http://cakephp.org/">Cake.php</a>, <a href="http://jquery.com/">jQuery</a>,<a href="http://modernizr.com/">Modernizr</a>.
                 Arrows by <a href="http://www.designworkplan.com">DesignWorkPlan</a>.</div>

@@ -6,6 +6,10 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
 }
+
+html,body{
+    height: 100%;
+}
  
 @font-face {
     font-family: 'FontomasCustomRegular';
@@ -685,7 +689,7 @@ kodikas mono gia tin arxiki selida
 }
 
 .index_tile:first-child{
-    height: 20em;
+    height: 25em;
     font-family: Arial,sans-serif;
     text-align:center;
 }
@@ -702,14 +706,14 @@ kodikas mono gia tin arxiki selida
     font-family: Arial;
     text-align:center;
     color: #000;
-    height: 18em;
+    height: 16em;
 }
 
 .index_tile:nth-child(3) .report_header{font-size: 2em; font-weight: bold; margin-bottom: 1em;}
 
 .index_tile:nth-child(3) .report_text{font-size: 1.1em; margin-bottom: 1em;}
 
-.index_tile:nth-child(4){ padding-right:1em; padding-left: 1em; height: 21em;}
+.index_tile:nth-child(4){ padding-right:1em; padding-left: 1em; height: 19em;}
 
 .index_tile:nth-child(4) .news_header{font-size: 2em; font-weight: bold; font-family: Arial,sans-serif; text-align:center; margin-bottom: 1em}
 
@@ -723,7 +727,7 @@ kodikas mono gia tin arxiki selida
 
 .index_tile:nth-child(4) .news_text a:nth-child(2){ color: rgb(3,179,222); text-decoration: underline;}
 
-.index_tile:nth-child(5){margin-top: -9em;}
+.index_tile:nth-child(5){margin-top: -11em;}
 
 .index_tile .tile_header{
     -o-transition: all linear .5s;
@@ -872,7 +876,8 @@ kodikas mono gia tin arxiki selida
     left: 100%;
 }
 
-.index_tile:nth-child(3) a{
+.index_tile:nth-child(3) a,
+.index_tile:first-child a{
     padding-top: 1em;
     padding-bottom: 1em;
     width: 50%;
@@ -881,6 +886,10 @@ kodikas mono gia tin arxiki selida
     margin-top: .5em;
     margin-bottom: 1em;
     margin-left: 25%;
+}
+
+.index_tile:first-child a{
+    margin-top: 2em;
 }
 /**************************************************************************************
 telos kodika arxikis selidas
@@ -1527,7 +1536,7 @@ kodikas anagnorismenon eidon
 }
 
 .specie_div{
-    width: 38%;
+    width: 48%;
     margin-bottom: 1em;
     float: left;
     background-color: rgb(250,250,250);
@@ -1536,6 +1545,7 @@ kodikas anagnorismenon eidon
     position: relative;
     z-index: 1;
     margin-bottom: 3.5em;
+    min-height: 100%;
 }
 
 .highlight_div{
@@ -1544,8 +1554,6 @@ kodikas anagnorismenon eidon
 
 .specie_div .little_specie_header{
     text-align: center;
-    margin-top: .4em;
-    margin-bottom: .4em;
     width: 90%;
     margin-left: 5%;
     font-family: Arial, Helvetica, sans-serif;
@@ -1556,19 +1564,25 @@ kodikas anagnorismenon eidon
     float: left;
     text-decoration:underline;
     z-index: 1;
+    margin-bottom: .5em;
 }
 
-.specie_div:nth-child(2n){
+.specie_line_wrapper{
     margin-left: 20%;
+    height: 20em;
+    margin-top: .4em;
+    margin-bottom: .4em;
+    width: 80%;
+    overflow: visible;
 }
 
-.specie_div:nth-child(2n+1){
+.specie_line_wrapper .specie_div:nth-child(2n){
     margin-left: 2%;
 }
 
 .specie_div .img_frame{
     width: 90%;
-    height: auto;
+    height: 15em;
     float: left;
     background-color: rgb(255,255,255);
     border: 1px solid rgb(218, 221, 224);   
@@ -1633,7 +1647,8 @@ kodikas anagnorismenon eidon
     bottom: -3em;
     background-color: #fff;
     z-index: 1;
-    box-shadow: 0px 3px 2px 1px rgb(200, 200, 200);
+    box-shadow: 0px 3px 1px 1px rgb(200, 200, 200);
+    margin-top: .1em;
 }
 
 .specie_div .region_button_wrapper a{
@@ -1750,6 +1765,7 @@ kodikas anagnorismenon eidon
 .current_specie_looked{
     width: 78%;
     padding-bottom: 1em;
+    margin-left: 20%;
 }
 
 .current_specie_looked .img_frame{
