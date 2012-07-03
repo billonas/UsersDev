@@ -355,6 +355,21 @@ $(window).bind('load', function() {
 
 						
 });
+
+var imgcounter=3;
+function addInput() {
+ if (imgcounter <=6) {
+ $("#" + "photo" + imgcounter).show("slow");
+ imgcounter++;}
+ if (imgcounter >6 )
+ $("#addbutton").prop('value', 'Φτάσατε τον μέγιστο αριθμό επιπλέον φωτογραφιών');
+ 
+ }
+	
+
+
+
+
 </script>
     <!--[if lt IE 10 ]>
     <link rel="stylesheet" href="hacks.css" type="text/css" media="screen" />
@@ -484,6 +499,8 @@ $(window).bind('load', function() {
                         echo '<tr id="photo6" style="display:none;"><td><label for="ReportImage6" class="std_form">Επιπλέον Φωτογραφία 5 </label></td>';
                         echo '<td>'.$this->Form->input('image6',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
                         
+                        echo '<tr><td><input type="button" id="addbutton" onclick="addInput()" name="add" value="Προσθέστε μια ακόμα φωτογραφία" /></td></tr>';
+                        
                         echo '<tr><td><label for="ReportHot_species" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
                         echo '</table>';    
                         echo '<br/>';
@@ -492,7 +509,7 @@ $(window).bind('load', function() {
                         foreach($hotspecies as $hot){
                             $options[$hot['HotSpecie']['scientific_name']] = $this->Html->image($hot['HotSpecie']['main_photo']); 
                         }
-                        $options['0'] = 'Κανένα απο τα παραπάνω';  
+                        $options['Κανένα'] = 'Κανένα απο τα παραπάνω';  
 						
                         echo $this->Form->input('hot_species', array('options' => $options,'type'=>'radio','legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
@@ -590,7 +607,8 @@ $(window).bind('load', function() {
                         echo '<tr id="photo6" style="display:none;"><td><label for="ReportImage6" class="std_form">Επιπλέον Φωτογραφία 5 </label></td>';
                         echo '<td>'.$this->Form->input('image6',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
                         
-                        
+                        echo '<tr><td><input type="button" id="addbutton" onclick="addInput()" name="add" value="Προσθέστε μια ακόμα φωτογραφία" /></td></tr>';
+
                         echo '<tr><td><label for="ReportHot_species" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
                         echo '</table>';    
                         echo '<br/>';
@@ -599,7 +617,7 @@ $(window).bind('load', function() {
                         foreach($hotspecies as $hot){
                             $options[$hot['HotSpecie']['scientific_name']] = $this->Html->image($hot['HotSpecie']['main_photo']); 
                         }
-                        $options['0'] = 'Κανένα απο τα παραπάνω';  
+                        $options['Κανένα'] = 'Κανένα απο τα παραπάνω';  
                         echo $this->Form->input('hot_species', array('options' => $options,'value'=>$report['Report']['hot_species'],'type'=>'radio','legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
 						
