@@ -122,7 +122,7 @@
 							<!--telos pop up-->
 						
 					</li>
-                                        <li><?php echo $this->Html->link('Είδη-στόχοι', array('controller' => 'HotSpecies', 'action'=>'show'));?></li>
+                                        <li><?php echo $this->Html->link('Είδη-στόχοι', array('controller' => 'HotSpecies', 'action'=>'view'));?></li>
 					<li><?php echo $this->Html->link('Αναγνωρισμένα Είδη', array('controller' => 'reports', 'action'=>'showspecies'));?></li>
 					<li><?php echo $this->Html->link('Νέα Αναφορά', array('controller' => 'reports', 'action'=>'createnew'));?></li>
                     
