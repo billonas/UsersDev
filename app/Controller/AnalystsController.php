@@ -97,11 +97,13 @@ class AnalystsController extends AppController{
               //with the new password generated 
               
               $rand_password = $this->Password->generatePassword();
-              
+
+              $hash_password = $this->Analyst->User->hash_password($this->data['Analyst']['email'], $rand_password);
+
               $data = array(
                'name'=>            $this->data['Analyst']['name'],
                'surname'=>         $this->data['Analyst']['surname'],
-               'password'=>        $rand_password,
+               'password'=>        $hash_password,
                'phone_number'=>    $this->data['Analyst']['phone_number'],
                'email'=>           $this->data['Analyst']['email'],
                'education'=>       $this->data['Analyst']['education'],
@@ -136,7 +138,17 @@ class AnalystsController extends AppController{
            {
               $user_id = $this->Analyst->User->getUserId($this->data['Analyst']['email']);
 
-              if(!$this->__sendActivationEmail($user_id, $rand_password)) 
+              
+              if($rand_password ==null)
+              {
+                $occasion =  "upgradeSimple";
+              }
+              else
+              {
+                $occasion = "createNew";
+              }
+
+              if(!$this->__sendActivationEmail($user_id, $rand_password, $occasion)) 
               {
                 $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
                 //undo the changes being done up to here
@@ -189,10 +201,74 @@ class AnalystsController extends AppController{
       $this->set('post_id', $id); 
     }
     
-    function update()
+    function update($id = null)
     {
     //this function will give the hyperanalyst the right to update the analyst 
     //info.
+      if((!$this->Session->check('UserUsername')) || 
+                   (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+      {
+         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+      }
+
+
+      $post_id = null;
+
+      if(!empty($this->data['Analyst']))
+      {
+        $post_id = $this->data['Analyst']['id'];
+
+        $validated_user = true; //vailidation of user info has already being done.
+
+        //validation of analyst data is needed anyway
+        $this->Analyst->set(array(
+            'category1'=>       $this->data['Analyst']['category1'],
+            'category2'=>       $this->data['Analyst']['category2'],
+            'research_institute'=>$this->data['Analyst']['research_institute'],
+        ));
+
+        if($this->Analyst->validates() && $validated_user == true) 
+        {
+           $data = array(
+            'id'=>$post_id,
+            'category1'=>       $this->data['Analyst']['category1'],
+            'category2'=>       $this->data['Analyst']['category2'],
+            'research_institute'=>$this->data['Analyst']['research_institute'],
+            );
+
+           if($this->Analyst->save($data, false))
+           {
+              
+              $occasion = "updateAnalyst";
+
+              if(!$this->__sendActivationEmail($user_id, $rand_password, $occasion)) 
+              {
+                $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
+              }
+              else
+              {
+                 $this->Session->setFlash("O αναλυτής δημιουργήθηκε επιτυχώς και θα ενημερωθεί με email."); 
+                 $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
+                                  "?" => array(
+                                         "userType1" => "analyst",
+                                         "userType2" => "simple",
+                                         "userType3" => "hyperanalyst"
+                                         ),
+                                   ));  
+              }
+           }
+           else
+           {
+              $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
+           }
+        }
+            
+      }
+
+      $user = $this->Analyst->User->findById($id);
+      
+      $this->set('user', $user); 
+      $this->set('post_id', $id); 
       
     }
   
@@ -240,7 +316,9 @@ class AnalystsController extends AppController{
          {
               $rand_password = null;
 
-              if(!$this->__sendActivationEmail($id, $rand_password)) 
+              $occasion =  "downgradeAnalyst";
+
+              if(!$this->__sendActivationEmail($id, $rand_password, $occasion)) 
               {
                 $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
                 $this->Analyst->unDowngradeAnalyst();
@@ -262,7 +340,6 @@ class AnalystsController extends AppController{
              $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
           }
       }
-
     }
 
     function upgrade($id = null)
@@ -284,7 +361,9 @@ class AnalystsController extends AppController{
          {
               $rand_password = null;
 
-              if(!$this->__sendActivationEmail($id, $rand_password)) 
+              $occasion =  "upgradeAnalyst";
+
+              if(!$this->__sendActivationEmail($id, $rand_password, $occasion)) 
               {
                 $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
                 $this->Analyst->unUpgradeAnalyst();
@@ -312,7 +391,7 @@ class AnalystsController extends AppController{
 
 ///////////////////////////Helpful methods(begin)///////////////////////////////
 
-    function __sendActivationEmail($user_id, $rand_password)
+    function __sendActivationEmail($user_id, $rand_password, $occasion)
     {
        $conditions = array(
            'User.id'=>$user_id,
@@ -336,48 +415,68 @@ class AnalystsController extends AppController{
        $this->set('activate_url', $activateUrl);
 
                
-       $this->set('email', $this->data['Analyst']['email']);
+       $this->set('email', $user['User']['email']);
 
 
        $this->Email->to = $user['User']['email'];
        $this->Email->from = 'no-reply <no-reply@elke8e.com>"';
-       
-       if($rand_password != null)
-       {
-         //hyperanalyst created a new analyst from the beggining
-         $this->Email->subject = env('SERVER_NAME') . ' – Καλώς ήρθες καινούργιε αναλυτή.';
+      
+       //occasion has 3 values:
+       //createNew:       send email to a newly created analyst
+       //upgradeSimple:   send email to an upraded simple user (from simple to analyst)
+       //upgradeAnalyst:  send email to an upgraded analyst (from analyst to hyperanalyst)
+       //downgradeAnalyst:send email to an downgraded analyst (from analyst to simple)  
+       switch ($occasion) {
+        case "createNew":
+                          $this->Email->subject = env('SERVER_NAME') . ' – Καλώς ήρθες καινούργιε αναλυτή.';
+                          $this->Email->template = 'create_analyst';
+                          $this->Email->layout = 'create_analyst';
+                          $this->set('rand_password', $rand_password);
+                          break;
 
-         $this->Email->template = 'analyst_confirm';
-		   $this->Email->layout = 'analyst_confirm';
-          
-         $this->set('rand_password', $rand_password);
-       }
-       else
-       {
-         //hyperanalyst upgraded a user to analyst 
-         $this->Email->subject = env('SERVER_NAME') . ' – O λογαριασμός σου μόλις αναβαθμίστηκε.';
+        case "upgradeSimple":
+                          $this->Email->subject = env('SERVER_NAME') . ' – O λογαριασμός σου μόλις αναβαθμίστηκε σε αναλυτή.';
+                          $this->Email->template = 'upgrade_simple';
+                          $this->Email->layout = 'upgrade_simple';
+                          break;
 
-         $this->Email->template = 'user_analyst_confirm';
-		   $this->Email->layout = 'user_analyst_confirm';
-         
+                          
+        case "upgradeAnalyst":
+                          $this->Email->subject = env('SERVER_NAME') . ' – O λογαριασμός σου μόλις αναβαθμίστηκε σε υπέρ-αναλυτή.';
+                          $this->Email->template = 'upgrade_analyst';
+                          $this->Email->layout = 'upgrade_analyst';
+                          break;
+
+        case "downgradeAnalyst":
+                          $this->Email->subject = env('SERVER_NAME') . ' – O λογαριασμός σου μόλις υποβαθμίστηκε σε απλο εγγεγραμένο χρήστη.';
+                          $this->Email->template = 'downgrade_analyst';
+                          $this->Email->layout = 'downgrade_analyst';
+                          break;
+
+        case "updateAnalyst":
+                          $this->Email->subject = env('SERVER_NAME') . ' – Tα στοιχεία σου ως αναλυτή μόλις ανανεώθηκαν.';
+                          $this->Email->template = 'update_analyst';
+                          $this->Email->layout = 'update_analyst';
+                          break;
        }
+
        $this->Email->sendAs = 'text';       
-	    $this->Email->smtpOptions = array(
-			'port'=>'465',
-			'timeout'=>'30',
-			'host' => 'ssl://smtp.gmail.com',
-			'username'=>'testhcmr@gmail.com',
-			'password'=>'hcmrelkethe',
-		 );
-		 $this->Email->delivery = 'smtp';
-		 if ($this->Email->send()) 
-       {
-		 	return true;
-		 } 
-       else 
-       {
-		 	return false;
-		 }
+       $this->Email->smtpOptions = array(
+		'port'=>'465',
+		'timeout'=>'30',
+		'host' => 'ssl://smtp.gmail.com',
+		'username'=>'testhcmr@gmail.com',
+		'password'=>'hcmrelkethe',
+	 );
+	$this->Email->delivery = 'smtp';
+        if ($this->Email->send()) 
+        {
+         	 	return true;
+        } 
+        else 
+        {
+         	 	return false;
+        }
     }
 
 

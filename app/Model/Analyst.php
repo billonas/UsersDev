@@ -81,6 +81,7 @@ class Analyst extends AppModel{
 
 
     }
+    
 
      public function upgradeAnalyst($id)
      { 
