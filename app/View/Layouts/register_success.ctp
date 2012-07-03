@@ -29,7 +29,7 @@ A:HOVER { text-decoration: underline; color:#44E }
     
 <body>
     <div id="center">
-        <p>Έχει σταλεί email επιβεβαίωσης στη διεύθυνση ηλεκτρονικού ταχυδρομείου που εισαγάγατε.</br>
+        <p>Έχει σταλεί email επιβεβαίωσης στη διεύθυνση ηλεκτρονικού ταχυδρομείου που εισάγατε.</br>
         <a href="<?php echo $url; ?>" style="color:#44E"><?php echo $message; ?></a></p>
     </div>
 </body>

@@ -24,11 +24,11 @@ class User extends AppModel
           )
       ); 
       
-      var $captcha = ''; //αρχικοποιώ την τιμή του captcha
 
       var $loggedIn=false;
 
-      var $editEmail = false; 
+      var $forgottenPass = false; 
+
 
       
       public $validate = array(  
@@ -65,6 +65,7 @@ class User extends AppModel
              ),
                
       ),  
+
       'passwordConfirm'=>array(  
                'rule1'=>array(
                   'rule'=>'notEmpty',
@@ -76,9 +77,42 @@ class User extends AppModel
                   'message'=>'Ο κωδικός επιβεβαίωσης και ο κωδικός σας δεν ταιριάζουν'  
              )
       ),
+
+      'old_password'=>array(  
+               'rule1'=>array(
+                   'rule'=>array('checkOldPassword'),
+                   'message'=>'Ο τωρινός κωδικός που δώσατε δεν είναι σωστός'
+                   )
+      ),
+      'old_email'=>array(  
+               'rule1'=>array(
+                   'rule'=>array('checkOldEmail'),
+                   'message'=>'Η τωρινή διεύθυνση που δώσατε δεν είναι σωστή'
+                   )
+      ),
           //TODO:με τον τελευταίο κανόνα(και στο name και στο surname) θέλω να σιγουρέψω
           //ότι ο χρήστης θα δώσει μόνο γράμματα. Τώρα μπορεί να δώσει και αριθμούς. Θα 
           //πρέπει να το φτιάξω στην δεύτερη φάση
+      'username'=>array(  
+               'rule1'=>array(
+                  'rule'=>'notEmpty',
+                  'allowempty'=>false,  
+                  'message'=>'Παρακαλούμε δώστε ένα ψευδώνυμο χρήστη'  
+             ),
+               'rule2'=>array(
+                  'rule'=>array('minLength', 4),
+                  'message'=>'Το ψευδώνυμο χρήστη δεν μπορεί να περιέχει λιγότερους από 4 χαρακτήρες'  
+             ),
+               'rule3'=>array(
+                  'rule'=>array('maxLength', 45),
+                  'message'=>'Το ψευδώνυμο χρήστη δεν μπορεί να περιέχει πάνω από 45 χαρακτήρες'  
+             ),
+               'rule4'=>array(
+                  'rule'=>'alphaNumeric',
+                  'message'=>'Το ψευδώνυμο χρήστη μπορεί να περιέχει μόνο γράμματα'  
+             )
+
+      ),
       'name'=>array(  
                'rule1'=>array(
                   'rule'=>'notEmpty',
@@ -111,35 +145,17 @@ class User extends AppModel
              )
 
       ),
-   //   'phone_number'=>array(  
-   //            'rule1'=>array(
-   //                'rule'=>array('onlyNumbers'),
-   //                'alloEmpty'=>true,
-   //                'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
-   //          )
-   //   ),
-     // 'captcha'=>array(  
-     //          'rule1'=>array(
-     //              'rule'=>array('matchCaptcha'),
-     //              'message'=>'Μήπως είστε μηχανή...;'
-     //        )
-     // ),
+      'phone_number'=>array(  
+               'rule1'=>array(
+                   'rule'=>'numeric',
+                   'alloempty'=>true,
+                   'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς χωρίς κενά'
+             )
+      ),
       
     //  'address'=>array(  
     //           'rule1'=>array(
     //               'rule'=>'alphaNumeric',
-    //               'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
-    //         )
-    //  ),
-    //  'phone_number'=>array(  
-    //           'rule1'=>array(
-    //               'rule'=>array('onlyNumbers'),
-    //               'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
-    //         )
-    //  ),
-    //  'phone_number'=>array(  
-    //           'rule1'=>array(
-    //               'rule'=>array('onlyNumbers'),
     //               'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
     //         )
     //  ),
@@ -165,7 +181,7 @@ class User extends AppModel
          if(!empty($user))
          {
             //έλενξε τον κωδικό
-            if($user['User']['password'] == ($data['User']['login_password']))
+            if(strcmp($user['User']['password'] , $this->hash_password($user['User']['email'], $data['User']['login_password']))==0)
             {
                $return=$user;
             }
@@ -173,6 +189,32 @@ class User extends AppModel
          return $return;
       }
 
+      function checkOldPassword($check)
+      {
+            $email = $this->getEmail();
+            $old_password = array_shift($check);
+
+            $data = array('User'=> array('login_email'=>$email,
+                                         'login_password'=>$old_password));
+            $result = $this->validate_user($data); 
+            
+            if($result!= false)
+              return true;
+            else
+              return false;
+      }
+
+      function checkOldEmail($check)
+      {
+            $email = $this->getEmail();
+            $old_email = array_shift($check);
+
+            
+            if(strcmp($email, $old_email) == 0)
+              return true;
+            else
+              return false;
+      }
 
       function findUserByEmail($email)
       {
@@ -222,6 +264,16 @@ class User extends AppModel
                       $this->field('email') . $this->field('created')), 0, 8);
       }
 
+      function resetPasswordHash()
+      {
+        if (!isset($this->id)) 
+        {
+                return false;
+        }
+        return substr(Security::hash(Configure::read('Security.salt') . 
+                      $this->field('email') . $this->field('username')), 0, 8);
+      }
+
       function activateAccount()
       {
          $this->set('validated', 1); 
@@ -248,7 +300,7 @@ class User extends AppModel
 
         while($i<4)
         { 
-         $encrypted = hash_hmac("sha256", $passwd.$salt, $secret); 
+         $encrypted = hash("sha256", $passwd.$salt); 
          $passwd=$encrypted;
          $i=$i+1;
         }
@@ -262,24 +314,23 @@ class User extends AppModel
 
 ////////////////////////////setters and getters(begin)//////////////////////////
 
-	   function setLoggedIn($value)	
+	   function setEmail($value)	
       {
-	   	$this->loggedIn = $value; //θέτω την τιμή του loggedIn
-	   }
-
-	   function getLoggedIn()	
-      {
-	   	return $this->loggedIn; //παίρνω την τιμή του loggedIn
+	   	$this->email = $value; //θέτω την τιμή του loggedIn
 	   }
       
-	   function setEditEmail($value)	
+	   function getEmail()	
       {
-	   	$this->editEmail = $value; //θέτω την τιμή του editEmail
+	   	return $this->email; //παίρνω την τιμή του loggedIn
+	   }
+	   function setForgotten($value)	
+      {
+	   	$this->forgottenPass = $value; //θέτω την τιμή του editEmail
 	   }
 
-	   function getEditEmail()	
+	   function getForgotten()	
       {
-	   	return $this->editEmail; //παίρνω την τιμή του EditEmail
+	   	return $this->forgottenPass; //παίρνω την τιμή του EditEmail
 	   }
 
 
@@ -301,8 +352,8 @@ class User extends AppModel
         //β)Κατά την επεξεργασία προφίλ του χρήστη σε περίπτωση που επεξεργαστεί
         //  το email του.
         $email = array_shift($check);
-
-        if(!$this->getLoggedIn() || (strcmp($this->editEmail, 'yes')==0))
+        //in the occasion of forgotten password don't check if the email is unique
+        if(!$this->getForgotten())
         {
           $conditions = array(
               'User.email'=>$email
@@ -315,7 +366,8 @@ class User extends AppModel
             }
           }
           return true;
-        }
+
+        }        
         else
           return true;
       }
