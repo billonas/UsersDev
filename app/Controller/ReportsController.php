@@ -428,10 +428,13 @@ class ReportsController extends AppController{
             /* Commit edited information step */
             else {
                 /* Send email to the aproppriate analysts */
+                $option = $this->request->data['Report']['notifyAnalysts'];
+                if($option != 0){
                 $categoryId = $this->request->data['Report']['category_id'];
                 $reportId = $this->request->data['Report']['id'];
                 $report = $this->Report->findById($reportId);
-                $this->informAnalysts($categoryId,$reportId,$report);
+                $this->informAnalysts($categoryId,$reportId,$report,$option);
+                } 
                 /* Save report's edited data & save new species if needed */
                 if(($ret = $this->Report->saveReport($this->data)) > 0) {
                     $this->data = $this->Report->findById($id);
@@ -677,14 +680,19 @@ class ReportsController extends AppController{
      * informanalysts is used to help edit method for sending email notifications to the appropriate analysts
      */
     
-    function informAnalysts($categoryId,$reportId,$report){
+    function informAnalysts($categoryId,$reportId,$report,$option){
         /* Category edited */
         if($report['Report']['category_id'] != $categoryId){
             /* Find all analysts of the category */
+            if($option==2){
             $analysts1 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category1' => $categoryId)));
-            //$analysts2 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category2' => $categoryId)));
+            $analysts2 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category2' => $categoryId)));
+            $analysts = $analysts1 + $analysts2; //union
+            }
+            else if($option==1)
+                $analysts = ClassRegistry::init('Analyst')->find('all');
             /* Inform each of them */
-            foreach($analysts1 as $analyst)
+            foreach($analysts as $analyst)
             {
 
                 $this->set('report_link', 'http://localhost/UsersDev/reports/edit/'.$reportId);//env('SERVER_NAME')
