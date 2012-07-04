@@ -1,7 +1,7 @@
         <?php echo $this->Html->script(array('jquery-1.7.2.min'),array('inline' => false, 'rel' => 'javascript')); ?>
         <?php $this->set('title_for_layout', 'Αναγνωρισμένα Είδη');?>
 
-
+<?php var_dump($reports);?>
         <script>
             var normal_pic = "<?php echo $this->webroot.'img/double_arrow6.png' ?>";
             var inverted_pic = "<?php echo $this->webroot.'img/double_arrow6_inv.png' ?>";
@@ -439,7 +439,7 @@
                             }
                             index = i;
                             var contentString = 'Αναφέρθηκε από: ' + marker_buffer[index][10] + '<br/>'+
-                                                 'Ημ/νια: ' + marker_buffer[index][4] + '<br/>' +
+                                                 'Ημ/νια: ' + marker_buffer[index][3] + '<br/>' +
                                                  'Είδος: ' + marker_buffer[index][11] + '<br/>' +
                                                  'Περιοχή: ' + marker_buffer[index][6];
                             //window.alert(contentString);
