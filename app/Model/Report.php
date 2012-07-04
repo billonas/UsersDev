@@ -260,7 +260,7 @@ class Report extends AppModel{
       function validateEmail($check)
       {
          $email = array_shift($check);
-         if (preg_match("/^([a-z0-9\\+_\\-]+)(\\.[a-z0-9\\+_\\-]+)*@([a-z0-9\\-]+\\.)+[a-z]{2,6}$/ix", $email) || (strcmp($email , "")==0)) 
+         if (preg_match("aaaa", $email) || (strcmp($email , "")==0)) 
          {
             return true;
          }
