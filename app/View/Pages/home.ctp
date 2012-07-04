@@ -32,7 +32,7 @@
                 <div id="fish_slideshow" class="fish_slideshow">
                     <?php 
 			foreach($hotspecies as $hot){
-                            echo '<a href="/hotspecies/show"><img class="out_of_sight" data-specie_name="'.$hot['scientific_name'].'" src="'.$this->webroot.'img/hotspecies/'.$hot['id'].'.jpg" alt="hot_species_img"/>				 							</a>';
+                            echo '<a href="/hotspecies/view"><img class="out_of_sight" data-specie_name="'.$hot['scientific_name'].'" src="'.$this->webroot.'img/hotspecies/'.$hot['id'].'.jpg" alt="hot_species_img"/>				 							</a>';
                     
 				}
                     ?>
