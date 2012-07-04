@@ -649,19 +649,19 @@ class ReportsController extends AppController{
      */
     
     function showspecies(){
-        if(isset($this->params['url']['species'])||isset($this->params['url']['area'])){
+        if(!empty($this->params['url']['select'])){
             /* Filter by species */
-            if(isset($this->params['url']['species'])){
-                $this->set('current_species',$this->params['url']['species']);
+            if(!strcmp($this->params['url']['select'],'species')){
+                $this->set('current_species',$this->params['url']['text']);
                 $conditions = array(
-                           'Specie.scientific_name'=> $this->params['url']['species']
+                           'Specie.scientific_name'=> $this->params['url']['text']
                 );
             }
             /* Filter by area */
-            else if(isset($this->params['url']['area'])){
-                $this->set('current_area',$this->params['url']['area']);
+            else if(!strcmp($this->params['url']['select'],'area')){
+                $this->set('current_area',$this->params['url']['text']);
                 $conditions = array(
-                           'Report.area' => $this->params['url']['area']
+                           'Report.area' => $this->params['url']['text']
                 );
             }
             /* Find reports */
