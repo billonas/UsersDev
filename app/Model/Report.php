@@ -35,13 +35,13 @@ class Report extends AppModel{
                    'message'=>'Παρακαλούμε δώστε έγκυρη ημερομηνία παρακολούθησης'
              )
         ),
-        'email'=>array(
-            'rule1'=>array(
-                   'rule'=>array('validateEmail'),
-                   'allowEmpty'=> true,
-                   'message'=>'Παρακαλούμε δώστε έγκυρή διεύθυνση ηλεκτρονικού ταχυδρομείου'
-             ) 
-        ), 
+//        'email'=>array(
+//            'rule1'=>array(
+//                   'rule'=>array('validateEmail'),
+//                   'allowEmpty'=> true,
+//                   'message'=>'Παρακαλούμε δώστε έγκυρή διεύθυνση ηλεκτρονικού ταχυδρομείου'
+//             ) 
+//        ), 
        'lat'=>array(  
                'rule1'=>array(
                    'rule'=>array('decimal'),
@@ -247,7 +247,6 @@ class Report extends AppModel{
     function onlyNumbers($check)
       {
          $phone = array_shift($check);
-         //εάν password και confirm_password είναι ίσα 
          if (preg_match("/^[0-9]+$/", $phone) || (strcmp($phone , "")==0)) 
          {
             return true;
@@ -261,7 +260,6 @@ class Report extends AppModel{
       function validateEmail($check)
       {
          $email = array_shift($check);
-         //εάν password και confirm_password είναι ίσα 
          if (preg_match("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", $email) || (strcmp($email , "")==0)) 
          {
             return true;

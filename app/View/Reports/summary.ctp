@@ -367,7 +367,7 @@
                         }
 
                     echo '</table>';
-                    echo $this->Form->input('hot_id', array('type'=>'hidden', 'value' => $report['Report']['hot_id']));
+                    echo $this->Form->input('hot_species', array('type'=>'hidden', 'value' => $report['Report']['hot_species']));
                     echo $this->Form->input('state', array('value'=>'unknown','type'=>'hidden'));                
                     //echo $this->Form->input('category_id', array('value'=>null,'type'=>'hidden'));
                                                           
