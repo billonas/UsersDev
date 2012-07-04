@@ -172,7 +172,7 @@ body{
     top: 2.4em;
     right: 8.5em;
     background-color:  rgb(34, 34, 34);
-    padding: 1em 2em 4em 2em;
+    padding: 1em 2em 5em 2em;
     margin: 0;
     -webkit-box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7);
     box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7);
@@ -1329,9 +1329,35 @@ kodikas selidas report
     float:left;
 }
 
-#f2 img{
-    max-width: 17%;
-    max-height: 15em;
+#f2{
+    overflow:auto;
+}
+
+#f2 table{
+    float:left;
+    clear:both;
+}
+
+#f2 > a{
+    float:left;
+}
+
+.hot_radio{
+    float:left;
+    width: 20em;
+    height: 10em;
+    margin-bottom: 1em;
+}
+
+#f2 .hot_radio:first-child{
+    clear:right;
+}
+
+.hot_radio img{
+    height: 10em;
+    max-height: 10em !important;
+    max-width: 15em !important;
+    width: 20em;
 }
 
 
@@ -1437,6 +1463,7 @@ kodikas summary
 
 .summary_middle_wrapper .media_wrapper img{
     width: 90%;
+    max-height: 20em;
 }
 
 .summary_middle_wrapper .button_like_anchor{

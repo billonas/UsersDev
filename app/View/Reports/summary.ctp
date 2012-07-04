@@ -413,7 +413,7 @@
                     echo '</div>';
                     
                     echo '<div style="clear:left;">';
-                    echo $this->Html->link('Επιστροφή στην φόρμα αναφοράς', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
+                    echo $this->Html->link('Επιστροφή στην αναφορά', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
                     echo $this->Form->end(array(
                                                 'label' => 'Οριστική υποβολή',
                                                 'div' => false,
