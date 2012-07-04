@@ -122,7 +122,20 @@
              </div>
             
             <div class="left_side">
+                <div class="specie_button_wrapper">
+                <?php echo $this->Form->create('Report', array('action' => 'showspecies', 'type'=>'get')); ?>
+                <select name="select" id="filterSpecies">
+                                        <option value="species" selected="selected">Είδος</option>
+                                        <option value="area">Περιοχή</option>
+                </select>
+                <input name="text" type="text" class="" id="filterTerm"/>
+                <?php echo $this->Form->end(array(
+                                                        'label' => 'Αναζήτηση',
+                                                        'div' => false,
+                                                        'class' => 'std_form'));
                 
+                                    ?>
+                </div>
                 <div class="specie_div specie_button_wrapper">
                     <?php if(!isset($current_area)){
                                 echo '<a class="specie_button selected_specie_button" href="#">Είδη</a>
@@ -179,7 +192,7 @@
                         <a href="<?php echo $this->Html->url(array(
                                 "controller" => "reports",
                                 "action" => "showspecies",
-                                "?" => array("species" => $spc['Specie']['scientific_name'])
+                                "?" => array("select" => 'species', 'text'=> $spc['Specie']['scientific_name'])
                                 
                                 ));?>" class="more_info">Περισσότερα...
                         </a>
@@ -240,7 +253,7 @@
                         <a href="<?php echo $this->Html->url(array(
                                 "controller" => "reports",
                                 "action" => "showspecies",
-                                "?" => array("area" => $area['Report']['area'])
+                                "?" => array('select'=> "area", 'text' => $area['Report']['area'])
                                 ));?>" class="more_info">Περισσότερα...
                         </a>
                     </div>
