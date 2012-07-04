@@ -45,7 +45,7 @@
              {  
                     echo '<tr>';
                     echo '<td>'.$this->Html->image($hotspecie['HotSpecie']['additional_photo2']."?".time()).'</td>';
-                    echo '<td>'.$this->Html->link('Set as main photo', array('action'=>'setMainPhoto',$hotspecie['HotSpecie']['id'],1)).'</td>';
+                    echo '<td>'.$this->Html->link('Set as main photo', array('action'=>'setMainPhoto',$hotspecie['HotSpecie']['id'],2)).'</td>';
                     echo '<td>'.$this->Html->link('Delete photo', array('action'=>'deleteImg',$hotspecie['HotSpecie']['id'],2)).'</td></tr>';
              }
              else {
@@ -63,7 +63,7 @@
              {  
                     echo '<tr>';
                     echo '<td>'.$this->Html->image($hotspecie['HotSpecie']['additional_photo3']."?".time()).'</td>';
-                    echo '<td>'.$this->Html->link('Set as main photo', array('action'=>'setMainPhoto',$hotspecie['HotSpecie']['id'],1)).'</td>';
+                    echo '<td>'.$this->Html->link('Set as main photo', array('action'=>'setMainPhoto',$hotspecie['HotSpecie']['id'],3)).'</td>';
                     echo '<td>'.$this->Html->link('Delete photo', array('action'=>'deleteImg',$hotspecie['HotSpecie']['id'],3)).'</td></tr>';
              }
              else {
