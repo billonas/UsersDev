@@ -34,13 +34,34 @@
             }
         );
         
+        // Add a tablesorter parser for the modified field
+        $.tablesorter.addParser({ 
+            id: 'lastModified', 
+            is: function(s) { 
+                // return false so this parser is not auto detected 
+                return false; 
+            }, 
+            format: function(s) {
+                var rxDate = /\d+-\d+-\d/g;
+                var rxTime = /\d+:\d+:\d/g;
+                
+                var date = rxDate.exec(s);
+                var time = rxTime.exec(s);
+                
+                return date + " " + time;
+            }, 
+            //type: 'numeric'
+            type: 'text'
+        }); 
+        
         $("#reportsTable").tablesorter(
             {
                 sortList: [[0,1]], //sort the first column in descending order
                 headers:
                 {
                     1: { sorter: false }, //photo
-                    5: { sorter: false } //buttons
+                    5: { sorter: false }, //buttons
+                    4: { sorter: 'lastModified' } // last modified
                 }
             }).tablesorterPager({container: $("#pager")});
         
