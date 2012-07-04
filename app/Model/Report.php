@@ -35,13 +35,13 @@ class Report extends AppModel{
                    'message'=>'Παρακαλούμε δώστε έγκυρη ημερομηνία παρακολούθησης'
              )
         ),
-//        'email'=>array(
-//            'rule1'=>array(
-//                   'rule'=>array('validateEmail'),
-//                   'allowEmpty'=> true,
-//                   'message'=>'Παρακαλούμε δώστε έγκυρή διεύθυνση ηλεκτρονικού ταχυδρομείου'
-//             ) 
-//        ), 
+        'email'=>array(
+            'rule1'=>array(
+                   'rule'=>array('validateEmail'),
+                   'allowEmpty'=> true,
+                   'message'=>'Παρακαλούμε δώστε έγκυρή διεύθυνση ηλεκτρονικού ταχυδρομείου'
+             ) 
+        ), 
        'lat'=>array(  
                'rule1'=>array(
                    'rule'=>array('decimal'),
@@ -260,7 +260,7 @@ class Report extends AppModel{
       function validateEmail($check)
       {
          $email = array_shift($check);
-         if (preg_match("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", $email) || (strcmp($email , "")==0)) 
+         if (preg_match("/^([a-z0-9\\+_\\-]+)(\\.[a-z0-9\\+_\\-]+)*@([a-z0-9\\-]+\\.)+[a-z]{2,6}$/ix", $email) || (strcmp($email , "")==0)) 
          {
             return true;
          }
