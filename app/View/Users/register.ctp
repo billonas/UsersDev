@@ -30,12 +30,12 @@ $(document).ready(function(){
                                        <td style="width: 25%;"> <table>
 					<?php 
                                         echo '<tr><td><label for="UserUsername" class="username std_form">Ψευδώνυμο χρήστη<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.username', 
-									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserUsername','placeholder' => 'Τουλάχιστον 4 Χαρακτήρες','class' => ' std_form blue_shadow')).'</p></td></tr>';
+									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserUsername' , 'required' => 'required','placeholder' => 'Τουλάχιστον 4 Χαρακτήρες','class' => ' std_form blue_shadow')).'</p></td></tr>';
 					echo '<tr><td><label for="UserName" class="name std_form">Όνομα<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.name', 
-									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
+									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserName' , 'required' => 'required', 'placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
                                         echo '<tr><td><label for="UserSurname" class="surname std_form">Επώνυμο<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.surname', 
-									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserSurame','placeholder' => 'π.χ. Κακομοίρογλου','class' => ' std_form blue_shadow')).'</p></td></tr>';
+									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserSurame' , 'required' => 'required','placeholder' => 'π.χ. Κακομοίρογλου','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
 					
 					echo '<tr><td><label for="UserEmail" class="mail std_form">e-mail<span class="required" style="color:red"> *</span>:  </label></td><td><p>'.$this->Form->input('User.email', 

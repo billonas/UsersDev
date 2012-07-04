@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
 
-var map; 
+var map;  
 var marker;
 var once=true;
 
@@ -560,7 +560,7 @@ function showDivImageDisplay(img) {
                         echo '<td>'.$this->Form->input('depth',array('label'=>false,'placeholder'=>'Γράψτε μέτρα(m) ή περιγράψτε','class'=>'std_form blue_shadow', 'div'=>false)).'</td></tr>';
                         echo '<tr><td><label for="ReportRe_observation" class="std_form">Έχετε ξαναδεί το συγκεκριμένο είδος στην περιοχή; </label></td>';
                         echo '<td>'.$this->Form->input('re_observation',array('label' => false,'placeholder' =>'Αν ναι, περιγράψτε την εμπειρία...','class'=>'std_form blue_shadow', 'div'=>false)).'</td></tr>';
-                        $options = array('-'=>'-','few' => '1-5', 'some' => '6-10','many' => '10-30');
+                        $options = array('-'=>'-','1' => '1', '2-5' => '2-5', '6-10' => '6-10','11-30' => '11-30', '>30'=>'>30');
                         echo '<tr><td><label for="ReportCrowd" class="std_form">Πλήθος Ατόμων Είδους </label></td>';
                         echo '<td>'.$this->Form->input('crowd', array('options' => $options, 'default' => ' - ','label' => false, 'class'=>'std_form blue_shadow', 'div'=> false)).'</td></tr>';
                         echo '<tr><td><label for="ReportComments" class="std_form">Επιπλέον Σχόλια </label></td>';
@@ -720,7 +720,7 @@ function showDivImageDisplay(img) {
                         echo '<td>'.$this->Form->input('depth',array('label'=>false,'value'=>$report['Report']['depth'],'placeholder'=>'Γράψτε μέτρα(m) ή περιγράψτε','class'=>'std_form blue_shadow', 'div'=>false)).'</td></tr>';
                         echo '<tr><td><label for="ReportRe_observation" class="std_form">Έχετε ξαναδεί το συγκεκριμένο είδος στην περιοχή; </label></td>';
                         echo '<td>'.$this->Form->input('re_observation',array('label' => false,'value'=>$report['Report']['re_observation'],'placeholder' =>'Αν ναι, περιγράψτε την εμπειρία...','class'=>'std_form blue_shadow', 'div'=>false)).'</td></tr>';
-                        $options = array('-'=>'-','few' => '1-5', 'some' => '6-10','many' => '10-30');
+                        $options = array('-'=>'-','1' => '1', '2-5' => '2-5', '6-10' => '6-10','11-30' => '11-30', '>30'=>'>30');
                         echo '<tr><td><label for="ReportCrowd" class="std_form">Πλήθος Ατόμων Είδους </label></td>';
                         echo '<td>'.$this->Form->input('crowd', array('options' => $options, 'default' => ' - ','label' => false,'value'=>$report['Report']['crowd'], 'class'=>'std_form blue_shadow', 'div'=> false)).'</td></tr>';
                         echo '<tr><td><label for="ReportComments" class="std_form">Επιπλέον Σχόλια </label></td>';

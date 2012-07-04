@@ -10,7 +10,7 @@
             $(window).ready(function(){
                 var centerlatLng = new google.maps.LatLng(38.0397, 24.644);
                 map = new google.maps.Map(document.getElementById('mapCanvas'), {
-                            zoom: 5,
+                            zoom: 5, 
                             center: centerlatLng,
                             mapTypeId: google.maps.MapTypeId.SATELLITE,
                             mapTypeControl: true,
@@ -408,7 +408,8 @@
                         echo  $this->Form->input('additional_photo5',array('type'=>'hidden','value'=>$report['Report']['additional_photo5'], 'class'=>'std_form'));
                     }
                     echo '<br/>';
-                    echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ", 'default' => $report['Report']['permissionUseMedia'], 'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
+                    if(isset($report['Report']['permissionUseMedia']))
+                        echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ", 'default' => $report['Report']['permissionUseMedia'], 'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
                     echo '<br/>';
                     echo '</div>';
                     
