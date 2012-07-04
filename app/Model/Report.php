@@ -146,7 +146,7 @@ class Report extends AppModel{
     }
 */
    function findSpecies(){
-         $species = $this->find('all', array('fields' => 'Specie.scientific_name, Report.main_photo', 'conditions' => array('Report.state' => 'confirmed'), 'order' => array('Specie.scientific_name')));
+         $species = $this->find('all', array('fields' => 'Specie.scientific_name, Report.main_photo, Report.permissionUseMedia', 'conditions' => array('Report.state' => 'confirmed'), 'order' => array('Specie.scientific_name')));
          $size = count($species);
          $i = 0;
          $name = "";
@@ -157,14 +157,16 @@ class Report extends AppModel{
 		$name = $species[$i]['Specie']['scientific_name'];
                 $index = $i;
                 $flag = false;
-            }
-            if(!$flag && is_file($species[$i]['Report']['main_photo'])){
+            } echo $species[$i]['Report']['main_photo'];
+            if(!$flag && $species[$i]['Report']['permissionUseMedia']  && is_file("img/".$species[$i]['Report']['main_photo'])){
                $species[$index]['Report']['main_photo'] =
 		  $species[$i]['Report']['main_photo'];
+              
               $flag = true;
             } 
             if($index < $i)
 		unset($species[$i]);
+            else if(!$flag) $species[$i]['Report']['main_photo'] = null;
             $i++;
          }
          return $species;
