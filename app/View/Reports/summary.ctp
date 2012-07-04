@@ -10,7 +10,7 @@
             $(window).ready(function(){
                 var centerlatLng = new google.maps.LatLng(38.0397, 24.644);
                 map = new google.maps.Map(document.getElementById('mapCanvas'), {
-                            zoom: 5,
+                            zoom: 6,
                             center: centerlatLng,
                             mapTypeId: google.maps.MapTypeId.SATELLITE,
                             mapTypeControl: true,
@@ -44,8 +44,8 @@
 	<div class="middle_row big_row no_padding">
             <style>
                 #mapCanvas {
-                    width: 70%;
-                    height: 15em;
+                    width: 100%;
+                    height: 30em;
                     position: relative;
                 }
             </style>
@@ -53,7 +53,9 @@
             <?php   echo '<div class="login_box">  
                                <h1>Σύνοψη αναφοράς</h1>
                          </div>';
-                    ?>
+                    echo '<div class="flash_box gradient">';
+                    echo '</br/>'.$this->Session->flash().'</br>';
+                    echo '</div>';	?>
         	<div class="summary_middle_wrapper">   
                 
                 <?php 
@@ -61,7 +63,7 @@
                     
                     echo $this->Form->create('Report', array('action' => 'summary',"enctype" => "multipart/form-data"));
 
-                    echo '<table>';
+                    echo '<table class="summary_table">';
                     echo '<tr><td colspan="2"><div id="mapCanvas"></div></td></tr>';
                     echo '<script>';
                     echo 'function setMarker(){';
@@ -413,7 +415,7 @@
                     echo '</div>';
                     
                     echo '<div style="clear:left;">';
-                    echo $this->Html->link('Επιστροφή στην αναφορά', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
+                    echo $this->Html->link('Επιστροφή στην φόρμα αναφοράς', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
                     echo $this->Form->end(array(
                                                 'label' => 'Οριστική υποβολή',
                                                 'div' => false,
