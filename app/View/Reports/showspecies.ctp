@@ -211,8 +211,8 @@
                 <?php
                     if($iter % 2 == 1){
                         echo '</div>';
+                        $div_flag = false;
                     }
-                    $div_flag = false;
                     $iter++;
                 ?>
              <?php endforeach; ?>
@@ -228,6 +228,7 @@
                   else 
                       echo '<div class="left_side hidden_side">';
             ?>
+            <a href="#" class="left_side_button"><img src="<?php echo $this->webroot; ?>img/arrows/play_black.png"/></a>
                 <div class="specie_search_wrapper">
                 <?php echo $this->Form->create('Report', array('action' => 'showspecies', 'type'=>'get')); ?>
                 <select name="select" id="filterSpecies">
@@ -287,8 +288,8 @@
                 <?php
                     if($iter % 2 == 1){
                         echo '</div>';
+                        $div_flag = false;
                     }
-                    $div_flag = false;
                     $iter++;
                 ?>
                  <?php endforeach; ?>
