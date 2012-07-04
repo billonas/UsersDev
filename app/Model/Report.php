@@ -157,11 +157,10 @@ class Report extends AppModel{
 		$name = $species[$i]['Specie']['scientific_name'];
                 $index = $i;
                 $flag = false;
-            } echo $species[$i]['Report']['main_photo'];
+            } 
             if(!$flag && $species[$i]['Report']['permissionUseMedia']  && is_file("img/".$species[$i]['Report']['main_photo'])){
                $species[$index]['Report']['main_photo'] =
 		  $species[$i]['Report']['main_photo'];
-              
               $flag = true;
             } 
             if($index < $i)
