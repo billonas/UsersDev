@@ -1,5 +1,7 @@
         <?php echo $this->Html->script(array('jquery-1.7.2.min'),array('inline' => false, 'rel' => 'javascript')); ?>
         <?php $this->set('title_for_layout', 'Αναγνωρισμένα Είδη');?>
+
+
         <script>
             var normal_pic = "<?php echo $this->webroot.'img/double_arrow6.png' ?>";
             var inverted_pic = "<?php echo $this->webroot.'img/double_arrow6_inv.png' ?>";
@@ -49,14 +51,20 @@
                     }
                     return false;
                 });
-                $(".specie_areas").each(function(){
-                    var $this = $(this);
-                    if(!$this.parent().parent().hasClass('current_specie_looked')){
-                        var h_em = getEm($this,$this.height());
-                        $this.attr('data-height',$this.height());
-                        $this.parent().attr('data-margin',h_em);
-                        $this.css('height','0px');
-                    }
+                $(".left_side").each(function(){
+                    if($(this).hasClass("hidden_side"))
+                        $(this).attr('style','display:block;');
+                    $(this).find(".specie_areas").each(function(){
+                        var $this = $(this);
+                        if(!$this.parent().parent().hasClass('current_specie_looked')){
+                            var h_em = getEm($this,$this.height());
+                            $this.attr('data-height',$this.height());
+                            $this.parent().attr('data-margin',h_em);
+                            $this.css('height','0px');
+                        }
+                    });
+                    if($(this).hasClass("hidden_side"))
+                        $(this).attr('style',' ');
                 });
                 $(".more_areas").bind('click',function(){
                     var $this = $(this);
@@ -116,26 +124,49 @@
             <div class="left_side">
                 
                 <div class="specie_div specie_button_wrapper">
-                    <a class="specie_button selected_specie_button" href="#">Είδη</a>
-                    <a class="specie_button" href="#">Περιοχές</a>
+                    <?php if(!isset($current_area)){
+                                echo '<a class="specie_button selected_specie_button" href="#">Είδη</a>
+                                    <a class="specie_button" href="#">Περιοχές</a>';
+                            }
+                          else
+                              echo '<a class="specie_button" href="#">Είδη</a>
+                                    <a class="specie_button selected_specie_button" href="#">Περιοχές</a>';
+                    
+                    
+                    ?>
+                    
                 </div>
+                <?php if(isset($current_species)){
+                    
                 
-                <div class="specie_div current_specie_looked">
-                    <span class="little_specie_header">Τσιπούρα</span>
+                echo '<div class="specie_div current_specie_looked">
+                    
+                    
+                    <span class="little_specie_header">'.$current_species.'</span>
                     <div class="img_frame">
-                        <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg' ?>'/>
+                        <img class="squarizer" src="'.$this->webroot.'img/square.png'.'"/>
+                        <img class="specie_img" src="'.$this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg'.'"/>
                     </div>
                     <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Περιοχές:</span> Κυκλάδες, Κρήτη, Δωδεκάννησα, Ικάριο Πέλαγος, Ιόνιο Πέλαγος και κάποιο άλλο μέρος και κάποιο άλλο και κάποιο άλλο και κάποιο άλλο και κάποιο άλλο και κάποιο άλλο και κάποιο άλλο και κάποιο άλλο και κάποιο άλλο και κάποιο άλλο και κάποιο άλλο</span>
-                        <a href="#" class="more_areas"><img src='<?php echo $this->webroot.'img/double_arrow6.png' ?>'/></a>
+                        <span class="specie_areas"><span>Περιοχές:</span>';
+                
+                $flag = false;foreach($sAreas[$current_species] as $area){ if($flag) echo ", "; else $flag = true; echo $area;}
+                echo '</span>
+                        <a href="#" class="more_areas"><img src='.$this->webroot.'img/double_arrow6.png'.'/></a>
                         <a href="#" class="more_info">Περισσότερα...</a>
                     </div>
-                </div>
-                          
+                </div>';
+                 }?>        
                 <div class="specie_div" style="display:none"></div>
               
+              <?php $iter = 0; $div_flag = false; ?>
               <?php foreach ($species as $spc): ?>
+                <?php 
+                    if($iter % 2 == 0){
+                        echo '<div class="specie_line_wrapper">';
+                        $div_flag = true;
+                    }
+                ?>
                 <div class="specie_div">
                     <span class="little_specie_header"><?php echo $spc['Specie']['scientific_name']; ?></span>
                     <div class="img_frame">
@@ -155,7 +186,19 @@
                         <?php //foreach($sReports as $report) echo $report['Report']['main_photo'];?> 
                     </div>
                 </div>
+                <?php
+                    if($iter % 2 == 1){
+                        echo '</div>';
+                    }
+                    $div_flag = false;
+                    $iter++;
+                ?>
              <?php endforeach; ?>
+             <?php 
+                if($div_flag){
+                    echo '</div>';
+                }
+             ?>
             </div>
             
             <div class="left_side hidden_side">
@@ -164,7 +207,16 @@
                     <a class="specie_button" href="#">Είδη</a>
                     <a class="specie_button selected_specie_button" href="#">Περιοχές</a>
                 </div>
+                
+                
+                <?php $iter = 0; $div_flag = false; ?>
                 <?php foreach($areas as $area): ?>
+                <?php 
+                    if($iter % 2 == 0){
+                        echo '<div class="specie_line_wrapper">';
+                        $div_flag = true;
+                    }
+                ?>
                 <div class="specie_div">
                     <span class="little_specie_header"><?php echo $area['Report']['area']; ?></span>
                     <div class="img_frame">
@@ -172,17 +224,40 @@
                         <img class="specie_img" src='<?php echo $this->webroot.'img/perioxes/'.$area['Report']['area'].'.PNG' ?>'/>
                     </div>
                     <div class="region_button_wrapper">
-                        <?php $flag = false; foreach($aSpecies[$area['Report']['area']] as $s){ if($flag) echo ", "; else $flag = true; echo $s;} ?>
+                        <span class="specie_areas"><span>Είδη: </span>
+                            <?php 
+                                $flag = false; 
+                                foreach($aSpecies[$area['Report']['area']] as $s){ 
+                                    if($flag) 
+                                        echo ", "; 
+                                    else 
+                                        $flag = true; 
+                                    echo $s;
+                                } 
+                            ?>
+                        </span>
+                        <a href="#" class="more_areas"><img src='<?php echo $this->webroot.'img/double_arrow6.png' ?>'/></a>
                         <a href="<?php echo $this->Html->url(array(
                                 "controller" => "reports",
                                 "action" => "showspecies",
                                 "?" => array("area" => $area['Report']['area'])
                                 ));?>" class="more_info">Περισσότερα...
                         </a>
-                       <?php //foreach($aReports as $report) echo $report['Report']['main_photo'];?>  
                     </div>
                 </div>
-                <?php endforeach; ?>
+                <?php
+                    if($iter % 2 == 1){
+                        echo '</div>';
+                    }
+                    $div_flag = false;
+                    $iter++;
+                ?>
+                 <?php endforeach; ?>
+                 <?php 
+                    if($div_flag){
+                        echo '</div>';
+                    }
+                 ?>
             </div>
 
 
@@ -214,6 +289,9 @@
                 var map;
                 var marker_buffer;
                 var markers = new Array();
+                var open_info_window;
+                var open_info_window_ptr = false;
+                var open_info_window_index;
 
                 function initialize() {
                     var myOptions = {
@@ -241,7 +319,15 @@
                             position: new google.maps.LatLng(temp[0], temp[1]),
                             map: map,
                             clickable: true
-                        });                        
+                        });
+                        google.maps.event.addListener(markers[i], 'mouseover', function(event){                                
+                                showInfo(this.getPosition());
+                            }
+                        );
+                        google.maps.event.addListener(markers[i], 'click', function(event){                                
+                                showReport(this.getPosition());
+                            }
+                        );
                     }
                 }
 
@@ -251,54 +337,125 @@
                     var word = null;
                     var i=0;
                     var j=0;
-                    var lat = true;
-                    var lngt = false;
+                    var k=0;
                     var small_buffer = new Array();
                     while(i < text.length){
-                        if(lat){
-                            if(text[i] == ','){
-                                lat = false;
-                                lngt = true;
-                                small_buffer[0] = word;
-                                word = null;
+                        if(text[i] != ',' && text[i] != ';'){
+                            if(word == null){
+                                word = text[i];
                             }
-                            else if(text[i] != ' '){
-                                if(word != null)
-                                    word += text[i];
-                                else
-                                    word = text[i];
+                            else{
+                                word += text[i];
                             }
                         }
-                        else if (lngt){
+                        else if(text[i] == ',' || text[i] == ';'){
+                            small_buffer[j] = word;
+                            word = null;
                             if(text[i] == ';'){
-                                lat = true;
-                                lngt = false;
-                                small_buffer[1] = word;
-                                marker_buffer[j] = small_buffer;
+                                j = 0;
+                                marker_buffer[k] = small_buffer;
                                 small_buffer = new Array();
-                                j++;
-                                word = null;
+                                k++;
                             }
-                            else if(text[i] != ' '){
-                                if(word != null)
-                                    word += text[i];
-                                else
-                                    word = text[i];
+                            else{
+                                j++;
                             }
                         }
                         i++;
                     }
-                }                         
+                }    
+                
+                function showInfo(location){                    
+                    var i,index;                    
+                    for(i=0 ; i<markers.length ; i++){
+                        if(markers[i].getPosition().lat() == location.lat() && markers[i].getPosition().lng() == location.lng()){
+                            if(open_info_window_ptr && open_info_window_index == i){
+                                break;
+                            }
+                            index = i;
+                            var contentString = 'Αναφέρθηκε από: ' + marker_buffer[index][10] + '<br/>'+
+                                                 'Ημ/νια: ' + marker_buffer[index][4] + '<br/>' +
+                                                 'Είδος: ' + marker_buffer[index][11] + '<br/>' +
+                                                 'Περιοχή: ' + marker_buffer[index][6];
+                            //window.alert(contentString);
+                            var infowindow = new google.maps.InfoWindow({
+                                content: contentString
+                            });                                                       
+                            infowindow.open(map,markers[index]);
+                            if(open_info_window_ptr){
+                                open_info_window.close();
+                            }
+                            open_info_window = infowindow;
+                            open_info_window_ptr = true;
+                            open_info_window_index = index;
+                            google.maps.event.addListener(infowindow,'closeclick',function(){
+                                open_info_window_ptr = false;
+                            });
+                            break;
+                        }
+                    }                    
+                }
+                
+                var base_url = '<?php echo $this->webroot; ?>img/';
+                
+                function showReport(location){                    
+                    var i,index;                    
+                    for(i=0 ; i<markers.length ; i++){
+                        if(markers[i].getPosition().lat() == location.lat() && markers[i].getPosition().lng() == location.lng()){                            
+                            index = i;
+                            //window.alert(marker_buffer[index][3]);
+                            var contentString = '<div><img src="'+base_url+marker_buffer[index][2]+'" /></div>'
+                                               +'<div><span class="info_header">'+'Υποβλήθηκε από τον: '+'</span> '+marker_buffer[index][10]+'</div>'
+                                               +'<div><span class="info_header">'+'Γεωγραφικό Μήκος: '+'</span> '+marker_buffer[index][0]+'</div>'
+                                               +'<div><span class="info_header">'+'Γεωγραφικό Πλάτος: '+'</span> '+marker_buffer[index][1]+'</div>'
+                                               +'<div><span class="info_header">'+'Όνομα Είδους: '+'</span> '+marker_buffer[index][11]+'</div>'
+                                               +'<div><span class="info_header">'+'Κατηγορία Είδους: '+'</span> '+marker_buffer[index][12]+'</div>'
+                                               +'<div><span class="info_header">'+'Ημερομηνία Παρατήρησης: '+'</span> '+marker_buffer[index][3]+'</div>'
+                                               +'<div><span class="info_header">'+'Βάθος: '+'</span> '+marker_buffer[index][4]+'</div>'
+                                               +'<div><span class="info_header">'+'Πλήθος: '+'</span> '+marker_buffer[index][5]+'</div>'
+                                               +'<div><span class="info_header">'+'Περιοχή Παρατήρησης: '+'</span> '+marker_buffer[index][6]+'</div>'
+                                               +'<div><span class="info_header">'+'Περιβάλλον: '+'</span> '+marker_buffer[index][7]+'</div>'
+                                               +'<div><span class="info_header">'+'Σχόλια: '+'</span> '+marker_buffer[index][8]+'</div>'
+                                               +'<div><span class="info_header">'+'Έχει ξαναπαρατηρηθεί?: '+'</span> '+marker_buffer[index][9]+'</div>';
+                            //window.alert(contentString);
+                            $('.info_wrapper').empty().append(contentString);
+                        }
+                    }                    
+                }
             </script>
             <div class="marker_db" style="display:none">
             	<?php 
-					 foreach($reports as $coords){
-						//echo $coords['lat'].', '.$coords['lng'];
-					 }
-				?>
-                38.0397, 24.644;
-                38.1397, 24.744;
-                38.0397, 24.744;
+                if(isset($reports)){
+                    foreach($reports as $report){
+                                             
+                            echo $report['Report']['lat'].','.$report['Report']['lng'].',';
+
+                            if($report['Report']['permissionUseMedia']) 
+                                echo$report['Report']['main_photo'];
+                            else
+                                echo"_";
+
+                            echo ','.$report['Report']['date'].','.
+                                    $report['Report']['depth'].','.
+                                    $report['Report']['crowd'].','.
+                                    $report['Report']['observation_site'].','.
+                                    $report['Report']['habitat'].','.
+                                    $report['Report']['comments'].','.
+                                    $report['Report']['re_observation'].
+                                    ',';
+                            
+                            if(isset($report['User']['username']))
+                                echo $report['User']['username'];
+                            else 
+                                echo 'Ανώνυμος';
+                            
+                                echo    ','.$report['Specie']['scientific_name'].','.
+                                    $report['Category']['category_name'].';';
+
+
+
+                    }
+             }?>
             </div>
 
         </div>

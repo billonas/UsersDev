@@ -1707,12 +1707,17 @@ kodikas anagnorismenon eidon
     border-radius: 2px;
     float: left;
     color: rgb(70,70,70);
-    font-size: 1em;
+    font-size: 1.3em;
     font-family: Arial;
     padding-top:.5em;
     padding-bottom: .5em;
     padding-left: 5%;
     padding-right: 5%;
+}
+
+.info_wrapper div img{
+    height: 10em;
+    width: auto;
 }
 
 .info_wrapper .info_header{

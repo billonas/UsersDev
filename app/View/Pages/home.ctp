@@ -49,13 +49,18 @@
                 
                 <span class="news_header">Τα Νέα μας</span>
                 <br />
-                <span class="news_date">Προστέθηκε: <?php echo $lastnew['News']['created'];?></span>
+                <?php if($lastnew){
+                echo '<span class="news_date">Προστέθηκε: '.$lastnew['News']['created'].'</span>
                 <br />
-                <span class="news_text"><p><strong><font size="5" color="blue"><?php echo $lastnew['News']['title']; ?> </font></strong></p>
-                    <?php  echo $lastnew['News']['body'];?>
-                    <br />
-                    <?php echo $this->Html->link('Διαβάστε Περισσότερα', array('controller'=>'News', 'action'=>'show'));?>
-                </span>
+                <span class="news_text"><p><strong><font size="5" color="blue">'.$lastnew['News']['title'].'</font></strong></p>
+                    '.$lastnew['News']['body'].'
+                    <br />';
+                    echo $this->Html->link('Διαβάστε Περισσότερα', array('controller'=>'News', 'action'=>'show'));
+                echo '</span>';
+                }
+                else 
+                    echo '<span class="news_date">Δεν υπάρχουν Νέα</span>';
+                    ?>
             </div>
             <div class="index_tile">
                 <div class="tile_header">
