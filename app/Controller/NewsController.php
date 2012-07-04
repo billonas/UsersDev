@@ -37,7 +37,7 @@ class NewsController extends AppController {
         else
         {
             if ($this->New->save($this->request->data)) {
-                $this->Session->setFlash('Your new has been saved.');
+                $this->Session->setFlash('Your new has been saved.','flash_good');
                 $this->redirect(array('action' => 'show'));
             } else {
                 $this->Session->setFlash('Unable to add your new.');
@@ -58,10 +58,10 @@ class NewsController extends AppController {
             $this->request->data = $this->New->read();
         } else {
             if ($this->New->save($this->request->data)) {
-                $this->Session->setFlash('Your new has been updated.');
+                $this->Session->setFlash('Your new has been updated.','flash_good');
                 $this->redirect(array('action' => 'show'));
             } else {
-                $this->Session->setFlash('Unable to update your new.');
+                $this->Session->setFlash('Unable to update your new.','flash_bad');
             }
         }
         }
@@ -79,7 +79,7 @@ class NewsController extends AppController {
             throw new MethodNotAllowedException();
         }
         if ($this->New->delete($id)) {
-            $this->Session->setFlash('The new with id: ' . $id . ' has been deleted.');
+            $this->Session->setFlash('The new with id: ' . $id . ' has been deleted.','flash_good');
             $this->redirect(array('action' => 'show'));
         }
         }

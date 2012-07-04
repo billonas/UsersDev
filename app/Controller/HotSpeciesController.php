@@ -29,11 +29,11 @@ class HotSpeciesController extends AppController{
                 $add3=0;
                 $res = $this->Image->checkImage($this->data['HotSpecie']['image']);
             	if($res < 0){
-                    $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία1');
+                    $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία','flash_bad');
                     $this->redirect(array('action'=>'create'), null, true);
                 }
                 else if(!$res){
-  			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία');
+  			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
                         $this->redirect(array('action'=>'create'), null, true);
                 }
                 //briskw thn katalhksh tou arxeiou gia na dwsw thn idia katalhksh sto kainourgio onoma
@@ -46,11 +46,11 @@ class HotSpeciesController extends AppController{
                 if(!empty($this->data['HotSpecie']['image'.$i]['tmp_name'])){
                 $res = $this->Image->checkImage($this->data['HotSpecie']['image'.$i]);
             	if($res < 0){
-                    $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία για την επιπλέον φώτο'.$i);
+                    $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία για την επιπλέον φώτο'.$i,'flash_bad');
                     $this->redirect(array('action'=>'create'), null, true);
                 }
                 else if(!$res){
-  			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία για την επιπλέον φώτο'.$i);
+  			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία για την επιπλέον φώτο'.$i,'flash_bad');
                         $this->redirect(array('action'=>'create'), null, true);
                 }
                 //briskw thn katalhksh tou arxeiou gia na dwsw thn idia katalhksh sto kainourgio onoma
@@ -69,7 +69,7 @@ class HotSpeciesController extends AppController{
                     //main_photo
                     $ret = $this->Image->mvSubImg($this->HotSpecie, $this->data['HotSpecie']['main_photo'], "hotspecies", "main_photo");
                     if(!$ret){
-                            $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                            $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας",'flash_bad');
                             $this->redirect(array('action'=>'create'), null, true);
                             }
                     //TODO:Na valo for
@@ -93,19 +93,19 @@ class HotSpeciesController extends AppController{
                         }
                         $ret = $this->Image->mvSubImg($this->HotSpecie, $this->data['HotSpecie']['additional_photo'.$i], "hotspecies","additional_photo".$i,$ext);
                         if(!$ret){
-                            $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας για την επιπλέον φώτο".$i);
+                            $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας για την επιπλέον φώτο".$i,'flash_bad');
                             $this->redirect(array('action'=>'create'), null, true);
                         }
                     }
-                    $this->Session->setFlash('The HotSpecie has been saved');
+                    $this->Session->setFlash('The HotSpecies has been saved','flash_good');
                     $this->redirect(array('action'=>'show'), null, true);
                 }
                 else {
-                    $this->Session->setFlash('HotSpecie not saved. Try again.');
+                    $this->Session->setFlash('HotSpecies not saved. Try again.','flash_bad');
                     }
             }
             else{
-                $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία2');
+                $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία','flash_bad');
                 $this->redirect(array('action'=>'create'), null, true);
             }
     }
@@ -121,7 +121,7 @@ class HotSpeciesController extends AppController{
         else
         {
         if ($id == null) {
-            $this->Session->setFlash('Invalid HotSpecie Id');
+            $this->Session->setFlash('Invalid HotSpecie Id','flash_bad');
             $this->redirect(array('action'=>'show'), null, true);
         }
         if (empty($this->data)) {
@@ -130,11 +130,11 @@ class HotSpeciesController extends AppController{
             $this->set('hotspecie',$hotspecie);
         } else {
             if ($this->HotSpecie->save($this->data)) {
-                $this->Session->setFlash('The HotSpecie has been saved');
+                $this->Session->setFlash('The HotSpecie has been saved','flash_good');
                 return $this->redirect(array('action'=>'show'), null, true);
             } else {
                 $this->Session->setFlash('The HotSpecie could not be saved.
-                                            Please, try again.');
+                                            Please, try again.','flash_bad');
             }
         }
         }
@@ -149,12 +149,12 @@ class HotSpeciesController extends AppController{
         else
         {
         if ($id == null) {
-            $this->Session->setFlash('Invalid id for HotSpecie');
+            $this->Session->setFlash('Invalid id for HotSpecie','flash_bad');
             $this->redirect(array('action'=>'show'), null, true);
         }
         $this->Image->dlImg($this->HotSpecie, $id, 'HotSpecie');
         if ($this->HotSpecie->deleteHot($id)) {
-            $this->Session->setFlash('HotSpecie #'.$id.' deleted');
+            $this->Session->setFlash('HotSpecie #'.$id.' deleted','flash_good');
             $this->redirect(array('action'=>'show'), null, true);
         }
         }
@@ -185,7 +185,7 @@ class HotSpeciesController extends AppController{
         else
         {
         if (($id == null) || ($num == null) || ($num > 3) || ($num < 1)) { //num{1-3}
-            $this->Session->setFlash('Invalid id for HotSpecie or Photo');
+            $this->Session->setFlash('Invalid id for HotSpecie or Photo','flash_bad');
             $this->redirect(array('action'=>'show'), null, true);
         }
         else{
@@ -205,11 +205,11 @@ class HotSpeciesController extends AppController{
             $photo = 'additional_photo'.$num;
             $additional = $hotspecies['HotSpecie'][$photo];
             if($additional == ''){//an den yparxei h antistoixi foto(periptosi pou dosame to num xeirokinita h lathos sto view)
-                $this->Session->setFlash('This photo does not exist');
+                $this->Session->setFlash('This photo does not exist','flash_bad');
                 $this->redirect(array('action'=>'update',$id), null, true);
             }
             $this->Image->changePriority($additional, $hotspecies, $ext,$num,$this->HotSpecie);
-            $this->Session->setFlash('The photo has been set as main');
+            $this->Session->setFlash('The photo has been set as main','flash_good');
             $this->redirect(array('action'=>'update',$id));
             //} else {
             //    $this->Session->setFlash('The photo could not be set as main photo. Please, try again.');
@@ -228,7 +228,7 @@ class HotSpeciesController extends AppController{
         else
         {
         if (($id == null) || ($num == null) || ($num > 3) || ($num < 1)) { //num{1-3}
-            $this->Session->setFlash('Invalid id for HotSpecie or Photo');
+            $this->Session->setFlash('Invalid id for HotSpecie or Photo','flash_bad');
             $this->redirect(array('action'=>'show'), null, true);
         }
         else{
@@ -236,11 +236,11 @@ class HotSpeciesController extends AppController{
             $photo = 'additional_photo'.$num;
             $additional = $hotspecies['HotSpecie'][$photo];
             if($additional == ''){//an den yparxei h antistoixi foto(periptosi pou dosame to num xeirokinita h lathos sto view)
-                $this->Session->setFlash('This photo does not exist');
+                $this->Session->setFlash('This photo does not exist','flash_bad');
                 $this->redirect(array('action'=>'update',$id), null, true);
             }
              $this->HotSpecie->deleteImg($id , $num);       
-             $this->Session->setFlash('The photo has been deleted');
+             $this->Session->setFlash('The photo has been deleted','flash_good');
              $this->redirect(array('action'=>'update',$id));
         }
         }
@@ -272,11 +272,11 @@ class HotSpeciesController extends AppController{
                 }
                 $res = $this->Image->checkImage($this->data['HotSpecie']['image']);
             	if($res < 0){
-                    $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία');
+                    $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία','flash_bad');
                     $this->redirect(array('action'=>'show'), null, true);
                 }
                 else if(!$res){
-  			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία');
+  			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
                         $this->redirect(array('action'=>'show'), null, true);
                 }
                 //briskw thn katalhksh tou arxeiou gia na dwsw thn idia katalhksh sto kainourgio onoma
@@ -289,21 +289,21 @@ class HotSpeciesController extends AppController{
                     //main_photo
                     $ret = $this->Image->mvSubImg($this->HotSpecie, $imagePath, "hotspecies","additional_photo".$num,$ext);
                     if(!$ret){
-                            $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας");
+                            $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας",'flash_bad');
                             $this->redirect(array('action'=>'show'), null, true);
                             }        
-                    $this->Session->setFlash('The photo has been saved');
+                    $this->Session->setFlash('The photo has been saved','flash_good');
                     $this->redirect(array('action'=>'show'), null, true);
                 }
                 else{
-                    $this->Session->setFlash('Savefield error');
+                    $this->Session->setFlash('Savefield error','flash_bad');
                     $this->redirect(array('action'=>'show'), null, true);
                 }
             }
-            $this->Session->setFlash('Empty image error');
+            $this->Session->setFlash('Empty image error','flash_bad');
         $this->redirect(array('action'=>'show'), null, true);
         }
-        $this->Session->setFlash('Empty data error');
+        $this->Session->setFlash('Empty data error','flash_bad');
         $this->redirect(array('action'=>'show'), null, true);
         }
     }
@@ -318,7 +318,7 @@ class HotSpeciesController extends AppController{
         else
         {
         if (($id == null) || ($action == null)) {
-            $this->Session->setFlash('Invalid HotSpecie Id');
+            $this->Session->setFlash('Invalid HotSpecie Id','flash_bad');
             $this->redirect(array('action'=>'show'), null, true);
         }
         else{
@@ -326,7 +326,7 @@ class HotSpeciesController extends AppController{
                 $this->HotSpecie->upPriority($id);//TODO
             else if($action == 2)
                 $this->HotSpecie->downPriority($id);//TODO+elegxo gia return 0
-            $this->Session->setFlash('The priority has been changed');
+            $this->Session->setFlash('The priority has been changed','flash_good');
             $this->redirect(array('action'=>'show'), null, true);
         }
         }
