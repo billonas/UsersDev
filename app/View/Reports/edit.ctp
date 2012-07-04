@@ -14,7 +14,7 @@
             $('#autoComplete').blur(function(){
                 if ($.inArray($(this).val(), availableTags) > -1) // If the value entered is a known species
                     $('#scientificNameMsg').html(''); // Clear messsage
-                else
+                else if ($(this).val() != '')
                     $('#scientificNameMsg').html('<font color="red"><small>Έχετε εισάγει ένα καινούριο ειδος!</small></font>'); // Display message
             });
             
@@ -324,7 +324,7 @@
                     
                     echo '<div style="clear:both;">';
                     echo '<label for="ReportCategory" class="std_form">Σχόλια-Παρατηρήσεις</label>';
-                    echo $this->Tinymce->input('Report.analyst_comments',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form'));
+                    echo $this->Tinymce->input('Report.analyst_comments',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form'),null,'full');
                     		
                     echo '<table><tr><td>'.$this->Html->link('Επιστροφή στον πίνακα', array('controller' => 'reports', 'action'=>'table'),array('class' => 'button_like_anchor' , "style" => "padding-left: 3.2em;padding-right: 3.2em;")).'</td><td>';
 					echo $this->Form->end(array(

@@ -172,7 +172,7 @@ body{
     top: 2.4em;
     right: 8.5em;
     background-color:  rgb(34, 34, 34);
-    padding: 1em 2em 4em 2em;
+    padding: 1em 2em 5em 2em;
     margin: 0;
     -webkit-box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7);
     box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7);
@@ -1329,9 +1329,35 @@ kodikas selidas report
     float:left;
 }
 
-#f2 img{
-    max-width: 17%;
-    max-height: 15em;
+#f2{
+    overflow:auto;
+}
+
+#f2 table{
+    float:left;
+    clear:both;
+}
+
+#f2 > a{
+    float:left;
+}
+
+.hot_radio{
+    float:left;
+    width: 20em;
+    height: 10em;
+    margin-bottom: 1em;
+}
+
+#f2 .hot_radio:first-child{
+    clear:right;
+}
+
+.hot_radio img{
+    height: 10em;
+    max-height: 10em !important;
+    max-width: 15em !important;
+    width: 20em;
 }
 
 
@@ -1437,6 +1463,7 @@ kodikas summary
 
 .summary_middle_wrapper .media_wrapper img{
     width: 90%;
+    max-height: 50em;
 }
 
 .summary_middle_wrapper .button_like_anchor{
@@ -1831,7 +1858,81 @@ kodikas anagnorismenon eidon
 }
 
 /***************************************************************************************
-kodikas anagnorismenon eidon
+telos kodika anagnorismenon eidon
+***************************************************************************************/
+
+/***************************************************************************************
+kodikas simantikon eidon
+***************************************************************************************/
+
+.specie_view{
+    border-radius: 10px;
+    background-color: #fff;
+    overflow: auto;
+    height: auto;
+}
+
+.hot_specie_wrapper{
+    font-size: 1em;
+    font-family: Arial,sans-serif;
+    margin:0;
+    padding:0;
+    border: 0;
+    clear:right;
+    height:15em;
+    position: relative;
+    box-sizing: border-box;
+    margin-top: 1em;
+}
+
+.hot_specie_wrapper > div:first-child{
+    height: 100%;
+    width: 30%;
+    float:left;
+    padding-left: 10%;
+}
+
+.hot_specie_wrapper > div:first-child img{
+    max-width: 90%;
+    max-height: 14em;
+}
+
+
+.hot_specie_wrapper > div:nth-child(2){
+    width: 70%;
+    float:left;
+    height: 100%;
+    padding-left: 5%;
+}
+
+.hot_specie_wrapper > div:nth-child(2) span{
+    float: left;
+    width: 100%;
+    font-weight: bold;
+    text-decoration: underline;
+    font-weight: 1.3em;
+    margin-bottom: .5em;
+}
+
+.hot_specie_wrapper > div:nth-child(2) > div:nth-child(2){
+    float: left;
+    width: 100%;
+    height: auto;
+}
+
+.hot_specie_wrapper > div:nth-child(2) > div {
+    float: left;
+    width: 100%;
+}
+
+.hot_specie_wrapper > div:nth-child(2) > div img{
+    float: left;
+    height: 5em;
+    width: 15%;
+    margin-right: 5%;
+}
+/***************************************************************************************
+telos kodika simantikon eidon
 ***************************************************************************************/
 
 

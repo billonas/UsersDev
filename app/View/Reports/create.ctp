@@ -409,7 +409,7 @@ function showDivImageDisplay(img) {
 </style>
     <div class="middle_row big_row no_padding">
         <div class="login_box">  
-                <br><h1>Αναφορά παρατήρησης</h1></br>
+                <h1>Αναφορά παρατήρησης</h1>
             </div>
             <?php echo '<div class="flash_box gradient">';
                         echo '</br/>'.$this->Session->flash().'</br>';
@@ -503,7 +503,7 @@ function showDivImageDisplay(img) {
                         }
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
-                            echo 'VIDEO';
+                            //echo 'VIDEO';
                             echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                         }        
                         echo '</div>';
@@ -528,17 +528,25 @@ function showDivImageDisplay(img) {
                         echo '<tr><td><label for="ReportHot_species" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
                         echo '</table>';    
                         echo '<br/>';
-                                                                                               
-                        $options = array();
+                         
+                        $iter = 0;
                         foreach($hotspecies as $hot){
-                           $options[$hot['HotSpecie']['scientific_name']] = $this->Html->image($hot['HotSpecie']['main_photo'],array('class'=>'hotImg', 'onmouseover'=> "showDivImageDisplay(this);", 'onmouseout'=>"hideDivImageDisplay();"));
+                            if($iter == 0){
+                                echo '<div class="hot_radio" style="clear:left;"><input type="radio" name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" />
+                                    <img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].'" alt="" /></div>';
+                                $iter = 1;
+                            }
+                            else{
+                                echo '<div class="hot_radio"><input type="radio" name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" />
+                                    <img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].'" alt="" /></div>';
+                            }
                         }
-                        $options['Κανένα'] = 'Κανένα απο τα παραπάνω';  
-						
-                        echo $this->Form->input('hot_species', array('options' => $options, 'value' => 'Κανένα','before'=>'<span">','hiddenField' => false, 'separator'=> '</span><span>', 'after'=>'</span>', 'type'=>'radio','div'=>false, 'legend'=> false,'class'=>'std_form'));
+                        echo '<div class="hot_radio"><input type="radio" name="data[Report][hot_species]" value="Κανένα" class="std_form" checked />
+                                   Κανένα απο τα παραπάνω </div>';
+                        
                         echo '<br/><table>';
-						echo' <div id="divImageDisplay" style="position:absolute;"> </div>';
-			echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
+			echo' <div id="divImageDisplay" style="position:absolute;"> </div>';
+			//echo '<a id="a1_right" href="#" style="clear:left;">'.$this->Html->image('info.png').'</a>';
                         echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
                         echo '<td>'.$this->Form->input('habitat',array('label'=>false,'placeholder' => 'Περιγράψτε. Π.Χ. «Βράχια καλυμμένα με βλάστηση»','div'=> false, 'class' => 'std_form blue_shadow')).'</td></tr>';
                         echo '<tr><td><label for="ReportDepth" class="std_form">Βάθος</label></td>';
@@ -610,7 +618,7 @@ function showDivImageDisplay(img) {
                         }
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
-                            echo 'VIDEO';
+                            //echo 'VIDEO';
                             echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                         }
                         echo '</div>'; 
@@ -675,16 +683,30 @@ function showDivImageDisplay(img) {
                         echo '<tr><td><label for="ReportHot_species" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
                         echo '</table>';    
                         echo '<br/>';
-                        
-                        $options = array();
+                        $iter = 0;
                         foreach($hotspecies as $hot){
-                            $options[$hot['HotSpecie']['scientific_name']] = $this->Html->image($hot['HotSpecie']['main_photo']); 
+                            if($iter == 0){
+                                echo '<div class="hot_radio" style="clear:left;"><input type="radio" name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" ';
+                                if($report['Report']['hot_species']===$hot['HotSpecie']['scientific_name']) echo ' checked ';
+                                echo '/>';
+                                $iter = 1;
+                            }
+                            else{
+                                echo '<div class="hot_radio"><input type="radio" name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" ';
+                                if($report['Report']['hot_species']===$hot['HotSpecie']['scientific_name']) echo ' checked ';
+                                echo '/>';    
+                            }
+                            echo '<img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].'" alt="" /></div>';
                         }
-                        $options['Κανένα'] = 'Κανένα απο τα παραπάνω';  
-                        echo $this->Form->input('hot_species', array('options' => $options,'value'=>$report['Report']['hot_species'],'type'=>'radio','legend'=> false,'class'=>'std_form', $attributes = ''));
-                        echo '<br/><table>';
-						
-			echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
+                         echo '<div class="hot_radio"><input type="radio" name="data[Report][hot_species]" value="Κανένα" class="std_form"';
+                         if ($report['Report']['hot_species']==="Κανένα") echo 'checked ';
+                        echo       '/>  Κανένα απο τα παραπάνω </div>';
+                        
+                         
+                        echo '<table>';
+                        
+                        			
+			echo '<a id="a1_right" href="#" style="clear:left;">'.$this->Html->image('info.png').'</a>';
                         echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
                         echo '<td>'.$this->Form->input('habitat',array('label'=>false,'placeholder' => 'Περιγράψτε. Π.Χ. «Βράχια καλυμμένα με βλάστηση»','value'=>$report['Report']['habitat'],'div'=> false, 'class' => 'std_form blue_shadow')).'</td></tr>';
                         echo '<tr><td><label for="ReportDepth" class="std_form">Βάθος</label></td>';
@@ -848,7 +870,8 @@ function showDivImageDisplay(img) {
                     'div' => false,
                     'class' => 'std_form'));
                     echo '<a href="#" class="fragment button_like_anchor right_arrow white_arrow">Επόμενο Βήμα<img src="'.$this->webroot.'img/arrows/white_arrow_right_small3.png"/></a>';
-                    echo $this->Html->link('Νέα αναφορά', array('controller' => 'reports', 'action'=>'createnew'), array('class' => 'button_like_anchor' , "style" => "padding-left: 3em;padding-right: 3em;"));
+                    echo '<br />';
+                    echo $this->Html->link('Νέα αναφορά', array('controller' => 'reports', 'action'=>'createnew'), array('class' => 'button_like_anchor' , "style" => "padding-left: 3em;padding-right: 3em;margin-top:1em;"));
                     echo '<div class="report_button_wrapper">';
                     echo '<a href="#" style="display:none;" class="fragment button_like_anchor left_arrow white_arrow"><img src="'.$this->webroot.'img/arrows/white_arrow_left_small3.png"/>Προηγούμενο Βήμα</a>';
                     echo $this->Form->end(array(
