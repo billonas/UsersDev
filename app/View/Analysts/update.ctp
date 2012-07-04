@@ -20,7 +20,7 @@
 <div class="middle_row  big_row">
 			<div class="middle_wrapper">
 				<div class="register_box login_box" align="center">
-			 		<br><h1>Προφίλ αναλυτή</h1></br>
+			 		<br><h1>Προφίλ αναλυτή</h1><br/>
 
 					<?php echo $this->Form->create('Analyst', array('action' => 'update'));?>
                <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
@@ -72,14 +72,16 @@
                                         <img class="icon" src="../../img/blackUpArrow.png" style="transform: rotate(270deg);-ms-transform: rotate(270deg);-webkit-transform: rotate(270deg);-o-transform: rotate(270deg);-moz-transform: rotate(270deg);"/>
                                         Πίσω
                                     </a>
-                                    <a class="upgradeButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'upgrade', $analyst['User']['id']))?>" >
-                                        <img class="icon" src="../../img/blackUpArrow.png"/>
-                                        Αναβάθμιση αναλυτή
-                                    </a>
-                                    <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $analyst['User']['id']))?>" >
-                                        <img class="icon" src="../../img/whiteX.png"/>
-                                        Διαγραφή αναλυτή
-                                    </a>
+                                    <?php if ( $analyst['User']['user_type'] === 'analyst' ): ?>
+                                        <a class="upgradeButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'upgrade', $analyst['User']['id']))?>" >
+                                            <img class="icon" src="../../img/blackUpArrow.png"/>
+                                            Αναβάθμιση αναλυτή
+                                        </a>
+                                        <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete', $analyst['User']['id']))?>" >
+                                            <img class="icon" src="../../img/whiteX.png"/>
+                                            Διαγραφή αναλυτή
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
 			    </div>
 			</div>
