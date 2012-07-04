@@ -158,7 +158,7 @@
                                 <a class="specie_button selected_specie_button" href="#">Είδη</a>
                                 <a class="specie_button" href="#">Περιοχές</a>
                 </div>
-                <?php if(isset($current_species)){
+                <?php if(isset($current_species) && !empty($reports)){
                     
                 
                 echo '<div class="specie_div current_specie_looked">
@@ -170,12 +170,11 @@
                         <img class="specie_img" src="'.$this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg'.'"/>
                     </div>
                     <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Περιοχές:</span>';
+                        <span class="specie_areas"><span>Περιοχές: </span>';
                 
                 $flag = false;foreach($sAreas[$current_species] as $area){ if($flag) echo ", "; else $flag = true; echo $area;}
                 echo '</span>
-                        <a href="#" class="more_areas"><img src='.$this->webroot.'img/double_arrow6.png'.'/></a>
-                        <a href="#" class="more_info">Περισσότερα...</a>
+                        
                     </div>
                 </div>';
                  }?>        
@@ -205,7 +204,7 @@
                                 
                                 ));?>" class="more_info">Περισσότερα...
                         </a>
-                        <?php //foreach($sReports as $report) echo $report['Report']['main_photo'];?> 
+                        
                     </div>
                 </div>
                 <?php
@@ -248,7 +247,32 @@
                     <a class="specie_button selected_specie_button" href="#">Περιοχές</a>
                 </div>
                 
-                
+                <?php if(isset($current_area) && !empty($reports)){
+                            echo '<div class="specie_div current_specie_looked">
+                                    <span class="little_specie_header">'.$current_area.'</span>
+                                    <div class="img_frame">
+                                        <img class="squarizer" src="'.$this->webroot.'img/square.png'.'"/>
+                                        <img class="specie_img" src="'.$this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg'.'"/>
+                                    </div>    
+                                    <div class="region_button_wrapper">
+                                    <span class="specie_areas"><span>Είδη: </span>';
+                            
+                            $flag = false; 
+                            foreach($aSpecies[$current_area] as $s){ 
+                                if($flag) 
+                                    echo ", "; 
+                                else 
+                                    $flag = true; 
+                                echo $s;}
+
+                            echo '</span>
+                                    
+                                </div>
+                            </div>';
+                            }  
+               ?>   
+            
+            
                 <?php $iter = 0; $div_flag = false; ?>
                 <?php foreach($areas as $area): ?>
                 <?php 
@@ -476,14 +500,46 @@
                             else
                                 echo"_";
 
-                            echo ','.$report['Report']['date'].','.
-                                    $report['Report']['depth'].','.
-                                    $report['Report']['crowd'].','.
-                                    $report['Report']['observation_site'].','.
-                                    $report['Report']['habitat'].','.
-                                    $report['Report']['comments'].','.
-                                    $report['Report']['re_observation'].
-                                    ',';
+                            echo ','.$report['Report']['date'].',';
+                            
+                            if(!$report['Report']['depth']==='')
+                                echo
+                                    $report['Report']['depth'];
+                            else 
+                                echo '-';
+                            
+                            echo ',';
+                            if(!$report['Report']['crowd']==='')
+                                 echo   $report['Report']['crowd'];
+                            else
+                                 echo '-';
+                            echo ',';
+                            
+                            
+                            if(!$report['Report']['area']==='')
+                                echo $report['Report']['area'];
+                            else
+                                echo '-';                           
+                            echo ',';
+                            
+                            if(!$report['Report']['habitat']==='')
+                                echo $report['Report']['habitat'];
+                            else
+                                echo '-';
+                            echo ',';
+                                    
+                            if(!$report['Report']['comments']==='')
+                                echo $report['Report']['comments'];
+                            else
+                                echo '-';
+                            echo ',';
+                            
+                            if(!$report['Report']['re_observation']==='')
+                                echo   $report['Report']['re_observation'];
+                            else
+                                echo '-';
+                            echo ',';
+                                    
                             
                             if(isset($report['User']['username']))
                                 echo $report['User']['username'];
