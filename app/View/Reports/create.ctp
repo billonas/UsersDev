@@ -401,6 +401,7 @@ function showDivImageDisplay(img) {
 
 
 <style>
+    
     #mapCanvas {
         width: 100%;
         height: 30em;
@@ -454,6 +455,12 @@ function showDivImageDisplay(img) {
                         'label' => 'Ανέβασμα Φωτογραφίας ή/και Video',
                         'div' => false,
                         'class' => 'std_form big_button centered_button'));
+                        echo '<div class="report_button_wrapper">';
+                        echo $this->Form->end(array(
+                        'label' => 'Ανέβασμα Φωτογραφίας ή/και Video',
+                        'div' => false,
+                        'class' => 'std_form big_button centered_button'));
+                        echo '</div>';
                         echo '</div>';
                         echo '</div>';
                 }

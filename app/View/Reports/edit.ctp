@@ -87,7 +87,7 @@
                     	
                     echo $this->Form->create('Report', array('action' => 'edit',"enctype" => "multipart/form-data"));
 
-                    echo '<table>';
+                    echo '<table class="summary_table">';
                     echo '<tr><td colspan="2"><div id="mapCanvas"></div></td></tr>';
                     echo '<script>';
                     echo 'function setMarker(){';

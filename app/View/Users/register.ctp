@@ -20,7 +20,7 @@ $(document).ready(function(){
             
 			<div class="middle_wrapper">
             
-				<div class="register_box login_box" align="center">
+				<div class="register_box login_box white_box" align="center">
 			 		<br><h1>Εγγραφή χρήστη</h1></br>
                     
 					<div class="required" style="color:red">(υποχρεωτικά πεδία *)</div>

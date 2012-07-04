@@ -2,7 +2,7 @@
     	
 		<div class="middle_row">
         	<div class="middle_wrapper">
-                <div class="login_box">  
+                <div class="login_box white_box">  
                     				<br><h1>Σύνδεση χρήστη</h1></br>
 									<?php echo $this->Form->create('User', array('action' => 'login'));?>
 																		
