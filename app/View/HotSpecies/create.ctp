@@ -7,7 +7,7 @@
 <h2>Προσθήκη Είδους</h2>
 <?php echo $this->Form->create('HotSpecie', array('action' => 'create', "enctype" => "multipart/form-data")); ?>
           <?php
-             echo $this->Form->error('image');
+             //echo $this->Form->error('image');
              echo $this->Form->input('image',array("type" => "file",'label'=>'Φωτογραφία'));
              echo $this->Form->input('main_photo',array('type'=>'hidden'));
              //echo $this->Form->error('image1');

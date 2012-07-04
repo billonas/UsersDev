@@ -401,6 +401,7 @@ function showDivImageDisplay(img) {
 
 
 <style>
+    
     #mapCanvas {
         width: 100%;
         height: 30em;
@@ -454,6 +455,12 @@ function showDivImageDisplay(img) {
                         'label' => 'Ανέβασμα Φωτογραφίας ή/και Video',
                         'div' => false,
                         'class' => 'std_form big_button centered_button'));
+                        echo '<div class="report_button_wrapper">';
+                        echo $this->Form->end(array(
+                        'label' => 'Ανέβασμα Φωτογραφίας ή/και Video',
+                        'div' => false,
+                        'class' => 'std_form big_button centered_button'));
+                        echo '</div>';
                         echo '</div>';
                         echo '</div>';
                 }
@@ -893,5 +900,5 @@ function showDivImageDisplay(img) {
 </div>
 
 <div id="tip1_right" style="display:none;">
-                            Μπορείτε να μάθετε περισσότερα για τα παραπάνω είδη στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotspecies', 'action'=>'show'),array('target' => '_blank'));?>
+                            Μπορείτε να μάθετε περισσότερα για τα παραπάνω είδη στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotSpecies', 'action'=>'show'),array('target' => '_blank'));?>
 </div>

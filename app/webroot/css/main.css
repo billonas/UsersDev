@@ -990,8 +990,15 @@ kodikas selidas login
 
 .login_box{
     width: 100%;
-    height: 100%;
+    height: auto;
     margin: 0 auto;
+}
+
+.white_box{
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: auto;
+    padding-bottom: 1em;
 }
 
 .login_box *{
@@ -1035,6 +1042,7 @@ kodikas selidas login
 .login_box input[type=submit]{
     width: 10em;
     margin-top: .5em;
+    height: 3em;
 }
 
 .login_box .link_holder{
@@ -1445,7 +1453,7 @@ kodikas summary
     padding-bottom: 3%;
 }
 
-.summary_middle_wrapper table{
+.summary_middle_wrapper .summary_table{
     float:left;
     width: 50%;
     box-sizing: border-box;
@@ -1481,18 +1489,18 @@ kodikas summary
 
 .summary_middle_wrapper .button_like_anchor,
 .summary_middle_wrapper .std_form[type="submit"]{
-    width: 15em;
+    width: 20em;
     height: 2.5em;
     line-height: 2em;
 }
 
-.summary_middle_wrapper tr{
+.summary_middle_wrapper .summary_table tr{
     margin:0;
     padding:0;
     border:0;        
 }
 
-.summary_middle_wrapper td{
+.summary_middle_wrapper .summary_table td{
     border: 0;
     padding: 0;
     margin: 0;   
@@ -1502,13 +1510,13 @@ kodikas summary
     border-bottom: 1px solid #555;
 }
 
-.summary_middle_wrapper tr:first-child td:first-child{
+.summary_middle_wrapper .summary_table tr:first-child td:first-child{
     padding:0;
     border: 0;
     box-shadow: none;
 }
 
-.summary_middle_wrapper td:nth-child(2n+1){
+.summary_middle_wrapper .summary_table td:nth-child(2n+1){
     box-shadow: 1em -1px 0px 0px #fff,1em 0px 0px 0px #555;
 }
 /***************************************************************************************
@@ -2239,6 +2247,14 @@ telos kodika simantikon eidon
         }
         #tabs .right_arrow{
             padding-left: 4.7em;
+        }
+        .init_tab .init_form form > div:last-child{
+            width: 100%;
+            padding:0;
+        }
+        .init_tab .init_form form > div > div.report_button_wrapper{
+            width: 100%;
+            padding-left: 50%;
         }
         /*********************************************************************
         telos kodika report

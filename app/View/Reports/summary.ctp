@@ -44,8 +44,8 @@
 	<div class="middle_row big_row no_padding">
             <style>
                 #mapCanvas {
-                    width: 70%;
-                    height: 15em;
+                    width: 100%;
+                    height: 20em;
                     position: relative;
                 }
             </style>
@@ -61,7 +61,7 @@
                     
                     echo $this->Form->create('Report', array('action' => 'summary',"enctype" => "multipart/form-data"));
 
-                    echo '<table>';
+                    echo '<table class="summary_table">';
                     echo '<tr><td colspan="2"><div id="mapCanvas"></div></td></tr>';
                     echo '<script>';
                     echo 'function setMarker(){';
@@ -413,7 +413,7 @@
                     echo '</div>';
                     
                     echo '<div style="clear:left;">';
-                    echo $this->Html->link('Επιστροφή στην αναφορά', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
+                    echo $this->Html->link('Επιστροφή στην φόρμα αναφοράς', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
                     echo $this->Form->end(array(
                                                 'label' => 'Οριστική υποβολή',
                                                 'div' => false,
