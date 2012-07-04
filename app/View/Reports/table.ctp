@@ -4,7 +4,7 @@
  */
 ?>
 <?php echo $this->Html->css(array('main', 'jquery-ui', 'table', 'jquery.tablesorter.pager.css')); ?>
-<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js')); ?>
+<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'jquery.metadata.js')); ?>
 
 <?php $this->set('title_for_layout', 'Πίνακας αναφορών - ΕΛΚΕΘΕ');?>  
 
@@ -59,9 +59,9 @@
                 sortList: [[0,1]], //sort the first column in descending order
                 headers:
                 {
-                    1: { sorter: false }, //photo
-                    5: { sorter: false }, //buttons
-                    4: { sorter: 'lastModified' } // last modified
+//                    1: { sorter: false }, //photo
+//                    5: { sorter: false }, //buttons
+//                    4: { sorter: 'lastModified' } // last modified
                 }
             }).tablesorterPager({container: $("#pager")});
         
@@ -188,7 +188,7 @@
                             <th class="{sorter: false}">Φωτογραφία Παρατήρησης</th>
                             <th>Κατηγορία</th>
                             <th>Eίδος</th>
-                            <th>Τελευταία Επεξεργασία</th>
+                            <th class="{sorter: 'lastModified'}">Τελευταία Επεξεργασία</th>
                             <th class="{sorter: false}">Ενέργειες</th>
                         </tr>
                     </thead>
