@@ -377,7 +377,7 @@ class ReportsController extends AppController{
             else {
                 $this->Session->setFlash('Η κατάθεση της αναφοράς απέτυχε','flash_bad');
                 $this->set("validation", 1);
-                $this->redirect(array('controller'=>'Reports', 'action'=>'summary'));
+                $this->redirect('create');
             }
         }
        }
