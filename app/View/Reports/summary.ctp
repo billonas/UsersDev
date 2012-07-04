@@ -10,7 +10,7 @@
             $(window).ready(function(){
                 var centerlatLng = new google.maps.LatLng(38.0397, 24.644);
                 map = new google.maps.Map(document.getElementById('mapCanvas'), {
-                            zoom: 6,
+                            zoom: 5,
                             center: centerlatLng,
                             mapTypeId: google.maps.MapTypeId.SATELLITE,
                             mapTypeControl: true,
@@ -53,9 +53,7 @@
             <?php   echo '<div class="login_box">  
                                <h1>Σύνοψη αναφοράς</h1>
                          </div>';
-                    echo '<div class="flash_box gradient">';
-                    echo '</br/>'.$this->Session->flash().'</br>';
-                    echo '</div>';	?>
+                    ?>
         	<div class="summary_middle_wrapper">   
                 
                 <?php 
@@ -415,7 +413,7 @@
                     echo '</div>';
                     
                     echo '<div style="clear:left;">';
-                    echo $this->Html->link('Επιστροφή στην αναφορά', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
+                    echo $this->Html->link('Επιστροφή στην φόρμα αναφοράς', array('controller' => 'reports', 'action'=>'create'), array('class' => 'button_like_anchor')).'</td>';
                     echo $this->Form->end(array(
                                                 'label' => 'Οριστική υποβολή',
                                                 'div' => false,
