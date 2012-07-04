@@ -35,15 +35,13 @@ class Report extends AppModel{
                    'message'=>'Παρακαλούμε δώστε έγκυρη ημερομηνία παρακολούθησης'
              )
         ),
-//        ,
-//
-//        'email'=>array(
-//            'rule1'=>array(
-//                   'rule'=>array('email', true),
-//                   'allowEmpty'=> true,
-//                   'message'=>'Παρακαλούμε δώστε έγκυρή διεύθυνση ηλεκτρονικού ταχυδρομείου'
-//             ) 
-//        ), 
+        'email'=>array(
+            'rule1'=>array(
+                   'rule'=>array('validateEmail'),
+                   'allowEmpty'=> true,
+                   'message'=>'Παρακαλούμε δώστε έγκυρή διεύθυνση ηλεκτρονικού ταχυδρομείου'
+             ) 
+        ), 
        'lat'=>array(  
                'rule1'=>array(
                    'rule'=>array('decimal'),
@@ -69,42 +67,48 @@ class Report extends AppModel{
                    'message'=>'Το γεωγραφικό μήκος δεν μπορεί να έχει παραπάνω από 16 αριθμητικά ψηφία'  
                )
          )
-//        ,
-//        'name'=>array(  
-//               'rule1'=>array(
-//                  'rule' => array('maxLength',25),
-//                   'alloEmpty'=>true,
-//                  'message'=>'Το όνομα σας δεν μπορεί να περιέχει πάνω από 25 χαρακτήρες'  
-//               )
-//            ,
-//               'rule2'=>array(
-//                  'rule'=>'alphaNumeric',
-//                   'alloEmpty'=>true,
-//                  'message'=>'Το όνομα σας μπορεί να περιέχει μόνο γράμματα'  
-//               )
-//        )
-//            ,
-//        'surname'=>array(  
-//               'rule1'=>array(
-//                  'rule' => array('maxLength',25),
-//                  'alloEmpty'=>true,
-//                  'message'=>'Το επώνυμο σας δεν μπορεί να περιέχει πάνω από 25 χαρακτήρες'  
-//             )
-//            ,
-//               'rule2'=>array(
-//                  'rule'=>'alphaNumeric',
-//                  'alloEmpty'=>true,
-//                  'message'=>'Το επώνυμο σας μπορεί να περιέχει μόνο γράμματα'  
-//             )
-//        )
-//            ,
-//        'phone_number'=>array(  
-//               'rule1'=>array(
-//                   'rule'=>array('numeric'),
-//                   'alloEmpty'=>true,
-//                   'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς  χωρίς κενά'
-//             )
-//        )
+        ,
+        'name'=>array(  
+            'rule1'=>array(
+                  'rule' => array('maxLength',25),
+                  'alloEmpty'=>true,
+                  'message'=>'Το ονομά σας δεν μπορεί να περιέχει πάνω από 25 χαρακτήρες'  
+             )
+            ,
+            'rule2'=>array(
+                  'rule'=>array('onlyLetters'),
+                   'alloEmpty'=>true,
+                  'message'=>'Το όνομα σας μπορεί να περιέχει μόνο γράμματα (λατινικά ή ελληνικά)'  
+               )
+        )
+        ,
+        'surname'=>array(  
+               'rule1'=>array(
+                  'rule' => array('maxLength',25),
+                  'alloEmpty'=>true,
+                  'message'=>'Το επώνυμο σας δεν μπορεί να περιέχει πάνω από 25 χαρακτήρες'  
+             )
+            ,
+               'rule2'=>array(
+                  'rule'=>array('onlyLetters'),
+                  'alloEmpty'=>true,
+                  'message'=>'Το επώνυμο σας μπορεί να περιέχει μόνο γράμματα (λατινικά ή ελληνικά)'  
+             )
+        )
+        ,
+        'phone_number'=>array(
+            'rule1'=>array(
+                  'rule' => array('maxLength',15),
+                  'alloEmpty'=>true,
+                  'message'=>'Το τηλεφωνό σας μπορεί να είναι μέχρι 15 ψηφία'  
+             )
+            ,
+            'rule2'=>array(
+                   'rule'=>array('onlyNumbers'),
+                   'alloEmpty'=>true,
+                   'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς  χωρίς κενά'
+             )
+        )
     );
     
      function saveReport($report){
@@ -227,28 +231,46 @@ class Report extends AppModel{
 			'conditions'=>	$conditions));
     }
 
-    /*function notifyCategorizedReport($reportId = null,$categoryId = null){
-        
-        App::uses('CakeEmail', 'Network/Email');
-        $report = $this->findById($reportId);
-        if($report['Report']['category_id'] != $categoryId)
-        {
-            $analysts1 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category1' => $categoryId)));
-            $analysts2 = ClassRegistry::init('Analyst')->find('all', array('conditions' => array('Analyst.category2' => $categoryId)));
-            foreach($analysts1 as $analyst)
-            {
-                $email = new CakeEmail();
-                $email->config('smtp');
-                $email->from(array('no-reply@elke8e.com' => 'Elkethe-Admin'));
-                $email->to($analyst['User']['email']);
-                $email->subject('New report');
-                $email->transport('Smtp');
-                $email->send('New report for you: http://localhost/UsersDev/reports/edit/'.$reportId);
-            }
+    function onlyLetters($check){
+        $word = array_shift($check);
+         //εάν password και confirm_password είναι ίσα 
+         if (preg_match("/^[α-ωΑ-Ω\s]*$/", $word) || preg_match("/^[a-zA-Z\s]*$/", $word) || (strcmp($word , "")==0)) 
+         {
             return true;
-        }
-        else return false;
-    }*/
+         }
+         else
+         {
+            return false; 
+         }
+    }
+    
+    function onlyNumbers($check)
+      {
+         $phone = array_shift($check);
+         //εάν password και confirm_password είναι ίσα 
+         if (preg_match("/^[0-9]+$/", $phone) || (strcmp($phone , "")==0)) 
+         {
+            return true;
+         }
+         else
+         {
+            return false; 
+         }
+      }
+      
+      function validateEmail($check)
+      {
+         $email = array_shift($check);
+         //εάν password και confirm_password είναι ίσα 
+         if (preg_match("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", $email) || (strcmp($email , "")==0)) 
+         {
+            return true;
+         }
+         else
+         {
+            return false; 
+         }
+      }
     
 }
 
