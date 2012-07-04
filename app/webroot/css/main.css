@@ -745,6 +745,7 @@ kodikas mono gia tin arxiki selida
     -webkit-transition: all linear .5s;
     -moz-transition: all linear .5s;
     transition: all linear .1s;
+    
 }
 
 .tile_header{
@@ -772,6 +773,9 @@ kodikas mono gia tin arxiki selida
     font-family: Helvetica,sans-serif;
     z-index: 2;
     background-color: rgba(0,0,0,0.6);
+    font-size: 1.2em;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #000;
 }
 
 .tile_header span{

@@ -379,7 +379,7 @@
                     
                     if($this->Session->check('uploaded2')){
                         $uploaded2 = $this->Session->read('uploaded2');
-                        echo 'VIDEO';
+                        echo 'Video uploaded!';
                         echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                     }
                     if($this->Session->check('uploaded3')){
@@ -408,8 +408,8 @@
                         echo  $this->Form->input('additional_photo5',array('type'=>'hidden','value'=>$report['Report']['additional_photo5'], 'class'=>'std_form'));
                     }
                     echo '<br/>';
-                    if(isset($report['Report']['permissionUseMedia']))
-                        echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ", 'default' => $report['Report']['permissionUseMedia'], 'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
+                    
+                    echo $this->Form->input('permissionUseMedia',array("label"=>"Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; ", 'default' => $report['Report']['permissionUseMedia'], 'onclick'=>'return false', 'onkeydown'=>'return false', 'class'=>'std_form'));
                     echo '<br/>';
                     echo '</div>';
                     

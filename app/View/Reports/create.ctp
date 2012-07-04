@@ -354,8 +354,8 @@ $(document).ready(function(){
 
 $(window).bind('load', function() {
 
-	$('#a1_right').bubbletip($('#tip1_right'), { calculateOnShow: true, deltaDirection: 'right' , offsetTop: -20 });
-
+	$('#a1_right').bubbletip($('#tip1_right'), { calculateOnShow: true, deltaDirection: 'right' , offsetTop: -5 });
+        $('#a2_right').bubbletip($('#tip2_right'), { calculateOnShow: true, deltaDirection: 'right' , offsetTop: -20 });
 						
 });
 
@@ -477,7 +477,7 @@ function showDivImageDisplay(img) {
                         echo '<div id="mapCanvas"></div>';
                         echo '</td></tr>';
                         
-                        echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
+                        echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> <td><a id="a2_right" href="#" style="clear:left;">'.$this->Html->image('info.png').'</a></td></tr>';
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
                         echo '<td>'.$this->Form->input('lat',array('id'=>'info','label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));						
                         echo '</td></tr>';
@@ -510,7 +510,8 @@ function showDivImageDisplay(img) {
                         }
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
-                            //echo 'VIDEO';
+                            if(!$this->Session->check('uploaded1')) //if he hasn't uploaded image
+                                echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'class'=>'std_form'));
                             echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                         }        
                         echo '</div>';
@@ -553,7 +554,7 @@ function showDivImageDisplay(img) {
                         
                         echo '<br/><table>';
 			echo' <div id="divImageDisplay" style="position:absolute;"> </div>';
-			//echo '<a id="a1_right" href="#" style="clear:left;">'.$this->Html->image('info.png').'</a>';
+			echo '<a id="a1_right" href="#" style="clear:left;">'.$this->Html->image('info.png').'</a>';
                         echo '<tr><td><label for="ReportHabitat" class="std_form">Βιοτοπος-Περιβάλλον Παρατήρησης </label></td>';
                         echo '<td>'.$this->Form->input('habitat',array('label'=>false,'placeholder' => 'Περιγράψτε. Π.Χ. «Βράχια καλυμμένα με βλάστηση»','div'=> false, 'class' => 'std_form blue_shadow')).'</td></tr>';
                         echo '<tr><td><label for="ReportDepth" class="std_form">Βάθος</label></td>';
@@ -589,7 +590,8 @@ function showDivImageDisplay(img) {
                         echo '</td></tr>';
                         
                         echo $this->Form->input('area',array('type'=>'hidden',  'id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
-                        echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
+                        echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> <td><a id="a2_right" href="#" style="clear:left;">'.$this->Html->image('info.png').'</a></td></tr>';
+
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
                         echo '<td>'.$this->Form->input('lat',array('id'=>'info','value'=>$report['Report']['lat'],'label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));						
                         echo '</td></tr>';
@@ -901,4 +903,8 @@ function showDivImageDisplay(img) {
 
 <div id="tip1_right" style="display:none;">
                             Μπορείτε να μάθετε περισσότερα για τα παραπάνω είδη στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotSpecies', 'action'=>'show'),array('target' => '_blank'));?>
+</div>
+
+<div id="tip2_right" style="display:none;">
+                            Μπορείτε να κλικάρετε πάνω στον χάρτη στην περιοχή που θέλετε για να τοποθετήσετε το στίγμα σας
 </div>
