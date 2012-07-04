@@ -900,5 +900,5 @@ function showDivImageDisplay(img) {
 </div>
 
 <div id="tip1_right" style="display:none;">
-                            Μπορείτε να μάθετε περισσότερα για τα παραπάνω είδη στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotspecies', 'action'=>'show'),array('target' => '_blank'));?>
+                            Μπορείτε να μάθετε περισσότερα για τα παραπάνω είδη στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotSpecies', 'action'=>'show'),array('target' => '_blank'));?>
 </div>
