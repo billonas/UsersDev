@@ -513,7 +513,7 @@ class ReportsController extends AppController{
             }
             else{
                 $report = $this->Report->findById($id);
-                if(!strcmp($report['User']['email'],$this->Session->read('UserUserName'))){
+                if(!strcmp($report['User']['email'],$this->Session->read('UserUsername'))){
                     $this->set('report',$report);
                 }
                 else{

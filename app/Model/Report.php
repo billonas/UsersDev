@@ -234,7 +234,7 @@ class Report extends AppModel{
     function onlyLetters($check){
         $word = array_shift($check);
          //εάν password και confirm_password είναι ίσα 
-         if (preg_match("/^[α-ωΑ-Ω\s]*$/", $word) || preg_match("/^[a-zA-Z\s]*$/", $word) || (strcmp($word , "")==0)) 
+         if (preg_match("/^[\p{L}\s]+$/u", $word) || (strcmp($word , "")==0)) 
          {
             return true;
          }
