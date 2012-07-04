@@ -273,11 +273,11 @@ class HotSpeciesController extends AppController{
                 $res = $this->Image->checkImage($this->data['HotSpecie']['image']);
             	if($res < 0){
                     $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία','flash_bad');
-                    $this->redirect(array('action'=>'show'), null, true);
+                    $this->redirect(array('action'=>'update',$id));
                 }
                 else if(!$res){
   			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
-                        $this->redirect(array('action'=>'show'), null, true);
+                        $this->redirect(array('action'=>'update',$id));
                 }
                 //briskw thn katalhksh tou arxeiou gia na dwsw thn idia katalhksh sto kainourgio onoma
     	        $this->request->data['HotSpecie']['image']['name'] = $this->Image->tmpRename($this->request->data['HotSpecie']['image']);
@@ -290,18 +290,19 @@ class HotSpeciesController extends AppController{
                     $ret = $this->Image->mvSubImg($this->HotSpecie, $imagePath, "hotspecies","additional_photo".$num,$ext);
                     if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας",'flash_bad');
-                            $this->redirect(array('action'=>'show'), null, true);
+                            $this->redirect(array('action'=>'update',$id));
                             }        
                     $this->Session->setFlash('The photo has been saved','flash_good');
-                    $this->redirect(array('action'=>'show'), null, true);
+                    $this->redirect(array('action'=>'update',$id));
                 }
                 else{
                     $this->Session->setFlash('Savefield error','flash_bad');
-                    $this->redirect(array('action'=>'show'), null, true);
+                    $this->redirect(array('action'=>'update',$id));
                 }
             }
+            $id = $this->data['HotSpecie']['id'];
             $this->Session->setFlash('Empty image error','flash_bad');
-        $this->redirect(array('action'=>'show'), null, true);
+        $this->redirect(array('action'=>'update',$id));
         }
         $this->Session->setFlash('Empty data error','flash_bad');
         $this->redirect(array('action'=>'show'), null, true);
