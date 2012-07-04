@@ -45,7 +45,7 @@
             <style>
                 #mapCanvas {
                     width: 100%;
-                    height: 30em;
+                    height: 20em;
                     position: relative;
                 }
             </style>
