@@ -66,6 +66,18 @@
                     if($(this).hasClass("hidden_side"))
                         $(this).attr('style',' ');
                 });
+                $(".left_side_button").bind('click',function(){
+                    $(this).parent().toggleClass("out_of_screen_side");
+                    $(".right_side_button").parent().toggleClass('out_of_screen_side');
+                    return false;
+                });
+                $(".right_side_button").bind('click',function(){
+                    $(this).parent().toggleClass("out_of_screen_side");
+                    $(".left_side_button").bind('click',function(){
+                        $(this).parent().toggleClass('out_of_screen_side');
+                    });
+                    return false;
+                });
                 $(".more_areas").bind('click',function(){
                     var $this = $(this);
                     if(open && $this.attr('data-open') == 'true'){
@@ -112,6 +124,7 @@
                     }
                     return false;
                 });
+                
             });
         </script>
         
@@ -121,14 +134,19 @@
                    <h1>Κατάλογος Αναγνωρισμένων Ειδών</h1>
              </div>
             
-            <div class="left_side">
-                <div class="specie_button_wrapper">
+            <?php if(!isset($current_area))
+                      echo '<div class="left_side">';
+                  else 
+                      echo '<div class="left_side hidden_side">';
+            ?>
+            <a href="#" class="left_side_button"><img src="<?php echo $this->webroot; ?>img/arrows/play_black.png"/></a>
+                <div class="specie_search_wrapper">
                 <?php echo $this->Form->create('Report', array('action' => 'showspecies', 'type'=>'get')); ?>
                 <select name="select" id="filterSpecies">
                                         <option value="species" selected="selected">Είδος</option>
                                         <option value="area">Περιοχή</option>
                 </select>
-                <input name="text" type="text" class="" id="filterTerm"/>
+                <input name="text" type="text" class="std_form" id="filterTerm"/>
                 <?php echo $this->Form->end(array(
                                                         'label' => 'Αναζήτηση',
                                                         'div' => false,
@@ -137,17 +155,8 @@
                                     ?>
                 </div>
                 <div class="specie_div specie_button_wrapper">
-                    <?php if(!isset($current_area)){
-                                echo '<a class="specie_button selected_specie_button" href="#">Είδη</a>
-                                    <a class="specie_button" href="#">Περιοχές</a>';
-                            }
-                          else
-                              echo '<a class="specie_button" href="#">Είδη</a>
-                                    <a class="specie_button selected_specie_button" href="#">Περιοχές</a>';
-                    
-                    
-                    ?>
-                    
+                                <a class="specie_button selected_specie_button" href="#">Είδη</a>
+                                <a class="specie_button" href="#">Περιοχές</a>
                 </div>
                 <?php if(isset($current_species)){
                     
@@ -214,14 +223,18 @@
              ?>
             </div>
             
-            <div class="left_side hidden_side">
-                <div class="specie_button_wrapper">
+            <?php if(isset($current_area))
+                      echo '<div class="left_side">';
+                  else 
+                      echo '<div class="left_side hidden_side">';
+            ?>
+                <div class="specie_search_wrapper">
                 <?php echo $this->Form->create('Report', array('action' => 'showspecies', 'type'=>'get')); ?>
                 <select name="select" id="filterSpecies">
                                         <option value="species" >Είδος</option>
                                         <option value="area" selected="selected">Περιοχή</option>
                 </select>
-                <input name="text" type="text" class="" id="filterTerm"/>
+                <input name="text" type="text" class="std_form" id="filterTerm"/>
                 <?php echo $this->Form->end(array(
                                                         'label' => 'Αναζήτηση',
                                                         'div' => false,
@@ -287,7 +300,8 @@
             </div>
 
 
-            <div class="right_side">
+            <div class="right_side out_of_screen_side">
+                <a href="#" class="right_side_button"><img src="<?php echo $this->webroot; ?>img/arrows/play_black_inv.png"/></a>
                 <style>
                     #mapCanvas{
                         width: 100%;

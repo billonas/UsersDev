@@ -52,7 +52,7 @@
                 <?php if($lastnew){
                 echo '<span class="news_date">Προστέθηκε: '.$lastnew['News']['created'].'</span>
                 <br />
-                <span class="news_text"><p><strong><font size="5" color="blue">'.$lastnew['News']['title'].'</font></strong></p>
+                <span class="news_text"><span class="news_title">'.$lastnew['News']['title'].'</span>
                     '.$lastnew['News']['body'].'
                     <br />';
                     echo $this->Html->link('Διαβάστε Περισσότερα', array('controller'=>'News', 'action'=>'show'));
@@ -297,129 +297,28 @@
                     var word = null;
                     var i=0;
                     var j=0;
-                    var lat = true;
-                    var lngt = false;
-                    var name = false;
-                    var date = false;
-                    var specie = false;
-                    var specie_id = false;
-                    var region = false;
-                    var region_id = false;
+                    var k=0;
                     var small_buffer = new Array();
                     while(i < text.length){
-                        if(lat){                            /*pairnoume to geografiko mikos mexri na vroume komma*/
-                            if(text[i] == ','){
-                                lat = false;
-                                lngt = true;
-                                small_buffer[0] = word;
-                                word = null;
+                        if(text[i] != ',' && text[i] != ';'){
+                            if(word == null){
+                                word = text[i];
                             }
-                            else if(text[i] != ' '){
-                                if(word != null)
-                                    word += text[i];
-                                else
-                                    word = text[i];
+                            else{
+                                word += text[i];
                             }
                         }
-                        else if (lngt){                     /*pairnoume to geografiko platos mexri na vroume komma*/
-                            if(text[i] == ','){                                
-                                lngt = false;
-                                name = true;
-                                small_buffer[1] = word;
-                                word = null;
-                            }
-                            else if(text[i] != ' '){
-                                if(word != null)
-                                    word += text[i];
-                                else
-                                    word = text[i];
-                            }
-                        }
-                        else if (name){                     /*pairnoume to onoma tou xristi pou ekane tin anafora mexri na vroume komma*/
-                            if(text[i] == ','){                                                             
-                                name = false;
-                                date = true;
-                                small_buffer[2] = word;
-                                word = null;
-                            }
-                            else if(text[i] != ' '){
-                                if(word != null)
-                                    word += text[i];
-                                else
-                                    word = text[i];
-                            }
-                        }
-                        else if (date){                     /*pairnoume tin imerominia mexri na vroume komma*/
-                            if(text[i] == ','){                                
-                                date = false;
-                                specie = true;
-                                small_buffer[3] = word;
-                                word = null;
-                            }
-                            else if(text[i] != ' '){
-                                if(word != null)
-                                    word += text[i];
-                                else
-                                    word = text[i];
-                            }
-                        }
-                        else if (specie){                   /*pairnoume to eidos mexri na vroume komma*/
-                            if(text[i] == ','){                                
-                                specie = false;
-                                specie_id = true;
-                                small_buffer[4] = word;                                
-                                word = null;
-                            }
-                            else if(text[i] != ' '){
-                                if(word != null)
-                                    word += text[i];
-                                else
-                                    word = text[i];
-                            }
-                        }
-                        else if (specie_id){                     /*pairnoume tin taftotita tou eidous mexri na vroume komma*/
-                            if(text[i] == ','){                                
-                                specie_id = false;
-                                region = true;
-                                small_buffer[5] = word;
-                                word = null;
-                            }
-                            else if(text[i] != ' '){
-                                if(word != null)
-                                    word += text[i];
-                                else
-                                    word = text[i];
-                            }
-                        }
-                        else if (region){                     /*pairnoume tin perioxi mexri na vroume komma*/
-                            if(text[i] == ','){                                
-                                region = false;
-                                region_id = true;
-                                small_buffer[6] = word;
-                                word = null;
-                            }
-                            else if(text[i] != ' '){
-                                if(word != null)
-                                    word += text[i];
-                                else
-                                    word = text[i];
-                            }
-                        }
-                        else if (region_id){                   /*pairnoume tin taftotita tis perioxis mexri na vroume erotimatiko*/
-                            if(text[i] == ';'){                                
-                                region_id = false;
-                                lat = true;
-                                small_buffer[7] = word;
-                                marker_buffer[j] = small_buffer;
+                        else if(text[i] == ',' || text[i] == ';'){
+                            small_buffer[j] = word;
+                            word = null;
+                            if(text[i] == ';'){
+                                j = 0;
+                                marker_buffer[k] = small_buffer;
                                 small_buffer = new Array();
-                                j++;
-                                word = null;
+                                k++;
                             }
-                            else if(text[i] != ' '){
-                                if(word != null)
-                                    word += text[i];
-                                else
-                                    word = text[i];
+                            else{
+                                j++;
                             }
                         }
                         i++;
@@ -543,13 +442,6 @@
             </div>
         </div>
         
-        
-        
-        
-        
-        
-        
-       
         <div class="comments">
             <div><br />Powered by <a href="http://cakephp.org/">Cake.php</a>, <a href="http://jquery.com/">jQuery</a>,<a href="http://modernizr.com/">Modernizr</a>.
                 Arrows by <a href="http://www.designworkplan.com">DesignWorkPlan</a>.</div>

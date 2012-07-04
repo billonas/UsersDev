@@ -561,7 +561,7 @@ noindex:-o-prefocus,
 	}
 	.upper_row ul li div div input[type="submit"]{
 		font-size: 1.1em;
-		margin: 0 1em 0 6em;
+		margin: 0 1em 0 -5em;
 	}
 	.upper_row ul li div div a{
 		margin-top: 1em;
@@ -652,7 +652,7 @@ kodikas mono gia tin arxiki selida
 ***************************************************************************************/
 
 .middle_row{
-    height: 61em;
+    min-height: 61em;
     margin: 0;
     padding: 0;
     padding-top: 0.4em;
@@ -720,6 +720,8 @@ kodikas mono gia tin arxiki selida
 .index_tile:nth-child(4) .news_date{font-size: 1em; font-family: Arial,sans-serif; margin-bottom: 1em;}
 
 .index_tile:nth-child(4) .news_text{font-size: 1.1em; font-family: Times,serif; font-style: italic;}
+
+.index_tile:nth-child(4) .news_text .news_title{font-size: 2em; font-weight: bold; text-decoration: underline;}
 
 .index_tile:nth-child(4) .news_text a:first-child{ color: rgb(20,20,20); text-decoration:none;}
 
@@ -1535,6 +1537,34 @@ kodikas anagnorismenon eidon
     padding-right: 10%;
 }
 
+.specie_search_wrapper{
+    margin-bottom: 1em;
+    margin-left: 25%;
+    width: 70%;
+}
+
+.specie_search_wrapper select{
+    font-size: 1.1em;
+}
+
+.specie_search_wrapper input[type="text"]{
+    bottom: 2px;
+    height: 2.5em;
+    position: relative;
+    width: 50%;
+}
+
+.specie_search_wrapper input[type="submit"]{
+    width: 25%;
+    height: 2em;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0){
+    .specie_search_wrapper input[type="submit"]{
+        height: 2.2em;
+    }
+}
+
 .specie_div{
     width: 48%;
     margin-bottom: 1em;
@@ -1795,6 +1825,11 @@ kodikas anagnorismenon eidon
     margin-left: 30%;
 }
 
+.left_side_button,
+.right_side_button{
+    display:none;
+}
+
 /***************************************************************************************
 kodikas anagnorismenon eidon
 ***************************************************************************************/
@@ -1943,6 +1978,7 @@ kodikas anagnorismenon eidon
                 padding: 0;
                 margin:0;
                 min-height: 2em;
+                overflow: auto;
         }
         .middle_wrapper{
                 width: 100%;
@@ -2137,4 +2173,34 @@ kodikas anagnorismenon eidon
         /*********************************************************************
         telos kodikas summary
         *********************************************************************/
+        /*********************************************************************
+        kodikas showspecies
+        *********************************************************************/
+        .left_side{box-shadow: none; width: 100%; position:relative;}
+        .right_side{box-shadow: none; width: 100%; position:relative; padding-left:20%;}
+        .left_side_button,.right_side_button{display:block;  width: 10%; 
+            background: #d6dbbf; /* Old browsers */
+            background: -moz-linear-gradient(left,  #d6dbbf 0%, #feffe8 38%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(0%,#d6dbbf), color-stop(38%,#feffe8)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(left,  #d6dbbf 0%,#feffe8 38%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(left,  #d6dbbf 0%,#feffe8 38%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(left,  #d6dbbf 0%,#feffe8 38%); /* IE10+ */
+            background: linear-gradient(to right,  #d6dbbf 0%,#feffe8 38%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6dbbf', endColorstr='#feffe8',GradientType=1 ); /* IE6-9 */
+            height:100%; padding-top:100%
+        }
+        .left_side_button{position:absolute; right:0px; top:0px;}
+        .right_side_button{position:absolute; left:0px; top:0px;}
+        .left_side_button img,.right_side_button img{width: 100%; margin-left:0; margin-right: 0; margin-top: -50%;}
+        .specie_search_wrapper{margin-left: 0%; width: 90%;}
+        .specie_div{}
+        .specie_button_wrapper{margin-left: 0% !important; width: 90%;}
+        .specie_line_wrapper{margin-left: 0%; width: 90%;}
+        .specie_line_wrapper .specie_div{width: 100%;}
+        .specie_line_wrapper .specie_div:nth-child(2n){margin-left:0%;}
+        .out_of_screen_side{left: 100%; position: absolute; display:none;}
+        /*********************************************************************
+        telos kodika showspecies
+        *********************************************************************/
+        
 }
