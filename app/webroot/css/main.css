@@ -745,6 +745,7 @@ kodikas mono gia tin arxiki selida
     -webkit-transition: all linear .5s;
     -moz-transition: all linear .5s;
     transition: all linear .1s;
+    
 }
 
 .tile_header{
@@ -772,6 +773,9 @@ kodikas mono gia tin arxiki selida
     font-family: Helvetica,sans-serif;
     z-index: 2;
     background-color: rgba(0,0,0,0.6);
+    font-size: 1.2em;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #000;
 }
 
 .tile_header span{
@@ -999,6 +1003,7 @@ kodikas selidas login
     border-radius: 4px;
     overflow: auto;
     padding-bottom: 1em;
+    height: auto;
 }
 
 .login_box *{
@@ -1943,6 +1948,23 @@ kodikas simantikon eidon
 telos kodika simantikon eidon
 ***************************************************************************************/
 
+/***************************************************************************************
+kodikas neon
+***************************************************************************************/
+
+.news_wrapper{width: 100%; overflow:auto; height: auto; float: left; padding-left:10%;padding-right: 10%; padding-bottom: 1%;margin-bottom: 2em; margin-top:.5em; border-top:1px solid #000;}
+
+.news_wrapper span{width: 100%; float:left; text-align:left;}
+
+.news_date{font-size: 1em; font-family: Arial,sans-serif; margin-bottom: 1em;}
+
+.news_text{font-size: 1.1em; font-family: Times,serif; font-style: italic;}
+
+.news_title{font-size: 2em; font-weight: bold; text-decoration: underline;}
+
+/***************************************************************************************
+telos kodika neon
+***************************************************************************************/
 
 @media screen and (min-width:1901px) {  /*.middle_row:after{content:'group3'}*/
 										body{font-size: 16px;}
@@ -2319,5 +2341,5 @@ telos kodika simantikon eidon
         /*********************************************************************
         telos kodika showspecies
         *********************************************************************/
-        
+        .no_small_padding span{padding-left:0;}
 }

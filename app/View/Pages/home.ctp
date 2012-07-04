@@ -28,7 +28,7 @@
                     <span>Είδη-στόχοι</span><br />
                     Πατήστε πάνω σε μία φωτογραφία για να μάθετε<br /> περισσότερες πληροφορίες για το είδος
                 </div>
-                <strong><div class="specie_header"></div></strong>
+                <div class="specie_header"></div>
                 <div id="fish_slideshow" class="fish_slideshow">
                     <?php 
 			foreach($hotspecies as $hot){

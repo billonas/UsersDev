@@ -4,7 +4,7 @@
  */
 ?>
 <?php echo $this->Html->css(array('main', 'jquery-ui', 'table', 'jquery.tablesorter.pager.css')); ?>
-<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js')); ?>
+<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js', 'jquery.metadata')); ?>
 <?php $this->set('title_for_layout', 'Επεξεργασία Χρηστών - ΕΛΚΕΘΕ');?>  
 
 
@@ -32,7 +32,7 @@
                 sortList: [[0,1]], //sort the first column in descending order
                 headers:
                 {
-                    4: { sorter: false }
+//                    5: { sorter: false }
                 }
             }).tablesorterPager({container: $("#pager")});
         
@@ -55,7 +55,7 @@
                 break;
             case 'analyst':
             case 'hyperanalyst':
-                target = '/analysts/show/' + id;
+                target = '/analysts/update/' + id;
                 break;
             default:
                 throw "Invalid user type: " + type;
@@ -133,7 +133,8 @@
                             <th>Τύπος Χρήστη</th>
                             <th>Όνομα</th>
                             <th>Επώνυνο</th>
-                            <th>Ενέργειες</th>
+                            <th>Ψευδώνυμο</th>
+                            <th class="{sorter: false}">Ενέργειες</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -187,6 +188,11 @@
                                         echo $user['User']['surname'];
                                     ?>
                                 </td>
+                                <td>
+                                    <?php
+                                        echo $user['User']['username'];
+                                    ?>
+                                </td>
                                 <td class="rightmost">
                                     <div class="buttonContainer">
                                         <!-- Show basic user button-->
@@ -197,8 +203,8 @@
                                         <?php endif; ?>
                                         <!-- Show analyst button-->
                                         <?php if ($userType==='analyst' || $userType==='hyperanalyst'): ?>
-                                            <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'show', $user['User']['id'])) ?>">
-                                                Προβολή
+                                            <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'update', $user['User']['id'])) ?>">
+                                                Επεξεργασία
                                             </a>
                                         <?php endif; ?>
                                         
