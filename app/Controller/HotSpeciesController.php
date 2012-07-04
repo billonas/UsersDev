@@ -7,7 +7,7 @@
  */
 class HotSpeciesController extends AppController{
     var $name = 'HotSpecies';
-    public $helpers = array('Html', 'Form');
+    public $helpers = array('Html', 'Form','Session');
     public $components = array('JqImgcrop', 'Image');
     var $uses = array('HotSpecie'); 
     //to uses edo xreiazetai epeidi xoris tin xrisi tou uses to cakephp psaxnei to antistoixo model
@@ -15,15 +15,21 @@ class HotSpeciesController extends AppController{
       
 
     function create() {
-        if ($this->request->is('post')) {
+        if((!$this->Session->check('UserUsername')) || 
+                    (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+        {
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
+        else
+        {
         if (!empty($this->data)) {
-            if(isset($this->data['HotSpecie']['image'])){
+            if(!empty($this->data['HotSpecie']['image']['tmp_name'])){
                 $add1=0;
                 $add2=0;
                 $add3=0;
                 $res = $this->Image->checkImage($this->data['HotSpecie']['image']);
             	if($res < 0){
-                    $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία');
+                    $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία1');
                     $this->redirect(array('action'=>'create'), null, true);
                 }
                 else if(!$res){
@@ -37,7 +43,7 @@ class HotSpeciesController extends AppController{
                 $this->request->data['HotSpecie']['priority'] = $this->HotSpecie->find('count')+1;
                 //additional_photo1
                 for($i=1;$i<4;$i++){
-                if(isset($this->data['HotSpecie']['image'.$i])){
+                if(!empty($this->data['HotSpecie']['image'.$i]['tmp_name'])){
                 $res = $this->Image->checkImage($this->data['HotSpecie']['image'.$i]);
             	if($res < 0){
                     $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία για την επιπλέον φώτο'.$i);
@@ -67,6 +73,7 @@ class HotSpeciesController extends AppController{
                             $this->redirect(array('action'=>'create'), null, true);
                             }
                     //TODO:Na valo for
+                    $k=0;        
                     if($add1 == 1)$k=2;
                     if($add2 == 1)$k=3;
                     if($add3 == 1)$k=4;
@@ -98,18 +105,21 @@ class HotSpeciesController extends AppController{
                     }
             }
             else{
-                $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία');
+                $this->Session->setFlash('Παρακαλώ εισάγεται μία φωτογραφία2');
                 $this->redirect(array('action'=>'create'), null, true);
             }
     }
     }
-    else{
-            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
-        }
     }
     
     function update($id = null) {
-        if ($this->request->is('post')) {
+        if((!$this->Session->check('UserUsername')) || 
+                    (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+        {
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
+        else
+        {
         if ($id == null) {
             $this->Session->setFlash('Invalid HotSpecie Id');
             $this->redirect(array('action'=>'show'), null, true);
@@ -128,13 +138,16 @@ class HotSpeciesController extends AppController{
             }
         }
         }
-        else{
-            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
-        }
     }
     
     function delete($id = null) {
-        if ($this->request->is('post')) {
+        if((!$this->Session->check('UserUsername')) || 
+                    (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+        {
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
+        else
+        {
         if ($id == null) {
             $this->Session->setFlash('Invalid id for HotSpecie');
             $this->redirect(array('action'=>'show'), null, true);
@@ -145,19 +158,18 @@ class HotSpeciesController extends AppController{
             $this->redirect(array('action'=>'show'), null, true);
         }
         }
-        else{
-            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
-        }
     }
     
     function show() {
-        if($this->Session->check('UserUsername')&&(strcmp($this->Session->read('UserType'),'hyperanalyst')))
+        if((!$this->Session->check('UserUsername')) || 
+                    (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+        {
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
+        else
         {
         $this->set('hotspecies', $this->HotSpecie->find('all', array('order'=>'HotSpecie.priority')));
-        }
-        else{
-            $this->redirect(array('controller'=>'pages', 'action'=>'display')); 
-        }
+        }     
     }
     
     function view() {
@@ -165,7 +177,13 @@ class HotSpeciesController extends AppController{
     }
     
     function setMainPhoto($id = null , $num = null){
-        if ($this->request->is('post')) {
+        if((!$this->Session->check('UserUsername')) || 
+                    (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+        {
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
+        else
+        {
         if (($id == null) || ($num == null) || ($num > 3) || ($num < 1)) { //num{1-3}
             $this->Session->setFlash('Invalid id for HotSpecie or Photo');
             $this->redirect(array('action'=>'show'), null, true);
@@ -199,13 +217,16 @@ class HotSpeciesController extends AppController{
            // }
         }
         }
-        else{
-            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
-        }
     }
     
     function deleteImg($id = null , $num = null){
-        if ($this->request->is('post')) {
+        if((!$this->Session->check('UserUsername')) || 
+                    (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+        {
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
+        else
+        {
         if (($id == null) || ($num == null) || ($num > 3) || ($num < 1)) { //num{1-3}
             $this->Session->setFlash('Invalid id for HotSpecie or Photo');
             $this->redirect(array('action'=>'show'), null, true);
@@ -223,15 +244,18 @@ class HotSpeciesController extends AppController{
              $this->redirect(array('action'=>'update',$id));
         }
         }
-        else{
-            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
-        }
     }
     
     function addImg(){
-        if ($this->request->is('post')) {
+        if((!$this->Session->check('UserUsername')) || 
+                    (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+        {
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
+        else
+        {
         if (!empty($this->data)) {//na ftiakso to else
-            if(isset($this->data['HotSpecie']['image'])){
+            if(!empty($this->data['HotSpecie']['image']['tmp_name'])){
                 $id = $this->data['HotSpecie']['id'];
                 $num = $this->data['HotSpecie']['num'];
                 switch ($num)
@@ -282,14 +306,17 @@ class HotSpeciesController extends AppController{
         $this->Session->setFlash('Empty data error');
         $this->redirect(array('action'=>'show'), null, true);
         }
-        else{
-            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
-        }
     }
     
     function changePriority($id = null,$action = null) {//TODO stin create na theto priority++ kai
     // *  stin delete na meiono ta priority ton epomenon kata1
-        if ($this->request->is('post')) {
+        if((!$this->Session->check('UserUsername')) || 
+                    (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+        {
+            $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
+        else
+        {
         if (($id == null) || ($action == null)) {
             $this->Session->setFlash('Invalid HotSpecie Id');
             $this->redirect(array('action'=>'show'), null, true);
@@ -302,9 +329,6 @@ class HotSpeciesController extends AppController{
             $this->Session->setFlash('The priority has been changed');
             $this->redirect(array('action'=>'show'), null, true);
         }
-    }
-    else{
-            $this->redirect(array('controller'=>'pages', 'action'=>'display'));
         }
     }
 }
