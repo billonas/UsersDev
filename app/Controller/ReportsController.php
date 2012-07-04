@@ -430,11 +430,11 @@ class ReportsController extends AppController{
                 /* Send email to the aproppriate analysts */
                 if($this->request->data['Report']['category_id'] != '-'){
                     $option = $this->request->data['Report']['notifyAnalysts'];
-                    $report = $this->Report->findById($reportId);
+                    $report = $this->Report->findById($id);
                     if($option != 0){
                         $categoryId = $this->request->data['Report']['category_id'];
                         $reportId = $this->request->data['Report']['id'];
-                        
+                        $report = $this->Report->findById($reportId);
                         $this->informAnalysts($categoryId,$reportId,$report,$option);
                     }
                 }
