@@ -4,7 +4,7 @@
  */
 ?>
 <?php echo $this->Html->css(array('main', 'jquery-ui', 'table', 'jquery.tablesorter.pager.css')); ?>
-<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js')); ?>
+<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'googlemaps.js', 'jquery.metadata')); ?>
 <?php $this->set('title_for_layout', 'Επεξεργασία Χρηστών - ΕΛΚΕΘΕ');?>  
 
 
@@ -32,7 +32,7 @@
                 sortList: [[0,1]], //sort the first column in descending order
                 headers:
                 {
-                    5: { sorter: false }
+//                    5: { sorter: false }
                 }
             }).tablesorterPager({container: $("#pager")});
         
