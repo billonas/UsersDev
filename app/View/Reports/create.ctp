@@ -398,9 +398,8 @@ function showDivImageDisplay(img) {
 
 
 </script>
-    <!--[if lt IE 10 ]>
-    <link rel="stylesheet" href="hacks.css" type="text/css" media="screen" />
-    <![endif]-->
+
+
 <style>
     #mapCanvas {
         width: 100%;
@@ -534,9 +533,9 @@ function showDivImageDisplay(img) {
                         foreach($hotspecies as $hot){
                            $options[$hot['HotSpecie']['scientific_name']] = $this->Html->image($hot['HotSpecie']['main_photo'],array('class'=>'hotImg', 'onmouseover'=> "showDivImageDisplay(this);", 'onmouseout'=>"hideDivImageDisplay();"));
                         }
-                        $options['0'] = 'Κανένα απο τα παραπάνω';  
+                        $options['Κανένα'] = 'Κανένα απο τα παραπάνω';  
 						
-                        echo $this->Form->input('hot_species', array('options' => $options,'before'=>'<span>','hiddenField' => false, 'separator'=> '</span><span>', 'after'=>'</span>', 'type'=>'radio','legend'=> false,'class'=>'std_form'));
+                        echo $this->Form->input('hot_species', array('options' => $options, 'value' => 'Κανένα','before'=>'<span">','hiddenField' => false, 'separator'=> '</span><span>', 'after'=>'</span>', 'type'=>'radio','div'=>false, 'legend'=> false,'class'=>'std_form'));
                         echo '<br/><table>';
 						echo' <div id="divImageDisplay" style="position:absolute;"> </div>';
 			echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
@@ -680,7 +679,7 @@ function showDivImageDisplay(img) {
                             $options[$hot['HotSpecie']['scientific_name']] = $this->Html->image($hot['HotSpecie']['main_photo']); 
                         }
                         $options['0'] = 'Κανένα απο τα παραπάνω';  
-                        echo $this->Form->input('hot_species', array('options' => $options,'value'=>$report['Report']['hot_species'],'type'=>'radio','legend'=> false,'class'=>'std_form'));
+                        echo $this->Form->input('hot_species', array('options' => $options,'value'=>$report['Report']['hot_species'],'type'=>'radio','legend'=> false,'class'=>'std_form', $attributes = ''));
                         echo '<br/><table>';
 						
 			echo '<a id="a1_right" href="#">'.$this->Html->image('info.png').'</a>';
