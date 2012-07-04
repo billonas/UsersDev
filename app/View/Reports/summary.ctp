@@ -10,7 +10,7 @@
             $(window).ready(function(){
                 var centerlatLng = new google.maps.LatLng(38.0397, 24.644);
                 map = new google.maps.Map(document.getElementById('mapCanvas'), {
-                            zoom: 6,
+                            zoom: 5,
                             center: centerlatLng,
                             mapTypeId: google.maps.MapTypeId.SATELLITE,
                             mapTypeControl: true,
@@ -44,8 +44,8 @@
 	<div class="middle_row big_row no_padding">
             <style>
                 #mapCanvas {
-                    width: 100%;
-                    height: 30em;
+                    width: 70%;
+                    height: 15em;
                     position: relative;
                 }
             </style>
@@ -53,9 +53,7 @@
             <?php   echo '<div class="login_box">  
                                <h1>Σύνοψη αναφοράς</h1>
                          </div>';
-                    echo '<div class="flash_box gradient">';
-                    echo '</br/>'.$this->Session->flash().'</br>';
-                    echo '</div>';	?>
+                    ?>
         	<div class="summary_middle_wrapper">   
                 
                 <?php 

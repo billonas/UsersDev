@@ -469,16 +469,7 @@ function showDivImageDisplay(img) {
                         echo '<tr><td colspan="2">';
                         echo '<div id="mapCanvas"></div>';
                         echo '</td></tr>';
-                        echo '<tr><td colspan="2">';
-                        echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';  
                         
-                        $monthOptions = array('01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
-                            '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
-                        
-                        echo $this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα'));
-                        echo $this->Form->month('date', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => 'Μήνας'));
-                        echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά"));
-                        echo '</td></tr>';
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
                         echo '<td>'.$this->Form->input('lat',array('id'=>'info','label' => false,'placeholder' => 'Συντεταγμένή lat ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow', 'div'=>false));						
@@ -492,7 +483,16 @@ function showDivImageDisplay(img) {
                         echo '</tr>';
                         
 			echo $this->Form->input('area',array('type'=>'hidden', 'id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
+                        echo '<tr><td>';
+                        echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label></td>';  
                         
+                        $monthOptions = array('01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
+                            '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
+                        
+                        echo '<td>'.$this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα'));
+                        echo $this->Form->month('date', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => 'Μήνας'));
+                        echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά"));
+                        echo '</td></tr>';
                         echo '</table>';
                         if($this->Session->check('uploaded1')){
                             $uploaded1 = $this->Session->read('uploaded1');
@@ -572,17 +572,7 @@ function showDivImageDisplay(img) {
                         echo '<tr><td colspan="2">';
                         echo '<div id="mapCanvas"></div>';
                         echo '</td></tr>';
-                        echo '<tr><td colspan="2">';
-                        echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label>';
                         
-                        $monthOptions = array('01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
-                            '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
-                        
-                        
-                        echo $this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα', 'value'=>$report['Report']['date']['day']));
-                        echo $this->Form->month('date', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => "Μήνας",'value'=>$report['Report']['date']['month']));
-                        echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά", 'value'=>$report['Report']['date']['year']));
-                        echo '</td></tr>';
                         echo $this->Form->input('area',array('type'=>'hidden',  'id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> </tr>';
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
@@ -595,6 +585,18 @@ function showDivImageDisplay(img) {
                         echo $this->Form->input('lng',array('div'=>false,'id'=>'info2','value'=>$report['Report']['lng'],"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
                         echo '</td>';
                         echo '</tr>';
+                        
+                        echo '<tr><td>';
+                        echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label></td>';
+                        
+                        $monthOptions = array('01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
+                            '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
+                        
+                        
+                        echo '<td>'.$this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα', 'value'=>$report['Report']['date']['day']));
+                        echo $this->Form->month('date', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => "Μήνας",'value'=>$report['Report']['date']['month']));
+                        echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά", 'value'=>$report['Report']['date']['year']));
+                        echo '</td></tr>';
                         echo '</table>';
 			
                         
@@ -678,7 +680,7 @@ function showDivImageDisplay(img) {
                         foreach($hotspecies as $hot){
                             $options[$hot['HotSpecie']['scientific_name']] = $this->Html->image($hot['HotSpecie']['main_photo']); 
                         }
-                        $options['0'] = 'Κανένα απο τα παραπάνω';  
+                        $options['Κανένα'] = 'Κανένα απο τα παραπάνω';  
                         echo $this->Form->input('hot_species', array('options' => $options,'value'=>$report['Report']['hot_species'],'type'=>'radio','legend'=> false,'class'=>'std_form', $attributes = ''));
                         echo '<br/><table>';
 						
