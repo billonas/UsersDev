@@ -5,7 +5,7 @@
 		<meta http-equiv="content-language" content="en-gb" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<title><?php echo $title_for_layout?></title>
-		<?php 	echo $this->Html->css(array('main','bubbletip'), null, array('media' => 'screen', 'rel' => 'stylesheet')); 	?>
+		<?php 	echo $this->Html->css(array('main','bubbletip'), null, array('media' => 'screen')); 	?>
         <?php   echo $scripts_for_layout;?>
 		<!--[if lt IE 10 ]>
 			<?php 	echo $this->Html->css(array('hacks','bubbletip-IE'), null, array('media' => 'screen')); 	?>
@@ -38,7 +38,10 @@
             padding: 3px 0px;
         }
       </style>
+      
+      
 	<body>
+            
             <noscript>
                 <div id="noscript-warning" style="display:block;">Η σελίδα μας λειτουργεί καλύτερα με ενεργοποιημένη Javascript</div>
             </noscript>
@@ -68,7 +71,7 @@
 											echo '<h1>Καλώς ήλθατε</h1>';
 											
                                                                                         if(!strcmp($this->Session->read('UserType'),'hyperanalyst'))//superanalyst
-												echo $this->Html->link('Πίνακας υπεραναλυτή', '/users/edit_users?text=&userType1=analyst&userType2=simple&userType3=hyperanalyst').'<br/><br/>';
+												echo $this->Html->link('Σελίδα υπεραναλυτή', array('controller' => 'Analysts', 'action'=> 'panel')).'<br/><br/>';
 											if(!strcmp($this->Session->read('UserType'),'analyst') || !strcmp($this->Session->read('UserType'),'hyperanalyst')) //analyst
 												echo $this->Html->link('Πίνακας αναφορών', array('controller' => 'reports', 'action'=>'table')).'<br/><br/>';
 											echo $this->Html->link('Προσωπικό προφίλ', array('controller' => 'users', 'action'=>'edit'));

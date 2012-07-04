@@ -28,13 +28,13 @@
                     <span>Είδη-στόχοι</span><br />
                     Πατήστε πάνω σε μία φωτογραφία για να μάθετε<br /> περισσότερες πληροφορίες για το είδος
                 </div>
-                <div class="specie_header"></div>
+                <strong><div class="specie_header"></div></strong>
                 <div id="fish_slideshow" class="fish_slideshow">
                     <?php 
 			foreach($hotspecies as $hot){
-                            echo '<a href="/hotspecies/view"><img class="out_of_sight" data-specie_name="'.$hot['scientific_name'].'" src="'.$this->webroot.'img/hotspecies/'.$hot['id'].'.jpg" alt="hot_species_img"/>				 							</a>';
-                    
-				}
+                            echo '<a href="/hotspecies/view"><img class="out_of_sight" data-specie_name="'.$hot['scientific_name'].
+                                    '" src="'.$this->webroot.'img/hotspecies/'.$hot['id'].'.jpg" alt="hot_species_img"/></a>';
+                        }
                     ?>
                 </div>
             </div>
@@ -461,7 +461,7 @@
                     for(i=0 ; i<markers.length ; i++){
                         if(markers[i].getPosition().lat() == location.lat() && markers[i].getPosition().lng() == location.lng()){                            
                             index = i;
-                            var url = base_url + '?' + 'species=' + marker_buffer[index][4];// + '&region=' + marker_buffer[index][7];
+                            var url = base_url + '?' + 'select=species&text=' + marker_buffer[index][4];// + '&region=' + marker_buffer[index][7];
                             window.location = url;
                             //window.alert(url);
                         }

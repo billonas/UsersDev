@@ -11,6 +11,14 @@ class AnalystsController extends AppController{
     public $helpers = array('Html', 'Form');
     
     
+    function panel () {
+        if((!$this->Session->check('UserUsername')) || 
+                   (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+        {
+         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+        }
+    }
+    
     function create($id = null)
     {
       if((!$this->Session->check('UserUsername')) || 

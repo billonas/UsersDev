@@ -406,6 +406,35 @@ class User extends AppModel
 	  return $this->find('all', array('conditions' => $conditions));
       }
 
+      function getNameSur(){
+          $arr = $this->find('all', array("fields" => "name, surname"));
+          $ns = array();
+          foreach($arr as $a){
+              if($a['User']['name'] == null)
+		array_push($ns, $a['User']['surname']);
+	      else if($a['User']['surname'] == null)
+		array_push($ns, $a['User']['surname']);
+	      else
+		array_push($ns, $a['User']['name']." ".$a['User']['surname']);
+	  }
+          return $ns;
+      }
+       
+      function namesurname($str){
+          if(!strcmp($str, "")){
+              return null;
+	  }
+          $arr = explode(" ", $str);
+          if (!$arr)  return null;
+	  $size = count($arr);
+          if($size == 1){
+		$arr = $this->find('all', array('conditions' => array("OR" => array('User.name LIKE' => "%$str%", 'User.surname LIKE' => "%$str%"))));
+          }
+	  else{
+		$arr = $this->find('all', array('conditions' => array("OR" => array(array('User.name LIKE' => "%".$arr[0]."%", 'User.surname LIKE' => "%".$arr[1]."%"), array('User.name LIKE' => "%".$arr[1]."%", 'User.surname LIKE' => "%".$arr[0]."%")))));
+	  }
+          return $arr;
+      }
       
 }
 

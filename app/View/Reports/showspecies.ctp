@@ -215,7 +215,20 @@
             </div>
             
             <div class="left_side hidden_side">
+                <div class="specie_button_wrapper">
+                <?php echo $this->Form->create('Report', array('action' => 'showspecies', 'type'=>'get')); ?>
+                <select name="select" id="filterSpecies">
+                                        <option value="species" >Είδος</option>
+                                        <option value="area" selected="selected">Περιοχή</option>
+                </select>
+                <input name="text" type="text" class="" id="filterTerm"/>
+                <?php echo $this->Form->end(array(
+                                                        'label' => 'Αναζήτηση',
+                                                        'div' => false,
+                                                        'class' => 'std_form'));
                 
+                                    ?>
+                </div>
                 <div class="specie_div specie_button_wrapper">
                     <a class="specie_button" href="#">Είδη</a>
                     <a class="specie_button selected_specie_button" href="#">Περιοχές</a>
