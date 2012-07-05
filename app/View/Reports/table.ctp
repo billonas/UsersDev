@@ -123,7 +123,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input name="text" type="text" class="" id="filterTerm"/>
+                                    <input name="text" type="text" class="" id="filterTerm" value="<?php if(isset($text))echo $text;?>"/>
                                 </td>
                                 <td>
                                     <button type="submit" value="Αναζήτηση">
@@ -139,7 +139,7 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <input type="checkbox" id="searchConfirmed" value="confirmed" name="state1" checked/>
+                                                <input type="checkbox" id="searchConfirmed" value="confirmed" name="state1" <?php if(isset($checkboxes['state1'])) if($checkboxes['state1']) echo 'checked'; ?>/>
                                                 <label for="searchConfirmed">Επιβεβαιωμένες</label>
                                             </td>
                                         </tr>
@@ -149,7 +149,7 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <input type="checkbox" id="searchRejected"  value="unreliable"  name="state2" checked/>
+                                                <input type="checkbox" id="searchRejected"  value="unreliable"  name="state2" <?php if(isset($checkboxes['state2'])) if($checkboxes['state2']) echo 'checked'; ?>/>
                                                 <label for="searchRejected">Απορριφθείσες</label>
                                             </td>
                                         </tr>
@@ -159,7 +159,7 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <input type="checkbox" id="searchUnknown"   value="unknown"   name="state3" checked/>
+                                                <input type="checkbox" id="searchUnknown"   value="unknown"   name="state3" <?php if(isset($checkboxes['state3'])) if($checkboxes['state3']) echo 'checked'; ?>/>
                                                 <label for="searchUnknown">Εκκρεμούσες</label>
                                             </td>
                                         </tr>
