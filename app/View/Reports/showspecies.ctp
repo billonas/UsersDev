@@ -1,7 +1,7 @@
         <?php echo $this->Html->script(array('jquery-1.7.2.min'),array('inline' => false, 'rel' => 'javascript')); ?>
         <?php $this->set('title_for_layout', 'Αναγνωρισμένα Είδη');?>
 
-<?php var_dump($reports);?>
+
         <script>
             var normal_pic = "<?php echo $this->webroot.'img/double_arrow6.png' ?>";
             var inverted_pic = "<?php echo $this->webroot.'img/double_arrow6_inv.png' ?>";
