@@ -307,3 +307,6 @@ tr.item .buttonContainer {
     background-color: lightblue;
     cursor: pointer;
 }
+.item:hover td {
+    background-color: lightyellow;
+}
