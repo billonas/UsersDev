@@ -253,10 +253,16 @@ function pressedListItem(li){
 }
 
 function resizeJCrop(){
-    var maxw = $("#img_crop_area").width();
     var height = <?php if($this->Session->check('uploaded1')){$uploaded1 = $this->Session->read('uploaded1'); echo $uploaded1['imageHeight'].';';} else echo "0;";?>
     var width =  <?php if($this->Session->check('uploaded1'))echo $uploaded1['imageWidth'].';'; else echo "0;";?>
-    $("#jcrop_target").Jcrop({                        
+    var is_displayed = true;
+    var $jcrop_target = $("#jcrop_target");
+    if($jcrop_target.parent().parent().parent().css('display') == 'none'){
+        is_displayed = false;
+        $jcrop_target.parent().parent().parent().css('display','block');
+    }
+    var maxw = $("#img_crop_area").width();
+    $jcrop_target.Jcrop({                        
                 onSelect: showCoords,
                 addClass: "jcrop-dark",
                 boxWidth: maxw,
@@ -266,6 +272,9 @@ function resizeJCrop(){
                 jcrop_api = this;
                 has_crop = true;
         });
+    if(!is_displayed){
+        $jcrop_target.parent().parent().parent().css('display','none');
+    }
 }
 
 $(document).ready(function(){
@@ -541,7 +550,7 @@ function showDivImageDisplay(img) {
                         
                         echo '<tr id="photo6" style="display:none;"><td><label for="ReportImage6" class="std_form">Επιπλέον Φωτογραφία 5 </label></td>';
                         echo '<td>'.$this->Form->input('image6',array("type" => "file",'label'=>false, 'class'=>'std_form', 'div'=>false)).'</td></tr>';
-                        echo '<tr><td><input type="button" id="addbutton" onclick="addInput()" name="add" value="Add input field" /></td></tr>';
+                        echo '<tr><td><input type="button" id="addbutton" onclick="addInput()" name="add" value="Προσθέστε μια ακόμα φωτογραφία" /></td></tr>';
                         echo '<tr><td><label for="ReportHot_species" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
                         echo '</table>';    
                         echo '<br/>';

@@ -73,8 +73,6 @@
                 <?php 
                     
                     	
-                    
-
                     echo '<table>';
                     echo '<tr><td colspan="2"><div id="mapCanvas"></div></td></tr>';
                     echo '<script>';
@@ -254,5 +252,30 @@
                             echo '<td>'.((!strcmp($report['Report']['phone_number'],'')) ? '-' : $report['Report']['phone_number']).'</td></tr>';
                              
                             echo '<tr><td><label for="ReportEmail" class="std_form">E-mail </label></td>';
-                            echo '<td>'.((!strcmp($report['Report']['email'],'')) ? '-' : $report['Report']['email']).'</td></tr></table>';?>
+                            echo '<td>'.((!strcmp($report['Report']['email'],'')) ? '-' : $report['Report']['email']).'</td></tr>';
+                    
+                            echo '<tr><td><label for="ReportCategory" class="std_form">Κατηγορία Είδους</label></td>';
+                            echo '<td>'.$report['Category']['category_name'].'</td></tr>';
+                            
+                            echo '<tr><td><label for="ReportSpecies" class="std_form">Επιστημονική Ονομασία</label></td>';
+                            echo '<td>'.$report['Specie']['scientific_name'].'</td></tr>';
+                            echo '</table>';
+                            echo '<div class="media_wrapper">';
+                                if(isset($report['Report']['main_photo'])){
+                                    echo $this->Html->image($report['Report']['main_photo']);
+                                    echo '<label for="ReportPermission" class="std_form">Mπορούν να χρησιμοποιηθούν οι φωτογραφίες σας; </label>';
+                                    echo $this->Form->checkbox('permissionUseMedia',array('default' => $report['Report']['permissionUseMedia'], 'disabled'=>true, 'class'=>'std_form'));
+                                }
+                                //check if additional photos are available
+                                echo '<div class="additional">';
+                                    for($i=1;$i<6;$i++){
+                                        if(isset($report['Report']['additional_photo'.$i]))
+                                                echo $this->Html->image($report['Report']['additional_photo'.$i]);	  
+                                                //can have a break here assuming they're uploaded additively
+                                    }
+                                echo '</div>';
+                                echo $this->Html->link('Επιστροφή στις προσωπικές αναφορές', array('controller' => 'reports', 'action'=>'myreports'),array('class' => 'button_like_anchor' , "style" => ""));
+                            echo '</div>';?>
+                    
+    </div>
 </div>
