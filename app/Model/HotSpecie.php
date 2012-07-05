@@ -54,8 +54,6 @@ class HotSpecie extends AppModel{
     function upPriority($id){
         
          $hot1 = $this->findById($id);
-         //if(!$hot2 = $this->findByPriority($hot1['HotSpecie']['priority']-1))
-             //return false;
          $neighbors = $this->find('neighbors', array('field' => 'priority', 'value' => $hot1['HotSpecie']['priority']));
          if(!$hot2 = $neighbors['prev'])
              return false;
@@ -68,11 +66,6 @@ class HotSpecie extends AppModel{
              if($this->saveField('priority', $pr1))
                      return true;
          }
-         //$pr1 = $hot1['HotSpecie']['priority'];
-         //$hot1['HotSpecie']['priority'] = $hot2['HotSpecie']['priority'];
-         //$hot2['HotSpecie']['priority'] = $pr1;
-         //if( $this->save($hot1['HotSpecie']) && $this->save($hot2['HotSpecie']))
-         //    return true;
          return false;
       }
       

@@ -23,17 +23,20 @@
 }
 
 #filterContainer form input[type="submit"],
-#filterContainer form button[type="submit"] {
+#filterContainer form button[type="submit"],
+.blueButton {
     background: #008FF9;
     color: white;
     float: left;
     margin-left: 0.5em;
 }
-#filterContainer form button[type="submit"] img {
+#filterContainer form button[type="submit"] img,
+blueButton img {
     max-height: 1em;
 }
 #filterContainer form input[type="submit"]:hover,
-#filterContainer form button[type="submit"]:hover {
+#filterContainer form button[type="submit"]:hover,
+blueButton:hover {
     background: #007FE9;
 }
 
@@ -151,7 +154,8 @@ h2 {
     font-family: Helvetica,sans-serif;
 }
 
-#exportLinkContainer {
+#exportLinkContainer,
+.tableTopButtonContainer {
     float: right;
     max-width: 20%;
 }

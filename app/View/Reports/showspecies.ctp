@@ -163,7 +163,7 @@
                     <span class="little_specie_header">'.$current_species.'</span>
                     <div class="img_frame">
                         <img class="squarizer" src="'.$this->webroot.'img/square.png'.'"/>
-                        <img class="specie_img" src="'.$this->webroot.$current_image.'"/>
+                        <img class="specie_img" src="'.$this->webroot.'img/'.$current_image.'"/>
                     </div>
                     <div class="region_button_wrapper">
                         <span class="specie_areas"><span>Περιοχές: </span>';
@@ -248,11 +248,7 @@
                 
                 <?php if(isset($current_area) && !empty($reports)){
                             echo '<div class="specie_div current_specie_looked">
-                                    <span class="little_specie_header">'.$current_area.'</span>
-                                    <div class="img_frame">
-                                        <img class="squarizer" src="'.$this->webroot.'img/square.png'.'"/>
-                                        <img class="specie_img" src="'.$this->webroot.'img/perioxes/'.$current_area.'.PNG'.'"/>
-                                    </div>    
+                                    <span class="little_specie_header">'.$current_area.'</span>  
                                     <div class="region_button_wrapper">
                                     <span class="specie_areas"><span>Είδη: </span>';
                             
@@ -277,15 +273,11 @@
                         foreach($areas as $area):
                             if((isset($current_area) && !empty($reports) && $area['Report']['area'] != $current_area) || !isset($current_area)){
                                 if($iter % 2 == 0){
-                                    echo '<div class="specie_line_wrapper">';
+                                    echo '<div class="specie_line_wrapper small_specie_line">';
                                     $div_flag = true;
                                 }
                                 echo '<div class="specie_div">
                                     <span class="little_specie_header">'; echo $area['Report']['area']; echo '</span>
-                                    <div class="img_frame">
-                                        <img class="squarizer" src="'; echo $this->webroot.'img/square.png'; echo '"/>
-                                        <img class="specie_img" src="'; echo $this->webroot.'img/perioxes/'.$area['Report']['area'].'.PNG'; echo '"/>
-                                    </div>
                                     <div class="region_button_wrapper">
                                         <span class="specie_areas"><span>Είδη: </span>';
                                 $flag = false; 

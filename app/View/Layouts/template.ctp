@@ -68,7 +68,7 @@
 								<div class="login">
                                 	<?php 
 									    if($this->Session->check('UserUsername')) {
-											echo '<h1>Καλώς ήλθατε</h1>';
+											echo '<h1 class="big_white_header_line">Καλώς ήλθατε</h1>';
 											
                                                                                         if(!strcmp($this->Session->read('UserType'),'hyperanalyst'))//superanalyst
 												echo $this->Html->link('Σελίδα υπεραναλυτή', array('controller' => 'Analysts', 'action'=> 'panel')).'<br/><br/>';
