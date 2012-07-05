@@ -59,12 +59,11 @@
                 echo '<tr><td><label for="AnalystInstitute" class="name std_form">Ινστιτούτο:  </label></td><td><p>'.$this->Form->input('Analyst.name', 
                                                         array('default'=>$analyst['Analyst']['research_institute'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow', 'disabled'=>'true')).'</p></td></tr>';
                 ?>
-            </table>
             <?php					  
-                $this->Form->end(array('name' => 'data[Analyst][edit]',
+                 echo '<td>'.$this->Form->end(array('name' => 'data[Analyst][edit]',
                                         'label' => 'Ανανέωση στοιχείων',
                                         'div' => false,
-                                        'class' => ' std_form'));									  
+                                        'class' => 'upgradeButton')).'</td></tr></table>';									  
             ?>
                
             <div style="margin-top:2em; margin-left: auto; margin-right: auto;">
