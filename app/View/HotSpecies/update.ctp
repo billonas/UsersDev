@@ -105,7 +105,7 @@
 
     </table>
                          <div> <br/><br/><br/>
-                             <?php echo $this->Html->link('Επιστροφή', array('controller' => 'hotSpecies', 'action'=>'show'), array('class' => 'button_like_anchor')).'</td>';?>
+                             <?php echo $this->Html->link('Επιστροφή', array('controller' => 'hotSpecies', 'action'=>'show'), array('class' => 'button_like_anchor', "style" => "padding-left: 5.4em;padding-right: 5.4em;")).'</td>';?>
                          </div>
 
    

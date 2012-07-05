@@ -58,7 +58,38 @@ $(document).ready(function(){
 					$options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο'); 					  
 					echo '<tr><td><label for="UserMembership" default="-" class="membership std_form">Ιδιότητα:  </label></td><td><p>'.$this->Form->input('User.membership', 
 									      array('default'=>$user['User']['membership'], 'options'=> $options, 'label' => false, 'div' => false, 'id'=>'UserMembership','class' => ' std_form blue_shadow')).'</p></td></tr></br>';	
-					?></table><?php					  
+					?>
+                                        
+                                        <?php
+                                        echo $user['Analyst']['Category2']['category_name'];
+                                        if(!strcmp($this->Session->read('UserType'),'analyst') || !strcmp($this->Session->read('UserType'),'hyperanalyst')){
+                                            echo '<tr><td colspan="2">________________</td></tr>';
+                                            echo '<tr><td><label for="UserCategory1" class="mail std_form">Κατηγορία ειδίκευσης 1:  </label></td><td><p>';
+                                            if(!empty($user['Analyst']['Category1']['category_name']))
+                                                echo $user['Analyst']['Category1']['category_name'].'</p></td></tr>';
+                                            else
+                                                echo '- </p></td></tr>';
+                                            
+                                            echo '<tr><td><label for="UserCategory2" class="mail std_form">Κατηγορία ειδίκευσης 2:  </label></td><td><p>';
+                                            if(!empty($user['Analyst']['Category2']['category_name']))
+                                                echo $user['Analyst']['Category2']['category_name'].'</p></td></tr>';
+                                            else
+                                                echo '- </p></td></tr>';
+                                                    
+                                            echo '<tr><td><label for="UserInstitute" class="mail std_form">Ινστιτούτο:  </label></td><td><p>';
+                                            if(!empty($user['Analyst']['research_institute']))
+                                                echo $user['Analyst']['research_institute'].'</p></td></tr>';
+                                            else
+                                                echo '- </p></td></tr>';
+                                            
+                                        }
+                                        
+                                        ?>
+                                        
+                                        
+                                        
+                                        
+                                        </table><?php					  
                                         echo '</br><p>'.$this->Form->end(array(
 														'name' => 'data[User][edit]',
 														'label' => 'Ανανέωση στοιχείων',
