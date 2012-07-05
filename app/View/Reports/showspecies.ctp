@@ -204,7 +204,7 @@
                                                 "action" => "showspecies",
                                                 "?" => array("select" => 'species', 'text'=> $spc['Specie']['scientific_name'])
 
-                                                ));echo '" class="more_info">Περισσότερα...
+                                                ));echo '" class="more_info">Αναφορές είδους
                                         </a>
                                     </div>
                                 </div>';
@@ -303,7 +303,7 @@
                                                 "controller" => "reports",
                                                 "action" => "showspecies",
                                                 "?" => array('select'=> "area", 'text' => $area['Report']['area'])
-                                                ));echo '" class="more_info">Περισσότερα...
+                                                ));echo '" class="more_info">Αναφορές περιοχής
                                         </a>
                                     </div>
                                 </div>';
@@ -335,10 +335,10 @@
                 <div id="mapCanvas"></div>
                 <div class="info_wrapper">
                     <div><span class="info_header"></span>
-                        <?php if((isset($current_species) && !empty($current_species))|| (isset($current_area) && !empty($current_area)))
+                         <?php if((isset($current_species) && !empty($current_species))|| (isset($current_area) && !empty($current_area)))
                                 echo 'Επιλέξτε μία πινέζα για να δείτε την αντίστοιχη αναφορά';
                               else
-                                echo 'Κάνετε κλικ στην επιλογή "περισσότερα" κάποιου είδους για δείτε ολες τις εγκυρες αναφορές που το αφορούν';
+                                echo 'Κάνετε κλικ στο κάτω βέλος για να δείτε λεπτομέρειες για το είδος ή την περιοχή, ή στην επιλογή "αναφορές" για δείτε ολες τις εγκυρες αναφορές που αφορούν το είδος ή την περιοχή';
                         ?>
                     </div>
                 </div>
