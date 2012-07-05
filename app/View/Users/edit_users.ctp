@@ -77,7 +77,7 @@
             </div>
             
             <div id="tableOuterWrapper">
-                <div id="createUserLink">
+                <div id="createUserLink" class="tableTopButtonContainer">
                     <a class="" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'create')) ?>">
                         Δημιουργία Αναλυτή
                     </a>
