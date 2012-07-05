@@ -169,7 +169,7 @@ class Report extends AppModel{
             } 
             if($index < $i)
 		unset($species[$i]);
-            else if(!$flag) $species[$i]['Report']['main_photo'] = null;
+            else if(!$flag) $species[$i]['Report']['main_photo'] = "specie_not_found.png";
             $i++;
          }
          return $species;

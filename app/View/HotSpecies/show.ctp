@@ -22,6 +22,12 @@
             headers: {}
         });
     });
+    
+    function item_onclick(id)
+    {
+        var target = '/hotSpecies/update/' + id;        
+        window.location.href = target;
+    }
 </script>
 
     <div class="middle_row">
@@ -47,7 +53,7 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($hotspecies as $hotspecie): ?>
-                                    <tr height="100px" class="item species">
+                                    <tr height="100px" class="item species" onclick="item_onclick(<?php echo $hotspecie['HotSpecie']['id']?>)">
                                         <td>
                                             <?php echo $hotspecie['HotSpecie']['scientific_name'] ?>
                                         </td>
@@ -84,11 +90,13 @@
                                                     <tr>
                                                         <td>
                                                             <a class="itemButton upButton" href="<?php echo $this->Html->url(array('action'=>'changePriority',$hotspecie['HotSpecie']['id'],1)) ?>">
+                                                                <img class="icon" src="../img/blackUpArrow.png"/>
                                                                 Up Priority
                                                             </a>
                                                         </td>
                                                         <td>
                                                             <a class="itemButton downButton" href="<?php echo $this->Html->url(array('action'=>'changePriority',$hotspecie['HotSpecie']['id'],2)) ?>">
+                                                                <img class="icon" src="../img/blackDownArrow.png"/>
                                                                 Down Priority
                                                             </a>
                                                         </td>

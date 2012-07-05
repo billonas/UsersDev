@@ -11,7 +11,11 @@ class NewsController extends AppController {
     var $uses = array('New', 'News');
 
     
+  /*
+   *  show method is used to present all news to hyperanalysts
+   */
     public function show() {
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -19,16 +23,24 @@ class NewsController extends AppController {
         }
         else
         {
+        /*find news*/
         $this->set('news', $this->New->find('all'));
         }
     }
     
+  /*
+   *  view method is used to present all news to users
+   */
     public function view() {
         $this->set('news', $this->New->find('all'));
         
     }
     
+  /*
+   *  create method is used to create a new and save it's data by hyperanalyst
+   */
     public function create() {
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -36,16 +48,25 @@ class NewsController extends AppController {
         }
         else
         {
+            /*request with data*/
+            if ($this->request->is('post')) {
+                /*save new*/
             if ($this->New->save($this->request->data)) {
-                $this->Session->setFlash('Your new has been saved.','flash_good');
+                $this->Session->setFlash('Το νέο κατατέθηκε επιτυχως','flash_good');
                 $this->redirect(array('action' => 'show'));
-            } else {
-                $this->Session->setFlash('Unable to add your new.');
+            }
+            else {
+                $this->Session->setFlash('Το νέο δεν κατατέθηκε επιτυχώς.Προσπαθήστε ξανά.');
+            }
             }
         }
     }
     
+  /*
+   *  edit method is used to edit news data by hyperanalyst
+   */
     public function edit($id = null) {
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -55,19 +76,25 @@ class NewsController extends AppController {
         {
         $this->New->id = $id;
         if ($this->request->is('get')) {
+            /*find new*/
             $this->request->data = $this->New->read();
         } else {
+            /*save new*/
             if ($this->New->save($this->request->data)) {
-                $this->Session->setFlash('Your new has been updated.','flash_good');
+                $this->Session->setFlash('Τα νέα στοιχεία κατατέθηκαν επιτυχώς','flash_good');
                 $this->redirect(array('action' => 'show'));
             } else {
-                $this->Session->setFlash('Unable to update your new.','flash_bad');
+                $this->Session->setFlash('Τα νέα στοιχεία δεν κατατέθηκαν επιτυχώς.Προσπαθήστε ξανά.','flash_bad');
             }
         }
         }
     }
     
+  /*
+   *  delete method is used to delete a news data by hyperanalyst
+   */
     public function delete($id) {
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -78,8 +105,9 @@ class NewsController extends AppController {
         if ($this->request->is('get')) {
             throw new MethodNotAllowedException();
         }
+        /*delete new*/
         if ($this->New->delete($id)) {
-            $this->Session->setFlash('The new with id: ' . $id . ' has been deleted.','flash_good');
+            $this->Session->setFlash('Το νέο με κωδικό: ' . $id . ' διαγράφηκε επιτυχώς.','flash_good');
             $this->redirect(array('action' => 'show'));
         }
         }

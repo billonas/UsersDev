@@ -36,7 +36,7 @@ blueButton img {
 }
 #filterContainer form input[type="submit"]:hover,
 #filterContainer form button[type="submit"]:hover,
-blueButton:hover {
+.blueButton:hover {
     background: #007FE9;
 }
 
@@ -93,6 +93,10 @@ table.tablesorter thead tr .headerSortDown {
 }
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
 /*background-color: #8dbdd8;*/
+}
+.tablesorter th:hover {
+    background: #e5e5e5;
+    border-radius: 4px 4px 0px 0px;
 }
 
 /* Pagination */

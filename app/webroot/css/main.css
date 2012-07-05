@@ -1898,10 +1898,10 @@ kodikas simantikon eidon
     padding:0;
     border: 0;
     clear:right;
-    height:15em;
+    min-height:15em;
     position: relative;
     box-sizing: border-box;
-    margin-top: 1em;
+    margin-top: 4em;
 }
 
 .hot_specie_wrapper > div:first-child{
@@ -1937,6 +1937,7 @@ kodikas simantikon eidon
     float: left;
     width: 100%;
     height: auto;
+    padding-bottom: 2em;
 }
 
 .hot_specie_wrapper > div:nth-child(2) > div {
