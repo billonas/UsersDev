@@ -72,8 +72,11 @@
 											
                                                                                         if(!strcmp($this->Session->read('UserType'),'hyperanalyst'))//superanalyst
 												echo $this->Html->link('Σελίδα υπεραναλυτή', array('controller' => 'Analysts', 'action'=> 'panel')).'<br/><br/>';
-											if(!strcmp($this->Session->read('UserType'),'analyst') || !strcmp($this->Session->read('UserType'),'hyperanalyst')) //analyst
+											if(!strcmp($this->Session->read('UserType'),'analyst') || !strcmp($this->Session->read('UserType'),'hyperanalyst')){ //analyst+hyper
 												echo $this->Html->link('Πίνακας αναφορών', array('controller' => 'reports', 'action'=>'table')).'<br/><br/>';
+                                                                                                echo $this->Html->link('Στοιχεία επικοινωνίας αναλυτών', array('controller' => 'Analysts', 'action'=>'communication')).'<br/><br/>';
+                                                                                                
+                                                                                        }
 											echo $this->Html->link('Προσωπικό προφίλ', array('controller' => 'users', 'action'=>'edit'));
                                                                                         echo '</br></br>';
                                                                                         echo $this->Html->link('Ρυθμίσεις λογαριασμού', array('controller' => 'users', 'action'=>'account'));

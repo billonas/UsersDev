@@ -2,14 +2,16 @@
  <?php $this->set('title_for_layout', 'Επεξεργασία ειδών-στόχων - ΕΛΚΕΘΕ');?>       
     
 
-<style>.tableImage {
-    max-width: 200px;
-    max-height: 100px;
-    min-height: 50px;
-    min-width: 50px;
-    border: 1px solid silver;
-    border-radius: 6px;
-}</style>
+<style>
+    .tableImage {
+        max-width: 200px;
+        max-height: 100px;
+        min-height: 50px;
+        min-width: 50px;
+        border: 1px solid silver;
+        border-radius: 6px;
+    }
+</style>
 
 
 <div class="middle_row">
