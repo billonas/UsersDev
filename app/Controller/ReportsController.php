@@ -427,15 +427,12 @@ class ReportsController extends AppController{
             } 
             /* Commit edited information step */
             else {
-                /* Send email to the aproppriate analysts */
-                if($this->request->data['Report']['category_id'] != '-'){
-                    $option = $this->request->data['Report']['notifyAnalysts'];
-                    if($option != 0){
-                        $categoryId = $this->request->data['Report']['category_id'];
-                        $reportId = $this->request->data['Report']['id'];
-                        $report1 = $this->Report->findById($reportId);
-                        $this->informAnalysts($categoryId,$reportId,$report1,$option);
-                    }
+                /* Check send email to analysts option */
+                $option = $this->request->data['Report']['notifyAnalysts'];
+                if($option != 0){
+                    $categoryId = $this->request->data['Report']['category_id'];
+                    $reportId = $this->request->data['Report']['id'];
+                    $report1 = $this->Report->findById($reportId);
                 }
                 /* Save report's edited data & save new species if needed */
                 if(($ret = $this->Report->saveReport($this->data)) > 0) {
@@ -443,7 +440,10 @@ class ReportsController extends AppController{
                     $categories = ClassRegistry::init('Category')->find('all');
                     $this->set('categories',$categories);
                     $this->Session->setFlash('Η αναφορά αναλύθηκε επιτυχώς','flash_good');
-                    
+                    /* Send email to the aproppriate analysts */
+                    if($option != 0){
+                        $this->informAnalysts($categoryId,$reportId,$report1,$option);
+                    }
                     $report = $this->Report->findById($id);
                     $this->set('report',$report);
                 } 
