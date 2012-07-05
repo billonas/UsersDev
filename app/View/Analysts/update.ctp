@@ -13,7 +13,7 @@
         });
         
         // Add button style
-        $('a.deleteButton, a.backButton, a.upgradeButton').button();
+        $('a.deleteButton, a.backButton, a.upgradeButton, button[type="submit"]').button();
     });
 </script>
 
@@ -21,8 +21,8 @@
     <div class="middle_wrapper">
         <div class="register_box login_box" align="center">
             <br/><h1>Προφίλ αναλυτή</h1><br/>
-            <?php echo $this->Form->create('Analyst', array('action' => 'update'));?>
             <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
+            <?php echo $this->Form->create('Analyst', array('action' => 'update'));?>
             <table>
                 <?php 
 
@@ -65,6 +65,7 @@
                                         'div' => false,
                                         'class' => 'upgradeButton')).'</td></tr></table>';									  
             ?>
+            
                
             <div style="margin-top:2em; margin-left: auto; margin-right: auto;">
                 <a class="backButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'edit_users', '?'=>'text=&userType1=analyst&userType2=simple&userType3=hyperanalyst&textType=surname'))?>" >
