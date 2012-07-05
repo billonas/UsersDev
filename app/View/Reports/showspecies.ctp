@@ -159,11 +159,7 @@
                                 <a class="specie_button" href="#">Περιοχές</a>
                 </div>
                 <?php if(isset($current_species) && !empty($reports)){
-                    
-                
-                echo '<div class="specie_div current_specie_looked">
-                    
-                    
+                    echo '<div class="specie_div current_specie_looked">
                     <span class="little_specie_header">'.$current_species.'</span>
                     <div class="img_frame">
                         <img class="squarizer" src="'.$this->webroot.'img/square.png'.'"/>
@@ -171,54 +167,57 @@
                     </div>
                     <div class="region_button_wrapper">
                         <span class="specie_areas"><span>Περιοχές: </span>';
-                
-                $flag = false;foreach($sAreas[$current_species] as $area){ if($flag) echo ", "; else $flag = true; echo $area;}
-                echo '</span>
-                        
+                        $flag = false;
+                        foreach($sAreas[$current_species] as $area){ 
+                            if($flag) 
+                                echo ", "; 
+                            else 
+                                $flag = true; 
+                            echo $area;
+
+                        }
+                    echo '</span>    
                     </div>
                 </div>';
-                 }?>        
+                }?>        
                 <div class="specie_div" style="display:none"></div>
               
-              <?php $iter = 0; $div_flag = false; ?>
-              <?php foreach ($species as $spc): ?>
-                <?php 
-                    if($iter % 2 == 0){
-                        echo '<div class="specie_line_wrapper">';
-                        $div_flag = true;
-                    }
-                ?>
-                <div class="specie_div">
-                    <span class="little_specie_header"><?php echo $spc['Specie']['scientific_name']; ?></span>
-                    <div class="img_frame">
-                        <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/'.$spc['Report']['main_photo']; ?>'/>
-                    </div>
-                    <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Περιοχές: </span><?php $flag = false;foreach($sAreas[$spc['Specie']['scientific_name']] as $area){ if($flag) echo ", "; else $flag = true; echo $area;}?></span>
-                        <a href="#" class="more_areas"><img src='<?php echo $this->webroot.'img/double_arrow6.png' ?>'/></a>
-                        <a href="<?php echo $this->Html->url(array(
-                                "controller" => "reports",
-                                "action" => "showspecies",
-                                "?" => array("select" => 'species', 'text'=> $spc['Specie']['scientific_name'])
-                                
-                                ));?>" class="more_info">Περισσότερα...
-                        </a>
-                        
-                    </div>
-                </div>
-                <?php
-                    if($iter % 2 == 1){
-                        echo '</div>';
+                <?php   $iter = 0; 
                         $div_flag = false;
-                    }
-                    $iter++;
-                ?>
-             <?php endforeach; ?>
-             <?php 
-                if($div_flag){
-                    echo '</div>';
-                }
+                        foreach ($species as $spc):
+                            if((isset($current_species) && !empty($reports) && $spc['Specie']['scientific_name'] != $current_species) || !isset($current_species)){
+                                if($iter % 2 == 0){
+                                    echo '<div class="specie_line_wrapper">';
+                                    $div_flag = true;
+                                }
+                                echo '<div class="specie_div">
+                                    <span class="little_specie_header">';echo $spc['Specie']['scientific_name']; echo '</span>
+                                    <div class="img_frame">
+                                        <img class="squarizer" src="'; echo $this->webroot.'img/square.png'; echo '" />
+                                        <img class="specie_img" src="';echo $this->webroot.'img/'.$spc['Report']['main_photo'];echo '"/>
+                                    </div>
+                                    <div class="region_button_wrapper">
+                                        <span class="specie_areas"><span>Περιοχές: </span>'; $flag = false;foreach($sAreas[$spc['Specie']['scientific_name']] as $area){ if($flag) echo ", "; else $flag = true; echo $area;} echo '</span>
+                                        <a href="#" class="more_areas"><img src="';echo $this->webroot.'img/double_arrow6.png';echo '"/></a>
+                                        <a href="'; echo $this->Html->url(array(
+                                                "controller" => "reports",
+                                                "action" => "showspecies",
+                                                "?" => array("select" => 'species', 'text'=> $spc['Specie']['scientific_name'])
+
+                                                ));echo '" class="more_info">Αναφορές είδους
+                                        </a>
+                                    </div>
+                                </div>';
+                                if($iter % 2 == 1){
+                                    echo '</div>';
+                                    $div_flag = false;
+                                }
+                                $iter++;
+                            }
+                        endforeach; 
+                        if($div_flag){
+                            echo '</div>';
+                        }
              ?>
             </div>
             
@@ -252,7 +251,7 @@
                                     <span class="little_specie_header">'.$current_area.'</span>
                                     <div class="img_frame">
                                         <img class="squarizer" src="'.$this->webroot.'img/square.png'.'"/>
-                                        <img class="specie_img" src="'.$this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg'.'"/>
+                                        <img class="specie_img" src="'.$this->webroot.'img/perioxes/'.$current_area.'.PNG'.'"/>
                                     </div>    
                                     <div class="region_button_wrapper">
                                     <span class="specie_areas"><span>Είδη: </span>';
@@ -273,23 +272,22 @@
                ?>   
             
             
-                <?php $iter = 0; $div_flag = false; ?>
-                <?php foreach($areas as $area): ?>
-                <?php 
-                    if($iter % 2 == 0){
-                        echo '<div class="specie_line_wrapper">';
-                        $div_flag = true;
-                    }
-                ?>
-                <div class="specie_div">
-                    <span class="little_specie_header"><?php echo $area['Report']['area']; ?></span>
-                    <div class="img_frame">
-                        <img class="squarizer" src='<?php echo $this->webroot.'img/square.png' ?>'/>
-                        <img class="specie_img" src='<?php echo $this->webroot.'img/perioxes/'.$area['Report']['area'].'.PNG' ?>'/>
-                    </div>
-                    <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Είδη: </span>
-                            <?php 
+                <?php   $iter = 0; 
+                        $div_flag = false;
+                        foreach($areas as $area):
+                            if((isset($current_area) && !empty($reports) && $area['Report']['area'] != $current_area) || !isset($current_area)){
+                                if($iter % 2 == 0){
+                                    echo '<div class="specie_line_wrapper">';
+                                    $div_flag = true;
+                                }
+                                echo '<div class="specie_div">
+                                    <span class="little_specie_header">'; echo $area['Report']['area']; echo '</span>
+                                    <div class="img_frame">
+                                        <img class="squarizer" src="'; echo $this->webroot.'img/square.png'; echo '"/>
+                                        <img class="specie_img" src="'; echo $this->webroot.'img/perioxes/'.$area['Report']['area'].'.PNG'; echo '"/>
+                                    </div>
+                                    <div class="region_button_wrapper">
+                                        <span class="specie_areas"><span>Είδη: </span>';
                                 $flag = false; 
                                 foreach($aSpecies[$area['Report']['area']] as $s){ 
                                     if($flag) 
@@ -298,29 +296,27 @@
                                         $flag = true; 
                                     echo $s;
                                 } 
-                            ?>
-                        </span>
-                        <a href="#" class="more_areas"><img src='<?php echo $this->webroot.'img/double_arrow6.png' ?>'/></a>
-                        <a href="<?php echo $this->Html->url(array(
-                                "controller" => "reports",
-                                "action" => "showspecies",
-                                "?" => array('select'=> "area", 'text' => $area['Report']['area'])
-                                ));?>" class="more_info">Περισσότερα...
-                        </a>
-                    </div>
-                </div>
-                <?php
-                    if($iter % 2 == 1){
-                        echo '</div>';
-                        $div_flag = false;
-                    }
-                    $iter++;
-                ?>
-                 <?php endforeach; ?>
-                 <?php 
-                    if($div_flag){
-                        echo '</div>';
-                    }
+                                        echo '
+                                        </span>
+                                        <a href="#" class="more_areas"><img src="'; echo $this->webroot.'img/double_arrow6.png'; echo '"/></a>
+                                        <a href="'; echo $this->Html->url(array(
+                                                "controller" => "reports",
+                                                "action" => "showspecies",
+                                                "?" => array('select'=> "area", 'text' => $area['Report']['area'])
+                                                ));echo '" class="more_info">Αναφορές περιοχής
+                                        </a>
+                                    </div>
+                                </div>';
+                                if($iter % 2 == 1){
+                                    echo '</div>';
+                                    $div_flag = false;
+                                }
+                                $iter++;
+                            }
+                        endforeach;
+                        if($div_flag){
+                            echo '</div>';
+                        }
                  ?>
             </div>
 
@@ -339,10 +335,10 @@
                 <div id="mapCanvas"></div>
                 <div class="info_wrapper">
                     <div><span class="info_header"></span>
-                        <?php if((isset($current_species) && !empty($current_species))|| (isset($current_area) && !empty($current_area)))
+                         <?php if((isset($current_species) && !empty($current_species))|| (isset($current_area) && !empty($current_area)))
                                 echo 'Επιλέξτε μία πινέζα για να δείτε την αντίστοιχη αναφορά';
                               else
-                                echo 'Κάνετε κλικ στην επιλογή "περισσότερα" κάποιου είδους για δείτε ολες τις εγκυρες αναφορές που το αφορούν';
+                                echo 'Κάνετε κλικ στο κάτω βέλος για να δείτε λεπτομέρειες για το είδος ή την περιοχή, ή στην επιλογή "αναφορές" για δείτε ολες τις εγκυρες αναφορές που αφορούν το είδος ή την περιοχή';
                         ?>
                     </div>
                 </div>

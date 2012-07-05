@@ -20,7 +20,7 @@
 //                    5: { sorter: false }, //buttons
 //                    4: { sorter: 'lastModified' } // last modified
                 }
-            }).tablesorterPager({container: $("#pager")});
+            });
         
         positionPagerButtons();
     } 

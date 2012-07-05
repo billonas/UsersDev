@@ -29,7 +29,7 @@
     
     function report_onclick(id)
     {
-        window.location.href = '/repots/view/' + id;
+        window.location.href = '/reports/view/' + id;
     }
 </script>
     <div class="middle_row  big_row">

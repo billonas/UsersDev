@@ -6,7 +6,8 @@
 $(document).ready(function(){
   
     $(window).bind('load', function() {
-	$('#a1_right').bubbletip($('#tip1_right'), { calculateOnShow: true, deltaDirection: 'up' , offsetTop: -45 });
+	$('#a1_right').bubbletip($('#tip1_right'), { calculateOnShow: true, deltaDirection: 'up' , offsetTop: -35 });
+        $('#a2_up').bubbletip($('#tip2_up'), { calculateOnShow: true, deltaDirection: 'up' , offsetTop: -35 });
     });  
 });
 
@@ -59,7 +60,7 @@ $(document).ready(function(){
 					?>
                                         
                                         <?php
-                                        echo $user['Analyst']['Category2']['category_name'];
+                                        
                                         if(!strcmp($this->Session->read('UserType'),'analyst') || !strcmp($this->Session->read('UserType'),'hyperanalyst')){
                                             echo '<tr><td colspan="2">________________</td></tr>';
                                             echo '<tr><td><label for="UserCategory1" class="mail std_form">Κατηγορία ειδίκευσης 1:  </label></td><td><p>';
@@ -70,7 +71,7 @@ $(document).ready(function(){
                                             
                                             echo '<tr><td><label for="UserCategory2" class="mail std_form">Κατηγορία ειδίκευσης 2:  </label></td><td><p>';
                                             if(!empty($user['Analyst']['Category2']['category_name']))
-                                                echo $user['Analyst']['Category2']['category_name'].'</p></td></tr>';
+                                                echo $user['Analyst']['Category2']['category_name'].'</p></td><td><a id="a2_up" href="#">'.$this->Html->image('info.png').'</a></td></tr>';
                                             else
                                                 echo '- </p></td></tr>';
                                                     
@@ -104,3 +105,7 @@ $(document).ready(function(){
     <div>Αν θέλετε αλλάξετε το e-mail ή τον κωδικό σας μπορείτε να το κάνετε μέσα απο τις <?php echo $this->Html->link('ρυθμίσεις λογαριασμού', array('controller' => 'Users', 'action'=>'account'),array('target' => '_blank'));?> </div>
 </div>
 
+
+<div id="tip2_up" style="display:none;">
+    <div>Αν επιθυμείτε να αλλάξετε τα πεδία ειδίκευσης και ινστιτούτου, επικοινωνήστε με τον υπεραναλυτή</div>
+</div>

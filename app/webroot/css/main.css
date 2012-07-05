@@ -1212,7 +1212,7 @@ kodikas selidas report
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
-    min-height: 37.5em;
+    min-height: 30em;
     padding-left: 2em;
     padding-right: 2em;
 }
@@ -1282,7 +1282,7 @@ kodikas selidas report
     margin-top: 1em;
 }
 
-.centered_button{
+#tabs .init_tab .init_form form > div input.centered_button[type="submit"]{
     margin-left: -9.5em;
 }
 
@@ -1399,6 +1399,7 @@ kodikas selidas report
 #tabs input.std_form[type="submit"]{
     padding-bottom:0.4em;
     padding-top:0;
+    margin-left: .5em;
 }
 
 #tabs .right_arrow{
@@ -1772,7 +1773,7 @@ kodikas anagnorismenon eidon
 
 .info_wrapper{
     width: 100%;
-    background-color: #fff;
+    background-color: #A5EDFF;
     box-shadow: 0px 0px 2px 1px rgb(200,200,200);
     border-radius: 2px;
     float: left;

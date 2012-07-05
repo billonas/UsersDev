@@ -305,7 +305,7 @@ class User extends AppModel
         }
         return $encrypted;
       }
-      
+
       function getByPar($par, $value, $userType){
           $conditions = array("$par LIKE" => "%$value%",
                               'user_type'=>$userType

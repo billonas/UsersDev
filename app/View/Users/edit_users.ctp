@@ -24,16 +24,18 @@
             return confirm('Είστε βέβαιος/η ότι θέλετε να αναβαθμίσετε αυτόν τον αναλυτή σε υπεραναλυτή;');
         });
         
+        $('.item a.downgradeAnalyst').click(function(e) {
+            e.stopPropagation();
+            return confirm('Είστε βέβαιος/η ότι θέλετε να υποβαθμίσετε αυτόν τον αναλυτή;');
+        });
+        
         // Create button styles
         $("#pager button, .buttonContainer a, #filterContainer form input[type='submit'], #filterContainer form button[type='submit'], #createUserLink a").button();    
         
         $("#reportsTable").tablesorter(
             {
                 sortList: [[0,1]], //sort the first column in descending order
-                headers:
-                {
-//                    5: { sorter: false }
-                }
+                headers: {}
             }).tablesorterPager({container: $("#pager")});
         
         positionPagerButtons();
@@ -85,11 +87,12 @@
                         <table>                        
                             <tr>
                                 <td>
-                                    <select name="textType" id="filterType"">
-                                        <option value="username">Όνομα χρήστη</option>
-                                        <option value="name">Όνομα</option>
-                                        <option value="surname" selected="selected">Επώνυμο</option>
-                                        <option value="email">Ηλεκτρονική Διεύθυνση</option>
+                                    <select name="textType" id="filterType">
+                                        <?php if(!isset($textType) || $textType==='') $textType='surname'; //Default is surname ?>
+                                        <option value="username" <?php if ($textType==='username') echo 'selected="selected"'; ?> >Όνομα χρήστη</option>
+                                        <option value="name" <?php if ($textType==='name') echo 'selected="selected"'; ?> >Όνομα</option>
+                                        <option value="surname" <?php if ($textType==='surname') echo 'selected="selected"'; ?> >Επώνυμο</option>
+                                        <option value="email" <?php if ($textType==='email') echo 'selected="selected"'; ?> >Ηλεκτρονική Διεύθυνση</option>
                                     </select>
                                 </td>
                                 <td>
@@ -204,7 +207,11 @@
                                         <!-- Show analyst button-->
                                         <?php if ($userType==='analyst' || $userType==='hyperanalyst'): ?>
                                             <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'update', $user['User']['id'])) ?>">
-                                                Επεξεργασία
+                                                <?php if ($userType==='analyst') : ?>
+                                                    Επεξεργασία
+                                                <?php elseif ($userType==='hyperanalyst'): ?>
+                                                    Προβολή
+                                                <?php endif; ?>
                                             </a>
                                         <?php endif; ?>
                                         
@@ -224,7 +231,7 @@
                                         <?php endif; ?>
                                         <!-- Downgrade analyst button-->
                                         <?php if ($userType==='analyst'): ?>
-                                            <a class="downgradeButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'downgrade', $user['User']['id'])) ?>">
+                                            <a class="downgradeButton downgradeAnalyst" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'downgrade', $user['User']['id'])) ?>">
                                                 <img class="icon" src="../img/blackDownArrow.png"/>
                                                 Υποβάθμιση
                                             </a>
