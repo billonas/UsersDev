@@ -123,6 +123,17 @@ class Analyst extends AppModel{
 
             return $this->User->save($data, false);
      }
+
+     function getProperties(){
+          $arr = $this->find('all');
+          if(!$arr)   return 0;
+          $analysts = array();
+	  foreach($arr as $a){
+            $anal = array("name" => $a['User']['name'], "surname" => $a['User']['surname'], "category1" => $a['Category1']['category_name'], "category2" => $a['Category2']['category_name']);
+            array_push($analysts, $anal);
+          }  
+          return $analysts;
+     }
 }
 
 ?>
