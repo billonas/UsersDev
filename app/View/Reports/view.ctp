@@ -73,7 +73,7 @@
                 <?php 
                     
                     	
-                    echo '<table>';
+                    echo '<table class="summary_table">';
                     echo '<tr><td colspan="2"><div id="mapCanvas"></div></td></tr>';
                     echo '<script>';
                     echo 'function setMarker(){';
@@ -274,8 +274,9 @@
                                                 //can have a break here assuming they're uploaded additively
                                     }
                                 echo '</div>';
-                                echo $this->Html->link('Επιστροφή στις προσωπικές αναφορές', array('controller' => 'reports', 'action'=>'myreports'),array('class' => 'button_like_anchor' , "style" => ""));
-                            echo '</div>';?>
+                            echo '</div>';
+                            echo '<span class="filler" style="float:left;width:100%;height:1px;background-color:transparent;"></span>';
+                            echo $this->Html->link('Επιστροφή στις προσωπικές αναφορές', array('controller' => 'reports', 'action'=>'myreports'),array('class' => 'button_like_anchor' , "style" => ""));?>
                     
     </div>
 </div>
