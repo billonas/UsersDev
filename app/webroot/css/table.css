@@ -94,6 +94,9 @@ table.tablesorter thead tr .headerSortDown {
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
 /*background-color: #8dbdd8;*/
 }
+.tablesorter th:hover {
+    background: #e5e5e5;
+}
 
 /* Pagination */
 div.tablesorterPager {
