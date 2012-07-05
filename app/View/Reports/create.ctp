@@ -645,7 +645,7 @@ function showDivImageDisplay(img) {
                         }
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
-                            //echo 'VIDEO';
+                            echo $this->Html->image('Video_icon.png', array('alt' => 'main photo', 'class' => 'tableImage'));    
                             echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'value'=>$report['Report']['permissionUseMedia'], 'class'=>'std_form'));
                             echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                         }
