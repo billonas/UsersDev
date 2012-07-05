@@ -502,39 +502,39 @@
 
                             echo ','.$report['Report']['date'].',';
                             
-                            if(!$report['Report']['depth']==='')
+                            if(!empty($report['Report']['depth']))
                                 echo
                                     $report['Report']['depth'];
                             else 
                                 echo '-';
                             
                             echo ',';
-                            if(!$report['Report']['crowd']==='')
+                            if(!empty($report['Report']['crowd']))
                                  echo   $report['Report']['crowd'];
                             else
                                  echo '-';
                             echo ',';
                             
                             
-                            if(!$report['Report']['area']==='')
+                            if(!empty($report['Report']['area']))
                                 echo $report['Report']['area'];
                             else
                                 echo '-';                           
                             echo ',';
                             
-                            if(!$report['Report']['habitat']==='')
+                            if(!empty($report['Report']['habitat']))
                                 echo $report['Report']['habitat'];
                             else
                                 echo '-';
                             echo ',';
                                     
-                            if(!$report['Report']['comments']==='')
+                            if(!empty($report['Report']['comments']))
                                 echo $report['Report']['comments'];
                             else
                                 echo '-';
                             echo ',';
                             
-                            if(!$report['Report']['re_observation']==='')
+                            if(!empty($report['Report']['re_observation']))
                                 echo   $report['Report']['re_observation'];
                             else
                                 echo '-';
