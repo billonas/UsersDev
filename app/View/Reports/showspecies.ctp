@@ -167,7 +167,7 @@
                     <span class="little_specie_header">'.$current_species.'</span>
                     <div class="img_frame">
                         <img class="squarizer" src="'.$this->webroot.'img/square.png'.'"/>
-                        <img class="specie_img" src="'.$this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg'.'"/>
+                        <img class="specie_img" src="'.$this->webroot.$current_image.'"/>
                     </div>
                     <div class="region_button_wrapper">
                         <span class="specie_areas"><span>Περιοχές: </span>';
@@ -338,7 +338,13 @@
                 </style>
                 <div id="mapCanvas"></div>
                 <div class="info_wrapper">
-                    <div><span class="info_header"></span>Παρακαλούμε επιλέξτε μία πινέζα για να δείτε την αντίστοιχη αναφορά</div>
+                    <div><span class="info_header"></span>
+                        <?php if((isset($current_species) && !empty($current_species))|| (isset($current_area) && !empty($current_area)))
+                                echo 'Επιλέξτε μία πινέζα για να δείτε την αντίστοιχη αναφορά';
+                              else
+                                echo 'Κάνετε κλικ στην επιλογή "περισσότερα" κάποιου είδους για δείτε ολες τις εγκυρες αναφορές που το αφορούν';
+                        ?>
+                    </div>
                 </div>
             </div>
             <script type="text/javascript"
@@ -481,7 +487,7 @@
                                                +'<div><span class="info_header">'+'Περιοχή Παρατήρησης: '+'</span> '+marker_buffer[index][6]+'</div>'
                                                +'<div><span class="info_header">'+'Περιβάλλον: '+'</span> '+marker_buffer[index][7]+'</div>'
                                                +'<div><span class="info_header">'+'Σχόλια: '+'</span> '+marker_buffer[index][8]+'</div>'
-                                               +'<div><span class="info_header">'+'Έχει ξαναπαρατηρηθεί?: '+'</span> '+marker_buffer[index][9]+'</div>';
+                                               +'<div><span class="info_header">'+'Έχει ξαναπαρατηρηθεί; '+'</span> '+marker_buffer[index][9]+'</div>';
                             //window.alert(contentString);
                             $('.info_wrapper').empty().append(contentString);
                         }
