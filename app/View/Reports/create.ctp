@@ -12,6 +12,7 @@
 var map;  
 var marker;
 var once=true;
+var kmlLayer;
 
 function updateMarkerPosition(latLng) {
     document.getElementById('info').innerHTML = latLng.lat();
@@ -50,7 +51,7 @@ function handleApiReady() {
             position: google.maps.ControlPosition.LEFT_TOP
             }
     });
-    var kmlLayer = new google.maps.KmlLayer('https://sites.google.com/site/kolpoielladoskmz/kmz/Kolpoi.kmz',
+    var kmlLayer = new google.maps.KmlLayer('https://dl.dropbox.com/u/71016805/Kolpoi.kmz',
     {
         suppressInfoWindows: true,
         map: map
@@ -90,11 +91,17 @@ function checkCoords(){
         longitude = $lng.attr('value');
         l2 = true;
     }
-    if(l1 && l2){
-        
-        addMarker(new google.maps.LatLng(latitude,longitude,true));
+     if(l1 && l2){
+	 addMarker(new google.maps.LatLng(latitude,longitude,true));
+        google.maps.event.addListener(kmlLayer, 'click', function (kmlEvent) {
+        var text = kmlEvent.featureData.description;
+        showInContentWindow(text);
+    });
+        /*
+		*/
     }
 }
+
 
 function addMarker(location) {
     if (once)
@@ -378,28 +385,47 @@ function addInput() {
 	
 	}
 
-	
-function getTop(e) {
-        var offset = e.offsetTop;
-        if (e.offsetParent != null) offset += getTop(e.offsetParent);
-        return offset;
-}
-function getLeft(e) {
-        var offset = e.offsetLeft;
-        if (e.offsetParent != null) offset += getLeft(e.offsetParent);
-        return offset;
-}
 function hideDivImageDisplay() {
-        $('#divImageDisplay').html();
+    $('#divImageDisplay').hide();
 }
 
 function showDivImageDisplay(img) {
-    var leftPos = getLeft(img) + 80;
-    var topPos = getTop(img) + 20;
-    $('#divImageDisplay').offset({ top: topPos, left: leftPos })
-    $('#divImageDisplay').html("<img src='" + img.src + "'/>");
-   
-        }
+$('#divImageDisplay').html("<img src='" + img.src + "'/>");
+$('#divImageDisplay').show();
+
+$('#divImageDisplay').position({
+                    "of": $this.find("img"),
+        			"my": "center center",
+        			"at": "center center"
+			     })
+$('#divImageDisplay').animate({
+                    
+                    }, {
+                        "duration": 1000, // 1000 = 1 second
+                        "easing": "easeOutQuad",
+                        "step": function(i) {
+                            $(this).position({
+                                "of": $this.find("img"),
+                    			"my": "center center",
+                    			"at": "center center",
+                    			"collision": "fit"
+            			     })
+                        }
+                    
+                    }
+                )
+/*
+$('#divImageDisplay').position({
+    of: $(window)
+});
+
+$("#divImageDisplay").animate({
+		width: "70%",
+		height: "60%"
+}, 1500 );*/
+
+}
+
 
 	
 
@@ -506,8 +532,13 @@ function showDivImageDisplay(img) {
                         echo $this->Form->input('lng',array('div'=>false,'id'=>'info2',"label" => false,'placeholder' => 'Συντεταγμένη lng ή Βάλτε μια κουκίδα Google Maps','class'=>'std_form blue_shadow'));
                         echo '</td>';
                         echo '</tr>';
-                        
-			echo $this->Form->hidden('area',array('id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
+                        echo '<tr>';
+                        echo '<td>';
+                        echo '<label for="ReportLng" class="std_form">Περιοχή </label>';
+                        echo '</td>';
+                        echo '<td>';
+                        echo $this->Form->input('area',array('id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
+                        echo '</td></tr>';
                         echo '<tr><td>';
                         echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label></td>';  
                         
@@ -607,7 +638,7 @@ function showDivImageDisplay(img) {
                         echo '<div id="mapCanvas"></div>';
                         echo '</td></tr>';
                         
-                        echo $this->Form->hidden('area',array('id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
+                        echo $this->Form->input('area',array('id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> <td><a id="a2_right" href="#" style="clear:left;">'.$this->Html->image('info.png').'</a></td></tr>';
 
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
@@ -645,7 +676,7 @@ function showDivImageDisplay(img) {
                         }
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
-                            echo $this->Html->image('Video_icon.png', array('alt' => 'main photo', 'class' => 'tableImage'));    
+                            //echo 'VIDEO';
                             echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'value'=>$report['Report']['permissionUseMedia'], 'class'=>'std_form'));
                             echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                         }
@@ -727,13 +758,13 @@ function showDivImageDisplay(img) {
                                 if($report['Report']['hot_species']===$hot['HotSpecie']['scientific_name']) echo ' checked ';
                                 echo '/>';    
                             }
-                            echo '<label for="'.$hot['HotSpecie']['id'].'"><img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].'" alt="" /></label></div>';
+                            echo '<label  onmouseover = "showDivImageDisplay(this);" for="'.$hot['HotSpecie']['id'].'"><img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].' onmouseover="showDivImageDisplay(this);" alt="" /></label></div>';
                         }
                          echo '<div class="hot_radio"><input type="radio" name="data[Report][hot_species]" value="Κανένα" class="std_form"';
                          if ($report['Report']['hot_species']==="Κανένα") echo 'checked ';
                         echo       '/>  Κανένα απο τα παραπάνω </div>';
                         
-                         
+                         echo' <div id="divImageDisplay" style="position:absolute;" onmouseout="hideDivImageDisplay()"> </div>';
                         echo '<table>';
                         
                         			
