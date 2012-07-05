@@ -24,6 +24,11 @@
             return confirm('Είστε βέβαιος/η ότι θέλετε να αναβαθμίσετε αυτόν τον αναλυτή σε υπεραναλυτή;');
         });
         
+        $('.item a.downgradeAnalyst').click(function(e) {
+            e.stopPropagation();
+            return confirm('Είστε βέβαιος/η ότι θέλετε να υποβαθμίσετε αυτόν τον αναλυτή;');
+        });
+        
         // Create button styles
         $("#pager button, .buttonContainer a, #filterContainer form input[type='submit'], #filterContainer form button[type='submit'], #createUserLink a").button();    
         
