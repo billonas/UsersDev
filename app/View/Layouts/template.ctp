@@ -73,7 +73,7 @@
                                                                                         if(!strcmp($this->Session->read('UserType'),'hyperanalyst'))//superanalyst
 												echo $this->Html->link('Σελίδα υπεραναλυτή', array('controller' => 'Analysts', 'action'=> 'panel')).'<br/><br/>';
 											if(!strcmp($this->Session->read('UserType'),'analyst') || !strcmp($this->Session->read('UserType'),'hyperanalyst')){ //analyst+hyper
-												echo $this->Html->link('Πίνακας αναφορών', array('controller' => 'reports', 'action'=>'table')).'<br/><br/>';
+												echo $this->Html->link('Πίνακας αναφορών', '/reports/table?select=category&text=&state1=confirmed&state2=unreliable&state3=unknown').'<br/><br/>';
                                                                                                 echo $this->Html->link('Στοιχεία επικοινωνίας αναλυτών', array('controller' => 'Analysts', 'action'=>'communication')).'<br/><br/>';
                                                                                                 
                                                                                         }
