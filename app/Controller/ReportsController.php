@@ -551,8 +551,14 @@ class ReportsController extends AppController{
             }
             $this->set('species',$species);
             /* Filtering needed */	
-            if ((!empty($this->params['url']['text']))||(!empty($this->params['url']['state1']))||(!empty($this->params['url']['state2']))||(!empty($this->params['url']['state3']))) {
+            if((!empty($this->params['url']['select'])) || (!empty($this->params['url']['text']))||(!empty($this->params['url']['state1']))||(!empty($this->params['url']['state2']))||(!empty($this->params['url']['state3']))) {
                 /* Filtering by species or category needed */
+              
+                $select = $this->params['url']['select'];
+                //default value
+                if(empty($select))
+                  $select = "category";
+
                 if(!empty($this->params['url']['text'])){
                     /* States accepted */
                     $state = array();
@@ -622,13 +628,8 @@ class ReportsController extends AppController{
                     $this->set('reports',$this->Report->find('all', array('conditions'=> $conditions)));
 
                 }
+                $this->set('select',$select);
             }
-            /* Filtering not needed */
-//            else{
-//                /* Find reports */
-//                 $reports = $this->Report->find("all");
-//                 $this->set('reports',$reports);
-//            }
        }
        else{
             $this->redirect(array('controller'=>'pages', 'action'=>'display'));
