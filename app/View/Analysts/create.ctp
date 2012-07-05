@@ -1,3 +1,13 @@
+<?php echo $this->Html->css(array('main', 'jquery-ui', 'table', 'jquery.tablesorter.pager.css')); ?>
+<?php echo $this->Html->script(array('jquery.min', 'jquery-ui.min', 'jquery.tablesorter.min', 'jquery.tablesorter.pager.js', 'jquery.metadata.js')); ?>
+
+<script>
+$(document).ready(function()
+{ 
+    $('a.backButton, input[type="submit"]').button();
+});
+</script>
+
 <div class="middle_row  big_row"><?php $this->set('title_for_layout', 'Δημιουργία αναλυτή - ΕΛΚΕΘΕ');?> 
 
 			<div class="middle_wrapper">
@@ -72,17 +82,23 @@
 									      array('label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. ΕΚΠΑ','class' => ' std_form blue_shadow')).'</p></td></tr>';
 
 									  
-                                        echo '<tr><td>'.$this->Html->link('Πίσω', '/users/edit_users?text=&userType1=analyst&userType2=simple&userType3=hyperanalyst', array('class' => 'button_like_anchor')).'</td>'; 
+                                        echo '<tr><td>'
+                                        ?>
+                                            <a class="backButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'edit_users', '?'=>'text=&userType1=analyst&userType2=simple&userType3=hyperanalyst&textType=surname'))?>" >
+                                                <img class="icon" src="../../img/blackUpArrow.png" style="transform: rotate(270deg);-ms-transform: rotate(270deg);-webkit-transform: rotate(270deg);-o-transform: rotate(270deg);-moz-transform: rotate(270deg);"/>
+                                                Πίσω
+                                            </a>
+                                        <?php
+                                        echo '</td>'; 
 
                                         echo '<td>'. $this->Form->end(array(
 														'name' => 'data[User][edit]',
 														'label' => 'Δημιουργία',
 														'div' => false,
-                                                        'class' => ' std_form')).'</td></tr></table>';									  
+                                                        'class' => '')).'</td></tr></table>';									  
 								    
                                         
                                         ?>
-                               
 			    </div>
 			</div>
 </div>
