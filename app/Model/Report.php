@@ -84,7 +84,7 @@ class Report extends AppModel{
         ,
         'surname'=>array(  
                'rule1'=>array(
-                  'rule' => array('maxLength',25),
+                  'rule' => array('maxLength',35),
                   'alloEmpty'=>true,
                   'message'=>'Το επώνυμο σας δεν μπορεί να περιέχει πάνω από 25 χαρακτήρες'  
              )
