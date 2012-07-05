@@ -9,13 +9,42 @@ class News extends AppModel{
     
      public $name = 'New';
      
+     /*public $validate = array(
+        'title' => array(
+            'notEmpty'=>array(
+                'rule' => 'notEmpty',
+                'message' => 'Παρακαλώ δώστε τον τίτλο του νέου',
+                'last'=> true
+            )
+            ),
+        'body' => array(
+        'notEmpty'=>array(
+                'rule' => 'notEmpty',
+                'message' => 'Παρακαλώ δώστε την περιγραφή του νέου',
+                'last'=> true
+            )
+            )
+         );*/
+     
      public $validate = array(
+        //'title' => array(
         'title' => array(
             'rule' => 'notEmpty'
         ),
         'body' => array(
             'rule' => 'notEmpty'
         )
+           // 'rule' => 'notEmpty'
+//         'title' => array(
+//            'notEmpty'=>array(
+//                'rule' => 'notEmpty',
+//                'message' => 'Παρακαλώ δώστε τον τίτλο του είδους',
+//                'last'=> true
+//            )
+//        ),
+//        'body' => array(
+//            'rule' => 'notEmpty'
+//        )
     );
     
    function get_cat_desc($description, $max_length = 50) {
