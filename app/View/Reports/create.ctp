@@ -50,7 +50,7 @@ function handleApiReady() {
             position: google.maps.ControlPosition.LEFT_TOP
             }
     });
-    var kmlLayer = new google.maps.KmlLayer('https://dl.dropbox.com/u/71016805/Kolpoi.kmz',
+    var kmlLayer = new google.maps.KmlLayer('https://sites.google.com/site/kolpoielladoskmz/kmz/Kolpoi.kmz',
     {
         suppressInfoWindows: true,
         map: map
@@ -507,7 +507,7 @@ function showDivImageDisplay(img) {
                         echo '</td>';
                         echo '</tr>';
                         
-			echo $this->Form->hidden('area',array('id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
+			echo $this->Form->input('area',array('id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
                         echo '<tr><td>';
                         echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label></td>';  
                         
@@ -607,7 +607,7 @@ function showDivImageDisplay(img) {
                         echo '<div id="mapCanvas"></div>';
                         echo '</td></tr>';
                         
-                        echo $this->Form->hidden('area',array('id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
+                        echo $this->Form->input('area',array('id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> <td><a id="a2_right" href="#" style="clear:left;">'.$this->Html->image('info.png').'</a></td></tr>';
 
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
@@ -646,6 +646,7 @@ function showDivImageDisplay(img) {
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
                             //echo 'VIDEO';
+                            echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'value'=>$report['Report']['permissionUseMedia'], 'class'=>'std_form'));
                             echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                         }
                         echo '</div>'; 
