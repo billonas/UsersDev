@@ -338,7 +338,13 @@
                 </style>
                 <div id="mapCanvas"></div>
                 <div class="info_wrapper">
-                    <div><span class="info_header"></span>Παρακαλούμε επιλέξτε μία πινέζα για να δείτε την αντίστοιχη αναφορά</div>
+                    <div><span class="info_header"></span>
+                        <?php if((isset($current_species) && !empty($current_species))|| (isset($current_area) && !empty($current_area)))
+                                echo 'Επιλέξτε μία πινέζα για να δείτε την αντίστοιχη αναφορά';
+                              else
+                                echo 'Κάνετε κλικ στην επιλογή "περισσότερα" κάποιου είδους για δείτε ολες τις εγκυρες αναφορές που το αφορούν';
+                        ?>
+                    </div>
                 </div>
             </div>
             <script type="text/javascript"
