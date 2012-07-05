@@ -84,6 +84,7 @@ $(document).ready(function()
 									  
                                         echo '<tr><td>'
                                         ?>
+
                                             <a class="backButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'edit_users', '?'=>'text=&userType1=analyst&userType2=simple&userType3=hyperanalyst&textType=surname'))?>" >
                                                 <img class="icon" src="../../img/blackUpArrow.png" style="transform: rotate(270deg);-ms-transform: rotate(270deg);-webkit-transform: rotate(270deg);-o-transform: rotate(270deg);-moz-transform: rotate(270deg);"/>
                                                 Πίσω

@@ -59,19 +59,13 @@
                 echo '<tr><td><label for="AnalystInstitute" class="name std_form">Ινστιτούτο:  </label></td><td><p>'.$this->Form->input('Analyst.name', 
                                                         array('default'=>$analyst['Analyst']['research_institute'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow', 'disabled'=>'true')).'</p></td></tr>';
                 ?>
-            </table>
             <?php					  
-//                $this->Form->end(array('name' => 'data[Analyst][edit]',
-//                                        'label' => 'Ανανέωση στοιχείων',
-//                                        'div' => false,
-//                                        'class' => ' std_form'));									  
-//            ?>
-            <button type="submit" value="Αναζήτηση">
-                <img src="../img/whiteSpyglass.png"/>
-                Ανανέωση στοιχείων
-            </button>
+                 echo '<td>'.$this->Form->end(array('name' => 'data[Analyst][edit]',
+                                        'label' => 'Ανανέωση στοιχείων',
+                                        'div' => false,
+                                        'class' => 'upgradeButton')).'</td></tr></table>';									  
+            ?>
             
-            <?php $this->Form->end(); ?>
                
             <div style="margin-top:2em; margin-left: auto; margin-right: auto;">
                 <a class="backButton" href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'edit_users', '?'=>'text=&userType1=analyst&userType2=simple&userType3=hyperanalyst&textType=surname'))?>" >
