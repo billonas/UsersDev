@@ -507,7 +507,7 @@ function showDivImageDisplay(img) {
                         echo '</td>';
                         echo '</tr>';
                         
-			echo $this->Form->input('area',array('id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
+			echo $this->Form->hidden('area',array('id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
                         echo '<tr><td>';
                         echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label></td>';  
                         
@@ -607,7 +607,7 @@ function showDivImageDisplay(img) {
                         echo '<div id="mapCanvas"></div>';
                         echo '</td></tr>';
                         
-                        echo $this->Form->input('area',array('id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
+                        echo $this->Form->hidden('area',array('id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> <td><a id="a2_right" href="#" style="clear:left;">'.$this->Html->image('info.png').'</a></td></tr>';
 
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
