@@ -19,8 +19,8 @@ $(document).ready(function(){
 
     <div class="middle_row  big_row">
 			<div class="middle_wrapper">
-				<div class="register_box login_box" align="center">
-			 		<br><h1>Προφίλ χρήστη</h1></br>
+				<div class="register_box login_box white_box" align="center">
+			 		<h1>Προφίλ χρήστη</h1>
 
 					<?php echo $this->Form->create('User', array('action' => 'edit'));?>
                <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
@@ -49,33 +49,33 @@ $(document).ready(function(){
 									      array('default'=>$user['User']['city'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'UserCity','placeholder' => 'π.χ. Καβάλα','class' => ' std_form blue_shadow')).'</p></td></tr>';	
 					echo '<tr><td><label for="UserCountry" class="country std_form">Χώρα:  </label></td><td><p>'.$this->Form->input('User.country', 
 									      array('default'=>$user['User']['country'], 'label' => false, 'div' => false, 'type' => 'text', 'id'=>'UserCountry','placeholder' => 'π.χ. Ελλάδα','class' => ' std_form blue_shadow')).'</p></td></tr>';
-					echo '<tr><td><label for="UserAge" class="age std_form">Ημ/νία γέννησης:  </label></td><td><p>'.$this->Form->input('User.birth_date', 
+					echo '<tr><td><label for="UserAge" class="age std_form">Ημ/νία γέννησης:  </label></td><td><p class="trmargin">'.$this->Form->input('User.birth_date', 
 									      array('type'=>'date', 'empty'=>true, 'minYear'=>1901, 'maxYear'=>date('Y'), 'default'=>$user['User']['birth_date'],'label' => false, 'div' => false, 'id'=>'UserAge','class' => ' std_form blue_shadow')).'</p></td></tr>';		
 					$options = array('noValue'=>'-','first' => 'Πρωτοβάθμια', 'second' => 'Δευτεροβάθμια','third' => 'Τριτοβάθμια');  
-					echo '<tr><td><label for="UserEducation" class="education std_form">Εκπαίδευση:  </label></td><td><p>'.$this->Form->input('User.education', 
+					echo '<tr><td><label for="UserEducation" class="education std_form">Εκπαίδευση:  </label></td><td><p class="trmargin">'.$this->Form->input('User.education', 
 									      array('default' => $user['User']['education'], 'options' => $options, 'label' => false, 'div' => false, 'id'=> 'UserEducation','placeholder' => 'π.χ. Δημοτικό','class' => ' std_form blue_shadow')).'</p></td></tr>';										  									  									  
 					$options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο'); 					  
-					echo '<tr><td><label for="UserMembership" default="-" class="membership std_form">Ιδιότητα:  </label></td><td><p>'.$this->Form->input('User.membership', 
+					echo '<tr><td><label for="UserMembership" default="-" class="membership std_form">Ιδιότητα:  </label></td><td><p class="trmargin">'.$this->Form->input('User.membership', 
 									      array('default'=>$user['User']['membership'], 'options'=> $options, 'label' => false, 'div' => false, 'id'=>'UserMembership','class' => ' std_form blue_shadow')).'</p></td></tr></br>';	
 					?>
                                         
                                         <?php
                                         
                                         if(!strcmp($this->Session->read('UserType'),'analyst') || !strcmp($this->Session->read('UserType'),'hyperanalyst')){
-                                            echo '<tr><td colspan="2">________________</td></tr>';
-                                            echo '<tr><td><label for="UserCategory1" class="mail std_form">Κατηγορία ειδίκευσης 1:  </label></td><td><p>';
+                                            echo '<tr><td colspan="2"><span class="big_black_header_line trmargin" style="float:left;width:100%"</span></td></tr>';
+                                            echo '<tr><td><label for="UserCategory1" class="mail std_form">Κατηγορία ειδίκευσης 1:  </label></td><td><p class="trmargin">';
                                             if(!empty($user['Analyst']['Category1']['category_name']))
                                                 echo $user['Analyst']['Category1']['category_name'].'</p></td></tr>';
                                             else
                                                 echo '- </p></td></tr>';
                                             
-                                            echo '<tr><td><label for="UserCategory2" class="mail std_form">Κατηγορία ειδίκευσης 2:  </label></td><td><p>';
+                                            echo '<tr class="trmargin"><td><label for="UserCategory2" class="mail std_form">Κατηγορία ειδίκευσης 2:  </label></td><td><p class="trmargin">';
                                             if(!empty($user['Analyst']['Category2']['category_name']))
                                                 echo $user['Analyst']['Category2']['category_name'].'</p></td><td><a id="a2_up" href="#">'.$this->Html->image('info.png').'</a></td></tr>';
                                             else
                                                 echo '- </p></td></tr>';
                                                     
-                                            echo '<tr><td><label for="UserInstitute" class="mail std_form">Ινστιτούτο:  </label></td><td><p>';
+                                            echo '<tr><td><label for="UserInstitute" class="mail std_form">Ινστιτούτο:  </label></td><td><p class="trmargin">';
                                             if(!empty($user['Analyst']['research_institute']))
                                                 echo $user['Analyst']['research_institute'].'</p></td></tr>';
                                             else
@@ -93,7 +93,7 @@ $(document).ready(function(){
 														'name' => 'data[User][edit]',
 														'label' => 'Ανανέωση στοιχείων',
 														'div' => false,
-                                                        'class' => ' std_form')).'</p></br></br>';									  
+                                                        'class' => ' std_form','style' => 'width:20em')).'</p></br></br>';									  
 								    ?>
 			    </div>
 			</div>
