@@ -50,7 +50,7 @@ function handleApiReady() {
             position: google.maps.ControlPosition.LEFT_TOP
             }
     });
-    var kmlLayer = new google.maps.KmlLayer('https://dl.dropbox.com/u/71016805/Kolpoi.kmz',
+    var kmlLayer = new google.maps.KmlLayer('https://sites.google.com/site/kolpoielladoskmz/kmz/Kolpoi.kmz',
     {
         suppressInfoWindows: true,
         map: map
@@ -646,6 +646,7 @@ function showDivImageDisplay(img) {
                         if($this->Session->check('uploaded2')){
                             $uploaded2 = $this->Session->read('uploaded2');
                             //echo 'VIDEO';
+                            echo $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'value'=>$report['Report']['permissionUseMedia'], 'class'=>'std_form'));
                             echo $this->Form->input('video',array('type'=>'hidden','value'=>$uploaded2["path"], 'class'=>'std_form'));
                         }
                         echo '</div>'; 
