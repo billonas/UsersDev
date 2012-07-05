@@ -167,7 +167,7 @@
                     <span class="little_specie_header">'.$current_species.'</span>
                     <div class="img_frame">
                         <img class="squarizer" src="'.$this->webroot.'img/square.png'.'"/>
-                        <img class="specie_img" src="'.$this->webroot.'img/humpback_whale-wallpaper-1920x1200.jpg'.'"/>
+                        <img class="specie_img" src="'.$this->webroot.$current_image.'"/>
                     </div>
                     <div class="region_button_wrapper">
                         <span class="specie_areas"><span>Περιοχές: </span>';
@@ -481,7 +481,7 @@
                                                +'<div><span class="info_header">'+'Περιοχή Παρατήρησης: '+'</span> '+marker_buffer[index][6]+'</div>'
                                                +'<div><span class="info_header">'+'Περιβάλλον: '+'</span> '+marker_buffer[index][7]+'</div>'
                                                +'<div><span class="info_header">'+'Σχόλια: '+'</span> '+marker_buffer[index][8]+'</div>'
-                                               +'<div><span class="info_header">'+'Έχει ξαναπαρατηρηθεί?: '+'</span> '+marker_buffer[index][9]+'</div>';
+                                               +'<div><span class="info_header">'+'Έχει ξαναπαρατηρηθεί; '+'</span> '+marker_buffer[index][9]+'</div>';
                             //window.alert(contentString);
                             $('.info_wrapper').empty().append(contentString);
                         }

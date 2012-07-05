@@ -55,7 +55,7 @@
                 <span class="news_text"><span class="news_title">'.$lastnew['News']['title'].'</span>
                     '.$lastnew['News']['body'].'
                     <br />';
-                    echo $this->Html->link('Διαβάστε Περισσότερα', array('controller'=>'News', 'action'=>'show'));
+                    echo $this->Html->link('Διαβάστε Περισσότερα', array('controller'=>'News', 'action'=>'view'));
                 echo '</span>';
                 }
                 else 
@@ -377,7 +377,7 @@
                                                 if(isset($confirmed['User']['username'])){
                                                     echo $confirmed['User']['username'].',';
                                                 }else
-                                                    echo 'anonymous,';
+                                                    echo 'Ανώνυμος,';
                                                 
                                                 $date=array();
                                                 $date= explode("-",$confirmed['Report']['date'],4);
