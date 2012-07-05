@@ -13,8 +13,11 @@ class HotSpeciesController extends AppController{
     //to uses edo xreiazetai epeidi xoris tin xrisi tou uses to cakephp psaxnei to antistoixo model
     //to opoio stin sigekrimeni periptosi den vriskei afou to species den exei eniko(i leksi specie den iparxei)
       
-
+  /*
+   *  create method is used to create properly a new hot species and save it's data
+   */    
     function create() {
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -23,10 +26,12 @@ class HotSpeciesController extends AppController{
         else
         {
         if (!empty($this->data)) {
+            /*upload main photo*/
             if(!empty($this->data['HotSpecie']['image']['tmp_name'])){
                 $add1=0;
                 $add2=0;
                 $add3=0;
+                /* Check if input file's type is a valid image */
                 $res = $this->Image->checkImage($this->data['HotSpecie']['image']);
             	if($res < 0){
                     $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία','flash_bad');
@@ -36,12 +41,12 @@ class HotSpeciesController extends AppController{
   			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
                         $this->redirect(array('action'=>'create'), null, true);
                 }
-                //briskw thn katalhksh tou arxeiou gia na dwsw thn idia katalhksh sto kainourgio onoma
+                /* Rename image file and save to temp directory */
     	        $this->request->data['HotSpecie']['image']['name'] = $this->Image->tmpRename($this->request->data['HotSpecie']['image']);
                 $uploaded = $this->JqImgcrop->uploadImage($this->data['HotSpecie']['image'], 'img/temporary/', ''); 
                 $this->request->data['HotSpecie']['main_photo'] = $uploaded['imagePath'];
                 $this->request->data['HotSpecie']['priority'] = $this->HotSpecie->find('count')+1;
-                //additional_photo1
+                /* Upload additional photos,rename them and save them to temp directory*/
                 for($i=1;$i<4;$i++){
                 if(!empty($this->data['HotSpecie']['image'.$i]['tmp_name'])){
                 $res = $this->Image->checkImage($this->data['HotSpecie']['image'.$i]);
@@ -53,7 +58,6 @@ class HotSpeciesController extends AppController{
   			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία για την επιπλέον φώτο'.$i,'flash_bad');
                         $this->redirect(array('action'=>'create'), null, true);
                 }
-                //briskw thn katalhksh tou arxeiou gia na dwsw thn idia katalhksh sto kainourgio onoma
     	        $this->request->data['HotSpecie']['image'.$i]['name'] = $this->Image->tmpRename($this->request->data['HotSpecie']['image'.$i]);
                 $uploaded = $this->JqImgcrop->uploadImage($this->data['HotSpecie']['image'.$i], 'img/temporary/', ''); 
                 $this->request->data['HotSpecie']['additional_photo'.$i] = $uploaded['imagePath'];
@@ -65,14 +69,12 @@ class HotSpeciesController extends AppController{
                 }
                 $this->HotSpecie->create();
                 if ($this->HotSpecie->save($this->data['HotSpecie'])) {
-                    //allazw to onoma ths eikonas katallhla
-                    //main_photo
+                    /*Move main photo to hotspecies images directory */
                     $ret = $this->Image->mvSubImg($this->HotSpecie, $this->data['HotSpecie']['main_photo'], "hotspecies", "main_photo");
                     if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας",'flash_bad');
                             $this->redirect(array('action'=>'create'), null, true);
                             }
-                    //TODO:Na valo for
                     $k=0;        
                     if($add1 == 1)$k=2;
                     if($add2 == 1)$k=3;
@@ -91,17 +93,18 @@ class HotSpeciesController extends AppController{
                         $ext = 'c';
                         break;
                         }
+                        /*Move additional photos to hotspecies images directory */
                         $ret = $this->Image->mvSubImg($this->HotSpecie, $this->data['HotSpecie']['additional_photo'.$i], "hotspecies","additional_photo".$i,$ext);
                         if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας για την επιπλέον φώτο".$i,'flash_bad');
                             $this->redirect(array('action'=>'create'), null, true);
                         }
                     }
-                    $this->Session->setFlash('The HotSpecies has been saved','flash_good');
+                    $this->Session->setFlash('Το είδος κατατέθηκε επιτυχώς','flash_good');
                     $this->redirect(array('action'=>'show'), null, true);
                 }
                 else {
-                    $this->Session->setFlash('HotSpecies not saved. Try again.','flash_bad');
+                    $this->Session->setFlash('Το είδος δεν κατατέθηκε επιτυχώς.Προσπαθήστε ξανά.','flash_bad');
                     }
             }
             else{
@@ -112,7 +115,11 @@ class HotSpeciesController extends AppController{
     }
     }
     
+  /*
+   *  update method is used to update hot species data by hyperanalyst
+   */    
     function update($id = null) {
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -121,20 +128,21 @@ class HotSpeciesController extends AppController{
         else
         {
         if ($id == null) {
-            $this->Session->setFlash('Invalid HotSpecie Id','flash_bad');
+            $this->Session->setFlash('Λάθος κωδικός είδους','flash_bad');
             $this->redirect(array('action'=>'show'), null, true);
         }
         if (empty($this->data)) {
+            /* Find hotspecies */
             $this->data = $this->HotSpecie->read(null, $id);
             $hotspecie = $this->data;
             $this->set('hotspecie',$hotspecie);
         } else {
+            /* Save hotspecies */
             if ($this->HotSpecie->save($this->data)) {
-                $this->Session->setFlash('The HotSpecie has been saved','flash_good');
+                $this->Session->setFlash('Τα νέα στοιχεία κατατέθηκαν επιτυχώς','flash_good');
                 return $this->redirect(array('action'=>'show'), null, true);
             } else {
-                $this->Session->setFlash('The HotSpecie could not be saved.
-                                            Please, try again.','flash_bad');
+                $this->Session->setFlash('Τα νέα στοιχεία δεν κατατέθηκαν επιτυχώς.Προσπαθήστε ξανά.','flash_bad');
                 $this->data = $this->HotSpecie->read(null, $id);
                 $hotspecie = $this->data;
                 $this->set('hotspecie',$hotspecie);
@@ -143,7 +151,11 @@ class HotSpeciesController extends AppController{
         }
     }
     
+  /*
+   *  delete method is used to delete hot species data by hyperanalyst
+   */    
     function delete($id = null) {
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -152,18 +164,24 @@ class HotSpeciesController extends AppController{
         else
         {
         if ($id == null) {
-            $this->Session->setFlash('Invalid id for HotSpecie','flash_bad');
+            $this->Session->setFlash('Λάθος κωδικός είδους','flash_bad');
             $this->redirect(array('action'=>'show'), null, true);
         }
+        /* Delete hotspecies images*/
         $this->Image->dlImg($this->HotSpecie, $id, 'HotSpecie');
+        /* Delete hotspecies */
         if ($this->HotSpecie->deleteHot($id)) {
-            $this->Session->setFlash('HotSpecie #'.$id.' deleted','flash_good');
+            $this->Session->setFlash('Το είδος με κωδικό #'.$id.' διαγράφηκε επιτυχώς','flash_good');
             $this->redirect(array('action'=>'show'), null, true);
         }
         }
     }
     
+  /*
+   *  show method is used to present all hot species to hyperanalysts
+   */
     function show() {
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -171,15 +189,25 @@ class HotSpeciesController extends AppController{
         }
         else
         {
+        /* Find all hotspecies ordered by priority */
         $this->set('hotspecies', $this->HotSpecie->find('all', array('order'=>'HotSpecie.priority')));
         }     
     }
     
+  /*
+   *  view method is used to present all hot species to users
+   */
     function view() {
+        /* Find all hotspecies ordered by priority */
         $this->set('hotspecies', $this->HotSpecie->find('all', array('order'=>'HotSpecie.priority')));
     }
     
+    
+  /*
+   *  setMainPhoto method is used to set a hot species' additional photo as main
+   */
     function setMainPhoto($id = null , $num = null){
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -187,12 +215,15 @@ class HotSpeciesController extends AppController{
         }
         else
         {
-        if (($id == null) || ($num == null) || ($num > 3) || ($num < 1)) { //num{1-3}
-            $this->Session->setFlash('Invalid id for HotSpecie or Photo','flash_bad');
+        /* num should be between 1 and 3*/
+        if (($id == null) || ($num == null) || ($num > 3) || ($num < 1)) { 
+            $this->Session->setFlash('Λάθος κωδικός είδους ή φωτογραφίας','flash_bad');
             $this->redirect(array('action'=>'show'), null, true);
         }
         else{
+            /* Find hotspecies*/
             $hotspecies = $this->HotSpecie->findById($id);
+            /* Switch photo's extension*/
             switch ($num)
             {
             case 1:
@@ -207,22 +238,23 @@ class HotSpeciesController extends AppController{
             }   
             $photo = 'additional_photo'.$num;
             $additional = $hotspecies['HotSpecie'][$photo];
-            if($additional == ''){//an den yparxei h antistoixi foto(periptosi pou dosame to num xeirokinita h lathos sto view)
-                $this->Session->setFlash('This photo does not exist','flash_bad');
+            if($additional == ''){//photo does not exist
+                $this->Session->setFlash('Η φωτογραφία δεν υπάρχει','flash_bad');
                 $this->redirect(array('action'=>'update',$id), null, true);
             }
+            /* Swap main and additional photo */
             $this->Image->changePriority($additional, $hotspecies, $ext,$num,$this->HotSpecie);
-            $this->Session->setFlash('The photo has been set as main','flash_good');
+            $this->Session->setFlash('Η ενέργεια εκτελέστηκε επιτυχώς','flash_good');
             $this->redirect(array('action'=>'update',$id));
-            //} else {
-            //    $this->Session->setFlash('The photo could not be set as main photo. Please, try again.');
-            //    $this->redirect(array('action'=>'update',$id), null, true);
-           // }
         }
         }
     }
     
+  /*
+   *  deleteImg method is used to delete a hot species' additional photo
+   */
     function deleteImg($id = null , $num = null){
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -230,26 +262,33 @@ class HotSpeciesController extends AppController{
         }
         else
         {
-        if (($id == null) || ($num == null) || ($num > 3) || ($num < 1)) { //num{1-3}
-            $this->Session->setFlash('Invalid id for HotSpecie or Photo','flash_bad');
+        /* num should be between 1 and 3*/
+        if (($id == null) || ($num == null) || ($num > 3) || ($num < 1)) {
+            $this->Session->setFlash('Λάθος κωδικός είδους ή φωτογραφίας','flash_bad');
             $this->redirect(array('action'=>'show'), null, true);
         }
         else{
+            /* Find hotspecies*/
             $hotspecies = $this->HotSpecie->findById($id);
             $photo = 'additional_photo'.$num;
             $additional = $hotspecies['HotSpecie'][$photo];
-            if($additional == ''){//an den yparxei h antistoixi foto(periptosi pou dosame to num xeirokinita h lathos sto view)
-                $this->Session->setFlash('This photo does not exist','flash_bad');
+            if($additional == ''){//photo does not exist
+                $this->Session->setFlash('Η φωτογραφία δεν υπάρχει','flash_bad');
                 $this->redirect(array('action'=>'update',$id), null, true);
             }
+            /*Delete image*/
              $this->HotSpecie->deleteImg($id , $num);       
-             $this->Session->setFlash('The photo has been deleted','flash_good');
+             $this->Session->setFlash('Η φωτογραφία διαγράφηκε επιτυχώς','flash_good');
              $this->redirect(array('action'=>'update',$id));
         }
         }
     }
     
+  /*
+   *  addImg method is used to add an additional photo to a hot species
+   */
     function addImg(){
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -257,10 +296,12 @@ class HotSpeciesController extends AppController{
         }
         else
         {
-        if (!empty($this->data)) {//na ftiakso to else
+        if (!empty($this->data)) {
+            /*upload main photo*/
             if(!empty($this->data['HotSpecie']['image']['tmp_name'])){
                 $id = $this->data['HotSpecie']['id'];
                 $num = $this->data['HotSpecie']['num'];
+                /* Switch photo's extension*/
                 switch ($num)
                 {
                     case 1:
@@ -273,6 +314,7 @@ class HotSpeciesController extends AppController{
                     $ext = 'c';
                     break;
                 }
+                /* Check if input file's type is a valid image */
                 $res = $this->Image->checkImage($this->data['HotSpecie']['image']);
             	if($res < 0){
                     $this->Session->setFlash('Παρακαλώ εισάγετε μία φωτογραφία','flash_bad');
@@ -282,38 +324,41 @@ class HotSpeciesController extends AppController{
   			$this->Session->setFlash('Παρακαλώ εισάγετε μία κανονική φωτογραφία','flash_bad');
                         $this->redirect(array('action'=>'update',$id));
                 }
-                //briskw thn katalhksh tou arxeiou gia na dwsw thn idia katalhksh sto kainourgio onoma
+                /* Rename image file and save to temp directory */
     	        $this->request->data['HotSpecie']['image']['name'] = $this->Image->tmpRename($this->request->data['HotSpecie']['image']);
                 $uploaded = $this->JqImgcrop->uploadImage($this->data['HotSpecie']['image'], 'img/temporary/', ''); 
                 $imagePath = $uploaded['imagePath'];
                 $this->HotSpecie->id = $id;
+                /* Save proper image field */
                 if ($this->HotSpecie->saveField("additional_photo".$num,$imagePath )) {
-                    //allazw to onoma ths eikonas katallhla
-                    //main_photo
+                    /*Move additional photos to hotspecies images directory */
                     $ret = $this->Image->mvSubImg($this->HotSpecie, $imagePath, "hotspecies","additional_photo".$num,$ext);
                     if(!$ret){
                             $this->Session->setFlash("Πρόβλημα στη διαχείρηση της εικόνας",'flash_bad');
                             $this->redirect(array('action'=>'update',$id));
                             }        
-                    $this->Session->setFlash('The photo has been saved','flash_good');
+                    $this->Session->setFlash('Η φωτογραφία αποθηκεύτηκε επιτυχώς','flash_good');
                     $this->redirect(array('action'=>'update',$id));
                 }
                 else{
-                    $this->Session->setFlash('Savefield error','flash_bad');
+                    $this->Session->setFlash('Η φωτογραφία δεν αποθηκεύτηκε επιτυχώς.Πρόβλημα στη διαχείρηση της μνήμης','flash_bad');
                     $this->redirect(array('action'=>'update',$id));
                 }
             }
             $id = $this->data['HotSpecie']['id'];
-            $this->Session->setFlash('Empty image error','flash_bad');
+            $this->Session->setFlash('Παρακαλώ επιλέξτε μία φωτογραφία','flash_bad');
         $this->redirect(array('action'=>'update',$id));
         }
-        $this->Session->setFlash('Empty data error','flash_bad');
+        $this->Session->setFlash('Δεν υπάρχουν δεδομένα','flash_bad');
         $this->redirect(array('action'=>'show'), null, true);
         }
     }
     
-    function changePriority($id = null,$action = null) {//TODO stin create na theto priority++ kai
-    // *  stin delete na meiono ta priority ton epomenon kata1
+  /*
+   *  changePriority method is used to change a hot species' view priority
+   */
+    function changePriority($id = null,$action = null) {
+        /*check if user is logged in and is a hyperanalyst*/
         if((!$this->Session->check('UserUsername')) || 
                     (strcmp($this->Session->read('UserType'), 'hyperanalyst')))
         {
@@ -322,15 +367,27 @@ class HotSpeciesController extends AppController{
         else
         {
         if (($id == null) || ($action == null)) {
-            $this->Session->setFlash('Invalid HotSpecie Id','flash_bad');
+            $this->Session->setFlash('Λάθος κωδικός είδους','flash_bad');
             $this->redirect(array('action'=>'show'), null, true);
         }
         else{
-            if($action == 1)
-                $this->HotSpecie->upPriority($id);//TODO
-            else if($action == 2)
-                $this->HotSpecie->downPriority($id);//TODO+elegxo gia return 0
-            $this->Session->setFlash('The priority has been changed','flash_good');
+            if($action == 1){
+                /* Swap hot species priority with higher's hot species priority  */
+                if(!$this->HotSpecie->upPriority($id))
+                {
+                    $this->Session->setFlash('Μη επιτρεπτή ενέργεια','flash_bad');
+                    $this->redirect(array('action'=>'show'), null, true);
+                }
+            }
+            else if($action == 2){
+                /* Swap hot species priority with lowers's hot species priority  */
+                if(!$this->HotSpecie->downPriority($id))
+                {
+                    $this->Session->setFlash('Μη επιτρεπτή ενέργεια','flash_bad');
+                    $this->redirect(array('action'=>'show'), null, true);
+                }
+            }
+            $this->Session->setFlash('Η προτεραιότητα εμφάνισης άλλαξε επιτυχώς','flash_good');
             $this->redirect(array('action'=>'show'), null, true);
         }
         }
