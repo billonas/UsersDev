@@ -402,6 +402,15 @@ function showDivImageDisplay(img) {
 
 <style>
     
+    .tableImage {
+        max-width: 80px;
+        max-height: 50px;
+        min-height: 5px;
+        min-width: 30px;
+        border: 1px solid silver;
+        border-radius: 6px;
+    }
+
     #mapCanvas {
         width: 100%;
         height: 30em;
@@ -638,7 +647,7 @@ function showDivImageDisplay(img) {
                         echo '</br><big style="font-family:Arial,sans-serif;"> Τα πεδία αυτού του βήματος είναι προαιρετικά!</big></br></br><table>';
                         if($this->Session->check('uploaded3')){
                             $uploaded3 = $this->Session->read('uploaded3');      
-                            echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td><td>'.$this->Html->image($uploaded3['imagePath']).'</td></tr>';
+                            echo '<tr><td><label for="ReportImage2" class="std_form">Επιπλέον Φωτογραφία 1 </label></td><td>'.$this->Html->image($uploaded3['imagePath'],array('class'=>'tableImage')).'</td></tr>';
                             echo $this->Form->input('additional_photo1',array("type" => "hidden",'value'=> $report['Report']['additional_photo1']));
                         }
                         else{
@@ -648,7 +657,7 @@ function showDivImageDisplay(img) {
                         
                         if($this->Session->check('uploaded4')){
                             $uploaded4 = $this->Session->read('uploaded4');      
-                            echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td><td>'.$this->Html->image($uploaded4['imagePath']).'</td></tr>';
+                            echo '<tr><td><label for="ReportImage3" class="std_form">Επιπλέον Φωτογραφία 2 </label></td><td>'.$this->Html->image($uploaded4['imagePath'],array('class'=>'tableImage')).'</td></tr>';
                             echo $this->Form->input('additional_photo2',array("type" => "hidden",'value'=> $report['Report']['additional_photo2']));
                         }
                         else{
@@ -658,7 +667,7 @@ function showDivImageDisplay(img) {
                         
                         if($this->Session->check('uploaded5')){
                             $uploaded5 = $this->Session->read('uploaded5');      
-                            echo '<tr><td><label for="ReportImage4" class="std_form">Επιπλέον Φωτογραφία 3 </label></td><td>'.$this->Html->image($uploaded5['imagePath']).'</td></tr>';
+                            echo '<tr><td><label for="ReportImage4" class="std_form">Επιπλέον Φωτογραφία 3 </label></td><td>'.$this->Html->image($uploaded5['imagePath'],array('class'=>'tableImage')).'</td></tr>';
                             echo $this->Form->input('additional_photo3',array("type" => "hidden",'value'=> $report['Report']['additional_photo3']));
                         }
                         else{
@@ -668,7 +677,7 @@ function showDivImageDisplay(img) {
                         
                         if($this->Session->check('uploaded6')){
                             $uploaded6 = $this->Session->read('uploaded6');      
-                            echo '<tr><td><label for="ReportImage5" class="std_form">Επιπλέον Φωτογραφία 4 </label></td><td>'.$this->Html->image($uploaded6['imagePath']).'</td></tr>';
+                            echo '<tr><td><label for="ReportImage5" class="std_form">Επιπλέον Φωτογραφία 4 </label></td><td>'.$this->Html->image($uploaded6['imagePath'],array('class'=>'tableImage')).'</td></tr>';
                             echo $this->Form->input('additional_photo4',array("type" => "hidden",'value'=> $report['Report']['additional_photo4']));
                         } 
                         else{
@@ -678,7 +687,7 @@ function showDivImageDisplay(img) {
                         
                         if($this->Session->check('uploaded7')){
                             $uploaded7 = $this->Session->read('uploaded7');      
-                            echo '<tr><td><label for="ReportImage6" class="std_form">Επιπλέον Φωτογραφία 5 </label></td><td>'.$this->Html->image($uploaded7['imagePath']).'</td></tr>';
+                            echo '<tr><td><label for="ReportImage6" class="std_form">Επιπλέον Φωτογραφία 5 </label></td><td>'.$this->Html->image($uploaded7['imagePath'],array('class'=>'tableImage')).'</td></tr>';
                             echo $this->Form->input('additional_photo5',array("type" => "hidden",'value'=> $report['Report']['additional_photo5']));
                         } 
                         else{
@@ -869,7 +878,7 @@ function showDivImageDisplay(img) {
                             echo '<td>'.$this->Form->input('email',array("label"=>false, 'placeholder'=>"Π.Χ. g.kolokotronis@elkethe.gr",'class' => 'std_form blue_shadow', 'div'=>false)).'</td></tr>';							    
                         }
                     }
-                    $options = array('unknown' => 'Άγνωστη','confirmed' => 'Έγκυρη', 'unreliable' => 'Αναξιόπιστη');
+                    
                     
                     echo '<br/>';
                     echo '</table></div>';
