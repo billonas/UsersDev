@@ -129,7 +129,7 @@ class Analyst extends AppModel{
           if(!$arr)   return 0;
           $analysts = array();
 	  foreach($arr as $a){
-            $anal = array("name" => $a['User']['name'], "surname" => $a['User']['surname'], "category1" => $a['Category1']['category_name'], "category2" => $a['Category2']['category_name']);
+            $anal = array("name" => $a['User']['name'], "surname" => $a['User']['surname'], "email"=>$a['User']['email'], "category1" => $a['Category1']['category_name'], "category2" => $a['Category2']['category_name']);
             array_push($analysts, $anal);
           }  
           return $analysts;
