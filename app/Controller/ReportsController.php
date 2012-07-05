@@ -656,6 +656,13 @@ class ReportsController extends AppController{
                 $conditions = array(
                            'Specie.scientific_name'=> $this->params['url']['text']
                 );
+                /* Find reports */
+                $reports = $this->Report->find('all', array('conditions'=> $conditions));
+                $this->set('reports',$reports);
+                foreach($reports as $report){
+                    $this->set('current_image',$report['Report']['main_photo']);
+                    break;
+                }
             }
             /* Filter by area */
             else if(!strcmp($this->params['url']['select'],'area')){
@@ -663,9 +670,9 @@ class ReportsController extends AppController{
                 $conditions = array(
                            'Report.area' => $this->params['url']['text']
                 );
+                /* Find reports */
+                $this->set('reports',$this->Report->find('all', array('conditions'=> $conditions)));
             }
-            /* Find reports */
-            $this->set('reports',$this->Report->find('all', array('conditions'=> $conditions)));
         }
         /* Retrieve species & areas information */
         $species = $this->Report->findSpecies();
