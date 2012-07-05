@@ -163,7 +163,7 @@
                     <span class="little_specie_header">'.$current_species.'</span>
                     <div class="img_frame">
                         <img class="squarizer" src="'.$this->webroot.'img/square.png'.'"/>
-                        <img class="specie_img" src="'.$this->webroot.$current_image.'"/>
+                        <img class="specie_img" src="'.$this->webroot.'img/'.$current_image.'"/>
                     </div>
                     <div class="region_button_wrapper">
                         <span class="specie_areas"><span>Περιοχές: </span>';
