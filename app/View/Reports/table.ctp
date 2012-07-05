@@ -118,8 +118,9 @@
                             <tr>
                                 <td>
                                     <select name="select" id="filterCategory" onchange="filterCategory_changed(this)">
-                                        <option value="category" selected="selected">Κατηγορία</option>
-                                        <option value="species">Είδος</option>
+                                        <?php if(!isset($select) || $select==='') $select='category'; //Default is category ?>
+                                        <option value="category" <?php if ($select==='category') echo 'selected="selected"'; ?> >Κατηγορία</option>
+                                        <option value="species" <?php if ($select==='species') echo 'selected="selected"'; ?> >Είδος</option>
                                     </select>
                                 </td>
                                 <td>
