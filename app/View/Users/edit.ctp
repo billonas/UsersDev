@@ -59,7 +59,7 @@ $(document).ready(function(){
 					?>
                                         
                                         <?php
-                                        echo $user['Analyst']['Category2']['category_name'];
+                                        
                                         if(!strcmp($this->Session->read('UserType'),'analyst') || !strcmp($this->Session->read('UserType'),'hyperanalyst')){
                                             echo '<tr><td colspan="2">________________</td></tr>';
                                             echo '<tr><td><label for="UserCategory1" class="mail std_form">Κατηγορία ειδίκευσης 1:  </label></td><td><p>';
