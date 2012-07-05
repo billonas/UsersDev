@@ -556,15 +556,22 @@ class ReportsController extends AppController{
                 if(!empty($this->params['url']['text'])){
                     /* States accepted */
                     $state = array();
+                    $checkboxes = array(
+                              'state1' => false,
+                              'state2' => false,
+                              'state3' => false
+                    );
                     if(!empty($this->params['url']['state1'])){
                         array_push($state, $this->params['url']['state1']);
-                        $state1 = $this->params['url']['state1'];
+                        $checkboxes['state1'] = true;
                     }
                     if(!empty($this->params['url']['state2'])){
                         array_push($state, $this->params['url']['state2']);
+                        $checkboxes['state2'] = true;
                     }
                     if(!empty($this->params['url']['state3'])){
                         array_push($state,$this->params['url']['state3']);
+                        $checkboxes['state3'] = true;
                     }
                     $conditions = array(
                             'Report.state' => $state
@@ -587,35 +594,46 @@ class ReportsController extends AppController{
                     }
                     /* Find reports */
                     $reports = $this->Report->find("all", array('conditions'=> $conditions));
+                    $this->set('checkboxes',$checkboxes);
+                    $this->set('text', $this->params['url']['text']);
                     $this->set('reports',$reports);
                 }
                 /* Filtering by states */
                 else{
                     /* States accepted */
                     $state = array();
+                    $checkboxes = array(
+                              'state1' => false,
+                              'state2' => false,
+                              'state3' => false
+                    );
                     if(!empty($this->params['url']['state1'])){
                         array_push($state, $this->params['url']['state1']);
+                        $checkboxes['state1'] = true; 
                     }
                     if(!empty($this->params['url']['state2'])){
                         array_push($state, $this->params['url']['state2']);
+                        $checkboxes['state2'] = true; 
                     }
                     if(!empty($this->params['url']['state3'])){
                         array_push($state, $this->params['url']['state3']);
+                        $checkboxes['state3'] = true; 
                     }
                     $conditions = array(
                             'Report.state' => $state
                     );
                     /* Find reports */
+                    $this->set('checkboxes',$checkboxes);
                     $this->set('reports',$this->Report->find('all', array('conditions'=> $conditions)));
 
                 }
             }
             /* Filtering not needed */
-            else{
-                /* Find reports */
-                 $reports = $this->Report->find("all");
-                 $this->set('reports',$reports);
-            }
+//            else{
+//                /* Find reports */
+//                 $reports = $this->Report->find("all");
+//                 $this->set('reports',$reports);
+//            }
        }
        else{
             $this->redirect(array('controller'=>'pages', 'action'=>'display'));
