@@ -135,6 +135,9 @@ class HotSpeciesController extends AppController{
             } else {
                 $this->Session->setFlash('The HotSpecie could not be saved.
                                             Please, try again.','flash_bad');
+                $this->data = $this->HotSpecie->read(null, $id);
+                $hotspecie = $this->data;
+                $this->set('hotspecie',$hotspecie);
             }
         }
         }
