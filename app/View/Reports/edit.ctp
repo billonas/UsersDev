@@ -326,7 +326,7 @@
                     echo '<label for="ReportCategory" class="std_form">Σχόλια-Παρατηρήσεις</label>';
                     echo $this->Tinymce->input('Report.analyst_comments',array("label" => false,'placeholder' => 'Κεφαλαία Γράμματα Ελληνικά ή Λατινικά', 'class'=>'std_form'),null,'full');
                     		
-                    echo '<table><tr><td>'.$this->Html->link('Επιστροφή στον πίνακα', array('controller' => 'reports', 'action'=>'table'),array('class' => 'button_like_anchor' , "style" => "padding-left: 3.2em;padding-right: 3.2em;")).'</td><td>';
+                    echo '<table><tr><td>'.$this->Html->link('Επιστροφή στον πίνακα', '/reports/table?select=category&text=&state1=confirmed&state2=unreliable&state3=unknown',array('class' => 'button_like_anchor' , "style" => "padding-left: 3.2em;padding-right: 3.2em;")).'</td><td>';
 					echo $this->Form->end(array(
                                                 'label' => 'Επεξεργασία Αναφοράς',
                                                 'div' => false,
