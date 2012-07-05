@@ -961,8 +961,8 @@ kodikas gia flash_boxes
 }
 
 .flash_good{
-    padding-top: .2em;
-    padding-bottom: .2em;
+    padding-top: .1em;
+    padding-bottom: .1em;
     text-shadow: 1px 1px 0px #333;
     border-radius: 8px;
     color: #fff;
