@@ -30,10 +30,7 @@
         $("#reportsTable").tablesorter(
             {
                 sortList: [[0,1]], //sort the first column in descending order
-                headers:
-                {
-//                    5: { sorter: false }
-                }
+                headers: {}
             }).tablesorterPager({container: $("#pager")});
         
         positionPagerButtons();

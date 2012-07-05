@@ -57,12 +57,7 @@
         $("#reportsTable").tablesorter(
             {
                 sortList: [[0,1]], //sort the first column in descending order
-                headers:
-                {
-//                    1: { sorter: false }, //photo
-//                    5: { sorter: false }, //buttons
-//                    4: { sorter: 'lastModified' } // last modified
-                }
+                headers: {}
             }).tablesorterPager({container: $("#pager")});
         
         positionPagerButtons();
