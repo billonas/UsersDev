@@ -283,13 +283,9 @@
                 </table>
                 <div id="pager" class="pager">
                     <form>
-<!--                        <img src="/img/tablesorter-first.png" class="first"/>-->
-<!--                        <img src="/img/tablesorter-prev.png" class="prev"/>-->
                         <button class="first">Αρχή</button>
                         <button class="prev">Προηγούμενο</button>
                         <input type="text" class="pagedisplay" readonly="readonly"/>
-<!--                        <img src="/img/tablesorter-next.png" class="next"/>-->
-<!--                        <img src="/img/tablesorter-last.png" class="last"/>-->
                         <select style="visibility: hidden" class="pagesize" onchange="positionPagerButtons">
                                 <option selected="selected" value="10">10</option>
                                 <option value="20">20</option>
