@@ -377,7 +377,11 @@ class UsersController extends AppController
                               'userType3' => false
                 );
                 $text = null;
-                $textType = 'surname';
+                $textType = $this->params['url']['textType'];
+                //default value
+                if(empty($textType))
+                  $textType = "surname";
+
                 if(!empty($this->params['url']['userType1']))
                 {
                   array_push($userType, $this->params['url']['userType1']);
