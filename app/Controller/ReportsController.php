@@ -584,22 +584,17 @@ class ReportsController extends AppController{
                     );
                     /* Filtering by species */
                     if(!strcmp($this->params['url']['select'],'species')){
-                        $conditions = array(
-                            'Specie.scientific_name'=> $this->params['url']['text'],
-                            'Report.state' => $state
-                        );
+                        $reports = $this->Report->getByPar('Specie.scientific_name',$this->params['url']['text'],$state);
 
                     }
                     /* Filtering by category */
                     else if(!strcmp($this->params['url']['select'],'category')){
-                        $conditions = array(
-                           'Category.category_name'=> $this->params['url']['text'],
-                           'Report.state' => $state
-                        );
-                        
+                        $reports = $this->Report->getByPar('Category.category_name',$this->params['url']['text'],$state);
                     }
-                    /* Find reports */
-                    $reports = $this->Report->find("all", array('conditions'=> $conditions));
+                    else{
+                        /* Find reports */
+                        $reports = $this->Report->find("all", array('conditions'=> $conditions));
+                    }
                     $this->set('checkboxes',$checkboxes);
                     $this->set('text', $this->params['url']['text']);
                     $this->set('reports',$reports);

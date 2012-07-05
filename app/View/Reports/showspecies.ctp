@@ -195,14 +195,14 @@
                         <img class="specie_img" src='<?php echo $this->webroot.'img/'.$spc['Report']['main_photo']; ?>'/>
                     </div>
                     <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Περιοχές: </span><?php $flag = false;foreach($sAreas[$spc['Specie']['scientific_name']] as $area){ if($flag) echo ", "; else $flag = true; echo $area;}?></span>
+                        <span class="specie_areas"><span>Περιοχές παρατηρησης: </span><?php $flag = false;foreach($sAreas[$spc['Specie']['scientific_name']] as $area){ if($flag) echo ", "; else $flag = true; echo $area;}?></span>
                         <a href="#" class="more_areas"><img src='<?php echo $this->webroot.'img/double_arrow6.png' ?>'/></a>
                         <a href="<?php echo $this->Html->url(array(
                                 "controller" => "reports",
                                 "action" => "showspecies",
                                 "?" => array("select" => 'species', 'text'=> $spc['Specie']['scientific_name'])
                                 
-                                ));?>" class="more_info">Περισσότερα...
+                                ));?>" class="more_info">Αναφορές είδους
                         </a>
                         
                     </div>
@@ -288,7 +288,7 @@
                         <img class="specie_img" src='<?php echo $this->webroot.'img/perioxes/'.$area['Report']['area'].'.PNG' ?>'/>
                     </div>
                     <div class="region_button_wrapper">
-                        <span class="specie_areas"><span>Είδη: </span>
+                        <span class="specie_areas"><span>Παρατηρηθέντα Είδη: </span>
                             <?php 
                                 $flag = false; 
                                 foreach($aSpecies[$area['Report']['area']] as $s){ 
@@ -305,7 +305,7 @@
                                 "controller" => "reports",
                                 "action" => "showspecies",
                                 "?" => array('select'=> "area", 'text' => $area['Report']['area'])
-                                ));?>" class="more_info">Περισσότερα...
+                                ));?>" class="more_info">Αναφορές περιοχής
                         </a>
                     </div>
                 </div>
@@ -342,7 +342,7 @@
                         <?php if((isset($current_species) && !empty($current_species))|| (isset($current_area) && !empty($current_area)))
                                 echo 'Επιλέξτε μία πινέζα για να δείτε την αντίστοιχη αναφορά';
                               else
-                                echo 'Κάνετε κλικ στην επιλογή "περισσότερα" κάποιου είδους για δείτε ολες τις εγκυρες αναφορές που το αφορούν';
+                                echo 'Κάνετε κλικ στο κάτω βέλος για να δείτε λεπτομέρειες για το είδος ή την περιοχή, ή στην επιλογή "αναφορές" για δείτε ολες τις εγκυρες αναφορές που αφορούν το είδος ή την περιοχή';
                         ?>
                     </div>
                 </div>

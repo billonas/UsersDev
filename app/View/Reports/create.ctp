@@ -91,7 +91,7 @@ function checkCoords(){
         l2 = true;
     }
     if(l1 && l2){
-        window.alert(latitude + "," + longitude);
+        
         addMarker(new google.maps.LatLng(latitude,longitude,true));
     }
 }
@@ -498,7 +498,7 @@ function showDivImageDisplay(img) {
                         echo '</td>';
                         echo '</tr>';
                         
-			echo $this->Form->input('area',array('type'=>'hidden', 'id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
+			echo $this->Form->hidden('area',array('id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
                         echo '<tr><td>';
                         echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label></td>';  
                         
@@ -549,13 +549,13 @@ function showDivImageDisplay(img) {
                         $iter = 0;
                         foreach($hotspecies as $hot){
                             if($iter == 0){
-                                echo '<div class="hot_radio" style="clear:left;"><input type="radio" name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" />
-                                    <img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].'" alt="" /></div>';
+                                echo '<div class="hot_radio" style="clear:left;"><input type="radio" id="'.$hot['HotSpecie']['id'].'"name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" />
+                                    <label for="'.$hot['HotSpecie']['id'].'"><img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].'" alt="" /></label></div>';
                                 $iter = 1;
                             }
                             else{
-                                echo '<div class="hot_radio"><input type="radio" name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" />
-                                    <img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].'" alt="" /></div>';
+                                echo '<div class="hot_radio"><input type="radio" id="'.$hot['HotSpecie']['id'].'" name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" />
+                                    <label for="'.$hot['HotSpecie']['id'].'"><img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].'" alt="" /></label></div>';
                             }
                         }
                         echo '<div class="hot_radio"><input type="radio" name="data[Report][hot_species]" value="Κανένα" class="std_form" checked />
@@ -598,7 +598,7 @@ function showDivImageDisplay(img) {
                         echo '<div id="mapCanvas"></div>';
                         echo '</td></tr>';
                         
-                        echo $this->Form->input('area',array('type'=>'hidden',  'id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
+                        echo $this->Form->hidden('area',array('id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> <td><a id="a2_right" href="#" style="clear:left;">'.$this->Html->image('info.png').'</a></td></tr>';
 
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
@@ -701,20 +701,23 @@ function showDivImageDisplay(img) {
                         echo '<tr><td><label for="ReportHot_species" class="std_form">Είναι κάποιο απο τα παρακάτω είδη-στόχους; </label></td></tr>';
                         echo '</table>';    
                         echo '<br/>';
+                                          
+                        
+                        
                         $iter = 0;
                         foreach($hotspecies as $hot){
                             if($iter == 0){
-                                echo '<div class="hot_radio" style="clear:left;"><input type="radio" name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" ';
+                                echo '<div class="hot_radio" style="clear:left;"><input type="radio" id="'.$hot['HotSpecie']['id'].'" name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" ';
                                 if($report['Report']['hot_species']===$hot['HotSpecie']['scientific_name']) echo ' checked ';
                                 echo '/>';
                                 $iter = 1;
                             }
                             else{
-                                echo '<div class="hot_radio"><input type="radio" name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" ';
+                                echo '<div class="hot_radio"><input type="radio" id="'.$hot['HotSpecie']['id'].'" name="data[Report][hot_species]" value="'.$hot['HotSpecie']['scientific_name'].'" class="std_form" ';
                                 if($report['Report']['hot_species']===$hot['HotSpecie']['scientific_name']) echo ' checked ';
                                 echo '/>';    
                             }
-                            echo '<img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].'" alt="" /></div>';
+                            echo '<label for="'.$hot['HotSpecie']['id'].'"><img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].'" alt="" /></label></div>';
                         }
                          echo '<div class="hot_radio"><input type="radio" name="data[Report][hot_species]" value="Κανένα" class="std_form"';
                          if ($report['Report']['hot_species']==="Κανένα") echo 'checked ';
@@ -911,7 +914,7 @@ function showDivImageDisplay(img) {
 </div>
 
 <div id="tip1_right" style="display:none;">
-                            Μπορείτε να μάθετε περισσότερα για τα παραπάνω είδη στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotSpecies', 'action'=>'show'),array('target' => '_blank'));?>
+                            Μπορείτε να μάθετε περισσότερα για τα παραπάνω είδη στην σελίδα <?php echo $this->Html->link('Είδών-στόχων', array('controller' => 'hotSpecies', 'action'=>'view'),array('target' => '_blank'));?>
 </div>
 
 <div id="tip2_right" style="display:none;">

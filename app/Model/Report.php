@@ -269,6 +269,13 @@ class Report extends AppModel{
             return false; 
          }
       }
+      
+      function getByPar($par, $value, $state){
+          $conditions = array("$par LIKE" => "%$value%",
+                              'Report.state'=>$state
+              );
+	  return $this->find('all', array('conditions' => $conditions));
+      }
     
 }
 

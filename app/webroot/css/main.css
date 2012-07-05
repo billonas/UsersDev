@@ -1772,11 +1772,11 @@ kodikas anagnorismenon eidon
 
 .info_wrapper{
     width: 100%;
-    background-color: #fff;
+    background-color: #A6E6FA;
     box-shadow: 0px 0px 2px 1px rgb(200,200,200);
     border-radius: 2px;
     float: left;
-    color: rgb(70,70,70);
+    color: #313131;
     font-size: 1.3em;
     font-family: Arial;
     padding-top:.5em;
