@@ -86,7 +86,7 @@ class UsersController extends AppController
                  $occasion = 'register';
                  if(!$this->__sendActivationEmail($id, $occasion)) 
                  {
-                   $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
+                   $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad'); 
                    $this->User->delete($id);  //delete user from database if message not sent
                  }
                  $this->redirect(array('controller'=>'users', 'action'=>'notify_user', 
@@ -95,7 +95,7 @@ class UsersController extends AppController
               else
               {
                  debug($this->User->validationErrors);
-                 $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
+                 $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad');
               }
               
            }
@@ -175,13 +175,8 @@ class UsersController extends AppController
                else
                {
                   debug($this->User->validationErrors);
-                  $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
+                  $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad');
                }
-            }
-            else
-            {
-//               debug($this->User->validationErrors);
-               $this->Session->setFlash("");
             }
          }
          $email=$this->Session->read('UserUsername');
@@ -206,14 +201,14 @@ class UsersController extends AppController
       else
       {
          if($id==null){
-             $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
+             $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε', 'flash_bad');
              $this->redirect();
          }
          else
          {
             if(!$this->User->delete($id))
             {
-             $this->Session->setFlash('Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε!');
+             $this->Session->setFlash('Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε!', 'flash_bad');
              $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
                                    "?" => array(
                                           "userType1" => "analyst",
@@ -224,7 +219,7 @@ class UsersController extends AppController
             }
             else
             {
-             $this->Session->setFlash('Ο χρήστης διαγράφηκε επιτυχώς!');
+             $this->Session->setFlash('Ο χρήστης διαγράφηκε επιτυχώς!', 'flash_good');
              $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
                                    "?" => array(
                                           "userType1" => "analyst",
@@ -248,6 +243,7 @@ class UsersController extends AppController
       }
       if(!empty($this->data))
       {
+        
 
         $result = $this->User->validate_user($this->data);
         if($result !== FALSE)
@@ -256,8 +252,7 @@ class UsersController extends AppController
           $validated = $result['User']['validated'];
           if(!$validated)
           {
-            $this->Session->setFlash('Ο λογαριασμός σας δεν έχει ενεργοποιηθεί ακόμα.
-                                    Ακολουθήστε το σύνδεσμο που στάλθηκε με email και ενεργοποιήστε τον.', 'flash_good');  
+            $this->Session->setFlash('Ενεργοποιήστε τον λογαριασμό σας μέσω του email που έχει σταλεί', 'flash_good');  
 	  	      $this->redirect(array('controller'=>'users','action'=>'login'));			  
           }
           $name = $result['User']['name'];
@@ -282,7 +277,27 @@ class UsersController extends AppController
           $this->Session->write('UserBirthDate',$result['User']['birth_date']);  
           $this->Session->write('UserPhoneNumber',$result['User']['phone_number']);  
 
-          $url = $this->referer();
+          //if this is the occasion in which we want to redirect the user in url
+          //of the type /reports/edit/id
+          //This is for the purpose of the occasion in which an analyst is receiving
+          // an email about a new report with a link to this report. So when he clicks
+          //on that link and he is not logged in he redirects to the login page
+          //and by the above parameters that are send through the url it "remembers"
+          //where to redirect the analyst (and this is to the report tha he wants to see
+          if((strcmp($this->data['User']['id'], "empty") && !empty($this->data['User']['id']))  
+               && (strcmp($this->data['User']['referer'], "empty") && !empty($this->data['User']['referer'])))
+          {
+            //in the occasion we have the above situation
+            $url = '/reports/edit/'.$this->data['User']['id'];
+          }
+          else
+          {
+            //in this occasion we have user who justs wants to login
+            $url = $this->referer();
+          }
+          
+          
+          
 
           $this->flash('Πατήστε εδώ αν ο browser δεν σας ανακατευθύνει αυτόματα', $url, 4, 'login_success');
         }
@@ -292,6 +307,24 @@ class UsersController extends AppController
 	  	    $this->redirect(array('controller'=>'users','action'=>'login'));			  
         }
       }
+      if(!empty($this->params['url']['referer']) && !empty($this->params['url']['referer']))
+      {
+        $referer = $this->params['url']['referer'];
+        $id = $this->params['url']['id'];
+
+        $this->set('post_id', $id);
+        $this->set('referer', $referer);
+      }
+      else 
+      {
+        $this->set('post_id', "empty");
+        $this->set('referer', "empty");
+        
+      }
+      if(!empty($this->params['url']['referer']))
+      {
+      }
+
     }
 
 
@@ -330,23 +363,21 @@ class UsersController extends AppController
             //ενεργοποίηση λογαριασμού χρήστη
             $this->User->activateAccount();
 
-            $this->Session->setFlash('O λογαριασμός σας ενεργοποιήθηκε επιτυχώς, 
-                                          συνδεθείτε συμπληρώνοντας την φόρμα.');
+            $this->Session->setFlash('O λογαριασμός σας ενεργοποιήθηκε επιτυχώς, συνδεθείτε πιο κάτω', 'flash_good');
             $this->redirect('login');
 
          }
          else
          {
             
-            $this->Session->setFlash('O λογαριασμός σας έχει ήδη ενεργοποιηθεί επιτυχώς,
-                                     συνδεθείτε συμπληρώνοντας την φόρμα.'); 
+            $this->Session->setFlash('O λογαριασμός σας έχει ήδη ενεργοποιηθεί επιτυχώς, συνδεθείτε πιο κάτω', 'flash_good'); 
 
             $this->redirect('login');
          }
       }
       else
       {
-         $this->Session->setFlash('Δεν υπάρχει λογαριασμός με τα συγκεκριμένα στοιχεία.');
+         $this->Session->setFlash('Δεν υπάρχει λογαριασμός με τα συγκεκριμένα στοιχεία.', 'flash_bad');
           
       }
     }
@@ -434,7 +465,7 @@ class UsersController extends AppController
          $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
       }
       if($id==null){
-          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
+          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε', 'flash_bad');
           $this->redirect();
       }
       else
@@ -442,7 +473,7 @@ class UsersController extends AppController
          $user =$this->User->findById($id); 
          if($user == null)
          {
-          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
+          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε', 'flash_bad');
           $this->redirect();
          
          }
@@ -483,14 +514,14 @@ class UsersController extends AppController
 
               if($post_id==null)
               {
-                  $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
+                  $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε', 'flash_bad');
                   $this->redirect();
               }
               else
               {
                  if(!$this->User->delete($post_id))
                  {
-                    $this->Session->setFlash('Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε!', 'flash_good');
+                    $this->Session->setFlash('Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε!', 'flash_bad');
                     $this->redirect();
                  }
                  else

@@ -11,6 +11,8 @@
 									      array('label' => array('class' => 'uname std_form', 'text' => 'To e-mail σας </br>'), 'div' => false, 'type' => 'text', 'required' => 'required', 'id'=> 'UserUsername', 'placeholder' => 'π.χ. mymail@mail.com','class' => 'std_form blue_shadow')).'</p>';
 										  
 									      echo '</br><p>'.$this->Form->input('User.login_password', array('label' => array('class' => 'youpasswd std_form', 'text' => 'O κωδικός σας </br>'), 'div' => false, 'type' => 'password', 'required' => 'required', 'id'=> 'UserPassword', 'placeholder' => 'π.χ. X8df!90EO', 'class' => 'std_form blue_shadow')).'</p></br>';	
+               echo '<tr><td><label for="ReportId" class="name std_form"></label></td><td><p>'.$this->Form->input('User.id', array('type' => 'hidden', 'value' => $post_id));
+               echo '<tr><td><label for="UrlReferer" class="name std_form"></label></td><td><p>'.$this->Form->input('User.referer', array('type' => 'hidden', 'value' => $referer));
 
 										  echo '<p>'.$this->Form->end(array(
 														'name' => 'data[User][login]',

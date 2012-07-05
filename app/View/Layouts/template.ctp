@@ -94,6 +94,9 @@
 											echo '</br><p>'.$this->Form->input('User.login_password', 
 												  array('label' => array('class' => 'youpasswd std_form', 'text' => 'O κωδικός σας  </br>', 'data-icon' => 'p'), 'div' => false, 'type' => 'password', 
 														'required' => 'required', 'id'=> 'UserPassword', 'placeholder' => 'π.χ. X8df!90EO','class' => 'std_form')).'</p></br>';	
+                                                                                        
+               echo '<tr><td><label for="ReportId" class="name std_form"></label></td><td><p>'.$this->Form->input('User.id', array('type' => 'hidden', 'value' => "empty"));
+               echo '<tr><td><label for="UrlReferer" class="name std_form"></label></td><td><p>'.$this->Form->input('User.referer', array('type' => 'hidden', 'value' => "empty"));
 											echo '<p>'.$this->Form->end(array(
 														'name' => 'data[User][login]',
 														'label' => 'Σύνδεση',
