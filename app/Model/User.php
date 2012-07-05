@@ -305,6 +305,13 @@ class User extends AppModel
         }
         return $encrypted;
       }
+      
+      function getByPar($par, $value, $userType){
+          $conditions = array("$par LIKE" => "%$value%",
+                              'user_type'=>$userType
+              );
+	  return $this->find('all', array('conditions' => $conditions));
+      }
 
       
 
@@ -401,10 +408,6 @@ class User extends AppModel
       }
 
 //////////////////////////Customized Validation Actions(end)////////////////////
-      function getByPar($par, $value){
-          $conditions = array("$par LIKE" => "%$value%");
-	  return $this->find('all', array('conditions' => $conditions));
-      }
 
       function getNameSur(){
           $arr = $this->find('all', array("fields" => "name, surname"));

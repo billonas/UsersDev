@@ -21,8 +21,6 @@ $(document).ready(function(){
 				<div class="register_box login_box" align="center">
 			 		<br><h1>Προφίλ χρήστη</h1></br>
 
-					<div class="required" style="color:red">(υποχρεωτικά πεδία *)</div>
-                    
 					<?php echo $this->Form->create('User', array('action' => 'edit'));?>
                <div class="flash_box"><?php echo $this->Session->flash().'</br>'; ?> </div>
                                         <table>

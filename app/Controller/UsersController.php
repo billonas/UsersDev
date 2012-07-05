@@ -367,8 +367,8 @@ class UsersController extends AppController
       }
       else
       {
-            if ((!empty($this->params['url']['text']))||(!empty($this->params['url']['userType1']))
-                    ||(!empty($this->params['url']['userType2']))) 
+            if ((!empty($this->params['url']['textType'])) || (!empty($this->params['url']['text'])) ||(!empty($this->params['url']['userType1']))
+                    ||(!empty($this->params['url']['userType2'])) ||(!empty($this->params['url']['userType3']))) 
             {
                 $userType = array();
                 $checkboxes = array(
@@ -377,6 +377,7 @@ class UsersController extends AppController
                               'userType3' => false
                 );
                 $text = null;
+                $textType = 'surname';
                 if(!empty($this->params['url']['userType1']))
                 {
                   array_push($userType, $this->params['url']['userType1']);
@@ -394,23 +395,27 @@ class UsersController extends AppController
                   array_push($userType, $this->params['url']['userType3']);
                   $checkboxes['userType3'] = true; 
                 }
-                $conditions = array(
-                        'User.user_type' => $userType
-                );
 
                 if(!empty($this->params['url']['text']))
                 {
                   $text = $this->params['url']['text'];
+                  $textType = $this->params['url']['textType'];
+                  
+                  $users = $this->User->getByPar($textType, $text, $userType);
+                }
+                else
+                {
                   $conditions = array(
-                        'User.surname' => $text,
-                        'User.user_type' => $userType
+                          'User.user_type' => $userType
                   );
+                  $users = $this->User->find("all", array('conditions'=> $conditions));
                 }
 
-                $users = $this->User->find("all", array('conditions'=> $conditions));
                 $this->set('users',$users);
                 $this->set('checkboxes',$checkboxes);
                 $this->set('text',  $text);
+                $this->set('textType',  $textType);
+
             }
       }
       
