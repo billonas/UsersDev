@@ -231,7 +231,7 @@
                                         <?php endif; ?>
                                         <!-- Downgrade analyst button-->
                                         <?php if ($userType==='analyst'): ?>
-                                            <a class="downgradeButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'downgrade', $user['User']['id'])) ?>">
+                                            <a class="downgradeButton downgradeAnalyst" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'downgrade', $user['User']['id'])) ?>">
                                                 <img class="icon" src="../img/blackDownArrow.png"/>
                                                 Υποβάθμιση
                                             </a>
