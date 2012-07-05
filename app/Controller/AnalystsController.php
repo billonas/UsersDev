@@ -134,7 +134,7 @@ class AnalystsController extends AppController{
 
               if(!$this->__sendActivationEmail($user_id, $rand_password, $occasion)) 
               {
-                $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
+                $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad'); 
                 //undo the changes being done up to here
                 $newUser = false;
 
@@ -152,9 +152,10 @@ class AnalystsController extends AppController{
               }
               else
               {
-                 $this->Session->setFlash("O αναλυτής δημιουργήθηκε επιτυχώς και θα ενημερωθεί με email."); 
+                 $this->Session->setFlash("O αναλυτής δημιουργήθηκε επιτυχώς και θα ενημερωθεί με email.", 'flash_good'); 
                  $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
                                   "?" => array(
+                                         "textType" => "surname",
                                          "userType1" => "analyst",
                                          "userType2" => "simple",
                                          "userType3" => "hyperanalyst"
@@ -165,7 +166,7 @@ class AnalystsController extends AppController{
            }
            else
            {
-              $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
+              $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad');
            }
         
         }
@@ -227,13 +228,14 @@ class AnalystsController extends AppController{
 
               if(!$this->__sendActivationEmail($user_id, $rand_password, $occasion)) 
               {
-                $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
+                $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad'); 
               }
               else
               {
-                 $this->Session->setFlash("O αναλυτής δημιουργήθηκε επιτυχώς και θα ενημερωθεί με email."); 
+                 $this->Session->setFlash("O αναλυτής δημιουργήθηκε επιτυχώς και θα ενημερωθεί με email.", 'flash_good'); 
                  $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
                                   "?" => array(
+                                         "textType" => "surname",
                                          "userType1" => "analyst",
                                          "userType2" => "simple",
                                          "userType3" => "hyperanalyst"
@@ -243,7 +245,7 @@ class AnalystsController extends AppController{
            }
            else
            {
-              $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
+              $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad');
            }
         }
             
@@ -265,7 +267,7 @@ class AnalystsController extends AppController{
       }
       if($id==null)
       {
-          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
+          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε', 'flash_bad');
           $this->redirect();
       }
       else
@@ -278,14 +280,15 @@ class AnalystsController extends AppController{
 
               if(!$this->__sendActivationEmail($id, $rand_password, $occasion)) 
               {
-                $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
+                $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad'); 
                 $this->Analyst->unDowngradeAnalyst();
               }
               else
               {
-                 $this->Session->setFlash("O αναλυτής υποβαθμίστηκε σε απλό χρήστη και θα ενημερωθεί με email."); 
+                 $this->Session->setFlash("O αναλυτής υποβαθμίστηκε σε απλό χρήστη και θα ενημερωθεί με email.", 'flash_good'); 
                  $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
                                   "?" => array(
+                                         "textType" => "surname",
                                          "userType1" => "analyst",
                                          "userType2" => "simple",
                                          "userType3" => "hyperanalyst"
@@ -295,7 +298,7 @@ class AnalystsController extends AppController{
           }
           else
           {
-             $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
+             $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad');
           }
       }
     }
@@ -310,7 +313,7 @@ class AnalystsController extends AppController{
       }
       if($id==null)
       {
-          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε');
+          $this->Session->setFlash('Δεν βρέθηκε ο χρήστης που ζητήσατε', 'flash_bad');
           $this->redirect();
       }
       else
@@ -323,14 +326,15 @@ class AnalystsController extends AppController{
 
               if(!$this->__sendActivationEmail($id, $rand_password, $occasion)) 
               {
-                $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε"); 
+                $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad'); 
                 $this->Analyst->unUpgradeAnalyst();
               }
               else
               {
-                 $this->Session->setFlash("O αναλυτής αναβαθμίστηκε σε υπέρ-αναλυτή και θα ενημερωθεί με email."); 
+                 $this->Session->setFlash("O αναλυτής αναβαθμίστηκε σε υπέρ-αναλυτή και θα ενημερωθεί με email.", 'flash_good'); 
                  $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
                                   "?" => array(
+                                         "textType" => "surname",
                                          "userType1" => "analyst",
                                          "userType2" => "simple",
                                          "userType3" => "hyperanalyst"
@@ -341,12 +345,24 @@ class AnalystsController extends AppController{
            }
            else
            {
-              $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε");
+              $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad');
            }
       }
 
     }
 
+    function communication()
+    {
+      if((!$this->Session->check('UserUsername')) || 
+                   (strcmp($this->Session->read('UserType'), 'hyperanalyst')) ||(strcmp($this->Session->read('UserType'), 'hyperanalyst')))
+      {
+         $this->redirect(array('controller'=>'pages', 'action'=>'display'));  
+      }
+      $info = $this->Analyst->getProperties();
+      $this->set('info',$info);
+
+       
+    }
 ///////////////////////////Helpful methods(begin)///////////////////////////////
 
     function __sendActivationEmail($user_id, $rand_password, $occasion)

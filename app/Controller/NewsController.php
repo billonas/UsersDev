@@ -54,7 +54,8 @@ class NewsController extends AppController {
             if ($this->New->save($this->request->data)) {
                 $this->Session->setFlash('Το νέο κατατέθηκε επιτυχως','flash_good');
                 $this->redirect(array('action' => 'show'));
-            } else {
+            }
+            else {
                 $this->Session->setFlash('Το νέο δεν κατατέθηκε επιτυχώς.Προσπαθήστε ξανά.');
             }
             }

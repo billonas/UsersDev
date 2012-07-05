@@ -161,7 +161,7 @@
                                 }
                             }
                         ?>
-                            <tr class="item user <?php echo $userType ?>" onclick="item_onclick(<?php echo $user['User']['id'] ?>, '<?php echo $userType?>')">
+                            <tr class="item clickable user <?php echo $userType ?>" onclick="item_onclick(<?php echo $user['User']['id'] ?>, '<?php echo $userType?>')">
                                 <td class="leftmost">
                                     <?php echo $user['User']['created'] ?>
                                 </td>
