@@ -507,7 +507,14 @@ class ReportsController extends AppController{
             /* Delete report */
             if ($this->Report->delete($id)) {
                 $this->Session->setFlash('Η αναφορά '.$id.' διαγράφηκε επιτυχώς','flash_good');
-                $this->redirect(array('action'=>'table'), null, true);
+                $this->redirect(array('controller'=>'reports', 'action'=>'table',
+                                  "?" => array(
+                                         "select" => "category",
+                                         "state1" => "confirmed",
+                                         "state2" => "unreliable",
+                                         "state3" => "unknown"
+                                         ),
+                                   ));  
             }
         }
         else{
