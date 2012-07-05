@@ -439,12 +439,12 @@ class ReportsController extends AppController{
                 }
                 /* Save report's edited data & save new species if needed */
                 if(($ret = $this->Report->saveReport($this->data)) > 0) {
-                    $this->data = $this->Report->findById($id);
                     /* Find categories categories */
                     $categories = ClassRegistry::init('Category')->find('all');
                     $this->set('categories',$categories);
                     $this->Session->setFlash('Η αναφορά αναλύθηκε επιτυχώς','flash_good');
-                    $this->redirect('table');
+                    $report = $this->Report->findById($id);
+                    $this->set('report',$report);
                 } 
                 else {
                     if($this->Session->check('UserUsername')){
@@ -456,6 +456,7 @@ class ReportsController extends AppController{
                     $categories = ClassRegistry::init('Category')->find('all');
                     /* Find species */
                     $temp_species = ClassRegistry::init('Specie')->find('all');
+                    $report = $this->Report->findById($id);
                     $this->set('report',$report);
                     $this->set('categories',$categories);
                     $i=0;
@@ -464,9 +465,13 @@ class ReportsController extends AppController{
                             $i++;
                     }
                     $this->set('species',$species);
-                    if(!$ret)
+                    if(!$ret){
                      $this->Session->setFlash('Η ανάλυση της αναφοράς απέτυχε','flash_bad');
-                    else $this->Session->setFlash('Παρακαλώ εισάγεται Επιστημονική Ονομασία για να επικυρωθεί η αναφορά','flash_bad');
+                    }
+                    else{ 
+                        $this->Session->setFlash('Παρακαλώ εισάγεται Επιστημονική Ονομασία για να επικυρωθεί η αναφορά','flash_bad');
+                        
+                    }
                 }    
             }
         }

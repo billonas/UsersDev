@@ -218,7 +218,15 @@
                                 </td>
                                 <td>
                                     <center>
-                                        <?php echo $this->Html->image($report['Report']['main_photo'], array('alt' => 'main photo', 'class' => 'tableImage')) ?>
+                                        
+                                        <?php
+                                        if($report['Report']['main_photo']!=null){
+                                        echo $this->Html->image($report['Report']['main_photo'], array('alt' => 'main photo', 'class' => 'tableImage'));
+                                        }
+                                        else{
+                                        echo $this->Html->image('Video_icon.png', array('alt' => 'main photo', 'class' => 'tableImage'));    
+                                        }
+                                        ?>
                                     </center>
                                 </td>
                                 <td>
