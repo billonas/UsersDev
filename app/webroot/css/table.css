@@ -303,7 +303,7 @@ tr.item .buttonContainer {
     background: #eeddff;
 }
 
-.item:hover td {
+.item.clickable:hover td {
     background-color: lightblue;
     cursor: pointer;
 }

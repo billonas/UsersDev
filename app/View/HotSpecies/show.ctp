@@ -53,7 +53,7 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($hotspecies as $hotspecie): ?>
-                                    <tr height="100px" class="item species" onclick="item_onclick(<?php echo $hotspecie['HotSpecie']['id']?>)">
+                                    <tr height="100px" class="item clickable species" onclick="item_onclick(<?php echo $hotspecie['HotSpecie']['id']?>)">
                                         <td>
                                             <?php echo $hotspecie['HotSpecie']['scientific_name'] ?>
                                         </td>

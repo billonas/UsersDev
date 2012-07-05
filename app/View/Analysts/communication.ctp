@@ -3,7 +3,10 @@
 
 <?php $this->set('title_for_layout', 'Eπικοινωνία αναλυτών - ΕΛΚΕΘΕ');?> 
  
-
+<style>
+    .item {
+    }
+</style>
 
 <script>
 
@@ -25,8 +28,9 @@
             <br/><h1>Eπικοινωνία αναλυτών</h1><br/>
             <?php if(empty($info)): ?>
                 <h2><center>Δεν υπάρχουν στοιχεία αναλυτών</center></h2>;
-            <?php else:
-                echo '<table id="reportsTable" class="tablesorter reportsTable">
+            <?php else: ?>
+                <div id="tableOuterWrapper">
+                    <table id="reportsTable" class="tablesorter reportsTable">
                         <thead>
                             <tr>
                                 <th>Όνομα</th>
@@ -37,20 +41,20 @@
 
                             </tr>
                         </thead>
-                        <tbody>';
-
-                foreach($info as $analyst){
-                    echo '<tr>';
-                    echo '<td>'.$analyst['name'].'</td>';
-                    echo '<td>'.$analyst['surname'].'</td>';
-                    echo '<td>'.$analyst['category1'].'</td>';
-                    echo '<td>'.$analyst['category2'].'</td>';
-                    echo '<td>'.$analyst['email'].'</td>';
-                    echo '</tr>';
-                }
-                echo '</tbody></table>';
-            endif;
-            ?>
+                        <tbody>
+                        <?php foreach($info as $analyst):
+                            echo '<tr class="item analyst">';
+                                echo '<td>'.$analyst['name'].'</td>';
+                                echo '<td>'.$analyst['surname'].'</td>';
+                                echo '<td>'.$analyst['category1'].'</td>';
+                                echo '<td>'.$analyst['category2'].'</td>';
+                                echo '<td>'.$analyst['email'].'</td>';
+                            echo '</tr>';
+                        endforeach; ?>  
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
     <div class="comments">

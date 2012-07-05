@@ -208,7 +208,7 @@
                                 }
                             }
                         ?>
-                            <tr class="item report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $report['Report']['id'] ?>)">
+                            <tr class="item clickable report <?php echo $reportStatus ?>" onclick="report_onclick(<?php echo $report['Report']['id'] ?>)">
                                 <td class="leftmost">
                                     <?php echo $report['Report']['created'] ?>
                                 </td>
