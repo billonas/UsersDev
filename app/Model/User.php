@@ -34,7 +34,7 @@ class User extends AppModel
       public $validate = array(  
       'email'=>array(  
                'rule1'=>array(
-                  'rule'=>array('UnigueEmail'),
+                  'rule'=>array('UniqueEmail'),
                   'message'=>'H συγκεκριμένη διεύθυνση ηλεκτρονικού ταχυδρομείου χρησιμοποιείται ήδη. Παρακαλούμε δοκιμάστε άλλη.'  
              ),
                'rule2'=>array(
@@ -109,7 +109,11 @@ class User extends AppModel
              ),
                'rule4'=>array(
                   'rule'=>'alphaNumeric',
-                  'message'=>'Το ψευδώνυμο χρήστη μπορεί να περιέχει μόνο γράμματα'  
+                  'message'=>'Το ψευδώνυμο χρήστη μπορεί να περιέχει μόνο γράμματα και αριθμούς'  
+             ),
+               'rule4'=>array(
+                  'rule'=>array('UniqueUsername'),
+                  'message'=>'Το ψευδώνυμο χρήστη χρησιμοποιείται ήδη. Παρακαλούμε δοκιμάστε άλλο.'  
              )
 
       ),
@@ -358,7 +362,7 @@ class User extends AppModel
 
 //////////////////////////Customized Validation Actions(begin)//////////////////
 
-      function UnigueEmail($check)
+      function UniqueEmail($check)
       {
          //μέσω αυτής της συνάρτησης ελέγχεται εάν χρησιμοποιείται ήδη το email
          //που έδωσε ο χρήστης και τον ενημερώνει αντίστοιχα μέσω του error που 
@@ -390,6 +394,37 @@ class User extends AppModel
           return true;
       }
 
+      function UniqueUsername($check)
+      {
+         //μέσω αυτής της συνάρτησης ελέγχεται εάν χρησιμοποιείται ήδη το email
+         //που έδωσε ο χρήστης και τον ενημερώνει αντίστοιχα μέσω του error που 
+         //υπάρχει για το συγκεκριμένο πεδίο στο αντίστοιχο view(register.ctp)
+
+        //έλεγχος για το αν ήδη υπάρχει το email που επιλέγει ο χρήστης γίνεται
+        //σε 2 περιπτώσεις:
+        //α)Κατά την εγγραφή του χρήστη
+        //β)Κατά την επεξεργασία προφίλ του χρήστη σε περίπτωση που επεξεργαστεί
+        //  το email του.
+        $username = array_shift($check);
+        //in the occasion of forgotten password don't check if the email is unique
+        if(!$this->getForgotten())
+        {
+          $conditions = array(
+              'User.username'=>$username
+           );
+          if(!$this->id)
+          {
+            if($this->find('count', array('conditions'=>$conditions))>0) 
+            {
+                return false; 
+            }
+          }
+          return true;
+
+        }        
+        else
+          return true;
+      }
 
       function confirmPassword($check)
       {
