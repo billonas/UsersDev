@@ -87,7 +87,7 @@
                         <table>                        
                             <tr>
                                 <td>
-                                    <select name="textType" id="filterType">
+                                    <select class="std_form" name="textType" id="filterType">
                                         <?php if(!isset($textType) || $textType==='') $textType='surname'; //Default is surname ?>
                                         <option value="username" <?php if ($textType==='username') echo 'selected="selected"'; ?> >Όνομα χρήστη</option>
                                         <option value="name" <?php if ($textType==='name') echo 'selected="selected"'; ?> >Όνομα</option>
@@ -96,7 +96,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input name="text" type="text" class="" id="filterTerm" value="<?php if(isset($text))echo $text;?>"/>
+                                    <input name="text" type="text" class="std_form" id="filterTerm" value="<?php if(isset($text))echo $text;?>"/>
                                 </td>
                                 <td>
                                     <button type="submit" value="Αναζήτηση">

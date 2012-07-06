@@ -13,6 +13,10 @@
              //echo $this->Form->error('image1');
              echo $this->Form->input('image1',array("type" => "file",'label'=>'Φωτογραφία'));
              echo $this->Form->input('additional_photo1',array('type'=>'hidden'));
+             echo $this->Form->input('image2',array("type" => "file",'label'=>'Φωτογραφία'));
+             echo $this->Form->input('additional_photo2',array('type'=>'hidden'));
+             echo $this->Form->input('image3',array("type" => "file",'label'=>'Φωτογραφία'));
+             echo $this->Form->input('additional_photo3',array('type'=>'hidden'));
              echo $this->Form->error('scientific_name');
              echo $this->Form->input('scientific_name',array('label'=>'Επιστημονική ονομασία','div'=>'input[type=text]','id'=>'info'));
              echo $this->Form->error('description');

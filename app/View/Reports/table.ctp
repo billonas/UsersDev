@@ -112,14 +112,14 @@
                         <table>                        
                             <tr>
                                 <td>
-                                    <select name="select" id="filterCategory" onchange="filterCategory_changed(this)">
+                                    <select name="select" id="filterCategory" class="std_form" onchange="filterCategory_changed(this)">
                                         <?php if(!isset($select) || $select==='') $select='category'; //Default is category ?>
                                         <option value="category" <?php if ($select==='category') echo 'selected="selected"'; ?> >Κατηγορία</option>
                                         <option value="species" <?php if ($select==='species') echo 'selected="selected"'; ?> >Είδος</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input name="text" type="text" class="" id="filterTerm" value="<?php if(isset($text))echo $text;?>"/>
+                                    <input name="text" type="text" class="std_form" id="filterTerm" value="<?php if(isset($text))echo $text;?>"/>
                                 </td>
                                 <td>
                                     <button type="submit" value="Αναζήτηση">
