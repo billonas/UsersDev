@@ -381,7 +381,7 @@ function addInput() {
 	$("#" + "photo" + imgcounter).show("slow");
 	imgcounter++;}
 	if (imgcounter >6 )
-	$("#addbutton").prop('value', 'MAX REACHED');
+	$("#addbutton").prop('value', 'Φτάσατε το μέγιστο αριθμό πρόσθετων φωτογραφιών');
 	
 	}
 
@@ -548,6 +548,7 @@ $("#divImageDisplay").animate({
                         echo '<td>'.$this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα'));
                         echo $this->Form->month('date', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => 'Μήνας'));
                         echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά"));
+                        echo $this->Form->error('date','ηλιθιε');
                         echo '</td></tr>';
                         echo '</table>';
                         if($this->Session->check('uploaded1')){
