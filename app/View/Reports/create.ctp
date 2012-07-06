@@ -533,23 +533,23 @@ $("#divImageDisplay").animate({
                         echo '</td>';
                         echo '</tr>';
                         echo '<tr>';
+                        
                         echo '<td>';
-                        echo '<label for="ReportLng" class="std_form">Περιοχή </label>';
-                        echo '</td>';
-                        echo '<td>';
-                        echo $this->Form->input('area',array('id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
+                        echo $this->Form->hidden('area',array('id'=>'maparea','div'=>false , "label" => false , "class" => "std_form"));
                         echo '</td></tr>';
                         echo '<tr><td>';
                         echo '<label for="ReportDate" class="std_form">Ημερομηνία Παρατήρησης </label></td>';  
                         
                         $monthOptions = array('01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
                             '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
-                        
-                        echo '<td>'.$this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα'));
-                        echo $this->Form->month('date', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => 'Μήνας'));
-                        echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά"));
-                        echo $this->Form->error('date','ηλιθιε');
-                        echo '</td></tr>';
+                        echo '<td>';
+                        echo $this->Form->input('date', array('empty'=>true, 'minYear'=>1901, 'maxYear'=>date('Y'), 'label' => false, 'div' => false, 'id'=>'UserAge','class' => ' std_form blue_shadow'));
+
+//                        echo $this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα'));
+//                        echo $this->Form->month('date', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => 'Μήνας'));
+//                        echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά"));
+//                        
+//                        echo '</td></tr>';
                         echo '</table>';
                         if($this->Session->check('uploaded1')){
                             $uploaded1 = $this->Session->read('uploaded1');
@@ -639,7 +639,7 @@ $("#divImageDisplay").animate({
                         echo '<div id="mapCanvas"></div>';
                         echo '</td></tr>';
                         
-                        echo $this->Form->input('area',array('id'=>'maparea','div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
+                        echo $this->Form->hidden('area',array('id'=>'maparea', 'label'=>false, 'div'=>false ,'value'=>$report['Report']['area'],  "label" => false , "class" => "std_form"));
                         echo '<tr><td><label class="std_form">Τοποθεσία παρατήρησης: </label></td> <td><a id="a2_right" href="#" style="clear:left;">'.$this->Html->image('info.png').'</a></td></tr>';
 
                         echo '<tr><td><label for="ReportLat" class="std_form">Γεωγραφικό Πλάτος </label></td>';
@@ -660,10 +660,14 @@ $("#divImageDisplay").animate({
                             '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
                         
                         
-                        echo '<td>'.$this->Form->day('date', array('label'=> false, 'empty' => 'Ημέρα', 'value'=>$report['Report']['date']['day']));
-                        echo $this->Form->month('date', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => "Μήνας",'value'=>$report['Report']['date']['month']));
-                        echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => "Χρονιά", 'value'=>$report['Report']['date']['year']));
-                        echo '</td></tr>';
+                        echo '<td>';
+                        echo $this->Form->input('date', array('empty'=>true, 'minYear'=>1901, 'maxYear'=>date('Y'), 'label' => false, 'div' => false, 'id'=>'UserAge','class' => ' std_form blue_shadow'));
+//                        echo $this->Form->input('date', array('label'=> false, 'empty' => true, 'value'=>$report['Report']['date']['day']));
+//                        echo $this->Form->month('date', array('label'=> false, 'monthNames' => $monthOptions, 'empty' => true,'value'=>$report['Report']['date']['month']));
+//                        echo $this->Form->year('date', date('Y') - 25, date('Y'), array('label'=> false, 'empty' => true, 'value'=>$report['Report']['date']['year']));
+                        echo '</td>';
+                            
+                        echo '</tr>';
                         echo '</table>';
 			
                         
@@ -794,10 +798,19 @@ $("#divImageDisplay").animate({
                         //echo "You are logged in!"; 
                         echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
                         
-                        $monthOptions = array('01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
+                        $monthOptions = array('00'=>'', '01' => 'Ιανουαρίου','02' => 'Φεβρουαρίου','03' => 'Μαρτίου','04' => 'Απριλίου','05' => 'Μαΐου','06' => 'Ιουνίου',
                                              '07' => 'Ιουλίου','08' => 'Αυγούστου','09' => 'Σεπτεμβρίου','10' => 'Οκτωβρίου','11' => 'Νοεμβρίου', '12' => 'Δεκεμβρίου');
                        
-                        $agedata = explode("-",$this->Session->read('UserBirthDate'));
+                        
+                            $birth = $this->Session->read('UserBirthDate');
+                            
+                            if(is_string($birth))
+                                $agedata = explode("-",$birth);
+                            else{
+                                $agedata = array("", "", "");
+                                
+                            }
+                            
                         echo '<td>';
                         echo $this->Form->day('displayage', array('label'=> false, 'disabled'=>true, 'empty' => 'Ημέρα', 'value' => $agedata[2]));
                         echo $this->Form->month('displayage', array('label'=> false, 'disabled'=>true, 'monthNames' => $monthOptions, 'empty' => 'Μήνας', 'value' => $agedata[1]));
