@@ -56,7 +56,8 @@ class CropimageHelper extends Helper {
             $y2 = $this->Form->hidden('y2', array("value" => "", "id"=>"y2")); 
             $w =  $this->Form->hidden('w', array("value" => "", "id"=>"w")); 
             $h =  $this->Form->hidden('h', array("value" => "", "id"=>"h")); 
-            $per = $this->Form->input('permissionUseMedia',array("label"=>"Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;", 'class'=>'std_form'));
+            $per = $this->Form->input('permissionUseMedia',array("label"=>false,'div'=>false, 'class'=>'std_form'));
+            $per_label = '<label style="font-size:1.3em;" for="ReportPermissionUseMedia">Μπορούν να χρησιμοποιηθούν οι φωτογραφίες/βίντεό σας για την παρουσίαση των αναφορών σας;</label>';
             $imgP = $this->Form->hidden('imagePath', array("value" => $imagePath)); 
             $imgTum = $this->Html->image($imagePath, array('style'=>'', 'id'=>'jcrop_target', 'alt'=>'Create Thumbnail')); 
             //$imgTumPrev = $this->Html->image($imagePath, array('style'=>'position: relative;', 'id'=>'thumbnail', 'alt'=>'Thumbnail Preview')); 
@@ -64,8 +65,9 @@ class CropimageHelper extends Helper {
                     <div id='img_crop_area'>                        
                         $imgTum
                         $per
-                        <br/>Μπορείτε αν το επιθυμείτε να καταθέσετε μόνο ένα κομμάτι της φωτογραφίας κλικάροντας με το ποντίκι και σύροντάς το καλύπτοντας την επιφάνεια που θέλετε.
-                        <br/>Ενδείκνυται όμως στη φωτογραφία να φαίνεται το περιβάλλον που εντοπίστηκε το είδος.
+                        $per_label
+                        <br/><div style='color:#f00;'>Μπορείτε αν το επιθυμείτε να καταθέσετε μόνο ένα κομμάτι της φωτογραφίας κλικάροντας με το ποντίκι και σύροντάς το καλύπτοντας την επιφάνεια που θέλετε.
+                        <br/>Ενδείκνυται όμως στη φωτογραφία να φαίνεται το περιβάλλον που εντοπίστηκε το είδος.</div>
                         $x1 $y1 $x2 $y2 $w $h $imgP
                     </div>"); 
             

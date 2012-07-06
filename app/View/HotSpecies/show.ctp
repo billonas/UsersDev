@@ -18,7 +18,7 @@
 
         $("#speciesTable").tablesorter(
         {
-            sortList: [[0,1]], //sort the first column in descending order
+            sortList: [[0,0]], //sort the first column in descending order
             headers: {}
         });
     });
@@ -33,7 +33,14 @@
     <div class="middle_row">
         <div class="middle_wrapper">
             <div align="center">
-                <h2>Παρουσίαση δημοφιλών ειδών</h2>
+                <?php 
+                echo '<div class="login_box">  
+                               <h1>Παρουσίαση ειδών-στόχων</h1>
+                         </div>';
+                echo '<div class="flash_box gradient">';
+                    echo '</br/>'.$this->Session->flash().'</br>';
+                    echo '</br>';
+                    echo '</div>';?>
                 <br/>
                 <div id="tableOuterWrapper">
                     <div id="createSpeciesDiv" class="tableTopButtonContainer">
@@ -46,6 +53,7 @@
                     <?php else: ?>
                         <table id="speciesTable" class="tablesorter speciesTable">
                             <thead>
+                                <th>Σειρά εμφάνισης</th>
                                 <th>Επιστημονική ονομασία</th>
                                 <th>Περιγραφή είδους</th>
                                 <th class="{sorter: false}"">Φωτογραφία</th>
@@ -54,6 +62,9 @@
                             <tbody>
                                 <?php foreach ($hotspecies as $hotspecie): ?>
                                     <tr height="100px" class="item clickable species" onclick="item_onclick(<?php echo $hotspecie['HotSpecie']['id']?>)">
+                                        <td>
+                                            <?php echo $hotspecie['HotSpecie']['priority'] ?>
+                                        </td>
                                         <td>
                                             <?php echo $hotspecie['HotSpecie']['scientific_name'] ?>
                                         </td>
@@ -91,13 +102,13 @@
                                                         <td>
                                                             <a class="itemButton upButton" href="<?php echo $this->Html->url(array('action'=>'changePriority',$hotspecie['HotSpecie']['id'],1)) ?>">
                                                                 <img class="icon" src="../img/blackUpArrow.png"/>
-                                                                Up Priority
+                                                                Αναβάθμιση
                                                             </a>
                                                         </td>
                                                         <td>
                                                             <a class="itemButton downButton" href="<?php echo $this->Html->url(array('action'=>'changePriority',$hotspecie['HotSpecie']['id'],2)) ?>">
                                                                 <img class="icon" src="../img/blackDownArrow.png"/>
-                                                                Down Priority
+                                                                Υποβάθμιση
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -111,7 +122,6 @@
                     </div>
                 <?php endif; ?>
                 <br/>       
-                <?php echo $this->Session->flash(); ?>
             </div>
         </div>
     </div>
