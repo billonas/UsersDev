@@ -42,7 +42,7 @@ function getExtension($str) {
 
 //if it is not a known extension, we will suppose it is an error and will not upload the file, otherwise we will do more tests
 
-if (($video_extension != "mpeg") && ($video_extension != "avi") && ($video_extension != "flv") && ($video_extension != "mov") && ($video_extension != "mp4") && ($video_extension != "mpg"))
+if (($video_extension != "mpeg") && ($video_extension != "avi") && ($video_extension != "flv") && ($video_extension != "mov") && ($video_extension != "mp4") && ($video_extension != "mpg") && ($video_extension != "ogv"))
 
 {
 
