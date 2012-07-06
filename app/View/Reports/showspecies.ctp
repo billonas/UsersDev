@@ -131,6 +131,7 @@
       	<div class="middle_row">
             
             <div class="login_box specie_box">  
+                
                    <h1>Κατάλογος Αναγνωρισμένων Ειδών</h1>
              </div>
             
@@ -422,7 +423,7 @@
                         }
                         i++;
                     }
-                }    
+                }
                 
                 function showInfo(location){                    
                     var i,index;                    
@@ -490,9 +491,9 @@
                             echo $report['Report']['lat'].','.$report['Report']['lng'].',';
 
                             if($report['Report']['permissionUseMedia']) 
-                                echo$report['Report']['main_photo'];
+                                echo $report['Report']['main_photo'];
                             else
-                                echo"_";
+                                echo "specie_not_found.png";
 
                             echo ','.$report['Report']['date'].',';
                             

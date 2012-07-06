@@ -495,12 +495,26 @@ class ReportsController extends AppController{
         if($this->Session->check('UserUsername')&&($this->Session->read('UserType') == 'hyperanalyst')){
             /* Id not given */
             if ($id==null) {
-                $this->redirect(array('controller'=>'Reports', 'action'=>'table'));
+                $this->redirect(array('controller'=>'reports', 'action'=>'table',
+                                  "?" => array(
+                                         "select" => "category",
+                                         "state1" => "confirmed",
+                                         "state2" => "unreliable",
+                                         "state3" => "unknown"
+                                         ),
+                                   ));  
             }
             /* Find report */
             $report = $this->Report->findById($id);
             if(empty($report)){
-                $this->redirect('table');
+               $this->redirect(array('controller'=>'reports', 'action'=>'table',
+                                  "?" => array(
+                                         "select" => "category",
+                                         "state1" => "confirmed",
+                                         "state2" => "unreliable",
+                                         "state3" => "unknown"
+                                         ),
+                                   ));  
             }
             /* Delete all multimedia */
             $this->Image->dlImg($this->Report, $id, 'Report');
@@ -516,9 +530,28 @@ class ReportsController extends AppController{
                                          ),
                                    ));  
             }
+            else{
+                $this->Session->setFlash('Η αναφορά '.$id.' δεν διαγράφηκε επιτυχώς','flash_good');
+                $this->redirect(array('controller'=>'reports', 'action'=>'table',
+                                  "?" => array(
+                                         "select" => "category",
+                                         "state1" => "confirmed",
+                                         "state2" => "unreliable",
+                                         "state3" => "unknown"
+                                         ),
+                                   ));  
+                
+            }
         }
         else{
-            $this->redirect('table');  
+            $this->redirect(array('controller'=>'reports', 'action'=>'table',
+                                  "?" => array(
+                                         "select" => "category",
+                                         "state1" => "confirmed",
+                                         "state2" => "unreliable",
+                                         "state3" => "unknown"
+                                         ),
+                                   ));  
         }
     }
     
@@ -692,7 +725,12 @@ class ReportsController extends AppController{
                 $reports = $this->Report->find('all', array('conditions'=> $conditions));
                 $this->set('reports',$reports);
                 foreach($reports as $report){
-                    $this->set('current_image',$report['Report']['main_photo']);
+                    if($report['Report']['permissionUseMedia']){
+                        $this->set('current_image',$report['Report']['main_photo']);
+                    }
+                    else{
+                        $this->set('current_image','specie_not_found.png');
+                    }
                     break;
                 }
             }
@@ -736,7 +774,7 @@ class ReportsController extends AppController{
             /* Inform each of them */
             foreach($analysts as $analyst)
             {
-                $reportlink = $this->__curPageURL('/reports/edit/' . $reportId);
+                $reportlink = $this->__curPageURL('/UsersDev/reports/edit/' . $reportId);
 
                 $this->set('report_link', $reportlink);
 

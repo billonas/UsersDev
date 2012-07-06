@@ -30,8 +30,8 @@ class Report extends AppModel{
     public $validate = array(
         'date'=>array(  
                'rule1'=>array(
-                   'rule'=>array('date'),
                    'alloEmpty'=>false,
+                    'rule'=>array('date'),
                    'message'=>'Παρακαλούμε δώστε έγκυρη ημερομηνία παρακολούθησης'
              )
         ),
@@ -234,7 +234,7 @@ class Report extends AppModel{
     function onlyLetters($check){
         $word = array_shift($check);
          //εάν password και confirm_password είναι ίσα 
-         if (preg_match("/^[\p{L}\s]+$/u", $word) || (strcmp($word , "")==0)) 
+         if (preg_match("/^[\p{L}]+$/u", $word) || (strcmp($word , "")==0)) 
          {
             return true;
          }
