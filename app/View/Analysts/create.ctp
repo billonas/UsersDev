@@ -45,6 +45,7 @@ $(document).ready(function()
                                                                                     array('default'=>$user['User']['membership'], 'options'=> $options, 'label' => false, 'div' => false,'disabled' => true,  'id'=>'AnalystMembership','class' => ' std_form blue_shadow')).'</p></td></tr></br>';	
                                                 
                                         }else{
+                                          
                                                 echo '<tr><td><label for="AnalystName" class="name std_form">Όνομα:  </label></td><td><p>'.$this->Form->input('Analyst.name', 
 									      array('default'=>$user['User']['name'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
 										  
@@ -72,6 +73,15 @@ $(document).ready(function()
                                                     echo '<tr><td><label for="UserMembership" default="-" class="membership std_form">Ιδιότητα:  </label></td><td><p>'.$this->Form->input('Analyst.membership', 
                                                                                         array('default'=>$user['User']['membership'], 'options'=> $options, 'label' => false, 'div' => false, 'id'=>'AnalystMembership','class' => ' std_form blue_shadow')).'</p></td></tr></br>';	
                                                     }
+                if(isset($user['User']['user_type']) & strcmp($user['User']['user_type'],'simple') == 0)
+                {
+                  echo "<tr>";
+                  echo "<td></td>";
+                  echo '<td><span class="message" style="color:blue;font-size:14pt" >Συμπληρώστε τα στοιχεία αναλυτή</span></td>';
+                  echo '</tr>';
+                }
+
+                                                    
 					$options = array('Καμία Κατηγορία'=>'-','1' => 'Δεκάποδα/ Καβούρια/ Γαρίδες', '2' => 'Μαλάκια: Γαστερόποδα/Δίθυρα','3' => 'Ψάρια', '4' =>'Χταπόδια/ Καλαμάρια', '5' => 'Εχινόδερμα', '6' => 'Ασκίδια', '7' =>'Επιλιθικοί οργανισμοί: Βρυόζωα', '8' => 'Μέδουσες', '9' => 'Άλλοι πλαγκτονικοί οργανισμοί', '10' => 'Φύκη');  
 					echo '<tr><td><label for="AnalystCategory" class="education std_form">Κατηγορία Ειδίκευσης:  </label></td><td><p>'.$this->Form->input('Analyst.category1', 
 									      array('options' => $options, 'label' => false, 'div' => false, 'id'=> 'UserEducation','placeholder' => 'π.χ. Δημοτικό','class' => ' std_form blue_shadow')).'</p></td></tr>';										  									  									  

@@ -158,11 +158,12 @@ class UsersController extends AppController
                   $name = $this->data['User']['name'];
                   //το πλήρες όνομα του χρήστη υπό την μορφή:V.Kazhs
                   //(αν name=Vasilhs και Surname=Kazhs)
-                  $arr = str_split($name);
 
                   $surname = $this->data['User']['surname'];
 
-                  $fullname = $arr[0] .".". $surname;
+                  preg_match_all('/[\p{L}\p{M}]/u', $name, $result1, PREG_PATTERN_ORDER);
+
+                  $fullname = $result1[0][0] . "." .  $surname; 
                   
                   $this->Session->write('UserEducation',$this->data['User']['education']);  
                   $this->Session->write('UserMembership',$this->data['User']['membership']);  
@@ -314,6 +315,7 @@ class UsersController extends AppController
 
         $this->set('post_id', $id);
         $this->set('referer', $referer);
+        $this->Session->setFlash('Συνδεθείτει πρώτα για να έχετε πρόσβαση στην αναφορά.', 'flash_good');
       }
       else 
       {

@@ -226,13 +226,15 @@ class AnalystsController extends AppController{
               
               $occasion = "updateAnalyst";
 
-              if(!$this->__sendActivationEmail($user_id, $rand_password, $occasion)) 
+              $rand_password = null;
+
+              if(!$this->__sendActivationEmail($post_id, $rand_password, $occasion)) 
               {
                 $this->Session->setFlash("Κάτι πήγε λάθος. Παρακαλώ ξαναπροσπαθήστε", 'flash_bad'); 
               }
               else
               {
-                 $this->Session->setFlash("O αναλυτής δημιουργήθηκε επιτυχώς και θα ενημερωθεί με email.", 'flash_good'); 
+                 $this->Session->setFlash("Τα στοιχεία αναλυτή ενημερώθηκαν και θα του σταλεί σχετικό email.", 'flash_good'); 
                  $this->redirect(array('controller'=>'users', 'action'=>'edit_users',
                                   "?" => array(
                                          "textType" => "surname",
@@ -251,7 +253,14 @@ class AnalystsController extends AppController{
             
       }
 
-      $analyst = $this->Analyst->findById($id);
+      if($id != null)  
+      {
+        $analyst = $this->Analyst->findById($id);
+      }
+      else if ($post_id !=null)
+      {
+        $analyst = $this->Analyst->findById($post_id);
+      }
       
       $this->set('analyst', $analyst); 
       $this->set('post_id', $id); 
@@ -360,8 +369,6 @@ class AnalystsController extends AppController{
       }
       $info = $this->Analyst->getProperties();
       $this->set('info',$info);
-
-       
     }
 ///////////////////////////Helpful methods(begin)///////////////////////////////
 

@@ -32,6 +32,8 @@
                 else if ( $analyst['User']['user_type']==='analyst' )
                     $disableAnalystFields = 'false';
 
+               echo '<tr><td><label for="AnalystId" class="name std_form"></label></td><td><p>'.$this->Form->input('Analyst.id', array('type' => 'hidden', 'value' => $post_id));
+
                 echo '<tr><td><label for="AnalystName" class="name std_form">Όνομα:  </label></td><td><p>'.$this->Form->input('Analyst.name', 
                                                         array('default'=>$analyst['User']['name'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','class' => ' std_form blue_shadow', 'disabled'=>'true')).'</p></td></tr>';
 
@@ -58,12 +60,23 @@
                 $options = array('noValue'=>'-','fisher' => 'Ψαράς', 'diver' => 'Δύτης','tourist' => 'Τουρίστας','other' => 'Άλλο'); 					  
                 echo '<tr><td><label for="AnalystMembership" default="-" class="membership std_form">Ιδιότητα:  </label></td><td><p>'.$this->Form->input('Analyst.membership', 
                                                         array('default'=>$analyst['User']['membership'], 'options'=> $options, 'label' => false, 'div' => false, 'id'=>'AnalystMembership','class' => ' std_form blue_shadow', 'disabled'=>'true')).'</p></td></tr></br>';	
-                echo '<tr><td><label for="AnalystCategory1" class="name std_form">Κατηγορία ειδίκευσης:  </label></td><td><p>'.$this->Form->input('Analyst.category1', 
-                                                        array('default'=>$analyst['Category1']['category_name'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','class' => ' std_form blue_shadow', 'disabled'=>$disableAnalystFields)).'</p></td></tr>';
-                echo '<tr><td><label for="AnalystCategory2" class="name std_form">Κατηγορία ειδίκευσης:  </label></td><td><p>'.$this->Form->input('Analyst.category2', 
-                                                        array('default'=>$analyst['Category2']['category_name'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','class' => ' std_form blue_shadow', 'disabled'=>$disableAnalystFields)).'</p></td></tr>';
-                echo '<tr><td><label for="AnalystInstitute" class="name std_form">Ινστιτούτο:  </label></td><td><p>'.$this->Form->input('Analyst.name', 
+                if(strcmp($analyst['User']['user_type'], "hyperanalyst"))
+                {
+                  echo "<tr>";
+                  echo "<td></td>";
+                  echo '<td><span class="message" style="color:blue;font-size:14pt">Επεξεργαστείτε τα στοιχεία αναλυτή</span></td>';
+                  echo '</tr>';
+                }
+
+					$options = array('Καμία Κατηγορία'=>'-','1' => 'Δεκάποδα/ Καβούρια/ Γαρίδες', '2' => 'Μαλάκια: Γαστερόποδα/Δίθυρα','3' => 'Ψάρια', '4' =>'Χταπόδια/ Καλαμάρια', '5' => 'Εχινόδερμα', '6' => 'Ασκίδια', '7' =>'Επιλιθικοί οργανισμοί: Βρυόζωα', '8' => 'Μέδουσες', '9' => 'Άλλοι πλαγκτονικοί οργανισμοί', '10' => 'Φύκη');  
+					echo '<tr><td><label for="AnalystCategory" class="education std_form">Κατηγορία Ειδίκευσης 1:  </label></td><td><p>'.$this->Form->input('Analyst.category1', 
+									      array('default'=>$analyst['Category1']['id'], 'options' => $options, 'label' => false, 'div' => false, 'id'=> 'UserEducation','placeholder' => 'π.χ. Δημοτικό','class' => ' std_form blue_shadow','disabled'=>$disableAnalystFields)).'</p></td></tr>';										  									  									  
+					$options = array('Καμία Κατηγορία'=>'-','1' => 'Δεκάποδα/ Καβούρια/ Γαρίδες', '2' => 'Μαλάκια: Γαστερόποδα/Δίθυρα','3' => 'Ψάρια', '4' =>'Χταπόδια/ Καλαμάρια', '5' => 'Εχινόδερμα', '6' => 'Ασκίδια', '7' =>'Επιλιθικοί οργανισμοί: Βρυόζωα', '8' => 'Μέδουσες', '9' => 'Άλλοι πλαγκτονικοί οργανισμοί', '10' => 'Φύκη');  
+					echo '<tr><td><label for="UserEducation" class="education std_form">Κατηγορία Ειδίκευσης 2:  </label></td><td><p>'.$this->Form->input('Analyst.category2', 
+									      array('default'=>$analyst['Category2']['id'], 'options' => $options, 'label' => false, 'div' => false, 'id'=> 'UserEducation','placeholder' => 'π.χ. Δημοτικό','class' => ' std_form blue_shadow', 'disabled'=>$disableAnalystFields)).'</p></td></tr>';										  									  									  
+                echo '<tr><td><label for="AnalystInstitute" class="name std_form">Ινστιτούτο:  </label></td><td><p>'.$this->Form->input('Analyst.research_institute', 
                                                         array('default'=>$analyst['Analyst']['research_institute'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','class' => ' std_form blue_shadow', 'disabled'=>$disableAnalystFields)).'</p></td></tr>';
+                
                 ?>
                 <?php
                     echo '<tr><td></td>';

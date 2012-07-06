@@ -145,19 +145,31 @@ class User extends AppModel
              )
 
       ),
-      /*'phone_number'=>array(  
+      'phone_number'=>array(  
                'rule1'=>array(
                    'rule'=>array('onlyNumbers'),
                    'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς χωρίς κενά'
              )
-      ),*/
+      ),
+     // 'address'=>array(  
+     //          'rule1'=>array(
+     //              'rule'=>array('onlyNumbers'),
+     //              'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς χωρίς κενά'
+     //        )
+     // ),
+      'city'=>array(  
+               'rule1'=>array(
+                   'rule'=>array('onlyLetters'),
+                   'message'=>'Η πόλη μπορεί να περιέχει μόνο γράμματα και κενά'
+             )
+      ),
+      'country'=>array(  
+               'rule1'=>array(
+                   'rule'=>array('onlyLetters'),
+                   'message'=>'Η χώρα μπορεί να περιέχει μόνο γράμματα και κενά'
+             )
+      ),
       
-//      'address'=>array(  
-//               'rule1'=>array(
-//                   'rule'=>'alphaNumeric',
-//                   'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς'
-//             )
-//      ),
       );
 
 
@@ -438,6 +450,19 @@ class User extends AppModel
 	  }
           return $arr;
       }
+
+    function onlyLetters($check){
+        $word = array_shift($check);
+         //εάν password και confirm_password είναι ίσα 
+         if (preg_match("/^[\p{L}\s]+$/u", $word) || (strcmp($word , "")==0)) 
+         {
+            return true;
+         }
+         else
+         {
+            return false; 
+         }
+    }
       
 }
 
