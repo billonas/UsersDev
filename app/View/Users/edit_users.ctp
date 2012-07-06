@@ -207,7 +207,7 @@
                                         <!-- Show analyst button-->
                                         <?php if ($userType==='analyst' || $userType==='hyperanalyst'): ?>
                                             <a class="editButton" href="<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'update', $user['User']['id'])) ?>">
-                                                <?php if ($userType==='analyst') : ?>
+                                                <?php if ($userType==='analyst' || !strcmp($user['User']['email'], $this->Session->read('UserUsername'))) : ?>
                                                     Επεξεργασία
                                                 <?php elseif ($userType==='hyperanalyst'): ?>
                                                     Προβολή

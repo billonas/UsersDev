@@ -2,7 +2,7 @@
     	
 		<div class="middle_row">
         	<div class="middle_wrapper">
-                <div class="login_box">  
+                <div class="login_box white_box">  
                     				<br><h1>Αλλαγή κωδικού πρόσβασης</h1></br>
 					<div class="required" style="color:blue">(κατά την αλλαγή κωδικού θα χρειαστεί να αποσυνδεθείτε αυτόματα)</div>
 									<?php echo $this->Form->create('User', array('action' => 'change_password'));?>

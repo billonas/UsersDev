@@ -40,6 +40,7 @@ class AnalystsController extends AppController{
         {
            //validation of user data is needed only if a new user is being inserted
            $this->Analyst->User->set(array(
+               'username'=>            $this->data['Analyst']['username'],
                'name'=>            $this->data['Analyst']['name'],
                'surname'=>         $this->data['Analyst']['surname'],
                'phone_number'=>    $this->data['Analyst']['phone_number'],
@@ -85,6 +86,7 @@ class AnalystsController extends AppController{
               $hash_password = $this->Analyst->User->hash_password($this->data['Analyst']['email'], $rand_password);
 
               $data = array(
+               'username'=>            $this->data['Analyst']['username'],
                'name'=>            $this->data['Analyst']['name'],
                'surname'=>         $this->data['Analyst']['surname'],
                'password'=>        $hash_password,

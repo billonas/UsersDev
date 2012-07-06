@@ -155,22 +155,22 @@ class User extends AppModel
                    'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς χωρίς κενά'
              )
       ),
-     // 'address'=>array(  
-     //          'rule1'=>array(
-     //              'rule'=>array('onlyNumbers'),
-     //              'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς χωρίς κενά'
-     //        )
-     // ),
+      //'address'=>array(  
+      //         'rule1'=>array(
+      //             'rule'=>array('address'),
+      //             'message'=>'Το τηλέφωνο σας μπορεί να περιέχει μόνο αριθμούς χωρίς κενά'
+      //       )
+      //),
       'city'=>array(  
                'rule1'=>array(
                    'rule'=>array('onlyLetters'),
-                   'message'=>'Η πόλη μπορεί να περιέχει μόνο γράμματα και κενά'
+                   'message'=>'Η πόλη μπορεί να περιέχει μόνο γράμματα χωρίς κενά'
              )
       ),
       'country'=>array(  
                'rule1'=>array(
                    'rule'=>array('onlyLetters'),
-                   'message'=>'Η χώρα μπορεί να περιέχει μόνο γράμματα και κενά'
+                   'message'=>'Η χώρα μπορεί να περιέχει μόνο γράμματα χωρίς κενά'
              )
       ),
       
@@ -454,6 +454,32 @@ class User extends AppModel
          }
       }
 
+    function onlyLetters($check){
+        $word = array_shift($check);
+         //εάν password και confirm_password είναι ίσα 
+         if (preg_match("/^[\p{L}]+$/u", $word) || (strcmp($word , "")==0)) 
+         {
+            return true;
+         }
+         else
+         {
+            return false; 
+         }
+    }
+
+    function address($check){
+        $word = array_shift($check);
+         //εάν password και confirm_password είναι ίσα 
+         if (preg_match("/^[\p{L}\s\d[3]]+$/u", $word) || (strcmp($word , "")==0)) 
+         {
+            return true;
+         }
+         else
+         {
+            return false; 
+         }
+    }
+
 //////////////////////////Customized Validation Actions(end)////////////////////
 
       function getNameSur(){
@@ -486,18 +512,6 @@ class User extends AppModel
           return $arr;
       }
 
-    function onlyLetters($check){
-        $word = array_shift($check);
-         //εάν password και confirm_password είναι ίσα 
-         if (preg_match("/^[\p{L}\s]+$/u", $word) || (strcmp($word , "")==0)) 
-         {
-            return true;
-         }
-         else
-         {
-            return false; 
-         }
-    }
       
 }
 

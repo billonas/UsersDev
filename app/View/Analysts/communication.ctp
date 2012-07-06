@@ -24,7 +24,7 @@
 </script>
 <div class="middle_row  big_row">
     <div class="middle_wrapper">
-        <div class="register_box login_box" align="center">
+        <div class="register_box login_box white_box" align="center">
             <br/><h1>Eπικοινωνία αναλυτών</h1><br/>
             <?php if(empty($info)): ?>
                 <h2><center>Δεν υπάρχουν στοιχεία αναλυτών</center></h2>;

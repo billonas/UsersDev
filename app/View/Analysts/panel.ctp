@@ -2,7 +2,7 @@
  
     <div class="middle_row  big_row">
 			<div class="middle_wrapper">
-				<div class="register_box login_box" align="center">
+				<div class="register_box login_box white_box"align="center">
 			 		<br/><h1>Σελίδα υπεραναλυτή</h1></br>
                                     <div class="link_holder"><strong>
 <?php      echo $this->Html->link('Eπεξεργασία χρηστών', '/users/edit_users?textType=surname&text=&userType1=analyst&userType2=simple&userType3=hyperanalyst') ?>

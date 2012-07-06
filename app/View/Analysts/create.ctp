@@ -11,7 +11,7 @@ $(document).ready(function()
 <div class="middle_row  big_row"><?php $this->set('title_for_layout', 'Δημιουργία αναλυτή - ΕΛΚΕΘΕ');?> 
 
 			<div class="middle_wrapper">
-				<div class="register_box login_box" align="center">
+				<div class="register_box login_box white_box" align="center">
 			 		<br><h1>Δημιουργία αναλυτή</h1></br>
 
 					<?php echo $this->Form->create('Analyst', array('action' => 'create'));?>
@@ -21,6 +21,8 @@ $(document).ready(function()
                echo '<tr><td><label for="AnalystId" class="name std_form"></label></td><td><p>'.$this->Form->input('Analyst.id', array('type' => 'hidden', 'value' => $post_id));
                                         
                                         if(isset($user['User']['user_type']) & !strcmp($user['User']['user_type'],'simple')){
+                                                echo '<tr><td><label for="AnalystName" class="name std_form">Ψευδώνυμο χρήστη:  </label></td><td><p>'.$this->Form->input('Analyst.username', 
+                                                                                    array('default'=>$user['User']['username'],'readonly'=>'readonly', 'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
                                                 echo '<tr><td><label for="AnalystName" class="name std_form">Όνομα:  </label></td><td><p>'.$this->Form->input('Analyst.name', 
                                                                                     array('default'=>$user['User']['name'],'readonly'=>'readonly', 'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
                                                 echo '<tr><td><label for="AnalystSurname" class="surname std_form">Επώνυμο:  </label></td><td><p>'.$this->Form->input('Analyst.surname', 
@@ -45,6 +47,8 @@ $(document).ready(function()
                                                                                     array('default'=>$user['User']['membership'], 'options'=> $options, 'label' => false, 'div' => false,'disabled' => true,  'id'=>'AnalystMembership','class' => ' std_form blue_shadow')).'</p></td></tr></br>';	
                                                 
                                         }else{
+                                                echo '<tr><td><label for="AnalystName" class="name std_form">Ψευδώνυμο χρήστη:  </label></td><td><p>'.$this->Form->input('Analyst.username', 
+                                                                                    array('default'=>$user['User']['username'], 'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';
                                           
                                                 echo '<tr><td><label for="AnalystName" class="name std_form">Όνομα:  </label></td><td><p>'.$this->Form->input('Analyst.name', 
 									      array('default'=>$user['User']['name'],'label' => false, 'div' => false, 'type' => 'text', 'id'=> 'AnalystName','placeholder' => 'π.χ. Κακομοίρης','class' => ' std_form blue_shadow')).'</p></td></tr>';

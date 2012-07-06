@@ -2,7 +2,7 @@
     	
 		<div class="middle_row">
         	<div class="middle_wrapper">
-                <div class="login_box">  
+                <div class="login_box white_box">  
                     				<br><h1>Αλλαγή ηλεκτρονικής διεύθυνσης</h1></br>
 					<div class="required" style="color:blue">(κατά την αλλαγή ηλεκτρονικού ταχυδρομείου θα χρειαστεί να αποσυνδεθείτε αυτόματα και να επικυρώσετε την νέα διεύθυνση)</div>
 									<?php echo $this->Form->create('User', array('action' => 'change_email'));?>
