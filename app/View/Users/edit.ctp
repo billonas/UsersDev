@@ -6,8 +6,8 @@
 $(document).ready(function(){
   
     $(window).bind('load', function() {
-	$('#a1_right').bubbletip($('#tip1_right'), { calculateOnShow: true, deltaDirection: 'up' , offsetTop: -35 });
-        $('#a2_up').bubbletip($('#tip2_up'), { calculateOnShow: true, deltaDirection: 'up' , offsetTop: -35 });
+	$('#a1_right').bubbletip($('#tip1_right'), { calculateOnShow: true, deltaDirection: 'up' , offsetTop: -45 });
+        $('#a2_up').bubbletip($('#tip2_up'), { calculateOnShow: true, deltaDirection: 'up' , offsetTop: -45 });
     });  
 });
 
@@ -73,7 +73,7 @@ $(document).ready(function(){
                                             if(!empty($user['Analyst']['Category2']['category_name']))
                                                 echo $user['Analyst']['Category2']['category_name'].'</p></td><td><a id="a2_up" href="#">'.$this->Html->image('info.png').'</a></td></tr>';
                                             else
-                                                echo '- </p></td></tr>';
+                                                echo '- </p></td><td><a id="a2_up" href="#">'.$this->Html->image('info.png').'</a></td></tr>';
                                                     
                                             echo '<tr><td><label for="UserInstitute" class="mail std_form">Ινστιτούτο:  </label></td><td><p class="trmargin">';
                                             if(!empty($user['Analyst']['research_institute']))

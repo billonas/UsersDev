@@ -763,7 +763,7 @@ $("#divImageDisplay").animate({
                                 if($report['Report']['hot_species']===$hot['HotSpecie']['scientific_name']) echo ' checked ';
                                 echo '/>';    
                             }
-                            echo '<label  onmouseover = "showDivImageDisplay(this);" for="'.$hot['HotSpecie']['id'].'"><img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].' onmouseover="showDivImageDisplay(this);" alt="" /></label></div>';
+                            echo '<label  for="'.$hot['HotSpecie']['id'].'"><img src="'.$this->webroot.'img/'.$hot['HotSpecie']['main_photo'].'" alt="" /></label></div>';
                         }
                          echo '<div class="hot_radio"><input type="radio" name="data[Report][hot_species]" value="Κανένα" class="std_form"';
                          if ($report['Report']['hot_species']==="Κανένα") echo 'checked ';
@@ -813,7 +813,7 @@ $("#divImageDisplay").animate({
                                 echo $this->Form->month('displayage', array('label'=> false, 'disabled'=>true, 'monthNames' => $monthOptions, 'empty' => 'Μήνας', 'value' => $agedata[1]));
                                 echo $this->Form->year('displayage', date('Y') - 110, date('Y'), array('label'=> false, 'disabled'=>true, 'empty' => "Χρονιά", 'value' => $agedata[0]));
                             }
-                            else{
+                            else{ 
                                 
                                 $agedata = array("", "", "");
                                 echo $this->Form->day('displayage', array('label'=> false, 'disabled'=>true, 'empty' => 'Ημέρα'));
