@@ -372,7 +372,7 @@ class UsersController extends AppController
          else
          {
             
-            $this->Session->setFlash('O λογαριασμός σας έχει ήδη ενεργοποιηθεί επιτυχώς, συνδεθείτε πιο κάτω', 'flash_good'); 
+            $this->Session->setFlash('O λογαριασμός σας έχει ήδη ενεργοποιηθεί επιτυχώς', 'flash_good'); 
 
             $this->redirect('login');
          }
