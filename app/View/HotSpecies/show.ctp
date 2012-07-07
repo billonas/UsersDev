@@ -25,7 +25,7 @@
     
     function item_onclick(id)
     {
-        var target = '/hotSpecies/update/' + id;        
+        var target = "<?php echo $this->Html->url(array('controller'=>'hotSpecies', 'action'=>'update')) ?>" + '/' + id;  
         window.location.href = target;
     }
 </script>

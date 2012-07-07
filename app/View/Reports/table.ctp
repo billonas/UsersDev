@@ -72,7 +72,7 @@
     
     function report_onclick(id)
     {
-        window.location.href = 'edit/' + id;
+        window.location.href = "<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'edit'))?>" + "/" + id;
     }
     
     function filterCategory_changed()
