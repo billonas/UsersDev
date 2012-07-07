@@ -3,4 +3,13 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php [QSA,L]
+
+
+# this RewriteCond is needed to avoid rewrite loops
+RewriteCond %{REQUEST_URI} !^/app/webroot/
+RewriteRule (.*) app/webroot/$1 [L,R]
+
+RewriteCond %{HTTP_REFERER} !elkethe.devnet.su
+RewriteCond %{REQUEST_URI} ^/app/webroot/img/
+RewriteRule .* - [L,F]
 </IfModule>
