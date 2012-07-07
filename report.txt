@@ -3,7 +3,7 @@
  -Χρησιμοποιήθηκε η δυναμική γλώσσα προγραμματισμού php
  -Χρησιμοποιήθηκε το framework CAKEPHP
  -Χρησιμοποιήθηκε MYSQL βάση δεδομένων
- -Xρησιμοποιήθηκε ως Concurrent Versioning System το Git(Distributed CVS)
+ -Xρησιμοποιήθηκε ως version control system το Git
  -Χρησιμοποιήθηκαν τεχνολογίες javascript, jquery και google maps για το UI
 
 
