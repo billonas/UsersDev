@@ -53,11 +53,11 @@
         switch (type)
         {
             case 'basic':
-                target = 'show/' + id;
+                target = "<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'show')) ?>" + '/' + id;
                 break;
             case 'analyst':
             case 'hyperanalyst':
-                target = '/analysts/update/' + id;
+                target = "<?php echo $this->Html->url(array('controller'=>'analysts', 'action'=>'update')) ?>" + '/' + id;
                 break;
             default:
                 throw "Invalid user type: " + type;

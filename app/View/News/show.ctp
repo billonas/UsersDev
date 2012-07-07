@@ -14,7 +14,7 @@
     
     function item_onclick(id)
     {
-        var target = '/hotSpecies/update/' + id;        
+        var target = "<?php echo $this->Html->url(array('controller'=>'news', 'action'=>'edit')) ?>" + '/' + id;
         window.location.href = target;
     }
 </script>
@@ -48,7 +48,7 @@
                         </thead>
                          <tbody>
                             <?php foreach ($news as $new): ?>
-                                <tr class="item species">
+                                <tr class="item species clickable" onclick="item_onclick(<?php echo $new['New']['id']?>)">
                                     <td>
                                         <?php echo $new['New']['id'] ?>
                                     </td>
