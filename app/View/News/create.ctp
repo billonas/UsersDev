@@ -8,7 +8,7 @@
 <?php 
         echo $this->Form->create('New', array('action' => 'create', "enctype" => "multipart/form-data"));
         echo $this->Form->error('title');
-        echo $this->Form->input('title',array('required'=>'required'));
+        echo $this->Form->input('title',array('required'=>'required', 'maxLength'=>'90'));
         echo $this->Form->error('body');
         echo $this->Form->input('body', array('rows' => '3','required'=>'required'));
         echo $this->Form->end('Προσθήκη Νέου');  

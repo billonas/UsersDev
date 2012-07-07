@@ -6,7 +6,7 @@
 <h2>Επεξεργασία Νέου/Ανακοίνωσης</h2>
 <?php   echo $this->Form->create('New', array('action' => 'edit', "enctype" => "multipart/form-data"));
         echo $this->Form->error('title');
-        echo $this->Form->input('title');
+        echo $this->Form->input('title',array('maxLength'=>'90'));
         echo $this->Form->error('body');
         echo $this->Form->input('body', array('rows' => '3'));
         echo $this->Form->input('id', array('type' => 'hidden'));
