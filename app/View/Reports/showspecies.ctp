@@ -499,7 +499,7 @@
                             
                             if(!empty($report['Report']['depth']))
                                 echo
-                                    $report['Report']['depth'];
+                                    str_replace(',',' ', $report['Report']['depth']);
                             else 
                                 echo '-';
                             
