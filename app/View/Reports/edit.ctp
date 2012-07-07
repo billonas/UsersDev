@@ -174,7 +174,7 @@
                     echo '<td>'.((!strcmp($report['Report']['comments'],'')) ? '-' : $report['Report']['comments']).'</td></tr>';             
                     
                     echo '<tr><td><label for="ReportAge" class="std_form">Ημερομηνία Γέννησης </label></td>';
-                    $age = explode('-',$report['Report']['date']);
+                    $age = explode('-',$report['Report']['age']);
                             echo '<td>'.$age[2].' ';
                             switch ($age[1]) {
                                 case '01':
