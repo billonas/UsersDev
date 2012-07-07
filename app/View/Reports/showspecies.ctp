@@ -473,7 +473,7 @@
                                                +'<div><span class="info_header">'+'Όνομα Είδους: '+'</span> '+marker_buffer[index][11]+'</div>'
                                                +'<div><span class="info_header">'+'Κατηγορία Είδους: '+'</span> '+marker_buffer[index][12]+'</div>'
                                                +'<div><span class="info_header">'+'Ημερομηνία Παρατήρησης: '+'</span> '+marker_buffer[index][3]+'</div>'
-                                               +'<div><span class="info_header">'+'Βάθος: '+'</span> '+marker_buffer[index][4]+'</div>'
+                                               +'<div><span class="info_header">'+'Βάθος: '+'</span> '+marker_buffer[index][4].replace('&separator&',',')+'</div>'
                                                +'<div><span class="info_header">'+'Πλήθος: '+'</span> '+marker_buffer[index][5]+'</div>'
                                                +'<div><span class="info_header">'+'Περιοχή Παρατήρησης: '+'</span> '+marker_buffer[index][6]+'</div>'
                                                +'<div><span class="info_header">'+'Περιβάλλον: '+'</span> '+marker_buffer[index][7].replace('&separator&',',')+'</div>'
