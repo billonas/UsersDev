@@ -283,6 +283,8 @@ class ReportsController extends AppController{
                 $this->Report->set($this->data);
                 /* Validate report's data */
                 if(!$this->Report->validates()){
+                    $hotspecies = ClassRegistry::init('HotSpecie')->find('all', array('order'=>'HotSpecie.priority'));
+                    $this->set('hotspecies',$hotspecies);
                     $this->Session->setFlash('Τα στοιχεία της αναφοράς έχουν πρόβλημα','flash_bad');
                 }
                 else{
