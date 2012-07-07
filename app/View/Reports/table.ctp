@@ -274,7 +274,7 @@
                                         
                                         <?php if($this->Session->read('UserType') === 'hyperanalyst')
                                             echo'
-                                        <a class="deleteButton" href="'.$this->Html->url(array('controller'=>'reports', 'action'=>'delete', $report['Report']['id'])).
+                                        <a class="deleteButton" href="'.$this->Html->url(array('controller'=>'reports', 'action'=>'delete', $report['Report']['id'])).'">'.
                                             '<img class="icon" src="../img/whiteX.png"/>
                                             Διαγραφή
                                           
