@@ -463,6 +463,8 @@
                     for(i=0 ; i<markers.length ; i++){
                         if(markers[i].getPosition().lat() == location.lat() && markers[i].getPosition().lng() == location.lng()){                            
                             index = i;
+                            re_obs= marker_buffer[index][9];
+                            obs=re_obs.replace('&separator&',',');
                             //window.alert(marker_buffer[index][3]);
                             var contentString = '<div><img src="'+base_url+marker_buffer[index][2]+'" /></div>'
                                                +'<div><span class="info_header">'+'Υποβλήθηκε από τον: '+'</span> '+marker_buffer[index][10]+'</div>'
@@ -476,7 +478,7 @@
                                                +'<div><span class="info_header">'+'Περιοχή Παρατήρησης: '+'</span> '+marker_buffer[index][6]+'</div>'
                                                +'<div><span class="info_header">'+'Περιβάλλον: '+'</span> '+marker_buffer[index][7]+'</div>'
                                                +'<div><span class="info_header">'+'Σχόλια: '+'</span> '+marker_buffer[index][8]+'</div>'
-                                               +'<div><span class="info_header">'+'Έχει ξαναπαρατηρηθεί; '+'</span> '+marker_buffer[index][9]+'</div>';
+                                               +'<div><span class="info_header">'+'Έχει ξαναπαρατηρηθεί; '+'</span> '+obs+'</div>';
                             //window.alert(contentString);
                             $('.info_wrapper').empty().append(contentString);
                         }
@@ -518,19 +520,19 @@
                             echo ',';
                             
                             if(!empty($report['Report']['habitat']))
-                                echo str_replace(',',' ', $report['Report']['habitat']);
+                                echo str_replace(',','&separator&', $report['Report']['habitat']);
                             else
                                 echo '-';
                             echo ',';
                                     
                             if(!empty($report['Report']['comments']))
-                                echo str_replace(',',' ', $report['Report']['comments']);
+                                echo str_replace(',','&separator&', $report['Report']['comments']);
                             else
                                 echo '-';
                             echo ',';
                             
                             if(!empty($report['Report']['re_observation']))
-                                echo  str_replace(',',' ', $report['Report']['re_observation']);
+                                echo  str_replace(',','&separator&', $report['Report']['re_observation']);
                             else
                                 echo '-';
                             echo ',';
