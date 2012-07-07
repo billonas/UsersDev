@@ -774,7 +774,7 @@ class ReportsController extends AppController{
             /* Inform each of them */
             foreach($analysts as $analyst)
             {
-                $reportlink = $this->__curPageURL('/UsersDev/reports/edit/' . $reportId);
+                $reportlink = $this->__curPageURL('/reports/edit/' . $reportId);
 
                 $this->set('report_link', $reportlink);
 

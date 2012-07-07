@@ -811,7 +811,7 @@ class UsersController extends AppController
          debug(__METHOD__." failed to retrieve User data for user.id: {$user_id}");
          return false;
        }
-       $activateUrl = $this->__curPageURL('/UsersDev/users/activate/' . $user['User']['id'] .'/');
+       $activateUrl = $this->__curPageURL('/users/activate/' . $user['User']['id'] .'/');
 
        
        $this->User->id = $user_id;
@@ -874,7 +874,7 @@ class UsersController extends AppController
          debug(__METHOD__." failed to retrieve User data for user.id: {$user_id}");
          return false;
        }
-       $resetUrl = $this->__curPageURL('/UsersDev/users/reset_password/' . $user['User']['id'] .'/');
+       $resetUrl = $this->__curPageURL('/users/reset_password/' . $user['User']['id'] .'/');
 
        $this->User->id = $user_id;
        

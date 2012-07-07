@@ -388,7 +388,7 @@ class AnalystsController extends AppController{
          return false;
        }
 
-       $activateUrl = $this->__curPageURL('/UsersDev/users/activate/' . $user['User']['id'] .'/');
+       $activateUrl = $this->__curPageURL('/users/activate/' . $user['User']['id'] .'/');
 
        $activationHash = $this->Analyst->User->getActivationHash();
        
