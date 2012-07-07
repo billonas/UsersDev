@@ -501,7 +501,7 @@
                             
                             if(!empty($report['Report']['depth']))
                                 echo
-                                    str_replace(',',' ', $report['Report']['depth']);
+                                    str_replace(',','&separator&', $report['Report']['depth']);
                             else 
                                 echo '-';
                             
