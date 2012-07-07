@@ -271,10 +271,15 @@
                                             Επεξεργασία
                                         </a>
                                         <br/>
-                                        <a class="deleteButton" href="<?php echo $this->Html->url(array('controller'=>'reports', 'action'=>'delete', $report['Report']['id'])) ?>">
-                                            <img class="icon" src="../img/whiteX.png"/>
+                                        
+                                        <?php if($this->Session->read('UserType') === 'hyperanalyst')
+                                            echo'
+                                        <a class="deleteButton" href="'.$this->Html->url(array('controller'=>'reports', 'action'=>'delete', $report['Report']['id'])).
+                                            '<img class="icon" src="../img/whiteX.png"/>
                                             Διαγραφή
-                                        </a>
+                                          
+                                        </a>';
+                                            ?>
                                     </div>
                                 </td>
                             </tr>
