@@ -518,19 +518,19 @@
                             echo ',';
                             
                             if(!empty($report['Report']['habitat']))
-                                echo $report['Report']['habitat'];
+                                echo str_replace(',',' ', $report['Report']['habitat']);
                             else
                                 echo '-';
                             echo ',';
                                     
                             if(!empty($report['Report']['comments']))
-                                echo $report['Report']['comments'];
+                                echo str_replace(',',' ', $report['Report']['comments']);
                             else
                                 echo '-';
                             echo ',';
                             
                             if(!empty($report['Report']['re_observation']))
-                                echo   $report['Report']['re_observation'];
+                                echo  str_replace(',',' ', $report['Report']['re_observation']);
                             else
                                 echo '-';
                             echo ',';
