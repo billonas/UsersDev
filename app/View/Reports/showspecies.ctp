@@ -536,7 +536,7 @@
                             echo ',';
                                     
                             
-                            if(isset($report['User']['username']))
+                            if(!empty($report['User']['username']))
                                 echo $report['User']['username'];
                             else 
                                 echo 'Ανώνυμος';
